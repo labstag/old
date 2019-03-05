@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="pcsg-generated-ruleset">
+<description>Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/
+</description>
+<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+<rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+<rule ref="Generic.Commenting.Todo"/>
+<rule ref="Generic.Commenting.Fixme"/>
+<rule ref="Generic.Files.LineLength"/>
+<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+<rule ref="Generic.Formatting.MultipleStatementAlignment">
+    <properties>
+        <property name="ignoreMultiLine" value="true"/>
+    </properties>
+</rule>
+<rule ref="Generic.Formatting.SpaceAfterCast"/>
+<rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+<rule ref="Generic.Metrics.CyclomaticComplexity"/>
+<rule ref="Generic.Metrics.NestingLevel"/>
+<rule ref="Generic.PHP.DeprecatedFunctions"/>
+<rule ref="Generic.PHP.DisallowShortOpenTag"/>
+<rule ref="Generic.PHP.ForbiddenFunctions"/>
+<rule ref="Generic.PHP.LowerCaseConstant"/>
+<rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+<rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+        <property name="indent" value="4"/>
+    </properties>
+</rule>
+<rule ref="PEAR.Commenting.FunctionComment"/>
+<rule ref="PEAR.ControlStructures.MultiLineCondition"/>
+<rule ref="PEAR.Functions.FunctionCallSignature">
+    <properties>
+        <property name="indent" value="4"/>
+        <property name="allowMultipleArguments" value="false"/>
+    </properties>
+</rule>
+<rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
+    <properties>
+        <property name="indent" value="4"/>
+    </properties>
+</rule>
+<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
+<rule ref="PSR2.ControlStructures.SwitchDeclaration">
+    <properties>
+        <property name="indent" value="4"/>
+    </properties>
+</rule>
+<rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+<rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
+<rule ref="Squiz.PHP.Eval"/>
+<rule ref="Squiz.PHP.InnerFunctions"/>
+<rule ref="Squiz.PHP.NonExecutableCode"/>
+<rule ref="Squiz.Scope.MemberVarScope"/>
+<rule ref="Squiz.Scope.MethodScope"/>
+<rule ref="Squiz.Scope.StaticThisUsage"/>
+<rule ref="Squiz.WhiteSpace.CastSpacing"/>
+<rule ref="Squiz.WhiteSpace.ControlStructureSpacing"/>
+<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.PropertyLabelSpacing"/>
+<rule ref="Squiz.WhiteSpace.ScopeClosingBrace"/>
+<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
+<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+<rule ref="Squiz.Arrays.ArrayDeclaration">
+    <properties>
+        <arg name="tab-width" value="0"/>
+    </properties>
+</rule>
+<rule ref="Generic.Arrays.ArrayIndent"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.KeyNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.ValueNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine">
+        <severity>0</severity>
+    </rule>
+</ruleset>
