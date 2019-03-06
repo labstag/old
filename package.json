@@ -1,38 +1,43 @@
 {
-  "name": "labstag",
-  "version": "1.0.0",
+  "name"       : "labstag",
+  "version"    : "1.0.0",
   "description": "",
-  "main": "index.js",
-  "license": "MIT",
+  "main"       : "index.js",
+  "license"    : "MIT",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "licenses"     : "license-checker",
+    "eslint"       : "eslint assets --fix;exit 0",
+    "jscpd"        : "jscpd",
+    "webpack-dev"  : "NODE_ENV=dev webpack --config webpack.config.js;exit 0",
+    "webpack-watch": "NODE_ENV=dev webpack --config webpack.config.js --progress --colors --watch",
+    "webpack-build": "webpack --config webpack.config.js;exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labstag/labstag.git"
+    "url" : "git+https://github.com/labstag/labstag.git"
   },
   "author": "",
-  "bugs": {
+  "bugs"  : {
     "url": "https://github.com/labstag/labstag/issues"
   },
-  "homepage": "https://github.com/labstag/labstag#readme",
+  "homepage"    : "https://github.com/labstag/labstag#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
-    "bootstrap": "^4.3.1",
-    "bootstrap-datepicker": "^1.8.0",
-    "detect-mobile-browser": "^5.0.0",
-    "file-loader": "^3.0.1",
-    "img-loader": "^3.0.1",
-    "jscpd": "^2.0.11",
-    "license-checker": "^25.0.1",
-    "moment": "^2.24.0",
-    "semantic-git-commit-cli": "^3.1.1",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3",
-    "webpack-manifest-plugin": "^2.0.4"
+    "bootstrap"                    : "^4.3.1",
+    "bootstrap-datepicker"         : "^1.8.0",
+    "detect-mobile-browser"        : "^5.0.0",
+    "file-loader"                  : "^3.0.1",
+    "img-loader"                   : "^3.0.1",
+    "jscpd"                        : "^2.0.11",
+    "license-checker"              : "^25.0.1",
+    "moment"                       : "^2.24.0",
+    "semantic-git-commit-cli"      : "^3.1.1",
+    "url-loader"                   : "^1.1.2",
+    "webpack"                      : "^4.29.6",
+    "webpack-cli"                  : "^3.2.3",
+    "webpack-manifest-plugin"      : "^2.0.4"
   }
 }
