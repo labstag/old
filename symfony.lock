@@ -179,6 +179,12 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.36"
     },
+    "giggsey/libphonenumber-for-php": {
+        "version": "8.10.6"
+    },
+    "giggsey/locale": {
+        "version": "1.6"
+    },
     "gitonomy/gitlib": {
         "version": "v1.0.4"
     },
@@ -669,6 +675,9 @@
     },
     "symfony/test-pack": {
         "version": "v1.0.5"
+    },
+    "symfony/thanks": {
+        "version": "v1.1.0"
     },
     "symfony/translation": {
         "version": "3.3",
