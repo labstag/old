@@ -29,6 +29,8 @@ class UserFixtures extends Fixture
             $user,
             "password"
         );
+        $user->setApiKey('test_api_key');
+        $user->addRole('ROLE_ADMIN');
         $user->setPassword($encodePassword);
         $manager->persist($user);
 

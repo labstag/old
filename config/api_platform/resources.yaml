@@ -1,0 +1,15 @@
+resources:
+  App\Entity\User:
+    description: "test"
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      check:
+        route_name: "api_checkuser"
+        swagger_context:
+          summary: "test"
+          parameters:
+            -
+              name: username
+              in: query
