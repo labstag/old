@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
@@ -33,6 +34,11 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=64, unique=true))
+     */
+    private $apiKey;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +57,15 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function addRole($role): self
+    {
+        $roles = $this->roles;
+        $roles[] = $role;
+        $this->roles = array_unique($roles);
 
         return $this;
     }
@@ -85,6 +100,18 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getApiKey(): string
+    {
+        return (string) $this->apiKey;
+    }
+
+    public function setApiKey($apiKey): self
+    {
+        $this->apiKey = $apiKey;
 
         return $this;
     }
