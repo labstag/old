@@ -13,8 +13,8 @@ class User implements UserInterface
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="guid", unique=true)
      */
     private $id;
 
@@ -39,7 +39,12 @@ class User implements UserInterface
      */
     private $apiKey;
 
-    public function getId(): ?int
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }
