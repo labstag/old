@@ -9,7 +9,7 @@
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.2",
         "api-platform/core": "^2.3",
-        "beberlei/DoctrineExtensions": "^1.2",
+        "beberlei/doctrineextensions": "^1.2",
         "cocur/slugify": "^3.2",
         "dompdf/dompdf": "^0.8.3",
         "giggsey/libphonenumber-for-php": "^8.10",
