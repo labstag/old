@@ -35,9 +35,19 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true))
+     * @ORM\Column(type="string", length=64, unique=true, nullable=true))
      */
     private $apiKey;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":true}))
+     */
+    private $enable;
+
+    public function __construct()
+    {
+        $this->enable = true;
+    }
 
     public function __toString()
     {
@@ -47,6 +57,18 @@ class User implements UserInterface
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function isEnable()
+    {
+        return $this->enable;
+    }
+
+    public function setEnable(bool $enable): self
+    {
+        $this->enable = $enable;
+
+        return $this;
     }
 
     /**
@@ -68,8 +90,8 @@ class User implements UserInterface
 
     public function addRole($role): self
     {
-        $roles = $this->roles;
-        $roles[] = $role;
+        $roles       = $this->roles;
+        $roles[]     = $role;
         $this->roles = array_unique($roles);
 
         return $this;
