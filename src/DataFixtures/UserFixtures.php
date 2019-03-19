@@ -25,25 +25,16 @@ class UserFixtures extends Fixture
     {
         $user = new User();
         $user->setUsername('admin');
-        $encodePassword = $this->passwordEncoder->encodePassword(
-            $user,
-            "password"
-        );
+        $user->setPlainPassword('password');
         $user->setApiKey('test_api_key');
         $user->addRole('ROLE_ADMIN');
-        $user->setPassword($encodePassword);
         $manager->persist($user);
 
-        
         $disabledUser = new User();
         $disabledUser->setUsername('disable');
-        $encodePassword = $this->passwordEncoder->encodePassword(
-            $disabledUser,
-            "disable"
-        );
+        $disabledUser->setPlainPassword('disable');
         $disabledUser->setEnable(false);
         $disabledUser->addRole('ROLE_ADMIN');
-        $disabledUser->setPassword($encodePassword);
         $manager->persist($disabledUser);
 
         $manager->flush();
