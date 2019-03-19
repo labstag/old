@@ -34,6 +34,18 @@ class UserFixtures extends Fixture
         $user->setPassword($encodePassword);
         $manager->persist($user);
 
+        
+        $disabledUser = new User();
+        $disabledUser->setUsername('disable');
+        $encodePassword = $this->passwordEncoder->encodePassword(
+            $disabledUser,
+            "disable"
+        );
+        $disabledUser->setEnable(false);
+        $disabledUser->addRole('ROLE_ADMIN');
+        $disabledUser->setPassword($encodePassword);
+        $manager->persist($disabledUser);
+
         $manager->flush();
     }
 }
