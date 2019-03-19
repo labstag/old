@@ -162,7 +162,9 @@ class User implements UserInterface, \Serializable
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function serialize(): string
@@ -171,7 +173,8 @@ class User implements UserInterface, \Serializable
             [
                 $this->id,
                 $this->username,
-                $this->password
+                $this->password,
+                $this->enable,
             ]
         );
     }
@@ -181,7 +184,12 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized): void
     {
-        [$this->id, $this->username, $this->password] = unserialize(
+        [
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->enable,
+        ] = unserialize(
             $serialized,
             [
                 'allowed_classes' => false
@@ -189,11 +197,14 @@ class User implements UserInterface, \Serializable
         );
     }
 
-    function getPlainPassword() {
+    function getPlainPassword()
+    {
         return $this->plainPassword;
     }
 
-    function setPlainPassword($plainPassword) {
+    function setPlainPassword($plainPassword)
+    {
+        $this->setPassword('');
         $this->plainPassword = $plainPassword;
     }
 
