@@ -13,12 +13,17 @@ security:
                 class: App\Entity\User
                 property: username
     role_hierarchy:
-            ROLE_ADMIN: [ROLE_API]
+        ROLE_ADMIN: [ROLE_USER, ROLE_API]
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_API, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            remember_me:
+                    secret:   '%kernel.secret%'
+                    lifetime: 604800 # 1 week in seconds
+                    path:     /
             pattern: ^/
             anonymous: ~
             logout:
