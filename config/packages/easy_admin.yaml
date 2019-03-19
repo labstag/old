@@ -13,7 +13,8 @@ easy_admin:
         form:
           fields:
             - username
-            - { property: apikey, type: "text" }
+            - { property: apikey, type: "text", label: "API KEY" }
+            - { property: plainPassword, type: "repeated",type_options: { type: Symfony\Component\Form\Extension\Core\Type\PasswordType, first_options: { label: 'Mot de passe' }, second_options: { label: 'Confirmation mot de passe' }, required: false } }
         new:
           title: "Ajout d'un utilisateur"
         edit:
