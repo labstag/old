@@ -41,7 +41,7 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return (string) $this->getId();
+        return (string) $this->getUsername();
     }
 
     public function getId(): ?string

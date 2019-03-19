@@ -1,0 +1,21 @@
+.DEFAULT_GOAL := help
+EXEC_PHP = ./bin/
+EXEC_SYMFONY = $(EXEC_PHP)console
+MAKE = make
+NPM = npm run
+COMPOSER = composer
+PHPDOCUMENTORURL = https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
+PHPDOCUMENTORFILE = phpDocumentor.phar
+
+help:
+	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+
+licenses: ## Show licenses
+	$(MAKE) licensesPHP
+	$(MAKE) licensesJSCSS
+
+licensesPHP: ## Show licenses PHP
+	$(COMPOSER) licenses
+
+licensesJSCSS: ## Show licenses JS / CSS
+	$(NPM) licenses
