@@ -55,6 +55,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return $this->em->getRepository(User::class)
             ->findOneBy(
                 [
+                    'enable' => true,
                     'apiKey' => $apiToken
                 ]
             );
@@ -69,13 +70,17 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(
+        Request $request, TokenInterface $token, $providerKey
+    )
     {
         // on success, let the request continue
         return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(
+        Request $request, AuthenticationException $exception
+    )
     {
         $data = [
             'message' => strtr(
@@ -93,7 +98,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     /**
      * Called when authentication is needed, but it's not sent
      */
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(
+        Request $request, AuthenticationException $authException = null
+    )
     {
         $data = [
             // you might translate this message
