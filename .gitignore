@@ -30,3 +30,6 @@
 /node_modules
 /bin
 !/bin/console
+/phpDocumentor.phar
+/output
+/phpdoc
