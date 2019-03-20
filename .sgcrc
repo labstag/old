@@ -1,0 +1,72 @@
+{
+  "scope": true,
+  "body": true,
+  "emoji": true,
+  "lowercaseTypes": false,
+  "initialCommit": {
+    "isEnabled": true,
+    "emoji": ":tada:",
+    "message": "Initial commit"
+  },
+  "types": [
+    {
+      "emoji": ":wrench:",
+      "type": "Corvée:",
+      "description": "Modifications affectant le système de génération ou les dépendances externes et déplacement de fichiers",
+      "argKeys": ["c", "chore"]
+    },
+    {
+      "emoji": ":construction_worker:",
+      "type": "CI:",
+      "description": "Modifications apportées à nos fichiers de configuration CI et à nos scripts",
+      "argKeys": ["ci"]
+    },
+    {
+      "emoji": ":memo:",
+      "type": "Docs:",
+      "description": "La documentation change uniquement",
+      "argKeys": ["d", "docs"]
+    },
+    {
+      "emoji": ":sparkles:",
+      "type": "Fonctionnalité:",
+      "description": "Nouvelle fonctionnalité",
+      "argKeys": ["f", "feat", "feature"]
+    },
+    {
+      "emoji": ":bug:",
+      "type": "Fix:",
+      "description": "Bug fix",
+      "argKeys": ["fi", "fix", "bug"]
+    },
+    {
+      "emoji": ":zapr:",
+      "type": "Performance:",
+      "description": "Changement de code qui améliore les performances",
+      "argKeys": ["p", "perf", "performance"]
+    },
+    {
+      "emoji": ":hammer:",
+      "type": "Refactor:",
+      "description": "Changement de code qui ne corrige ni un bogue ni une fonctionnalité",
+      "argKeys": ["r", "refactor"]
+    },
+    {
+      "emoji": ":art:",
+      "type": "Style:",
+      "description": "Changements n'affectant pas le sens du code",
+      "argKeys": ["s", "style"]
+    },
+    {
+      "emoji": ":white_check_mark:",
+      "type": "Test:",
+      "description": "Ajout de tests manquants ou correction de tests existants",
+      "argKeys": ["t", "test"]
+    }
+  ],
+  "rules": {
+    "maxChar": 72,
+    "minChar": 10,
+    "endWithDot": false
+  }
+}
