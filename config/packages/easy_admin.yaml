@@ -7,6 +7,9 @@ easy_admin:
         time:     'H:i'
         datetime: 'd/m/Y H:i:s'
     entities:
+      config:
+        class: App\Entity\Configuration
+        label: 'Configuration'
       user:
         class: App\Entity\User
         label: 'Utilisateurs'
