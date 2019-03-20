@@ -6,12 +6,12 @@ use App\Entity\User;
 use App\Form\Admin\UserType;
 use App\Action\UserAction;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Lib\AbstractControllerLib;
 
-class UserController extends AbstractController
+class UserController extends AbstractControllerLib
 {
 
     /**
@@ -19,22 +19,22 @@ class UserController extends AbstractController
      */
     public function check(Request $request)
     {
-        $get  = $request->query->all();
-        $post = $request->request->all();
-        $cookies = $request->cookies->all();
+        $get        = $request->query->all();
+        $post       = $request->request->all();
+        $cookies    = $request->cookies->all();
         $attributes = $request->attributes->all();
-        $files = $request->files->all();
-        $server = $request->server->all();
-        $headers = $request->headers->all();
+        $files      = $request->files->all();
+        $server     = $request->server->all();
+        $headers    = $request->headers->all();
         return $this->json(
             [
-                'files' => $files,
-                'server' => $server,
+                'files'      => $files,
+                'server'     => $server,
                 'attributes' => $attributes,
-                'headers' => $headers,
-                'cookies' => $cookies,
-                'get'  => $get,
-                'post' => $post,
+                'headers'    => $headers,
+                'cookies'    => $cookies,
+                'get'        => $get,
+                'post'       => $post,
             ]
         );
     }
