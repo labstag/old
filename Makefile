@@ -19,3 +19,10 @@ licensesPHP: ## Show licenses PHP
 
 licensesJSCSS: ## Show licenses JS / CSS
 	$(NPM) licenses
+
+phpdoc: phpdoc.dist.xml ## PHPDoc
+	rm -rf public/docs/api 
+	rm -rf output
+	wget -nc $(PHPDOCUMENTORURL)
+	php phpDocumentor.phar
+	rm -rf output

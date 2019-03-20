@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Labstag API</title>
+    <parser>
+        <target>output</target>
+    </parser>
+    <transformer>
+        <target>phpdoc</target>
+    </transformer>
+    <files>
+        <directory>src</directory>
+        <directory>tests</directory>
+        <ignore>src/Kernel.php</ignore>
+    </files>
+</phpdoc>
