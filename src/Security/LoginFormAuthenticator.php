@@ -43,16 +43,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        return 'app_login' === $request->attributes->get('_route')
-            && $request->isMethod('POST');
+        $route  = $request->attributes->get('_route');
+        $return = 'app_login' === $route && $request->isMethod('POST');
+
+        return $return;
     }
 
     public function getCredentials(Request $request)
     {
+        $login = $request->request->get('login');
         $credentials = [
-            'username'   => $request->request->get('username'),
-            'password'   => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            'username'   => $login['username'],
+            'password'   => $login['password'],
+            '_token' => $login['_token'],
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
@@ -64,7 +67,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        $token = new CsrfToken('login', $credentials['_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
