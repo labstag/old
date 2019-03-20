@@ -25,6 +25,7 @@ security:
                     secret:   '%kernel.secret%'
                     lifetime: 604800 # 1 week in seconds
                     path:     /
+                    remember_me_parameter: login[rembember_me]
             pattern: ^/
             anonymous: ~
             logout:
