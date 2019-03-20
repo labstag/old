@@ -12,8 +12,8 @@
     "sgc"          : "sgc",
     "eslint"       : "eslint assets --fix",
     "jscpd"        : "jscpd",
-    "webpack-dev"  : "SET NODE_ENV=dev & webpack --config webpack.config.js",
-    "webpack-watch": "SET NODE_ENV=dev & webpack --config webpack.config.js --progress --colors --watch",
+    "webpack-dev"  : "cross-env NODE_ENV=dev & webpack --config webpack.config.js",
+    "webpack-watch": "cross-env NODE_ENV=dev & webpack --config webpack.config.js --progress --colors --watch",
     "webpack-build": "webpack --config webpack.config.js"
   },
   "repository": {
@@ -34,6 +34,7 @@
     "bootstrap"                         : "^4.3.1",
     "bootstrap-datepicker"              : "^1.8.0",
     "clean-webpack-plugin"              : "^2.0.1",
+    "cross-env"                         : "^5.2.0",
     "css-loader"                        : "^2.1.1",
     "datatables.net-autofill-bs4"       : "^2.3.3",
     "datatables.net-bs4"                : "^1.10.19",
