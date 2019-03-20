@@ -1,6 +1,6 @@
 resources:
+  App\Entity\Configuration:
   App\Entity\User:
-    description: "test"
     itemOperations:
       get: ~
       put: ~
@@ -8,7 +8,7 @@ resources:
       check:
         route_name: "api_checkuser"
         swagger_context:
-          summary: "test"
+          summary: "Verifie si l'utilisateur est présent dans la base de données"
           parameters:
             -
               name: username
