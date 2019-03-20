@@ -1,6 +1,6 @@
 const path = require('path')
 const CleanWebpackPlugin   = require('clean-webpack-plugin')
-const ManifestPlugin       = require('webpack-manifest-plugin')
+const ManifestPlugin       = require('webpack-assets-manifest')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJSPlugin       = require('uglifyjs-webpack-plugin')
 const webpack              = require('webpack')
@@ -89,7 +89,13 @@ let   config               = {
             'filename'     : '[name].[contenthash:8].css',
             'chunkFilename': '[id].[hash].css'
         }),
-        new ManifestPlugin(),
+        new ManifestPlugin(
+            {
+                output         : 'manifest.json',
+                integrityHashes: ['sha256'],
+                integrity      : true
+            }
+        ),
         // new CleanWebpackPlugin(
         //     ['assets'], {
         //         'root'   : path.resolve('./public/'),

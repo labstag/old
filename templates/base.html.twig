@@ -3,10 +3,19 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		{% if manifest['site.css']is defined %}
+			<link type="text/css" rel="stylesheet" href="{{ asset("assets/"~manifest['site.css']['src']) }}" integrity="{{ manifest['site.css']['integrity'] }}" media="all" />
+        {% endif %}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <div class="container">
         {% block body %}{% endblock %}
+		{% if manifest['site.js']is defined %}
+			<script type="application/javascript" src="{{ asset("assets/"~manifest['site.js']['src']) }}"></script>
+		{% endif %}
         {% block javascripts %}{% endblock %}
+        </div>
     </body>
 </html>
