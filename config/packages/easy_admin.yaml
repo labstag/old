@@ -1,34 +1,55 @@
 easy_admin:
-    design:
-        brand_color: 'red'
-    site_name: 'Labstag'
-    formats:
-        date:     'd/m/Y'
-        time:     'H:i'
-        datetime: 'd/m/Y H:i:s'
-    entities:
-      config:
-        class: App\Entity\Configuration
-        label: 'Configuration'
-      user:
-        class: App\Entity\User
-        label: 'Utilisateurs'
-        form:
-          fields:
-            - username
-            - email
-            - { property: apikey, type: "text", label: "API KEY" }
-            - {
-                property: plainPassword,
-                type: "repeated",
-                type_options: {
+  design:
+    brand_color: "red"
+    menu:
+      - label: "Dashboard"
+        icon: dashboard
+        route: easyadmin_dashboard
+        default: true
+      - user
+      - config
+  site_name: "Labstag"
+  formats:
+    date: "d/m/Y"
+    time: "H:i"
+    datetime: "d/m/Y H:i:s"
+  entities:
+    config:
+      class: App\Entity\Configuration
+      label: "Configuration"
+    user:
+      class: App\Entity\User
+      label: "Utilisateurs"
+      list:
+        fields:
+          - username
+          - email
+          - apikey
+          - enable
+          - {
+              property: "features",
+              type: "raw",
+              label: "Se connecter",
+              template: "easyadmin/user/connexion.html.twig",
+              role: ROLE_ALLOWED_TO_SWITCH,
+            }
+      form:
+        fields:
+          - username
+          - email
+          - { property: apikey, type: "text", label: "API KEY" }
+          - {
+              property: plainPassword,
+              type: "repeated",
+              type_options:
+                {
                   type: Symfony\Component\Form\Extension\Core\Type\PasswordType,
-                  first_options: { label: 'Mot de passe' },
-                  second_options: { label: 'Confirmation mot de passe' },
-                  required: false
-                }
-              }
-        new:
-          title: "Ajout d'un utilisateur"
-        edit:
-          title: "Edition d'un utilisateur"
+                  first_options: { label: "Mot de passe" },
+                  second_options: { label: "Confirmation mot de passe" },
+                  required: false,
+                },
+            }
+      new:
+        title: "Ajout d'un utilisateur"
+      edit:
+        title: "Edition d'un utilisateur"
