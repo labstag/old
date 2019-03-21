@@ -5,10 +5,13 @@ namespace App\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController;
 
+/**
+ * @Route("/backend")
+ */
 class EasyAdminController extends AdminController
 {
     /**
-     * @Route("/backend/dashboard", name="easyadmin_dashboard")
+     * @Route("/", name="easyadmin_dashboard")
      *
      * @return void
      */
