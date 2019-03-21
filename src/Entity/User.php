@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Username déjà pris")
+ * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
 {
@@ -45,14 +50,33 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true, nullable=true))
+     * @ORM\Column(type="string", length=64, unique=true, nullable=true)
      */
     private $apiKey;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":true}))
+     * @ORM\Column(type="boolean", options={"default":true})
      */
     private $enable;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
+     * @Assert\File(mimeTypes = {"image/*"})
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTime
+    */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -62,6 +86,31 @@ class User implements UserInterface, \Serializable
     public function __toString()
     {
         return (string) $this->getUsername();
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 
     public function getId(): ?string
