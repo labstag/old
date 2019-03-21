@@ -81,7 +81,6 @@ let   config               = {
         'crossOriginLoading': 'anonymous',
         'path'              : path.resolve(__dirname, 'public/assets'),
         'filename'          : '[name].[chunkhash:8].js',
-        'chunkFilename'     : '[name].[chunkhash:8].js',
         'publicPath'        : ''
     },
     'plugins': [
@@ -89,13 +88,11 @@ let   config               = {
             'filename'     : '[name].[contenthash:8].css',
             'chunkFilename': '[id].[hash].css'
         }),
-        new ManifestPlugin(
-            {
-                output         : 'manifest.json',
-                integrityHashes: ['sha256'],
-                integrity      : true
-            }
-        ),
+        new ManifestPlugin({
+            output         : 'manifest.json',
+            integrityHashes: ['sha256'],
+            integrity      : true
+        }),
         // new CleanWebpackPlugin(
         //     ['assets'], {
         //         'root'   : path.resolve('./public/'),

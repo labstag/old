@@ -171,6 +171,9 @@
     "facebook/webdriver": {
         "version": "1.6.0"
     },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.0.3"
+    },
     "fig/link-util": {
         "version": "1.0.0"
     },
@@ -246,6 +249,9 @@
     "martinssipenko/password-policy": {
         "version": "1.0.0"
     },
+    "microsoft/tolerant-php-parser": {
+        "version": "v0.0.16"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -263,6 +269,9 @@
         "files": [
             "./config/packages/nelmio_cors.yaml"
         ]
+    },
+    "netresearch/jsonmapper": {
+        "version": "v1.4.0"
     },
     "nikic/php-parser": {
         "version": "v4.2.1"
@@ -282,6 +291,9 @@
     "pdepend/pdepend": {
         "version": "2.5.2"
     },
+    "phan/phan": {
+        "version": "1.2.6"
+    },
     "phenx/php-font-lib": {
         "version": "0.5.1"
     },
@@ -299,6 +311,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phploc/phploc": {
+        "version": "5.0.0"
     },
     "phpmd/phpmd": {
         "version": "2.6.0"
@@ -359,6 +374,9 @@
     },
     "sabberworm/php-css-parser": {
         "version": "8.1.0"
+    },
+    "sabre/event": {
+        "version": "5.0.3"
     },
     "sebastian/finder-facade": {
         "version": "1.2.2"
