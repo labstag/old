@@ -53,9 +53,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $login       = $request->request->get('login');
         $credentials = [
-            'username'   => $login['username'],
-            'password'   => $login['password'],
-            '_token' => $login['_token'],
+            'username' => $login['username'],
+            'password' => $login['password'],
+            '_token'   => $login['_token'],
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
