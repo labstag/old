@@ -36,6 +36,40 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
+    public function loginToken($token)
+    {
+        $builder = $this->createQueryBuilder('u');
+        $builder->where(
+            'u.enable = :enable AND u.apiKey = :apiKey'
+        );
+        $builder->setParameters(
+            [
+                'enable' => true,
+                'apiKey' => $token
+            ]
+        );
+        $result = $builder->getQuery()->getOneOrNullResult();
+
+        return $result;
+    }
+
+    public function login($login)
+    {
+        $builder = $this->createQueryBuilder('u');
+        $builder->where(
+            'u.username = :username OR u.email = :email'
+        );
+        $builder->setParameters(
+            [
+                'username' => $login,
+                'email'    => $login,
+            ]
+        );
+        $result = $builder->getQuery()->getOneOrNullResult();
+
+        return $result;
+    }
+
     /*
     public function findOneBySomeField($value): ?User
     {

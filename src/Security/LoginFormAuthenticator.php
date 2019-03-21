@@ -51,7 +51,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getCredentials(Request $request)
     {
-        $login = $request->request->get('login');
+        $login       = $request->request->get('login');
         $credentials = [
             'username'   => $login['username'],
             'password'   => $login['password'],
@@ -72,12 +72,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(
-            [
-                'username' => $credentials['username'],
-            ]
-        );
-
+        $enm  = $this->entityManager->getRepository(User::class);
+        $user = $enm->login($credentials['username']);
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException(

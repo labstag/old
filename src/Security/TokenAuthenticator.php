@@ -52,13 +52,10 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         }
 
         // if a User object, checkCredentials() is called
-        return $this->em->getRepository(User::class)
-            ->findOneBy(
-                [
-                    'enable' => true,
-                    'apiKey' => $apiToken
-                ]
-            );
+        $repository = $this->em->getRepository(User::class);
+        $return     = $repository->loginToken($apiToken);
+
+        return $return;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
