@@ -28,7 +28,7 @@ class UserFixtures extends Fixture
         $user->setPlainPassword('password');
         $user->setApiKey('test_api_key');
         $user->setEmail('admin@email.fr');
-        $user->addRole('ROLE_ADMIN');
+        $user->addRole('ROLE_SUPER_ADMIN');
         $manager->persist($user);
 
         $disabledUser = new User();
