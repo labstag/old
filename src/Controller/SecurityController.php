@@ -15,20 +15,22 @@ class SecurityController extends AbstractControllerLib
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        $form = $this->createForm(
-            LoginType::class
+        $lastUsername = $authenticationUtils->getLastUsername();
+        $form         = $this->createForm(
+            LoginType::class,
+            [
+                'username' => $lastUsername,
+            ]
         );
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->twig(
             'security/login.html.twig',
             array(
-                'formLogin'     => $form->createView(),
-                'last_username' => $lastUsername,
-                'error'         => $error,
+                'formLogin' => $form->createView(),
+                'error'     => $error,
             )
         );
     }
