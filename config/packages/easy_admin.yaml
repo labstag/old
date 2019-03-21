@@ -1,10 +1,15 @@
 easy_admin:
   design:
+    form_theme:
+      - '@EasyAdmin/form/bootstrap_4.html.twig'
+      - '@VichUploader/Form/fields.html.twig'
+      - 'easyadmin/fields.html.twig'
     brand_color: "red"
     menu:
       - label: "Dashboard"
         icon: dashboard
         route: easyadmin_dashboard
+        parameters: { menuIndex: 0 }
         default: true
       - user
       - config
@@ -22,6 +27,7 @@ easy_admin:
       label: "Utilisateurs"
       list:
         fields:
+          - { property: 'avatar', type: 'image', base_path: '%app.path.files%avatar', template: 'easyadmin/uploadimg.html.twig' }
           - username
           - email
           - apikey
@@ -38,6 +44,7 @@ easy_admin:
           - username
           - email
           - { property: apikey, type: "text", label: "API KEY" }
+          - { property: 'imageFile', type: 'vich_image' }
           - {
               property: plainPassword,
               type: "repeated",

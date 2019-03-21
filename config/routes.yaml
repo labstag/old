@@ -4,7 +4,3 @@
 app_logout:
     path: /logout
     methods: GET
-easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/AdminController.php"
-    type:     annotation
-    prefix:   /backend
