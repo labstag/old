@@ -1,0 +1,3 @@
+{% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+<a href="{{ path(app.request.attributes.get('_route'), {'_switch_user': item.username}) }}">Personnalisation</a>
+{% endif %}
