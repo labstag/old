@@ -1,5 +1,4 @@
 resources:
-  App\Entity\Configuration:
   App\Entity\User:
     itemOperations:
       get: ~
