@@ -25,7 +25,10 @@ easy_admin:
     user:
       class: App\Entity\User
       label: "Utilisateurs"
+      search:
+        sort: 'username'
       list:
+        sort: 'username'
         fields:
           - { property: 'avatar', type: 'image', base_path: '%app.path.files%avatar', template: 'easyadmin/uploadimg.html.twig' }
           - username
