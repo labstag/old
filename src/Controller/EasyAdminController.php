@@ -11,7 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController;
 class EasyAdminController extends AdminController
 {
     /**
-     * @Route("/", name="easyadmin_dashboard")
+     * @Route("/dashboard", name="easyadmin_dashboard")
      *
      * @return void
      */
