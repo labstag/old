@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
@@ -21,6 +22,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 class Post
 {
     use SoftDeleteableEntity;
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
@@ -44,13 +46,6 @@ class Post
      * @var                                       File
      */
     private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     /**
      * @ORM\Column(type="text")

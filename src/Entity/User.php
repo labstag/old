@@ -11,19 +11,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields="username", message="Username déjà pris")
+ * @UniqueEntity(fields="username",                             message="Username déjà pris")
  * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid", unique=true)
+     * @ORM\Column(type="guid",             unique=true)
      */
     private $id;
 
@@ -45,7 +47,7 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var                       string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
@@ -68,17 +70,10 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
-     * @Assert\File(mimeTypes = {"image/*"})
-     * @var File
+     * @Assert\File(mimeTypes                       = {"image/*"})
+     * @var                                         File
      */
     private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var \DateTime
-    */
-    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="refuser")
