@@ -3,25 +3,29 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields="username", message="Username déjà pris")
+ * @UniqueEntity(fields="username",                             message="Username déjà pris")
  * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid", unique=true)
+     * @ORM\Column(type="guid",             unique=true)
      */
     private $id;
 
@@ -43,7 +47,7 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var                       string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
@@ -66,21 +70,20 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
-     * @Assert\File(mimeTypes = {"image/*"})
-     * @var File
+     * @Assert\File(mimeTypes                       = {"image/*"})
+     * @var                                         File
      */
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var \DateTime
-    */
-    private $updatedAt;
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="refuser")
+     */
+    private $posts;
 
     public function __construct()
     {
         $this->enable = true;
+        $this->posts = new ArrayCollection();
     }
 
     public function __toString()
@@ -278,6 +281,37 @@ class User implements UserInterface, \Serializable
     {
         $this->setPassword('');
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            // set the owning side to null (unless already changed)
+            if ($post->getRefuser() === $this) {
+                $post->setRefuser(null);
+            }
+        }
+
+        return $this;
     }
 
 }
