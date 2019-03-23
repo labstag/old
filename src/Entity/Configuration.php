@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
@@ -11,10 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Configuration
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid", unique=true)
+     * @ORM\Column(type="guid",             unique=true)
      */
     private $id;
 
@@ -28,7 +30,7 @@ class Configuration
      */
     private $value;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
