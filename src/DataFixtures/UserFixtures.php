@@ -2,9 +2,11 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\User;
 
 class UserFixtures extends Fixture
@@ -23,12 +25,27 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $user = new User();
+        $faker = Factory::create('fr_FR');
+        $user  = new User();
         $user->setUsername('admin');
         $user->setPlainPassword('password');
         $user->setApiKey('api_admin');
         $user->setEmail('admin@email.fr');
         $user->addRole('ROLE_ADMIN');
+        $image   = $faker->unique()->imageUrl(200, 200);
+        $content = file_get_contents($image);
+        $tmpfile = tmpfile();
+        $data = stream_get_meta_data($tmpfile);
+        file_put_contents($data['uri'], $content);
+        $file = new UploadedFile(
+            $data['uri'],
+            'image.jpg',
+            filesize($data['uri']),
+            null,
+            true
+        );
+
+        $user->setImageFile($file);
         $manager->persist($user);
 
         $superadmin = new User();
@@ -37,6 +54,20 @@ class UserFixtures extends Fixture
         $superadmin->setApiKey('api_superadmin');
         $superadmin->setEmail('superadmin@email.fr');
         $superadmin->addRole('ROLE_SUPER_ADMIN');
+        $image   = $faker->unique()->imageUrl(200, 200);
+        $content = file_get_contents($image);
+        $tmpfile = tmpfile();
+        $data = stream_get_meta_data($tmpfile);
+        file_put_contents($data['uri'], $content);
+        $file = new UploadedFile(
+            $data['uri'],
+            'image.jpg',
+            filesize($data['uri']),
+            null,
+            true
+        );
+
+        $superadmin->setImageFile($file);
         $manager->persist($superadmin);
 
         $disabledUser = new User();
