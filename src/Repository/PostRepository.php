@@ -2,13 +2,15 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Post;
+use App\Entity\Tags;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- * @method Post|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Post find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Post findOneBy(array $criteria, array $orderBy = null)
  * @method Post[]    findAll()
  * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -17,6 +19,54 @@ class PostRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function findAllActiveByTag(Tags $tag)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->innerJoin('p.tags', 't');
+        $dql->where('p.enable=:enable');
+        $dql->andWhere('t.id=:idtag');
+        $dql->orderBy('p.createdAt', 'DESC');
+        $dql->setParameters(
+            array(
+                'idtag'  => $tag->getId(),
+                'enable' => true,
+            )
+        );
+
+        return $dql->getQuery()->getResult();
+    }
+
+    public function findAllActiveByCategory(Category $category)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->innerJoin('p.refcategory', 'c');
+        $dql->where('p.enable=:enable');
+        $dql->andWhere('c.id=:idcategory');
+        $dql->orderBy('p.createdAt', 'DESC');
+        $dql->setParameters(
+            array(
+                'idcategory' => $category->getId(),
+                'enable'     => true,
+            )
+        );
+
+        return $dql->getQuery()->getResult();
+    }
+
+    public function findAllActive()
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->where('p.enable=:enable');
+        $dql->orderBy('p.createdAt', 'DESC');
+        $dql->setParameters(
+            array(
+                'enable' => true,
+            )
+        );
+
+        return $dql->getQuery()->getResult();
     }
 
     // /**

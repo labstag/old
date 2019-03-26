@@ -4,21 +4,16 @@ const ManifestPlugin       = require('webpack-assets-manifest')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJSPlugin       = require('uglifyjs-webpack-plugin')
 const webpack              = require('webpack')
-const dev                  = process.env.NODE_ENV == 'dev'
+const dev                  = (process.env.NODE_ENV == 'dev')
 let   config               = {
     'mode' : dev ? 'development': 'production',
     'entry': {
         'site': [
-            'jquery',
-            'bootstrap',
-            'datatables.net',
-            'datatables.net-fixedcolumns',
-            'datatables.net-rowgroup',
-            'moment',
-            'bootstrap-datepicker',
-            'detect-mobile-browser',
-            './assets/site.scss',
-            './assets/site.js'
+            './assets/site.js',
+            './assets/admin.scss',
+            './assets/admin.js',
+            './assets/screen.scss',
+            './assets/screen.js'
         ]
     },
     resolve: {
