@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale|split('_')|first|default('en') }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block page_title %}{{ block('content_title')|striptags|raw }}Welcome!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		{% if manifest['site.css']is defined %}
+		{% if manifest['site.css'] is defined %}
 			<link type="text/css" rel="stylesheet" href="{{ preload("assets/"~manifest['site.css']['src']) }}" integrity="{{ manifest['site.css']['integrity'] }}" media="all" />
         {% endif %}
         {% block stylesheets %}{% endblock %}
@@ -12,7 +12,7 @@
     <body>
         <div class="container">
         {% block body %}{% endblock %}
-		{% if manifest['site.js']is defined %}
+		{% if manifest['site.js'] is defined %}
 			<script type="application/javascript" src="{{ asset("assets/"~manifest['site.js']['src']) }}"></script>
 		{% endif %}
         {% block javascripts %}{% endblock %}
