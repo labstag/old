@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminControllerTrait;
-use Faker\Factory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController;
 
 /**
  * @Route("/backend")
  */
-class EasyAdminController extends AbstractController
+class EasyAdminController extends AdminController
 {
     use AdminControllerTrait;
 
@@ -19,8 +18,6 @@ class EasyAdminController extends AbstractController
      */
     public function dashboard()
     {
-        $faker = Factory::create('fr_FR');
-
         return $this->render(
             'easyadmin/dashboard.html.twig'
         );
