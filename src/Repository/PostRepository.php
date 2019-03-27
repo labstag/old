@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Entity\Tags;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Entity\User;
 
 /**
  * @method null|Post find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,23 @@ class PostRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function findAllActiveByUser(User $user)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->innerJoin('p.refuser', 'u');
+        $dql->where('p.enable=:enable');
+        $dql->andWhere('u.id=:iduser');
+        $dql->orderBy('p.createdAt', 'DESC');
+        $dql->setParameters(
+            array(
+                'iduser'  => $user->getId(),
+                'enable' => true,
+            )
+        );
+
+        return $dql->getQuery()->getResult();
     }
 
     public function findAllActiveByTag(Tags $tag)
