@@ -36,7 +36,7 @@ class PostRepository extends ServiceEntityRepository
             )
         );
 
-        return $dql->getQuery()->getResult();
+        return $dql->getQuery();
     }
 
     public function findAllActiveByTag(Tags $tag)
@@ -53,7 +53,7 @@ class PostRepository extends ServiceEntityRepository
             )
         );
 
-        return $dql->getQuery()->getResult();
+        return $dql->getQuery();
     }
 
     public function findAllActiveByCategory(Category $category)
@@ -84,7 +84,7 @@ class PostRepository extends ServiceEntityRepository
             )
         );
 
-        return $dql->getQuery()->getResult();
+        return $dql->getQuery();
     }
 
     // /**
