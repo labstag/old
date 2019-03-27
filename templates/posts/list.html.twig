@@ -7,6 +7,7 @@
             {% set image = post_uri_path ~ post.file %}
             <img src="{{ asset(image[1:]) }}" title="{{ post.name|e }}" />
         {% endif %}
+        <div><a href="{{ path('posts_user',{'user': post.refuser.id}) }}">{{ post.refuser }}</a></div>
         <div>créer le {{ post.createdAt|date }} et modifier le {{ post.updatedAt|date }}</div>
         <div>TAGS : {% for tag in post.tags %}
             <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">{{ tag.name }}</a>
