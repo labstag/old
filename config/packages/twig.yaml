@@ -2,7 +2,7 @@ twig:
     default_path: "%kernel.project_dir%/templates"
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form_themes: ["bootstrap_4_layout.html.twig"]
+    form_themes: ["form_themes.html.twig"]
     globals:
         avatar_uri_path: "%app.path.files%avatar/"
         post_uri_path: "%app.path.files%post/"

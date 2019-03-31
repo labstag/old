@@ -85,7 +85,7 @@ abstract class AbstractControllerLib extends AbstractController
         $pagination = $this->paginator->paginate(
             $query, /* query NOT result */
             $this->request->query->getInt('page', 1), /*page number*/
-            2 /*limit per page*/
+            10 /*limit per page*/
         );
         $pagination->setTemplate('paginator/pagination.html.twig');
         $pagination->setSortableTemplate('paginator/sortable.html.twig');
