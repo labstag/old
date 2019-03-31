@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block content_title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Enable</th>
+                <th>DeletedAt</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in pagination %}
+            <tr>
+                <td>{{ post.name }}</td>
+                <td>{{ post.slug }}</td>
+                <td>{{ post.enable ? 'Yes' : 'No' }}</td>
+                <td>{{ post.deletedAt ? post.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('adminpost_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('adminpost_new') }}">Create new</a>
+{% endblock %}

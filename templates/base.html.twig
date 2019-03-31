@@ -12,7 +12,7 @@
     <body>
         <div class="container">
         {% block body %}{% endblock %}
-        {% if pagination %}
+        {% if pagination is defined %}
             {{ knp_pagination_render(pagination) }}
         {% endif %}
 		{% if manifest['site.js'] is defined %}
