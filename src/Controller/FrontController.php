@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Lib\AbstractControllerLib;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Controller\Front\PostTrait;
 
-class SiteController extends AbstractControllerLib
+class FrontController extends AbstractControllerLib
 {
+    use PostTrait;
     /**
-     * @Route("/", name="site")
+     * @Route("/", name="front")
      */
     public function index()
     {

@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "c1482befc57e051703a09f1f9b35e81a3241a2c3"
+                "reference": "76a47b73bdeca31bec647bb2f4e018f3dc29a3d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/c1482befc57e051703a09f1f9b35e81a3241a2c3",
-                "reference": "c1482befc57e051703a09f1f9b35e81a3241a2c3",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/76a47b73bdeca31bec647bb2f4e018f3dc29a3d7",
+                "reference": "76a47b73bdeca31bec647bb2f4e018f3dc29a3d7",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +182,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2019-03-26T18:52:08+00:00"
+            "time": "2019-03-28T20:16:27+00:00"
         },
         {
             "name": "beberlei/DoctrineExtensions",
@@ -1909,16 +1909,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.36",
+            "version": "v2.4.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "87c78ff9fd4b90460386f753d95622f6fbbfcb27"
+                "reference": "5dd471f656e46d815f063bf3f12c667649ec7ffb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/87c78ff9fd4b90460386f753d95622f6fbbfcb27",
-                "reference": "87c78ff9fd4b90460386f753d95622f6fbbfcb27",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5dd471f656e46d815f063bf3f12c667649ec7ffb",
+                "reference": "5dd471f656e46d815f063bf3f12c667649ec7ffb",
                 "shasum": ""
             },
             "require": {
@@ -1986,7 +1986,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2018-07-26T12:16:35+00:00"
+            "time": "2019-03-17T18:16:12+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -8471,16 +8471,16 @@
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "1.9.1",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "4f75981df5913d6a691167186e285b3709891dd4"
+                "reference": "e294d61ce7bc2d20cf04fc350bef7f26f00eb3f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/4f75981df5913d6a691167186e285b3709891dd4",
-                "reference": "4f75981df5913d6a691167186e285b3709891dd4",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/e294d61ce7bc2d20cf04fc350bef7f26f00eb3f5",
+                "reference": "e294d61ce7bc2d20cf04fc350bef7f26f00eb3f5",
                 "shasum": ""
             },
             "require": {
@@ -8504,10 +8504,10 @@
                 "doctrine/orm": "^2.5",
                 "ext-sqlite3": "*",
                 "knplabs/knp-gaufrette-bundle": "^0.5",
-                "matthiasnoback/symfony-dependency-injection-test": "^2.3|^3.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.0",
                 "mikey179/vfsstream": "^1.6",
                 "oneup/flysystem-bundle": "^3.0",
-                "phpunit/phpunit": "^6.5|^7.0",
+                "phpunit/phpunit": "^7.0|^8.0",
                 "symfony/browser-kit": "^3.4|^4.0",
                 "symfony/css-selector": "^3.4|^4.0",
                 "symfony/doctrine-bridge": "^3.4|^4.0",
@@ -8561,7 +8561,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2019-02-19T09:32:11+00:00"
+            "time": "2019-03-29T09:48:14+00:00"
         },
         {
             "name": "webmozart/assert",
