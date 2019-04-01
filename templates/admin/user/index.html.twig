@@ -31,7 +31,6 @@
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('adminuser_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('adminuser_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>

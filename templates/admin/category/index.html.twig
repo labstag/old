@@ -21,7 +21,6 @@
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('admincategory_show', {'id': category.id}) }}">show</a>
                     <a href="{{ path('admincategory_edit', {'id': category.id}) }}">edit</a>
                 </td>
             </tr>

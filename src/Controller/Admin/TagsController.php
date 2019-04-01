@@ -50,16 +50,6 @@ class TagsController extends AbstractControllerLib
     }
 
     /**
-     * @Route("/{id}", name="admintags_show", methods={"GET"})
-     */
-    public function show(Tags $tag): Response
-    {
-        return $this->render('admin/tags/show.html.twig', [
-            'tag' => $tag,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="admintags_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Tags $tag): Response

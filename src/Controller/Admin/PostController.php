@@ -50,16 +50,6 @@ class PostController extends AbstractControllerLib
     }
 
     /**
-     * @Route("/{id}", name="adminpost_show", methods={"GET"})
-     */
-    public function show(Post $post): Response
-    {
-        return $this->render('admin/post/show.html.twig', [
-            'post' => $post,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="adminpost_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Post $post): Response

@@ -11,17 +11,17 @@ class TagsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-            ->add('slug')
-            ->add('posts')
-        ;
+        $builder->add('name');
+        $builder->add('slug');
+        $builder->add('posts');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Tags::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Tags::class,
+            ]
+        );
     }
 }

@@ -11,16 +11,16 @@ class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-            ->add('slug')
-        ;
+        $builder->add('name');
+        $builder->add('slug');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Category::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Category::class,
+            ]
+        );
     }
 }
