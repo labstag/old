@@ -6,6 +6,7 @@ use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\FormType\WysiwygType;
 
 class PostType extends AbstractType
 {
@@ -13,7 +14,7 @@ class PostType extends AbstractType
     {
         $builder->add('name');
         $builder->add('file');
-        $builder->add('content');
+        $builder->add('content', WysiwygType::class);
         $builder->add('slug');
         $builder->add('enable');
         $builder->add('refuser');
