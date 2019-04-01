@@ -50,16 +50,6 @@ class CategoryController extends AbstractControllerLib
     }
 
     /**
-     * @Route("/{id}", name="admincategory_show", methods={"GET"})
-     */
-    public function show(Category $category): Response
-    {
-        return $this->render('admin/category/show.html.twig', [
-            'category' => $category,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="admincategory_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category): Response

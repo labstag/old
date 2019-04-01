@@ -11,21 +11,21 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('username')
-            ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('apiKey')
-            ->add('enable')
-            ->add('avatar')
-        ;
+        $builder->add('username');
+        $builder->add('email');
+        $builder->add('roles');
+        $builder->add('password');
+        $builder->add('apiKey');
+        $builder->add('enable');
+        $builder->add('avatar');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => User::class,
+            ]
+        );
     }
 }
