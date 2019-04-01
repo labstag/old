@@ -19,13 +19,8 @@ trait PostTrait
     public function postUser(User $user, PostRepository $postRepository)
     {
         $posts = $postRepository->findAllActiveByUser($user);
-        $pagination = $this->paginator($posts);
-        return $this->render(
-            'front/posts/list.html.twig',
-            array(
-                'pagination'           => $pagination,
-            )
-        );
+        $this->paginator($posts);
+        return $this->render('front/posts/list.html.twig');
     }
 
     /**
@@ -34,13 +29,8 @@ trait PostTrait
     public function postCategory(Category $category, PostRepository $postRepository)
     {
         $posts = $postRepository->findAllActiveByCategory($category);
-        $pagination = $this->paginator($posts);
-        return $this->render(
-            'front/posts/list.html.twig',
-            array(
-                'pagination'           => $pagination,
-            )
-        );
+        $this->paginator($posts);
+        return $this->render('front/posts/list.html.twig');
     }
 
     /**
@@ -49,14 +39,8 @@ trait PostTrait
     public function PostTags(Tags $tag, PostRepository $postRepository)
     {
         $posts = $postRepository->findAllActiveByTag($tag);
-
-        $pagination = $this->paginator($posts);
-        return $this->render(
-            'front/posts/list.html.twig',
-            array(
-                'pagination'           => $pagination,
-            )
-        );
+        $this->paginator($posts);
+        return $this->render('front/posts/list.html.twig');
     }
 
     /**
@@ -82,12 +66,7 @@ trait PostTrait
     public function postList(PostRepository $postRepository)
     {
         $posts      = $postRepository->findAllActive();
-        $pagination = $this->paginator($posts);
-        return $this->render(
-            'front/posts/list.html.twig',
-            array(
-                'pagination'           => $pagination,
-            )
-        );
+        $this->paginator($posts);
+        return $this->render('front/posts/list.html.twig');
     }
 }

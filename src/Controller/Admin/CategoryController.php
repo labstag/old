@@ -21,9 +21,9 @@ class CategoryController extends AbstractControllerLib
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('admin/category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-        ]);
+        $categories = $categoryRepository->findAll();
+        $this->paginator($categories);
+        return $this->render('admin/category/index.html.twig');
     }
 
     /**

@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for category in categories %}
+        {% for category in pagination %}
             <tr>
                 <td>{{ category.name }}</td>
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>

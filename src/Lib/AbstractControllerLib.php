@@ -23,12 +23,20 @@ abstract class AbstractControllerLib extends AbstractController
     private $paginator;
 
     /**
+     * Parameters for twig
+     *
+     * @var Array
+     */
+    private $parameters;
+
+    /**
      * Init controller.
      *
      * @param ContainerInterface $container container
      */
     public function __construct(ContainerInterface $container)
     {
+        $this->parameters   = array();
         $this->container    = $container;
         $this->paginator    = $container->get('knp_paginator');
         $this->requestStack = $container->get('request_stack');
@@ -48,9 +56,10 @@ abstract class AbstractControllerLib extends AbstractController
         string $view, array $parameters = [], ?Response $response = null
     ): Response
     {
-        $this->addParamViewsSite($parameters);
-        dump($parameters);
-        $render = parent::render($view, $parameters, $response);
+
+        $this->addParamViewsSite();
+        $parameters = array_merge($parameters, $this->parameters);
+        $render     = parent::render($view, $parameters, $response);
 
         return $render;
     }
@@ -60,7 +69,7 @@ abstract class AbstractControllerLib extends AbstractController
      *
      * @return void
      */
-    private function addManifest(&$parameters): void
+    private function addManifest(): void
     {
         $file     = 'assets/manifest.json';
         $manifest = [];
@@ -68,19 +77,17 @@ abstract class AbstractControllerLib extends AbstractController
             $manifest = json_decode(file_get_contents($file), true);
         }
 
-        $parameters['manifest'] = $manifest;
+        $this->parameters['manifest'] = $manifest;
     }
 
     /**
      * Add param to twig.
      *
-     * @param array $parameters array
-     *
      * @return void
      */
-    protected function addParamViewsSite(array &$parameters): void
+    protected function addParamViewsSite(): void
     {
-        $this->addManifest($parameters);
+        $this->addManifest();
     }
 
     protected function paginator($query)
@@ -94,6 +101,6 @@ abstract class AbstractControllerLib extends AbstractController
         $pagination->setSortableTemplate('paginator/sortable.html.twig');
         $pagination->setFiltrationTemplate('paginator/filtration.html.twig');
 
-        return $pagination;
+        $this->parameters['pagination'] = $pagination;
     }
 }
