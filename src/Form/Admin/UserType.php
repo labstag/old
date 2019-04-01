@@ -2,31 +2,30 @@
 
 namespace App\Form\Admin;
 
-use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PostType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('file')
-            ->add('content')
-            ->add('slug')
+            ->add('username')
+            ->add('email')
+            ->add('roles')
+            ->add('password')
+            ->add('apiKey')
             ->add('enable')
-            ->add('refuser')
-            ->add('refcategory')
-            ->add('tags')
+            ->add('avatar')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            'data_class' => User::class,
         ]);
     }
 }
