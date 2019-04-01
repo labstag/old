@@ -4,6 +4,7 @@ namespace App\Lib;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -43,11 +44,13 @@ abstract class AbstractControllerLib extends AbstractController
      *
      * @return Response
      */
-    public function twig(
-        $view, array $parameters = [], Response $response = null
-    ) {
+    public function render(
+        string $view, array $parameters = [], ?Response $response = null
+    ): Response
+    {
         $this->addParamViewsSite($parameters);
-        $render = $this->render($view, $parameters, $response);
+        dump($parameters);
+        $render = parent::render($view, $parameters, $response);
 
         return $render;
     }

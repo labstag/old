@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\Admin\PostTrait;
 use App\Lib\AbstractControllerLib;
 
 /**
@@ -11,7 +10,6 @@ use App\Lib\AbstractControllerLib;
  */
 class AdminController extends AbstractControllerLib
 {
-    use PostTrait;
     /**
      * @Route("/", name="admin")
      */
