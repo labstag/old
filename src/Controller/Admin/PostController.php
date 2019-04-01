@@ -21,9 +21,9 @@ class PostController extends AbstractControllerLib
      */
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('admin/post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
-        ]);
+        $posts = $postRepository->findAll();
+        $this->paginator($posts);
+        return $this->render('admin/post/index.html.twig');
     }
 
     /**

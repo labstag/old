@@ -20,9 +20,9 @@ class UserController extends AbstractControllerLib
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('admin/user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
+        $users = $userRepository->findAll();
+        $this->paginator($users);
+        return $this->render('admin/user/index.html.twig');
     }
 
     /**

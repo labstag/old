@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for tag in tags %}
+        {% for tag in pagination %}
             <tr>
                 <td>{{ tag.name }}</td>
                 <td>{{ tag.createdAt ? tag.createdAt|date('Y-m-d H:i:s') : '' }}</td>
