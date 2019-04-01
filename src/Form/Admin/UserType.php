@@ -18,6 +18,7 @@ class UserType extends AbstractType
         $builder->add('apiKey');
         $builder->add('enable');
         $builder->add('avatar');
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)

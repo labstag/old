@@ -13,6 +13,7 @@ class ConfigurationType extends AbstractType
     {
         $builder->add('name');
         $builder->add('value');
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)

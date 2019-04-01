@@ -43,6 +43,7 @@ class LoginType extends AbstractType
                 'label' => 'Sign in',
             ]
         );
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)

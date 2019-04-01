@@ -19,6 +19,7 @@ class PostType extends AbstractType
         $builder->add('refuser');
         $builder->add('refcategory');
         $builder->add('tags');
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)
