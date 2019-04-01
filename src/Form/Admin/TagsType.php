@@ -14,6 +14,7 @@ class TagsType extends AbstractType
         $builder->add('name');
         $builder->add('slug');
         $builder->add('posts');
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)

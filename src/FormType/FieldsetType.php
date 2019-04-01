@@ -57,6 +57,7 @@ class FieldsetType extends AbstractType
         if (false !== $options['legend']) {
             $view->vars['legend'] = $options['legend'];
         }
+        unset($form);
     }
 
     /**
