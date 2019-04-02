@@ -62,7 +62,7 @@
         "require-unicode-regexp": "error",
         "yoda": [
             "error",
-            "ne"
+            "never"
         ],
         "array-bracket-newline": [
             "error",
@@ -105,7 +105,12 @@
         "keyword-spacing": "error",
         "line-comment-position": "error",
         "linebreak-style": "error",
-        "lines-around-comment": "error",
+        "lines-around-comment": [
+            "error",
+            {
+                "beforeBlockComment": true
+            }
+        ],
         "lines-between-class-members": "error",
         "max-depth": "error",
         "max-len": "error",
@@ -126,7 +131,82 @@
         "no-multi-assign": "error",
         "no-multiple-empty-lines": "error",
         "no-nested-ternary": "error",
-        "no-new-object": "error"
-
+        "no-new-object": "error",
+        "no-tabs": "error",
+        "no-trailing-spaces": "error",
+        "no-whitespace-before-property": "error",
+        "object-curly-newline": [
+            "error",
+            {
+                "ObjectExpression": "always",
+                "ObjectPattern": "always",
+                "ImportDeclaration": "always",
+                "ExportDeclaration": "always"
+            }
+        ],
+        "object-curly-spacing": "error",
+        "one-var-declaration-per-line": [
+            "error",
+            "always"
+        ],
+        "operator-linebreak": "error",
+        "padded-blocks": [
+            "error",
+            {
+                "blocks": "never",
+                "classes": "always",
+                "switches": "never"
+            }
+        ],
+        "padding-line-between-statements": [
+            "error",
+            {
+                "blankLine": "always",
+                "prev": ["const", "let", "var", "debugger"],
+                "next": "*"
+            },
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": ["return", "debugger"]
+            }
+        ],
+        "quote-props": "error",
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "space-before-blocks": "error",
+        "space-before-function-paren": [
+            "error",
+            "never"
+        ],
+        "space-in-parens": "error",
+        "space-infix-ops": "error",
+        "spaced-comment": "error",
+        "switch-colon-spacing": "error",
+        "wrap-regex": "error",
+        "arrow-body-style": [
+            "error",
+            "always"
+        ],
+        "arrow-parens": "error",
+        "arrow-spacing": "error",
+        "generator-star-spacing": "error",
+        "no-confusing-arrow": "error",
+        "no-duplicate-imports": "error",
+        "no-restricted-imports": "error",
+        "no-useless-computed-key": "error",
+        "no-useless-constructor": "error",
+        "no-useless-rename": "error",
+        "no-var": "error",
+        "object-shorthand": "error",
+        "prefer-arrow-callback": "error",
+        "prefer-const": "error",
+        "prefer-destructuring": "error",
+        "prefer-rest-params": "error",
+        "prefer-template": "error",
+        "template-curly-spacing": "error",
+        "yield-star-spacing": "error"
     }
 }
