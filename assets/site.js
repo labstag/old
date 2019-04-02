@@ -14,10 +14,6 @@ class Site {
         console.debug('test');
         test += NUMBER;
 
-        debugger;
-
-        alert('coucou');
-
         return test;
     }
 
