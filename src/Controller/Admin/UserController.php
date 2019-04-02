@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\Admin\UserType;
-use App\Lib\AbstractControllerLib;
+use App\Lib\AdminAbstractControllerLib;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/user")
  */
-class UserController extends AbstractControllerLib
+class UserController extends AdminAbstractControllerLib
 {
     /**
      * @Route("/", name="adminuser_index", methods={"GET"})

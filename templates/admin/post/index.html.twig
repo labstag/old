@@ -10,7 +10,6 @@
             <tr>
                 <th>Name</th>
                 <th>File</th>
-                <th>Content</th>
                 <th>Enable</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
@@ -22,7 +21,6 @@
             <tr>
                 <td>{{ post.name }}</td>
                 <td>{{ post.file }}</td>
-                <td>{{ post.content }}</td>
                 <td>{{ post.enable ? 'Yes' : 'No' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>

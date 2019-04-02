@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Tags;
 use App\Form\Admin\TagsType;
-use App\Lib\AbstractControllerLib;
+use App\Lib\AdminAbstractControllerLib;
 use App\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/tags")
  */
-class TagsController extends AbstractControllerLib
+class TagsController extends AdminAbstractControllerLib
 {
     /**
      * @Route("/", name="admintags_index", methods={"GET"})
