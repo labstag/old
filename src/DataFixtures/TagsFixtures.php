@@ -2,14 +2,13 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Tags;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Tags;
 use Faker\Factory;
 
 class TagsFixtures extends Fixture
 {
-
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');

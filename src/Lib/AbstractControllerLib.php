@@ -3,16 +3,15 @@
 namespace App\Lib;
 
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 abstract class AbstractControllerLib extends AbstractController
 {
+
     /**
-     *
      * @var Request
      */
     private $request;
@@ -23,9 +22,9 @@ abstract class AbstractControllerLib extends AbstractController
     private $paginator;
 
     /**
-     * Parameters for twig
+     * Parameters for twig.
      *
-     * @var Array
+     * @var array
      */
     private $parameters;
 
@@ -36,7 +35,7 @@ abstract class AbstractControllerLib extends AbstractController
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->parameters   = array();
+        $this->parameters   = [];
         $this->container    = $container;
         $this->paginator    = $container->get('knp_paginator');
         $this->requestStack = $container->get('request_stack');
@@ -53,21 +52,44 @@ abstract class AbstractControllerLib extends AbstractController
      * @return Response
      */
     public function render(
-        string $view, array $parameters = [], ?Response $response = null
+        string $view,
+        array $parameters = [],
+        ?Response $response = null
     ): Response
     {
-
         $this->addParamViewsSite();
         $parameters = array_merge($parameters, $this->parameters);
-        $render     = parent::render($view, $parameters, $response);
 
-        return $render;
+        return parent::render($view, $parameters, $response);
+    }
+
+    /**
+     * Add param to twig.
+     */
+    protected function addParamViewsSite(): void
+    {
+        $this->addManifest();
+    }
+
+    protected function paginator($query)
+    {
+        $pagination = $this->paginator->paginate(
+            $query,
+            // query NOT result
+            $this->request->query->getInt('page', 1),
+            // page number
+            10
+            // limit per page
+        );
+        $pagination->setTemplate('paginator/pagination.html.twig');
+        $pagination->setSortableTemplate('paginator/sortable.html.twig');
+        $pagination->setFiltrationTemplate('paginator/filtration.html.twig');
+
+        $this->parameters['pagination'] = $pagination;
     }
 
     /**
      * Get generate manifest by webpack.
-     *
-     * @return void
      */
     private function addManifest(): void
     {
@@ -78,29 +100,5 @@ abstract class AbstractControllerLib extends AbstractController
         }
 
         $this->parameters['manifest'] = $manifest;
-    }
-
-    /**
-     * Add param to twig.
-     *
-     * @return void
-     */
-    protected function addParamViewsSite(): void
-    {
-        $this->addManifest();
-    }
-
-    protected function paginator($query)
-    {
-        $pagination = $this->paginator->paginate(
-            $query, /* query NOT result */
-            $this->request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-        $pagination->setTemplate('paginator/pagination.html.twig');
-        $pagination->setSortableTemplate('paginator/sortable.html.twig');
-        $pagination->setFiltrationTemplate('paginator/filtration.html.twig');
-
-        $this->parameters['pagination'] = $pagination;
     }
 }

@@ -2,17 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Faker\Factory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+
     /**
-     * password Encoder
+     * password Encoder.
      *
      * @var UserPasswordEncoderInterface
      */
@@ -35,7 +36,7 @@ class UserFixtures extends Fixture
         $image   = $faker->unique()->imageUrl(200, 200);
         $content = file_get_contents($image);
         $tmpfile = tmpfile();
-        $data = stream_get_meta_data($tmpfile);
+        $data    = stream_get_meta_data($tmpfile);
         file_put_contents($data['uri'], $content);
         $file = new UploadedFile(
             $data['uri'],
@@ -57,7 +58,7 @@ class UserFixtures extends Fixture
         $image   = $faker->unique()->imageUrl(200, 200);
         $content = file_get_contents($image);
         $tmpfile = tmpfile();
-        $data = stream_get_meta_data($tmpfile);
+        $data    = stream_get_meta_data($tmpfile);
         file_put_contents($data['uri'], $content);
         $file = new UploadedFile(
             $data['uri'],

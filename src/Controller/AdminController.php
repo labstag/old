@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
 use App\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin")
@@ -18,9 +18,7 @@ class AdminController extends AbstractControllerLib
     {
         return $this->render(
             'admin/index.html.twig',
-            [
-                'controller_name' => 'AdminController',
-            ]
+            ['controller_name' => 'AdminController']
         );
     }
 }

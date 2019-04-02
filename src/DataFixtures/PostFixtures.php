@@ -2,24 +2,24 @@
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\Post;
+use App\Repository\CategoryRepository;
 use App\Repository\TagsRepository;
 use App\Repository\UserRepository;
-use App\Repository\CategoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {
-
     public function __construct(
         UserRepository $userRepository,
         CategoryRepository $categoryRepository,
         TagsRepository $tagsRepository
-    ) {
+    )
+    {
         $this->userRepository     = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagsRepository     = $tagsRepository;
@@ -47,17 +47,17 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                     foreach ($tabIndex as $j) {
                         $post->addTag($tags[$j]);
                     }
-                }else{
+                } else {
                     $post->addTag($tags[$tabIndex]);
                 }
             }
-            
+
             $addImage = rand(0, 1);
             if ($addImage === 1) {
                 $image   = $faker->unique()->imageUrl;
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
-                $data = stream_get_meta_data($tmpfile);
+                $data    = stream_get_meta_data($tmpfile);
                 file_put_contents($data['uri'], $content);
                 $file = new UploadedFile(
                     $data['uri'],
@@ -78,10 +78,10 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
-        TagsFixtures::class,
-        CategoryFixtures::class,
-        UserFixtures::class,
-        );
+        return [
+            TagsFixtures::class,
+            CategoryFixtures::class,
+            UserFixtures::class,
+        ];
     }
 }

@@ -5,9 +5,9 @@ namespace App\Repository;
 use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Tags;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use App\Entity\User;
 
 /**
  * @method null|Post find($id, $lockMode = null, $lockVersion = null)
@@ -30,10 +30,10 @@ class PostRepository extends ServiceEntityRepository
         $dql->andWhere('u.id=:iduser');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
-            array(
-                'iduser'  => $user->getId(),
+            [
+                'iduser' => $user->getId(),
                 'enable' => true,
-            )
+            ]
         );
 
         return $dql->getQuery();
@@ -47,10 +47,10 @@ class PostRepository extends ServiceEntityRepository
         $dql->andWhere('t.id=:idtag');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
-            array(
+            [
                 'idtag'  => $tag->getId(),
                 'enable' => true,
-            )
+            ]
         );
 
         return $dql->getQuery();
@@ -64,10 +64,10 @@ class PostRepository extends ServiceEntityRepository
         $dql->andWhere('c.id=:idcategory');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
-            array(
+            [
                 'idcategory' => $category->getId(),
                 'enable'     => true,
-            )
+            ]
         );
 
         return $dql->getQuery()->getResult();
@@ -79,9 +79,7 @@ class PostRepository extends ServiceEntityRepository
         $dql->where('p.enable=:enable');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
-            array(
-                'enable' => true,
-            )
+            ['enable' => true]
         );
 
         return $dql->getQuery();

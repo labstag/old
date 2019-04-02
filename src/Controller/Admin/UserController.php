@@ -4,11 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\Admin\UserType;
+use App\Lib\AbstractControllerLib;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AbstractControllerLib;
 
 /**
  * @Route("/admin/user")
@@ -22,6 +22,7 @@ class UserController extends AbstractControllerLib
     {
         $users = $userRepository->findAll();
         $this->paginator($users);
+
         return $this->render('admin/user/index.html.twig');
     }
 
@@ -85,8 +86,8 @@ class UserController extends AbstractControllerLib
     public function delete(Request $request, User $user): Response
     {
         $token = $request->request->get('_token');
-        $id    = $user->getId();
-        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
+        $uuid  = $user->getId();
+        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
