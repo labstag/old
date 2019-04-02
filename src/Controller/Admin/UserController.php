@@ -42,10 +42,13 @@ class UserController extends AbstractControllerLib
             return $this->redirectToRoute('adminuser_index');
         }
 
-        return $this->render('admin/user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/user/new.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -59,15 +62,21 @@ class UserController extends AbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('adminuser_index', [
-                'id' => $user->getId(),
-            ]);
+            return $this->redirectToRoute(
+                'adminuser_index',
+                [
+                    'id' => $user->getId(),
+                ]
+            );
         }
 
-        return $this->render('admin/user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/user/edit.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -75,7 +84,9 @@ class UserController extends AbstractControllerLib
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        $token = $request->request->get('_token');
+        $id    = $user->getId();
+        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();

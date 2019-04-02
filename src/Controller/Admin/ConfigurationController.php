@@ -18,7 +18,9 @@ class ConfigurationController extends AbstractControllerLib
     /**
      * @Route("/", name="adminconfiguration_index", methods={"GET"})
      */
-    public function index(ConfigurationRepository $configurationRepository): Response
+    public function index(
+        ConfigurationRepository $configurationRepository
+    ): Response
     {
         $configurations = $configurationRepository->findAll();
         $this->paginator($configurations);
@@ -31,7 +33,10 @@ class ConfigurationController extends AbstractControllerLib
     public function new(Request $request): Response
     {
         $configuration = new Configuration();
-        $form = $this->createForm(ConfigurationType::class, $configuration);
+        $form          = $this->createForm(
+            ConfigurationType::class,
+            $configuration
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,7 +51,7 @@ class ConfigurationController extends AbstractControllerLib
             'admin/configuration/new.html.twig',
             [
                 'configuration' => $configuration,
-                'form' => $form->createView(),
+                'form'          => $form->createView(),
             ]
         );
     }
@@ -54,7 +59,10 @@ class ConfigurationController extends AbstractControllerLib
     /**
      * @Route("/{id}/edit", name="adminconfiguration_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Configuration $configuration): Response
+    public function edit(
+        Request $request,
+        Configuration $configuration
+    ): Response
     {
         $form = $this->createForm(ConfigurationType::class, $configuration);
         $form->handleRequest($request);
@@ -62,23 +70,34 @@ class ConfigurationController extends AbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('adminconfiguration_index', [
-                'id' => $configuration->getId(),
-            ]);
+            return $this->redirectToRoute(
+                'adminconfiguration_index',
+                [
+                    'id' => $configuration->getId(),
+                ]
+            );
         }
 
-        return $this->render('admin/configuration/edit.html.twig', [
-            'configuration' => $configuration,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/configuration/edit.html.twig',
+            [
+                'configuration' => $configuration,
+                'form'          => $form->createView(),
+            ]
+        );
     }
 
     /**
      * @Route("/{id}", name="adminconfiguration_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Configuration $configuration): Response
+    public function delete(
+        Request $request,
+        Configuration $configuration
+    ): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$configuration->getId(), $request->request->get('_token'))) {
+        $token = $request->request->get('_token');
+        $id    = $configuration->getId();
+        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($configuration);
             $entityManager->flush();

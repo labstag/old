@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\Admin\CategoryType;
 use App\Repository\CategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,7 +31,7 @@ class CategoryController extends AbstractControllerLib
     public function new(Request $request): Response
     {
         $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
+        $form     = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,10 +42,13 @@ class CategoryController extends AbstractControllerLib
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render('admin/category/new.html.twig', [
-            'category' => $category,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/category/new.html.twig',
+            [
+                'category' => $category,
+                'form'     => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -60,15 +62,21 @@ class CategoryController extends AbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_index', [
-                'id' => $category->getId(),
-            ]);
+            return $this->redirectToRoute(
+                'category_index',
+                [
+                    'id' => $category->getId(),
+                ]
+            );
         }
 
-        return $this->render('admin/category/edit.html.twig', [
-            'category' => $category,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/category/edit.html.twig',
+            [
+                'category' => $category,
+                'form'     => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -76,7 +84,9 @@ class CategoryController extends AbstractControllerLib
      */
     public function delete(Request $request, Category $category): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+        $token = $request->request->get('_token');
+        $id    = $category->getId();
+        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
