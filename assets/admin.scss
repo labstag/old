@@ -1,9 +1,0 @@
-@import "~bootstrap/scss/bootstrap";
-label{
-    .require{
-        &:after{
-            content: '*';
-            color: red;
-        }
-    }
-}

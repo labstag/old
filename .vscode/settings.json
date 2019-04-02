@@ -5,10 +5,10 @@
     "phpfmt.passes": [
         "AlignDoubleArrow"
     ],
-    "phpcs.standard": "${workspaceRoot}phpcs.xml.dist",
-    "phpcbf.standard": "${workspaceRoot}phpcs.xml.dist",
-    "phpmd.rules": "${workspaceRoot}phpmd.xml",
-    "php-cs-fixer.config": "${workspaceRoot}.php_cs.dist",
+    "phpcs.standard": "${workspaceRoot}/phpcs.xml.dist",
+    "phpcbf.standard": "${workspaceRoot}/phpcs.xml.dist",
+    "phpmd.rules": "${workspaceRoot}/phpmd.xml",
+    "php-cs-fixer.config": "${workspaceRoot}/.php_cs.dist",
     "workbench.colorCustomizations": {
         "activityBar.background": "#9f4470",
         "titleBar.activeBackground": "#7b3557",
