@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Configuration;
 use App\Form\Admin\ConfigurationType;
-use App\Lib\AbstractControllerLib;
+use App\Lib\AdminAbstractControllerLib;
 use App\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/configuration")
  */
-class ConfigurationController extends AbstractControllerLib
+class ConfigurationController extends AdminAbstractControllerLib
 {
     /**
      * @Route("/", name="adminconfiguration_index", methods={"GET"})

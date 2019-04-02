@@ -6,6 +6,7 @@ use App\Entity\Tags;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TagsType extends AbstractType
 {
@@ -14,6 +15,7 @@ class TagsType extends AbstractType
         $builder->add('name');
         $builder->add('slug');
         $builder->add('posts');
+        $builder->add('submit', SubmitType::class);
         unset($options);
     }
 
