@@ -71,7 +71,7 @@ class User implements UserInterface, \Serializable
     private $avatar;
 
     /**
-     * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
+     * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
      * @Assert\File(mimeTypes                       = {"image/*"})
      *
      * @var File

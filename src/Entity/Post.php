@@ -42,7 +42,7 @@ class Post
     private $file;
 
     /**
-     * @Vich\UploadableField(mapping="post_file", fileNameProperty="file")
+     * @Vich\UploadableField(mapping="upload_file", fileNameProperty="file")
      * @Assert\File(mimeTypes                     = {"image/*"})
      *
      * @var File

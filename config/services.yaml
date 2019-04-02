@@ -6,6 +6,19 @@
 parameters:
     locale: "fr"
     app.path.files: /file/
+    media_filters:
+        article_384: { w: 384, h: 255 }
+        article_600: { w: 600, h: 399 }
+        article_750: { w: 750, h: 498 }
+        article_785: { w: 785, h: 522 }
+        article_1026: { w: 1026, h: 682 }
+        article_1131: { w: 1131, h: 751 }
+        article_1166: { w: 1166, h: 775 }
+        article_1200: { w: 1200, h: 798 }
+        article_1415: { w: 1415, h: 940 }
+        article_1534: { w: 1534, h: 1019 }
+        article_1585: { w: 1585, h: 1053 }
+        article_1920: { w: 1920, h: 1276 }
 services:
     # default configuration for services in *this* file
     _defaults:
