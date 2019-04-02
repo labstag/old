@@ -21,9 +21,12 @@ class TagsController extends AbstractControllerLib
      */
     public function index(TagsRepository $tagsRepository): Response
     {
-        return $this->render('admin/tags/index.html.twig', [
-            'tags' => $tagsRepository->findAll(),
-        ]);
+        return $this->render(
+            'admin/tags/index.html.twig',
+            [
+                'tags' => $tagsRepository->findAll(),
+            ]
+        );
     }
 
     /**
@@ -31,7 +34,7 @@ class TagsController extends AbstractControllerLib
      */
     public function new(Request $request): Response
     {
-        $tag = new Tags();
+        $tag  = new Tags();
         $form = $this->createForm(TagsType::class, $tag);
         $form->handleRequest($request);
 
@@ -43,10 +46,13 @@ class TagsController extends AbstractControllerLib
             return $this->redirectToRoute('tags_index');
         }
 
-        return $this->render('admin/tags/new.html.twig', [
-            'tag' => $tag,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/tags/new.html.twig',
+            [
+                'tag'  => $tag,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -60,15 +66,21 @@ class TagsController extends AbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tags_index', [
-                'id' => $tag->getId(),
-            ]);
+            return $this->redirectToRoute(
+                'tags_index',
+                [
+                    'id' => $tag->getId(),
+                ]
+            );
         }
 
-        return $this->render('admin/tags/edit.html.twig', [
-            'tag' => $tag,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/tags/edit.html.twig',
+            [
+                'tag'  => $tag,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -76,7 +88,9 @@ class TagsController extends AbstractControllerLib
      */
     public function delete(Request $request, Tags $tag): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {
+        $token = $request->request->get('_token');
+        $id    = $tag->getId();
+        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($tag);
             $entityManager->flush();

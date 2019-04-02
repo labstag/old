@@ -7,6 +7,7 @@ use App\Entity\Tags;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Repository\PostRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
@@ -16,7 +17,10 @@ trait PostTrait
     /**
      * @Route("/post/user/{user}", name="posts_user")
      */
-    public function postUser(User $user, PostRepository $postRepository)
+    public function postUser(
+        User $user,
+        PostRepository $postRepository
+    ): Response
     {
         $posts = $postRepository->findAllActiveByUser($user);
         $this->paginator($posts);
@@ -26,7 +30,10 @@ trait PostTrait
     /**
      * @Route("/post/category/{slug}", name="posts_category")
      */
-    public function postCategory(Category $category, PostRepository $postRepository)
+    public function postCategory(
+        Category $category,
+        PostRepository $postRepository
+    ): Response
     {
         $posts = $postRepository->findAllActiveByCategory($category);
         $this->paginator($posts);
@@ -36,7 +43,10 @@ trait PostTrait
     /**
      * @Route("/post/tags/{slug}", name="posts_tag")
      */
-    public function PostTags(Tags $tag, PostRepository $postRepository)
+    public function PostTags(
+        Tags $tag,
+        PostRepository $postRepository
+    ): Response
     {
         $posts = $postRepository->findAllActiveByTag($tag);
         $this->paginator($posts);
@@ -46,7 +56,7 @@ trait PostTrait
     /**
      * @Route("/post/{slug}", name="posts_show")
      */
-    public function postShow(Post $post)
+    public function postShow(Post $post): Response
     {
         if (!$post->isEnable()) {
             throw new FileNotFoundException('The product does not exist');
@@ -63,7 +73,7 @@ trait PostTrait
     /**
      * @Route("/post/", name="posts_list")
      */
-    public function postList(PostRepository $postRepository)
+    public function postList(PostRepository $postRepository): Response
     {
         $posts      = $postRepository->findAllActive();
         $this->paginator($posts);

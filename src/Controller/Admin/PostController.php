@@ -43,10 +43,13 @@ class PostController extends AbstractControllerLib
             return $this->redirectToRoute('post_index');
         }
 
-        return $this->render('admin/post/new.html.twig', [
-            'post' => $post,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/post/new.html.twig',
+            [
+                'post' => $post,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -60,15 +63,21 @@ class PostController extends AbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('post_index', [
-                'id' => $post->getId(),
-            ]);
+            return $this->redirectToRoute(
+                'post_index',
+                [
+                    'id' => $post->getId(),
+                ]
+            );
         }
 
-        return $this->render('admin/post/edit.html.twig', [
-            'post' => $post,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/post/edit.html.twig',
+            [
+                'post' => $post,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -76,7 +85,9 @@ class PostController extends AbstractControllerLib
      */
     public function delete(Request $request, Post $post): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        $token = $request->request->get('_token');
+        $id    = $post->getId();
+        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($post);
             $entityManager->flush();

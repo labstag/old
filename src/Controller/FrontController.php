@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Lib\AbstractControllerLib;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Front\PostTrait;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class FrontController extends AbstractControllerLib
 {
@@ -12,7 +13,7 @@ class FrontController extends AbstractControllerLib
     /**
      * @Route("/", name="front")
      */
-    public function index()
+    public function index(): RedirectResponse
     {
         return $this->redirect(
             $this->generateUrl('posts_list'),
