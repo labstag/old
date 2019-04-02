@@ -65,7 +65,7 @@ class UserListener implements EventSubscriber
     private function plainPassword(User $entity)
     {
         $plainPassword = $entity->getPlainPassword();
-        if ($plainPassword === '' || is_null($plainPassword)) {
+        if ('' === $plainPassword || is_null($plainPassword)) {
             return;
         }
 

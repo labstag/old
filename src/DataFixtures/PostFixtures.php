@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {
+    private const NUMBER = 10;
+
     public function __construct(
         UserRepository $userRepository,
         CategoryRepository $categoryRepository,
@@ -31,14 +33,14 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $categories = $this->categoryRepository->findAll();
         $tags       = $this->tagsRepository->findAll();
         $faker      = Factory::create('fr_FR');
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < self::NUMBER; ++$i) {
             $post = new Post();
             $post->setName($faker->unique()->text(255));
             $post->setContent($faker->unique()->paragraphs(4, true));
             $post->setRefuser($users[array_rand($users)]);
             $post->setRefcategory($categories[array_rand($categories)]);
             $nbr = rand(0, count($tags));
-            if ($nbr !== 0) {
+            if (0 !== $nbr) {
                 $tabIndex = array_rand(
                     $tags,
                     $nbr
@@ -53,7 +55,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $addImage = rand(0, 1);
-            if ($addImage === 1) {
+            if (1 === $addImage) {
                 $image   = $faker->unique()->imageUrl;
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
