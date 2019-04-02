@@ -1,19 +1,16 @@
 const path = require('path')
-const CleanWebpackPlugin   = require('clean-webpack-plugin')
-const ManifestPlugin       = require('webpack-assets-manifest')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const ManifestPlugin = require('webpack-assets-manifest')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const UglifyJSPlugin       = require('uglifyjs-webpack-plugin')
-const webpack              = require('webpack')
-const dev                  = (process.env.NODE_ENV == 'dev')
-let   config               = {
-    'mode' : dev ? 'development': 'production',
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const webpack = require('webpack')
+const dev = (process.env.NODE_ENV == 'dev')
+let config = {
+    'mode': dev ? 'development' : 'production',
     'entry': {
         'site': [
             './assets/site.js',
-            './assets/admin.scss',
-            './assets/admin.js',
-            './assets/screen.scss',
-            './assets/screen.js'
+            './assets/site.scss'
         ]
     },
     resolve: {
@@ -25,19 +22,19 @@ let   config               = {
             path.resolve(__dirname, 'node_modules')
         ]
     },
-    'devtool': dev ? 'cheap-module-eval-source-map': '',
-    'module' : {
+    'devtool': dev ? 'cheap-module-eval-source-map' : '',
+    'module': {
         'rules': [{
                 'enforce': 'pre',
-                'test'   : /\.js$/,
+                'test': /\.js$/,
                 'exclude': /node_modules/,
-                'use'    : ['babel-loader', 'eslint-loader']
+                'use': ['babel-loader', 'eslint-loader']
             },
             {
-                'test'   : /\.js$/,
+                'test': /\.js$/,
                 'exclude': /node_modules/,
-                'use'    : [{
-                    'loader' : 'babel-loader',
+                'use': [{
+                    'loader': 'babel-loader',
                     'options': {
                         'presets': [
                             ['@babel/preset-env']
@@ -50,22 +47,22 @@ let   config               = {
             },
             {
                 'test': /\.(sa|sc|c)ss$/,
-                'use' : [
+                'use': [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader'
                 ]
             },
             {
-                'test'  : /\.(woff2|woff|eot|ttf|otf)(\?.*)?$/,
+                'test': /\.(woff2|woff|eot|ttf|otf)(\?.*)?$/,
                 'loader': 'file-loader'
             },
             {
                 'test': /\.(png|jpe?g|gif|svg)$/,
-                'use' : [{
-                    'loader' : 'url-loader',
+                'use': [{
+                    'loader': 'url-loader',
                     'options': {
-                        'name' : '[name].[hash:7].[ext]',
+                        'name': '[name].[hash:7].[ext]',
                         'limit': 8192
                     }
                 }]
@@ -74,19 +71,19 @@ let   config               = {
     },
     'output': {
         'crossOriginLoading': 'anonymous',
-        'path'              : path.resolve(__dirname, 'public/assets'),
-        'filename'          : '[name].[chunkhash:8].js',
-        'publicPath'        : ''
+        'path': path.resolve(__dirname, 'public/assets'),
+        'filename': '[name].[chunkhash:8].js',
+        'publicPath': ''
     },
     'plugins': [
         new MiniCssExtractPlugin({
-            'filename'     : '[name].[contenthash:8].css',
+            'filename': '[name].[contenthash:8].css',
             'chunkFilename': '[id].[hash].css'
         }),
         new ManifestPlugin({
-            output         : 'manifest.json',
+            output: 'manifest.json',
             integrityHashes: ['sha256'],
-            integrity      : true
+            integrity: true
         }),
         // new CleanWebpackPlugin(
         //     ['assets'], {
@@ -96,10 +93,10 @@ let   config               = {
         //     }
         // ),
         new webpack.ProvidePlugin({
-            $              : 'jquery',
-            jQuery         : 'jquery',
+            $: 'jquery',
+            jQuery: 'jquery',
             'window.jQuery': 'jquery',
-            'window.$'     : 'jquery',
+            'window.$': 'jquery',
         })
     ]
 }
