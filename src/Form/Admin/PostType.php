@@ -7,6 +7,7 @@ use App\FormType\WysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PostType extends AbstractType
 {
@@ -20,6 +21,7 @@ class PostType extends AbstractType
         $builder->add('refuser');
         $builder->add('refcategory');
         $builder->add('tags');
+        $builder->add('submit', SubmitType::class);
         unset($options);
     }
 

@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\Admin\CategoryType;
-use App\Lib\AbstractControllerLib;
+use App\Lib\AdminAbstractControllerLib;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/category")
  */
-class CategoryController extends AbstractControllerLib
+class CategoryController extends AdminAbstractControllerLib
 {
     /**
      * @Route("/", name="admincategory_index", methods={"GET"})

@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use App\Form\Admin\PostType;
-use App\Lib\AbstractControllerLib;
+use App\Lib\AdminAbstractControllerLib;
 use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/post")
  */
-class PostController extends AbstractControllerLib
+class PostController extends AdminAbstractControllerLib
 {
     /**
      * @Route("/", name="adminpost_index", methods={"GET"})
