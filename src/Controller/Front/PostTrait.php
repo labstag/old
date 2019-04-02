@@ -2,18 +2,17 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Tags;
 use App\Entity\User;
-use App\Entity\Category;
 use App\Repository\PostRepository;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 trait PostTrait
 {
-
     /**
      * @Route("/post/user/{user}", name="posts_user")
      */
@@ -24,6 +23,7 @@ trait PostTrait
     {
         $posts = $postRepository->findAllActiveByUser($user);
         $this->paginator($posts);
+
         return $this->render('front/posts/list.html.twig');
     }
 
@@ -37,6 +37,7 @@ trait PostTrait
     {
         $posts = $postRepository->findAllActiveByCategory($category);
         $this->paginator($posts);
+
         return $this->render('front/posts/list.html.twig');
     }
 
@@ -50,6 +51,7 @@ trait PostTrait
     {
         $posts = $postRepository->findAllActiveByTag($tag);
         $this->paginator($posts);
+
         return $this->render('front/posts/list.html.twig');
     }
 
@@ -64,9 +66,7 @@ trait PostTrait
 
         return $this->render(
             'front/posts/show.html.twig',
-            array(
-                'post' => $post,
-            )
+            ['post' => $post]
         );
     }
 
@@ -75,8 +75,9 @@ trait PostTrait
      */
     public function postList(PostRepository $postRepository): Response
     {
-        $posts      = $postRepository->findAllActive();
+        $posts = $postRepository->findAllActive();
         $this->paginator($posts);
+
         return $this->render('front/posts/list.html.twig');
     }
 }

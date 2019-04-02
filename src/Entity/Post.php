@@ -23,6 +23,7 @@ class Post
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
@@ -84,7 +85,7 @@ class Post
     public function __construct()
     {
         $this->enable = true;
-        $this->tags = new ArrayCollection();
+        $this->tags   = new ArrayCollection();
     }
 
     public function getId(): ?string

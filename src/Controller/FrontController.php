@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use App\Lib\AbstractControllerLib;
 use App\Controller\Front\PostTrait;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractControllerLib
 {
     use PostTrait;
+
     /**
      * @Route("/", name="front")
      */

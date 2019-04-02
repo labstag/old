@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\Post;
 
 class FieldsetType extends AbstractType
 {
@@ -20,16 +19,14 @@ class FieldsetType extends AbstractType
             [
                 'legend'       => '',
                 'inherit_data' => true,
-                'options'      => array(),
-                'fields'       => array(),
+                'options'      => [],
+                'fields'       => [],
                 'label'        => false,
             ]
         );
         $resolver->addAllowedTypes(
             'fields',
-            [
-                'callable',
-            ]
+            ['callable']
         );
     }
 
@@ -58,6 +55,7 @@ class FieldsetType extends AbstractType
         if (false !== $options['legend']) {
             $view->vars['legend'] = $options['legend'];
         }
+
         unset($form);
     }
 

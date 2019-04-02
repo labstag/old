@@ -3,10 +3,10 @@
 namespace App\Form\Admin;
 
 use App\Entity\Post;
+use App\FormType\WysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\FormType\WysiwygType;
 
 class PostType extends AbstractType
 {

@@ -4,11 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\Admin\CategoryType;
+use App\Lib\AbstractControllerLib;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AbstractControllerLib;
 
 /**
  * @Route("/admin/category")
@@ -22,6 +22,7 @@ class CategoryController extends AbstractControllerLib
     {
         $categories = $categoryRepository->findAll();
         $this->paginator($categories);
+
         return $this->render('admin/category/index.html.twig');
     }
 
@@ -85,8 +86,8 @@ class CategoryController extends AbstractControllerLib
     public function delete(Request $request, Category $category): Response
     {
         $token = $request->request->get('_token');
-        $id    = $category->getId();
-        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
+        $uuid  = $category->getId();
+        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();

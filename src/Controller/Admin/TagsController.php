@@ -4,12 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Tags;
 use App\Form\Admin\TagsType;
+use App\Lib\AbstractControllerLib;
 use App\Repository\TagsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AbstractControllerLib;
 
 /**
  * @Route("/admin/tags")
@@ -89,8 +88,8 @@ class TagsController extends AbstractControllerLib
     public function delete(Request $request, Tags $tag): Response
     {
         $token = $request->request->get('_token');
-        $id    = $tag->getId();
-        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
+        $uuid  = $tag->getId();
+        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($tag);
             $entityManager->flush();
