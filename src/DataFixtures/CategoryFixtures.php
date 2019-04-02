@@ -9,10 +9,12 @@ use Faker\Factory;
 
 class CategoryFixtures extends Fixture
 {
+    private const NUMBER = 10;
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < self::NUMBER; ++$i) {
             $category = new Category();
             $category->setName($faker->unique()->colorName);
             $manager->persist($category);

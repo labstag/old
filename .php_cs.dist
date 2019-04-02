@@ -14,11 +14,11 @@ return PhpCsFixer\Config::create()
         'linebreak_after_opening_tag' => true,
         'array_syntax' => ['syntax' => 'short'],
         'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
-        'simplified_null_return' => true,
-        'yoda_style' => false,
+        'simplified_null_return' => true
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->exclude('vendor')
+        ->exclude('src/Kernel.php')
         ->in(__DIR__)
     )
 ;
