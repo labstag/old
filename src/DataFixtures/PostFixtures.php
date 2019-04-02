@@ -35,7 +35,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $faker      = Factory::create('fr_FR');
         for ($i = 0; $i < self::NUMBER; ++$i) {
             $post = new Post();
-            $post->setName($faker->unique()->text(255));
+            $post->setName($faker->unique()->text(rand(5,50)));
             $post->setContent($faker->unique()->paragraphs(4, true));
             $post->setRefuser($users[array_rand($users)]);
             $post->setRefcategory($categories[array_rand($categories)]);
@@ -56,7 +56,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
             $addImage = rand(0, 1);
             if (1 === $addImage) {
-                $image   = $faker->unique()->imageUrl;
+                $image   = $faker->unique()->imageUrl(1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);

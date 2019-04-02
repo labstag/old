@@ -6,11 +6,7 @@ vich_uploader:
     #        uri_prefix: /images/products
     #        upload_destination: '%kernel.project_dir%/public/images/products'
     mappings:
-        user_avatar:
-            uri_prefix: "%app.path.files%avatar"
-            upload_destination: "%kernel.project_dir%/public%app.path.files%avatar"
-            namer: vich_uploader.namer_uniqid
-        post_file:
-            uri_prefix: "%app.path.files%post"
-            upload_destination: "%kernel.project_dir%/public%app.path.files%post"
+        upload_file:
+            uri_prefix: "%app.path.files%"
+            upload_destination: "%kernel.project_dir%/public%app.path.files%"
             namer: vich_uploader.namer_uniqid
