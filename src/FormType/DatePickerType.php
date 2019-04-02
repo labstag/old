@@ -13,7 +13,11 @@ class DatePickerType extends AbstractType
      *
      * @return void
      */
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void
     {
         $attr = $options['attr'];
         if (!isset($attr['class'])) {
