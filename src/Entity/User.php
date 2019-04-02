@@ -6,12 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
@@ -22,6 +22,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class User implements UserInterface, \Serializable
 {
     use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
@@ -47,10 +48,11 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @var                       string The hashed password
+     * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+
     private $plainPassword;
 
     /**
@@ -71,7 +73,8 @@ class User implements UserInterface, \Serializable
     /**
      * @Vich\UploadableField(mapping="user_avatar", fileNameProperty="avatar")
      * @Assert\File(mimeTypes                       = {"image/*"})
-     * @var                                         File
+     *
+     * @var File
      */
     private $imageFile;
 
@@ -83,7 +86,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->enable = true;
-        $this->posts = new ArrayCollection();
+        $this->posts  = new ArrayCollection();
     }
 
     public function __toString()
@@ -253,7 +256,7 @@ class User implements UserInterface, \Serializable
             ]
         );
     }
- 
+
     /**
      * {@inheritdoc}
      */
@@ -266,18 +269,16 @@ class User implements UserInterface, \Serializable
             $this->enable,
         ] = unserialize(
             $serialized,
-            [
-                'allowed_classes' => false
-            ]
+            ['allowed_classes' => false]
         );
     }
 
-    function getPlainPassword()
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    function setPlainPassword($plainPassword)
+    public function setPlainPassword($plainPassword)
     {
         $this->setPassword('');
         $this->plainPassword = $plainPassword;
@@ -313,5 +314,4 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
 }

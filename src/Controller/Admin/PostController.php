@@ -4,12 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use App\Form\Admin\PostType;
+use App\Lib\AbstractControllerLib;
 use App\Repository\PostRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AbstractControllerLib;
 
 /**
  * @Route("/admin/post")
@@ -23,6 +22,7 @@ class PostController extends AbstractControllerLib
     {
         $posts = $postRepository->findAll();
         $this->paginator($posts);
+
         return $this->render('admin/post/index.html.twig');
     }
 
@@ -86,8 +86,8 @@ class PostController extends AbstractControllerLib
     public function delete(Request $request, Post $post): Response
     {
         $token = $request->request->get('_token');
-        $id    = $post->getId();
-        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
+        $uuid  = $post->getId();
+        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($post);
             $entityManager->flush();

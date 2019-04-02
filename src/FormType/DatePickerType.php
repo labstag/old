@@ -1,17 +1,18 @@
 <?php
+
 namespace App\FormType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+
 class DatePickerType extends AbstractType
 {
     /**
      * @param FormView      $view    view
      * @param FormInterface $form    formulaire
      * @param array         $options data de configureOptions();
-     *
-     * @return void
      */
     public function buildView(
         FormView $view,
@@ -24,10 +25,11 @@ class DatePickerType extends AbstractType
             $attr['class'] = '';
         }
 
-        $attr['class']      = trim($attr['class'] . ' datepicker');
+        $attr['class']      = trim($attr['class'].' datepicker');
         $view->vars['attr'] = $attr;
         unset($form);
     }
+
     /**
      * {@inheritdoc}
      *

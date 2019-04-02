@@ -3,18 +3,13 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
-use App\Action\UserAction;
-use App\Form\Admin\UserType;
 use App\Lib\AbstractControllerLib;
-use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractControllerLib
 {
-
     /**
      * @Route("/api/user/check", name="api_checkuser")
      */
@@ -27,6 +22,7 @@ class UserController extends AbstractControllerLib
         $files      = $request->files->all();
         $server     = $request->server->all();
         $headers    = $request->headers->all();
+
         return $this->json(
             [
                 'files'      => $files,

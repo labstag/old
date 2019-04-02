@@ -1,17 +1,18 @@
 <?php
+
 namespace App\DataListener;
 
 use App\Entity\User;
-use Doctrine\ORM\Events;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserListener implements EventSubscriber
 {
-    
+
     /**
-     * password Encoder
+     * password Encoder.
      *
      * @var UserPasswordEncoderInterface
      */
@@ -31,7 +32,7 @@ class UserListener implements EventSubscriber
     {
         return [
             Events::preUpdate,
-            Events::prePersist
+            Events::prePersist,
         ];
     }
 
@@ -64,8 +65,7 @@ class UserListener implements EventSubscriber
     private function plainPassword(User $entity)
     {
         $plainPassword = $entity->getPlainPassword();
-        if ($plainPassword === '' || is_null($plainPassword))
-        {
+        if ($plainPassword === '' || is_null($plainPassword)) {
             return;
         }
 

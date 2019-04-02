@@ -4,11 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Configuration;
 use App\Form\Admin\ConfigurationType;
+use App\Lib\AbstractControllerLib;
 use App\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AbstractControllerLib;
 
 /**
  * @Route("/admin/configuration")
@@ -24,6 +24,7 @@ class ConfigurationController extends AbstractControllerLib
     {
         $configurations = $configurationRepository->findAll();
         $this->paginator($configurations);
+
         return $this->render('admin/configuration/index.html.twig');
     }
 
@@ -96,8 +97,8 @@ class ConfigurationController extends AbstractControllerLib
     ): Response
     {
         $token = $request->request->get('_token');
-        $id    = $configuration->getId();
-        if ($this->isCsrfTokenValid('delete'.$id, $token)) {
+        $uuid  = $configuration->getId();
+        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($configuration);
             $entityManager->flush();

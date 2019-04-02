@@ -19,6 +19,7 @@ class Category
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")
