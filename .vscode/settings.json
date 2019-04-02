@@ -12,6 +12,7 @@
     "eslint.options": {
         "configFile": ".eslintrc.json"
     },
+    "jshint.config": ".jshintrc",
     "workbench.colorCustomizations": {
         "activityBar.background": "#9f4470",
         "titleBar.activeBackground": "#7b3557",
