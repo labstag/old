@@ -4,5 +4,4 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes: ["form_themes.html.twig"]
     globals:
-        avatar_uri_path: "%app.path.files%avatar/"
-        post_uri_path: "%app.path.files%post/"
+        uri_path: "%app.path.files%"
