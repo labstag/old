@@ -21,7 +21,7 @@
                 "allow": ["warn", "error", "debug"]
             }
         ],
-        "no-debugger": 1,
+        "no-debugger": "warn",
         "no-template-curly-in-string": "error",
         "block-scoped-var": "error",
         "complexity": [
