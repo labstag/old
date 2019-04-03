@@ -24,7 +24,7 @@ trait PostTrait
         $posts = $postRepository->findAllActiveByUser($user);
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 
     /**
@@ -38,7 +38,7 @@ trait PostTrait
         $posts = $postRepository->findAllActiveByCategory($category);
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 
     /**
@@ -52,7 +52,7 @@ trait PostTrait
         $posts = $postRepository->findAllActiveByTag($tag);
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 
     /**
@@ -64,7 +64,7 @@ trait PostTrait
             throw new FileNotFoundException('The product does not exist');
         }
 
-        return $this->render(
+        return $this->twig(
             'front/posts/show.html.twig',
             ['post' => $post]
         );
@@ -78,6 +78,6 @@ trait PostTrait
         $posts = $postRepository->findAllActive();
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 }

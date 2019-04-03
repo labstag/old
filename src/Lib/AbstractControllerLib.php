@@ -51,7 +51,7 @@ abstract class AbstractControllerLib extends AbstractController
      *
      * @return Response
      */
-    public function render(
+    public function twig(
         string $view,
         array $parameters = [],
         ?Response $response = null

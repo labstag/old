@@ -23,7 +23,7 @@ class PostAdmin extends AdminAbstractControllerLib
         $posts = $postRepository->findAll();
         $this->paginator($posts);
 
-        return $this->render('admin/post/index.html.twig');
+        return $this->twig('admin/post/index.html.twig');
     }
 
     /**
@@ -43,7 +43,7 @@ class PostAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('post_index');
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/post/new.html.twig',
             [
                 'post' => $post,
@@ -71,7 +71,7 @@ class PostAdmin extends AdminAbstractControllerLib
             );
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/post/edit.html.twig',
             [
                 'post' => $post,

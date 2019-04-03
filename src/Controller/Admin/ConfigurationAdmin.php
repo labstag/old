@@ -25,7 +25,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
         $configurations = $configurationRepository->findAll();
         $this->paginator($configurations);
 
-        return $this->render('admin/configuration/index.html.twig');
+        return $this->twig('admin/configuration/index.html.twig');
     }
 
     /**
@@ -48,7 +48,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('adminconfiguration_index');
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/configuration/new.html.twig',
             [
                 'configuration' => $configuration,
@@ -79,7 +79,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
             );
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/configuration/edit.html.twig',
             [
                 'configuration' => $configuration,

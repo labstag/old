@@ -209,19 +209,6 @@
             "./config/packages/dev/easy_log_handler.yaml"
         ]
     },
-    "easycorp/easyadmin-bundle": {
-        "version": "2.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.0",
-            "ref": "0a51040a43c6f2172a3a0135cd15daf2043905d7"
-        },
-        "files": [
-            "./config/packages/easy_admin.yaml",
-            "./config/routes/easy_admin.yaml"
-        ]
-    },
     "egulias/email-validator": {
         "version": "2.1.7"
     },
@@ -303,9 +290,6 @@
     "jms/metadata": {
         "version": "2.0.0"
     },
-    "jms/translation-bundle": {
-        "version": "1.4.3"
-    },
     "justinrainbow/json-schema": {
         "version": "5.2.8"
     },
@@ -350,6 +334,15 @@
     },
     "league/oauth2-client": {
         "version": "2.4.1"
+    },
+    "league/oauth2-facebook": {
+        "version": "2.0.1"
+    },
+    "league/oauth2-github": {
+        "version": "2.0.0"
+    },
+    "league/oauth2-google": {
+        "version": "3.0.1"
     },
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
@@ -431,9 +424,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
-    },
-    "pagerfanta/pagerfanta": {
-        "version": "v2.1.1"
     },
     "pclzip/pclzip": {
         "version": "2.8.2"
@@ -1104,6 +1094,9 @@
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
+    },
+    "wohali/oauth2-discord-new": {
+        "version": "v1.0.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"
