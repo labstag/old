@@ -1,1 +1,10 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+label {
+    &.required {
+        &:after {
+            content: '*';
+            color: red;
+        }
+    }
+}

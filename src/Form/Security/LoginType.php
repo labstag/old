@@ -17,16 +17,12 @@ class LoginType extends AbstractType
         $builder->add(
             'username',
             TextType::class,
-            [
-                'label' => 'Username',
-            ]
+            ['label' => 'Username']
         );
         $builder->add(
             'password',
             PasswordType::class,
-            [
-                'label' => 'Password',
-            ]
+            ['label' => 'Password']
         );
         $builder->add(
             'remember_me',
@@ -39,10 +35,9 @@ class LoginType extends AbstractType
         $builder->add(
             'submit',
             SubmitType::class,
-            [
-                'label' => 'Sign in',
-            ]
+            ['label' => 'Sign in']
         );
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)

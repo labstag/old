@@ -1,15 +1,24 @@
 {
     "phpfmt.indent_with_space": 4,
-    "phpfmt.psr2"             : false,
-    "phpfmt.psr1"             : true,
-    "phpfmt.passes"           : [
+    "phpfmt.psr2": true,
+    "phpfmt.psr1": true,
+    "phpfmt.passes": [
         "AlignDoubleArrow"
     ],
+    "phpcs.standard": "phpcs.xml.dist",
+    "phpcbf.standard": "phpcs.xml.dist",
+    "phpmd.rules": "phpmd.xml",
+    "php-cs-fixer.config": "php_cs.dist",
+    "php-cs-fixer.onsave": true,
+    "eslint.options": {
+        "configFile": ".eslintrc.json"
+    },
+    "jshint.config": ".jshintrc",
     "workbench.colorCustomizations": {
-        "activityBar.background"       : "#9f4470",
-        "titleBar.activeBackground"    : "#7b3557",
-        "titleBar.inactiveBackground"  : "#7b355799",
-        "statusBar.background"         : "#7b3557",
+        "activityBar.background": "#9f4470",
+        "titleBar.activeBackground": "#7b3557",
+        "titleBar.inactiveBackground": "#7b355799",
+        "statusBar.background": "#7b3557",
         "statusBarItem.hoverBackground": "#9f4470"
     },
 }

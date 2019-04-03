@@ -13,6 +13,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Configuration
 {
     use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="UUID")

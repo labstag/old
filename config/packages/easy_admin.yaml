@@ -1,5 +1,7 @@
 easy_admin:
     disabled_actions: ["show"]
+    user:
+        avatar_property_path: "avatar"
     design:
         form_theme:
             - "@EasyAdmin/form/bootstrap_4.html.twig"
@@ -38,6 +40,8 @@ easy_admin:
             edit:
                 title: "Modifier l'article"
             list:
+                title: "Articles"
+                sort: "createdAt"
                 actions:
                     - { name: "new", label: "Ajouter", icon: "add" }
                     - { name: "edit", label: "Éditer", icon: "edit" }
@@ -51,6 +55,7 @@ easy_admin:
                       }
                     - name
                     - refuser
+                    - enable
                     - refcategory
                     - tags
             form:
@@ -69,6 +74,7 @@ easy_admin:
             edit:
                 title: "Modifier le tags"
             list:
+                title: "Tags"
                 actions:
                     - { name: "new", label: "Ajouter", icon: "add" }
                     - { name: "edit", label: "Éditer", icon: "edit" }
@@ -89,6 +95,7 @@ easy_admin:
             edit:
                 title: "Modifier la categorie"
             list:
+                title: "Catégories"
                 actions:
                     - { name: "new", label: "Ajouter", icon: "add" }
                     - { name: "edit", label: "Éditer", icon: "edit" }
