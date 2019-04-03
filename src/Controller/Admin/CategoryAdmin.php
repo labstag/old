@@ -23,7 +23,7 @@ class CategoryAdmin extends AdminAbstractControllerLib
         $categories = $categoryRepository->findAll();
         $this->paginator($categories);
 
-        return $this->render('admin/category/index.html.twig');
+        return $this->twig('admin/category/index.html.twig');
     }
 
     /**
@@ -43,7 +43,7 @@ class CategoryAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/category/new.html.twig',
             [
                 'category' => $category,
@@ -71,7 +71,7 @@ class CategoryAdmin extends AdminAbstractControllerLib
             );
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/category/edit.html.twig',
             [
                 'category' => $category,
