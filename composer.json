@@ -119,7 +119,7 @@
     },
     "scripts": {
         "phploc": "phploc src",
-        "php-cs-fixer": "php-cs-fixer fix src -n",
+        "php-cs-fixer": "php-cs-fixer fix --config=php_cs.dist src -n",
         "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",
         "phpcbf": "phpcbf src tests --ignore=*/src/Migrations/*,src/Kernel.php",
         "phpcs": "phpcs src --ignore=*/src/Migrations/*,src/Kernel.php",
