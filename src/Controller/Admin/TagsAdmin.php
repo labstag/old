@@ -20,7 +20,7 @@ class TagsAdmin extends AdminAbstractControllerLib
      */
     public function index(TagsRepository $tagsRepository): Response
     {
-        return $this->render(
+        return $this->twig(
             'admin/tags/index.html.twig',
             [
                 'tags' => $tagsRepository->findAll(),
@@ -45,7 +45,7 @@ class TagsAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('tags_index');
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/tags/new.html.twig',
             [
                 'tag'  => $tag,
@@ -73,7 +73,7 @@ class TagsAdmin extends AdminAbstractControllerLib
             );
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/tags/edit.html.twig',
             [
                 'tag'  => $tag,

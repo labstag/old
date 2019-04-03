@@ -23,7 +23,7 @@ class UserAdmin extends AdminAbstractControllerLib
         $users = $userRepository->findAll();
         $this->paginator($users);
 
-        return $this->render('admin/user/index.html.twig');
+        return $this->twig('admin/user/index.html.twig');
     }
 
     /**
@@ -43,7 +43,7 @@ class UserAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('adminuser_index');
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/user/new.html.twig',
             [
                 'user' => $user,
@@ -71,7 +71,7 @@ class UserAdmin extends AdminAbstractControllerLib
             );
         }
 
-        return $this->render(
+        return $this->twig(
             'admin/user/edit.html.twig',
             [
                 'user' => $user,
