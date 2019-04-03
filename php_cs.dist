@@ -11,15 +11,21 @@ return PhpCsFixer\Config::create()
         '@PSR1' => true,
         '@PSR2' => true,
         '@PhpCsFixer' => true,
-        'encoding' => false,
-        'linebreak_after_opening_tag' => true,
-        'array_syntax' => ['syntax' => 'long'],
+        '@DoctrineAnnotation' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'backtick_to_shell_exec' => true,
         'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
+        'general_phpdoc_annotation_remove' => ['annotations' => ['author']],
+        'linebreak_after_opening_tag' => true,
+        'list_syntax' => ['syntax' => 'short'],
+        'no_blank_lines_before_namespace' => true,
+        'no_superfluous_phpdoc_tags' => true,
         'simplified_null_return' => true,
-        'yoda_style' => false,
+        'ternary_to_null_coalescing' => true,
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->exclude('vendor')
+        ->exclude('src/Kernel.php')
         ->in(__DIR__)
     )
 ;

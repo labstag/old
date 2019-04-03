@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,8 +24,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     use TargetPathTrait;
 
     private $entityManager;
+
     private $urlGenerator;
+
     private $csrfTokenManager;
+
     private $passwordEncoder;
 
     public function __construct(
@@ -43,10 +46,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        $route  = $request->attributes->get('_route');
-        $return = 'app_login' === $route && $request->isMethod('POST');
+        $route = $request->attributes->get('_route');
 
-        return $return;
+        return 'app_login' === $route && $request->isMethod('POST');
     }
 
     public function getCredentials(Request $request)
@@ -99,7 +101,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     public function onAuthenticationSuccess(
-        Request $request, TokenInterface $token, $providerKey
+        Request $request,
+        TokenInterface $token,
+        $providerKey
     )
     {
         $getTargetPath = $this->getTargetPath(

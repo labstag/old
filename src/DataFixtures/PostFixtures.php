@@ -2,24 +2,26 @@
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\Post;
+use App\Repository\CategoryRepository;
 use App\Repository\TagsRepository;
 use App\Repository\UserRepository;
-use App\Repository\CategoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {
+    private const NUMBER = 10;
 
     public function __construct(
         UserRepository $userRepository,
         CategoryRepository $categoryRepository,
         TagsRepository $tagsRepository
-    ) {
+    )
+    {
         $this->userRepository     = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagsRepository     = $tagsRepository;
@@ -31,14 +33,14 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $categories = $this->categoryRepository->findAll();
         $tags       = $this->tagsRepository->findAll();
         $faker      = Factory::create('fr_FR');
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < self::NUMBER; ++$i) {
             $post = new Post();
-            $post->setName($faker->unique()->text(255));
+            $post->setName($faker->unique()->text(rand(5,50)));
             $post->setContent($faker->unique()->paragraphs(4, true));
             $post->setRefuser($users[array_rand($users)]);
             $post->setRefcategory($categories[array_rand($categories)]);
             $nbr = rand(0, count($tags));
-            if ($nbr !== 0) {
+            if (0 !== $nbr) {
                 $tabIndex = array_rand(
                     $tags,
                     $nbr
@@ -47,17 +49,17 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                     foreach ($tabIndex as $j) {
                         $post->addTag($tags[$j]);
                     }
-                }else{
+                } else {
                     $post->addTag($tags[$tabIndex]);
                 }
             }
-            
+
             $addImage = rand(0, 1);
-            if ($addImage === 1) {
-                $image   = $faker->unique()->imageUrl;
+            if (1 === $addImage) {
+                $image   = $faker->unique()->imageUrl(1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
-                $data = stream_get_meta_data($tmpfile);
+                $data    = stream_get_meta_data($tmpfile);
                 file_put_contents($data['uri'], $content);
                 $file = new UploadedFile(
                     $data['uri'],
@@ -78,10 +80,10 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
-        TagsFixtures::class,
-        CategoryFixtures::class,
-        UserFixtures::class,
-        );
+        return [
+            TagsFixtures::class,
+            CategoryFixtures::class,
+            UserFixtures::class,
+        ];
     }
 }

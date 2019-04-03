@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale|split('_')|first|default('en') }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block page_title %}{{ block('content_title')|striptags|raw }}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-		{% if manifest['site.css']is defined %}
-			<link type="text/css" rel="stylesheet" href="{{ preload("assets/"~manifest['site.css']['src']) }}" integrity="{{ manifest['site.css']['integrity'] }}" media="all" />
+		{% if manifest['site.css'] is defined %}
+			<link type="text/css" rel="stylesheet" href="{{ asset("assets/"~manifest['site.css']['src']) }}" integrity="{{ manifest['site.css']['integrity'] }}" media="all" />
         {% endif %}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <div class="container">
         {% block body %}{% endblock %}
-		{% if manifest['site.js']is defined %}
+        {% if pagination is defined %}
+            {{ knp_pagination_render(pagination) }}
+        {% endif %}
+		{% if manifest['site.js'] is defined %}
 			<script type="application/javascript" src="{{ asset("assets/"~manifest['site.js']['src']) }}"></script>
 		{% endif %}
         {% block javascripts %}{% endblock %}
