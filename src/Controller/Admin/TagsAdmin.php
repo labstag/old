@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/tags")
  */
-class TagsController extends AdminAbstractControllerLib
+class TagsAdmin extends AdminAbstractControllerLib
 {
     /**
      * @Route("/", name="admintags_index", methods={"GET"})
