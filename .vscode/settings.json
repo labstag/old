@@ -9,6 +9,7 @@
     "phpcbf.standard": "phpcs.xml.dist",
     "phpmd.rules": "phpmd.xml",
     "php-cs-fixer.config": "php_cs.dist",
+    "php-cs-fixer.onsave": true,
     "eslint.options": {
         "configFile": ".eslintrc.json"
     },

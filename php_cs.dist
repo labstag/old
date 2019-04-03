@@ -11,10 +11,17 @@ return PhpCsFixer\Config::create()
         '@PSR1' => true,
         '@PSR2' => true,
         '@PhpCsFixer' => true,
-        'linebreak_after_opening_tag' => true,
+        '@DoctrineAnnotation' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'backtick_to_shell_exec' => true,
         'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
-        'simplified_null_return' => true
+        'general_phpdoc_annotation_remove' => ['annotations' => ['author']],
+        'linebreak_after_opening_tag' => true,
+        'list_syntax' => ['syntax' => 'short'],
+        'no_blank_lines_before_namespace' => true,
+        'no_superfluous_phpdoc_tags' => true,
+        'simplified_null_return' => true,
+        'ternary_to_null_coalescing' => true,
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->exclude('vendor')
