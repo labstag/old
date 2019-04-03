@@ -2,13 +2,12 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\User;
 use App\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserController extends AbstractControllerLib
+class UserApi extends AbstractControllerLib
 {
     /**
      * @Route("/api/user/check", name="api_checkuser")
