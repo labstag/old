@@ -324,6 +324,18 @@
     "knplabs/knp-time-bundle": {
         "version": "1.9.0"
     },
+    "knpuniversity/oauth2-client-bundle": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.20",
+            "ref": "80acc9223a205cbf5d9828fd616c82a374d281dd"
+        },
+        "files": [
+            "./config/packages/knpu_oauth2_client.yaml"
+        ]
+    },
     "lcobucci/jwt": {
         "version": "3.2.5"
     },
@@ -335,6 +347,9 @@
     },
     "league/glide-symfony": {
         "version": "1.0.3"
+    },
+    "league/oauth2-client": {
+        "version": "2.4.1"
     },
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
