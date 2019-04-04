@@ -27,9 +27,7 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
     {
         $service  = $this->clientRegistry->getClient($clientName.'_main');
         $redirect = $service->redirect(
-            [
-            'public_profile', 'email' // the scopes you want to access
-            ]
+            []
         );
 
         return $redirect;
