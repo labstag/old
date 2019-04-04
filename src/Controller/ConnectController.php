@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Controller\Connect;
+namespace App\Controller;
 
 use App\Lib\ConnectAbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GitLabConnect extends ConnectAbstractControllerLib
+class ConnectController extends ConnectAbstractControllerLib
 {
     /**
      * Link to this controller to start the "connect" process
      *
-     * @Route("/connect/gitlab", name="connect_gitlab_start")
+     * @Route("/connect/{oauthCode}", name="connect_start")
      */
-    public function connectAction()
+    public function connectAction(string $oauthCode)
     {
-        return $this->connectRedirect('gitlab');
+        return $this->connectRedirect($oauthCode);
 	}
 
     /**
@@ -23,10 +23,10 @@ class GitLabConnect extends ConnectAbstractControllerLib
      * because this is the "redirect_route" you configured
      * in config/packages/knpu_oauth2_client.yaml
      *
-     * @Route("/connect/gitlab/check", name="connect_gitlab_check")
+     * @Route("/connect/{oauthCode}/check", name="connect_check")
      */
-    public function connectCheckAction(Request $request)
+    public function connectCheckAction(Request $request, string $oauthCode)
     {
-        $this->connectCheck("gitlab");
+        $this->connectCheck($oauthCode);
     }
 }
