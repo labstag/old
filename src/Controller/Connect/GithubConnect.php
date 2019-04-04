@@ -2,7 +2,6 @@
 
 namespace App\Controller\Connect;
 
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use App\Lib\ConnectAbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,15 +13,9 @@ class GithubConnect extends ConnectAbstractControllerLib
      *
      * @Route("/connect/github", name="connect_github_start")
      */
-    public function connectAction(ClientRegistry $clientRegistry)
+    public function connectAction()
     {
-        return $clientRegistry
-            ->getClient('github_main') // key used in config/packages/knpu_oauth2_client.yaml
-            ->redirect(
-                [
-	    	    'public_profile', 'email' // the scopes you want to access
-                ]
-            );
+        return $this->connectRedirect('github');
 	}
 
     /**
@@ -32,8 +25,8 @@ class GithubConnect extends ConnectAbstractControllerLib
      *
      * @Route("/connect/github/check", name="connect_github_check")
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
+    public function connectCheckAction(Request $request)
     {
-        $this->connectCheck($clientRegistry, "github_main");
+        $this->connectCheck("github");
     }
 }
