@@ -675,6 +675,9 @@
             "./phpcs.xml.dist"
         ]
     },
+    "stevenmaguire/oauth2-bitbucket": {
+        "version": "3.0.0"
+    },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
         "recipe": {
