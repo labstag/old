@@ -425,6 +425,9 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+    "omines/oauth2-gitlab": {
+        "version": "3.1.2"
+    },
     "pclzip/pclzip": {
         "version": "2.8.2"
     },
@@ -677,6 +680,9 @@
     },
     "stevenmaguire/oauth2-bitbucket": {
         "version": "3.0.0"
+    },
+    "stevenmaguire/oauth2-microsoft": {
+        "version": "2.2.0"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
