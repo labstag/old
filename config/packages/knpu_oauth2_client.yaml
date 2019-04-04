@@ -3,6 +3,15 @@ knpu_oauth2_client:
         # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration
         # the key "facebook_main" can be anything, it
         # will create a service: "knpu.oauth2.client.facebook_main"
+        microsoft_main:
+            # this will be one of the supported types
+            type: microsoft
+            client_id: '%env(OAUTH_MICROSOFT_ID)%'
+            client_secret: '%env(OAUTH_MICROSOFT_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_microsoft_check
+            redirect_params: {}
         facebook_main:
             # this will be one of the supported types
             type: facebook
@@ -13,6 +22,17 @@ knpu_oauth2_client:
             redirect_route: connect_facebook_check
             redirect_params: {}
             graph_api_version: v2.12
+
+        gitlab_main:
+            # this will be one of the supported types
+            type: gitlab
+            client_id: '%env(OAUTH_GITLAB_ID)%'
+            client_secret: '%env(OAUTH_GITLAB_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_gitlab_check
+            redirect_params: {}
+            
         google_main:
             # this will be one of the supported types
             type: google
@@ -39,5 +59,14 @@ knpu_oauth2_client:
             # the route that you're redirected to after
             # see the controller example below
             redirect_route: connect_bitbucket_check
+            redirect_params: {}
+        discord_main:
+            # this will be one of the supported types
+            type: discord
+            client_id: '%env(OAUTH_DISCORD_ID)%'
+            client_secret: '%env(OAUTH_DISCORD_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_discord_check
             redirect_params: {}
 
