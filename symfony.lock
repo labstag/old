@@ -335,9 +335,6 @@
     "league/oauth2-client": {
         "version": "2.4.1"
     },
-    "league/oauth2-facebook": {
-        "version": "2.0.1"
-    },
     "league/oauth2-github": {
         "version": "2.0.0"
     },
@@ -355,6 +352,9 @@
         "files": [
             "./config/packages/lexik_jwt_authentication.yaml"
         ]
+    },
+    "luchianenco/oauth2-amazon": {
+        "version": "1.1.0"
     },
     "markbaker/complex": {
         "version": "1.4.7"
@@ -681,8 +681,8 @@
     "stevenmaguire/oauth2-bitbucket": {
         "version": "3.0.0"
     },
-    "stevenmaguire/oauth2-microsoft": {
-        "version": "2.2.0"
+    "stevenmaguire/oauth2-dropbox": {
+        "version": "3.0.1"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",

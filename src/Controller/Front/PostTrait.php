@@ -63,7 +63,6 @@ trait PostTrait
         if (!$post->isEnable()) {
             throw new FileNotFoundException('The product does not exist');
         }
-
         return $this->twig(
             'front/posts/show.html.twig',
             ['post' => $post]

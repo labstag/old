@@ -83,10 +83,16 @@ class User implements UserInterface, \Serializable
      */
     private $posts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
+     */
+    private $oauthConnectUsers;
+
     public function __construct()
     {
         $this->enable = true;
         $this->posts  = new ArrayCollection();
+        $this->oauthConnectUsers = new ArrayCollection();
     }
 
     public function __toString()
@@ -309,6 +315,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($post->getRefuser() === $this) {
                 $post->setRefuser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OauthConnectUser[]
+     */
+    public function getOauthConnectUsers(): Collection
+    {
+        return $this->oauthConnectUsers;
+    }
+
+    public function addOauthConnectUser(OauthConnectUser $oauthConnectUser): self
+    {
+        if (!$this->oauthConnectUsers->contains($oauthConnectUser)) {
+            $this->oauthConnectUsers[] = $oauthConnectUser;
+            $oauthConnectUser->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOauthConnectUser(OauthConnectUser $oauthConnectUser): self
+    {
+        if ($this->oauthConnectUsers->contains($oauthConnectUser)) {
+            $this->oauthConnectUsers->removeElement($oauthConnectUser);
+            // set the owning side to null (unless already changed)
+            if ($oauthConnectUser->getRefuser() === $this) {
+                $oauthConnectUser->setRefuser(null);
             }
         }
 
