@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Labstag\Controller\Admin;
 
-use App\Entity\Configuration;
-use App\Form\Admin\ConfigurationType;
-use App\Lib\AdminAbstractControllerLib;
-use App\Repository\ConfigurationRepository;
+use Labstag\Entity\Configuration;
+use Labstag\Form\Admin\ConfigurationType;
+use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

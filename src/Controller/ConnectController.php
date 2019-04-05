@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace Labstag\Controller;
 
-use App\Lib\ConnectAbstractControllerLib;
+use Labstag\Lib\ConnectAbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 

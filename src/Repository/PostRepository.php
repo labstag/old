@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repository;
+namespace Labstag\Repository;
 
-use App\Entity\Category;
-use App\Entity\Post;
-use App\Entity\Tags;
-use App\Entity\User;
+use Labstag\Entity\Category;
+use Labstag\Entity\Post;
+use Labstag\Entity\Tags;
+use Labstag\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

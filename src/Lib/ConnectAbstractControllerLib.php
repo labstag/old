@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib;
+namespace Labstag\Lib;
 
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;

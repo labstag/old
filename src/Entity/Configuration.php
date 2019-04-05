@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +8,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\ConfigurationRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\ConfigurationRepository")
  */
 class Configuration
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Labstag\Repository;
 
-use App\Entity\OauthConnectUser;
+use Labstag\Entity\OauthConnectUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

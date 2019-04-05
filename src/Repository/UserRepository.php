@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace Labstag\Repository;
 
-use App\Entity\User;
+use Labstag\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

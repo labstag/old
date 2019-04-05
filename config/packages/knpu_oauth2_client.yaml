@@ -49,7 +49,7 @@ knpu_oauth2_client:
             # the route that you're redirected to after
             # see the controller example below
             redirect_route: connect_check
-            redirect_params: {'oauthCode': 'aa'}
+            redirect_params: {'oauthCode': 'discord'}
         amazon_main:
             # this will be one of the supported types
             type: amazon

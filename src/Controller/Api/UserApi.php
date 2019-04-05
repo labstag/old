@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Api;
+namespace Labstag\Controller\Api;
 
-use App\Lib\AbstractControllerLib;
+use Labstag\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,7 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\PostRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",                 timeAware=false)
  * @Vich\Uploadable
  */
@@ -55,19 +55,19 @@ class Post
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $refuser;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\Category", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $refcategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tags", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tags", inversedBy="posts")
      */
     private $tags;
 

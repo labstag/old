@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Security;
+namespace Labstag\Security;
 
-use App\Entity\User;
+use Labstag\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;

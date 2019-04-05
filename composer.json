@@ -107,12 +107,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "Labstag\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Labstag\\Tests\\": "tests/"
         }
     },
     "replace": {
