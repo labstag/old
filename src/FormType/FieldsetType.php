@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FormType;
+namespace Labstag\FormType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

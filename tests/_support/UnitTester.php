@@ -1,5 +1,5 @@
 <?php
-namespace App\Tests;
+namespace Labstag\Tests;
 
 /**
  * Inherited Methods

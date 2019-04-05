@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataListener;
+namespace Labstag\DataListener;
 
-use App\Entity\User;
+use Labstag\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;

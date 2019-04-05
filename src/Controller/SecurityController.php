@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace Labstag\Controller;
 
-use App\Form\Security\LoginType;
-use App\Lib\AbstractControllerLib;
+use Labstag\Form\Security\LoginType;
+use Labstag\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;

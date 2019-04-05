@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Labstag\Controller\Admin;
 
-use App\Entity\Category;
-use App\Form\Admin\CategoryType;
-use App\Lib\AdminAbstractControllerLib;
-use App\Repository\CategoryRepository;
+use Labstag\Entity\Category;
+use Labstag\Form\Admin\CategoryType;
+use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

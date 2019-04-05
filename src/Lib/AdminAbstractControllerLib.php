@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Lib;
+namespace Labstag\Lib;
 
-use App\Lib\AbstractControllerLib;
+use Labstag\Lib\AbstractControllerLib;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

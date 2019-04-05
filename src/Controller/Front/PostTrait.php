@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller\Front;
+namespace Labstag\Controller\Front;
 
-use App\Entity\Category;
-use App\Entity\Post;
-use App\Entity\Tags;
-use App\Entity\User;
-use App\Repository\PostRepository;
+use Labstag\Entity\Category;
+use Labstag\Entity\Post;
+use Labstag\Entity\Tags;
+use Labstag\Entity\User;
+use Labstag\Repository\PostRepository;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
