@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib;
+namespace Labstag\Lib;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DataFixtures;
+namespace Labstag\DataFixtures;
 
-use App\Entity\Post;
-use App\Repository\CategoryRepository;
-use App\Repository\TagsRepository;
-use App\Repository\UserRepository;
+use Labstag\Entity\Post;
+use Labstag\Repository\CategoryRepository;
+use Labstag\Repository\TagsRepository;
+use Labstag\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

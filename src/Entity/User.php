@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,7 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username",                             message="Username déjà pris")
  * @Vich\Uploadable
  */
@@ -79,12 +79,12 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
      */
     private $posts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
      */
     private $oauthConnectUsers;
 

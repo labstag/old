@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,7 +12,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\TagsRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\TagsRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",                 timeAware=false)
  */
 class Tags
@@ -33,7 +33,7 @@ class Tags
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Post", mappedBy="tags")
      */
     private $posts;
 

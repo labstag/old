@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\OauthConnectUserRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\OauthConnectUserRepository")
  */
 class OauthConnectUser
 {
@@ -29,7 +29,7 @@ class OauthConnectUser
     private $data = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="oauthConnectUsers")
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="oauthConnectUsers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $refuser;

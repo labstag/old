@@ -9,4 +9,4 @@ modules:
     enabled:
         - PhpBrowser:
             url: http://localhost:8000
-        - \App\Tests\Helper\Acceptance
+        - \Labstag\Tests\Helper\Acceptance

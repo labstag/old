@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Labstag\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminAbstractControllerLib;
 
 /**
  * @Route("/admin")

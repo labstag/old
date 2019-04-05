@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Labstag\Controller\Admin;
 
-use App\Entity\User;
-use App\Form\Admin\UserType;
-use App\Lib\AdminAbstractControllerLib;
-use App\Repository\UserRepository;
+use Labstag\Entity\User;
+use Labstag\Form\Admin\UserType;
+use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

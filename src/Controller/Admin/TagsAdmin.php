@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Labstag\Controller\Admin;
 
-use App\Entity\Tags;
-use App\Form\Admin\TagsType;
-use App\Lib\AdminAbstractControllerLib;
-use App\Repository\TagsRepository;
+use Labstag\Entity\Tags;
+use Labstag\Form\Admin\TagsType;
+use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

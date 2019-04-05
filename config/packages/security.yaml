@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Entity\User:
+        Labstag\Entity\User:
             algorithm: bcrypt
             cost: 12
 
@@ -10,7 +10,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: Labstag\Entity\User
                 property: username
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER, ROLE_API]
@@ -32,9 +32,9 @@ security:
                 path: app_logout
             guard:
                 authenticators:
-                    - App\Security\TokenAuthenticator
-                    - App\Security\LoginFormAuthenticator
-                entry_point: App\Security\LoginFormAuthenticator
+                    - Labstag\Security\TokenAuthenticator
+                    - Labstag\Security\LoginFormAuthenticator
+                entry_point: Labstag\Security\LoginFormAuthenticator
             # activate different ways to authenticate
 
             # http_basic: true

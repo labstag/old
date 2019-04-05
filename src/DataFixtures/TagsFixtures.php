@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataFixtures;
+namespace Labstag\DataFixtures;
 
-use App\Entity\Tags;
+use Labstag\Entity\Tags;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;

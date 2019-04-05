@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Admin;
+namespace Labstag\Form\Admin;
 
-use App\Entity\Configuration;
+use Labstag\Entity\Configuration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
