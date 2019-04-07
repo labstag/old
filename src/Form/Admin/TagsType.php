@@ -14,7 +14,6 @@ class TagsType extends AbstractType
     {
         $builder->add('name');
         $builder->add('slug');
-        $builder->add('posts');
         $builder->add('submit', SubmitType::class);
         unset($options);
     }

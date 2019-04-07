@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Configuration{% endblock %}
+{% block content_title %}Edit Configuration{% endblock %}
 
 {% block body %}
     <h1>Edit Configuration</h1>
@@ -8,6 +8,4 @@
     {{ include('admin/configuration/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('adminconfiguration_index') }}">back to list</a>
-
-    {{ include('admin/configuration/_delete_form.html.twig') }}
 {% endblock %}

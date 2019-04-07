@@ -5,9 +5,10 @@
 {% block body %}
     <h1>Category index</h1>
 
-    <table class="table">
+    <table class="table table-striped table-bordered dataTable">
         <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
@@ -17,11 +18,15 @@
         <tbody>
         {% for category in pagination %}
             <tr>
+                <td></td>
                 <td>{{ category.name }}</td>
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('admincategory_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('admincategory_edit', {'id': category.id}) }}">
+                        <i class="fas fa-edit"></i>
+                        edit
+                    </a>
                 </td>
             </tr>
         {% else %}
