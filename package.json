@@ -7,15 +7,6 @@
   "directories": {
     "test": "tests"
   },
-  "scripts": {
-    "licenses": "license-checker",
-    "sgc": "sgc",
-    "eslint": "eslint assets --fix",
-    "jscpd": "jscpd",
-    "webpack-dev": "cross-env NODE_ENV=dev & webpack --config webpack.config.js",
-    "webpack-watch": "cross-env NODE_ENV=dev & webpack --config webpack.config.js --progress --colors --watch",
-    "webpack-build": "webpack --config webpack.config.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/labstag/labstag.git"
@@ -25,17 +16,18 @@
     "url": "https://github.com/labstag/labstag/issues"
   },
   "homepage": "https://github.com/labstag/labstag#readme",
+  "scripts": {
+    "sgc": "sgc",
+    "licenses": "license-checker",
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
   "dependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
     "@fortawesome/fontawesome-free": "^5.8.1",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.8.0",
-    "clean-webpack-plugin": "^2.0.1",
-    "cross-env": "^5.2.0",
-    "css-loader": "^2.1.1",
     "datatables.net-autofill-bs4": "^2.3.3",
     "datatables.net-bs4": "^1.10.19",
     "datatables.net-buttons-bs4": "^1.5.6",
@@ -47,27 +39,31 @@
     "datatables.net-rowgroup-bs4": "^1.1.0",
     "datatables.net-rowreorder-bs4": "^1.2.5",
     "datatables.net-scroller-bs4": "^2.0.0",
+    "datatables.net-select-bs4": "^1.3.0",
     "detect-mobile-browser": "^5.0.0",
-    "eslint": "^5.16.0",
-    "eslint-loader": "^2.1.2",
-    "eslint-plugin-dollar-sign": "^1.0.2",
-    "file-loader": "^3.0.1",
-    "imagemin": "^6.1.0",
-    "img-loader": "^3.0.1",
-    "jscpd": "^2.0.13",
     "jszip": "^3.2.1",
-    "license-checker": "^25.0.1",
-    "mini-css-extract-plugin": "^0.5.0",
     "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
     "pdfmake": "^0.1.54",
     "popper.js": "^1.14.7",
+    "tinymce": "^5.0.3",
+    "tinymce-i18n": "^19.2.11"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.4.3",
+    "@symfony/webpack-encore": "^0.26.0",
+    "@types/tinymce": "^4.5.20",
+    "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^5.0.2",
+    "core-js": "^3.0.0",
+    "eslint": "^5.16.0",
+    "jscpd": "^2.0.13",
+    "license-checker": "^25.0.1",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "semantic-git-commit-cli": "^3.2.1",
-    "uglifyjs-webpack-plugin": "^2.1.2",
+    "semantic-git-commit-cli": "^3.2.2",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.2",
     "url-loader": "^1.1.2",
-    "webpack": "^4.29.6",
-    "webpack-assets-manifest": "^3.1.1",
-    "webpack-cli": "^3.3.0"
+    "webpack-notifier": "^1.6.0"
   }
 }
