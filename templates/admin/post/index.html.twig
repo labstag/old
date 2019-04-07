@@ -4,10 +4,10 @@
 
 {% block body %}
     <h1>Post index</h1>
-
-    <table class="table">
+    <table class="table table-striped table-bordered dataTable">
         <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>File</th>
                 <th>Enable</th>
@@ -19,13 +19,17 @@
         <tbody>
         {% for post in pagination %}
             <tr>
+                <td></td>
                 <td>{{ post.name }}</td>
                 <td>{{ post.file }}</td>
                 <td>{{ post.enable ? 'Yes' : 'No' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('adminpost_edit', {'id': post.id}) }}">edit</a>
+                    <a href="{{ path('adminpost_edit', {'id': post.id}) }}">
+                        <i class="fas fa-edit"></i>
+                        edit
+                    </a>
                 </td>
             </tr>
         {% else %}

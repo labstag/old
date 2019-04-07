@@ -1,131 +1,47 @@
-const path = require('path')
+const Encore = require('@symfony/webpack-encore');
 
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const ManifestPlugin = require('webpack-assets-manifest')
-
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-
-const webpack = require('webpack')
-
-const dev = (process.env.NODE_ENV == 'dev')
-
-const config = {
-    'mode': dev ? 'development' : 'production',
-    'entry': {
-        'site': [
-            './assets/site.js',
-            './assets/site.scss',
-        ],
+Encore.setOutputPath('public/build/');
+Encore.setPublicPath('/build');
+Encore.addEntry('app', './assets/js/app.js');
+Encore.splitEntryChunks();
+Encore.enableSingleRuntimeChunk();
+Encore.cleanupOutputBeforeBuild();
+Encore.enableBuildNotifications();
+Encore.enableSourceMaps(!Encore.isProduction());
+Encore.enableVersioning(Encore.isProduction());
+Encore.configureBabel(() => {}, {
+    'useBuiltIns': 'usage',
+    'corejs': 3,
+});
+Encore.configureUrlLoader({
+    images: {
+        limit: 4096
+    }
+})
+Encore.enableSassLoader();
+Encore.autoProvidejQuery();
+Encore.autoProvideVariables({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
+});
+Encore.configureBabel();
+Encore.addPlugin(new CopyWebpackPlugin([{
+        'from': 'node_modules/tinymce/skins',
+        'to': 'skins',
     },
-    "devtool": dev ? 'eval-source-map' : null,
-    "resolve": {
-        "alias": {
-            "node_modules": path.resolve(__dirname, 'node_modules'),
-        },
-        "modules": [
-            'node_modules',
-            path.resolve(__dirname, 'node_modules'),
-        ],
+    {
+        'from': 'node_modules/tinymce-i18n/langs',
+        'to': 'langs',
     },
-    'devtool': dev ? 'cheap-module-eval-source-map' : '',
-    'module': {
-        'rules': [
-{
-            'enforce': 'pre',
-            'test': /\.js$/,
-            'exclude': /node_modules/,
-            'use': [
-'babel-loader', 'eslint-loader'
-,],
-        },
-        {
-            'test': /\.js$/,
-            'exclude': /node_modules/,
-            'use': [
-{
-                'loader': 'babel-loader',
-                'options': {
-                    'presets': [['@babel/preset-env',],],
-                    'plugins': ['syntax-dynamic-import',],
-                },
-            }
-,],
-        },
-        {
-            'test': /\.(sa|sc|c)ss$/,
-            'use': [
-                MiniCssExtractPlugin.loader,
-                'css-loader',
-                'sass-loader',
-            ],
-        },
-        {
-            'test': /\.(woff2|woff|eot|ttf|otf)(\?.*)?$/,
-            'loader': 'file-loader',
-        },
-        {
-            'test': /\.(png|jpe?g|gif|svg)$/,
-            'use': [
-{
-                'loader': 'url-loader',
-                'options': {
-                    'name': '[name].[hash:7].[ext]',
-                    'limit': 8192,
-                },
-            }
-,],
-        },
-        ],
-    },
-    'output': {
-        'crossOriginLoading': 'anonymous',
-        'path': path.resolve(__dirname, 'public/assets'),
-        'filename': '[name].[chunkhash:8].js',
-        'publicPath': '',
-    },
-    'plugins': [
-        new MiniCssExtractPlugin({
-            'filename': '[name].[contenthash:8].css',
-            'chunkFilename': '[id].[hash].css',
-        }),
-        new ManifestPlugin({
-            "output": 'manifest.json',
-            "integrityHashes": ['sha256',],
-            "integrity": true,
-        }),
-        /*
-         * new CleanWebpackPlugin(
-         *     ['assets'], {
-         *         'root'   : path.resolve('./public/'),
-         *         'verbose': true,
-         *         'dry'    : false
-         *     }
-         * ),
-         */
-        new webpack.ProvidePlugin({
-            "$": 'jquery',
-            "jQuery": 'jquery',
-            'window.jQuery': 'jquery',
-            'window.$': 'jquery',
-        }),
-    ],
-}
+    {
+        'from': 'node_modules/tinymce/plugins',
+        'to': 'plugins',
+    }
+]));
+Encore.enableTypeScriptLoader();
+Encore.enableIntegrityHashes();
 
-if (!dev) {
-    config.plugins.push(
-        /*
-         * new UglifyJSPlugin({
-         *     comments     : false,
-         *     uglifyOptions: {
-         *         compress: true,
-         *         warnings: false,
-         *     },
-         * })
-         */
-    )
-}
-
-module.exports = config
+module.exports = Encore.getWebpackConfig();

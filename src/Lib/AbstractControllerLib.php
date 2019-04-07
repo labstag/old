@@ -68,7 +68,6 @@ abstract class AbstractControllerLib extends AbstractController
      */
     protected function addParamViewsSite(): void
     {
-        $this->addManifest();
     }
 
     protected function paginator($query)
@@ -86,19 +85,5 @@ abstract class AbstractControllerLib extends AbstractController
         $pagination->setFiltrationTemplate('paginator/filtration.html.twig');
 
         $this->parameters['pagination'] = $pagination;
-    }
-
-    /**
-     * Get generate manifest by webpack.
-     */
-    private function addManifest(): void
-    {
-        $file     = 'assets/manifest.json';
-        $manifest = [];
-        if (is_file($file)) {
-            $manifest = json_decode(file_get_contents($file), true);
-        }
-
-        $this->parameters['manifest'] = $manifest;
     }
 }
