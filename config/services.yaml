@@ -41,7 +41,10 @@ services:
         autowire: true
         tags:
             - { name: doctrine.event_subscriber }
-    
+    Labstag\Controller\ExceptionController:
+        public: true
+        arguments:
+            $debug: '%kernel.debug%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
