@@ -75,9 +75,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $test1 = 'app_login' === $route && $request->isMethod('POST');
         $user  = $this->container->get('security.token_storage')->getToken();
-        $test2 = 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
+        // $test2 = 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
 
-        return $test1 || $test2;
+        // return $test1 || $test2;
+        return $test1;
     }
 
     public function getCredentials(Request $request)

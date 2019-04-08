@@ -2,104 +2,106 @@
 
 namespace Labstag\Lib;
 
-use League\OAuth2\Client\Provider\Github;
-use League\OAuth2\Client\Provider\Google;
-use Wohali\OAuth2\Client\Provider\Discord;
-use Luchianenco\OAuth2\Client\Provider\Amazon;
-use Stevenmaguire\OAuth2\Client\Provider\Bitbucket;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class ConnectAbstractControllerLib extends AbstractControllerLib
 {
+    /**
+     * @var array
+     */
+    protected $configProvider;
 
-    protected function initProviderBitbucket()
+    public function __construct(ContainerInterface $container)
     {
-        $provider = new Bitbucket(
-            [
-                'clientId'     => getenv('OAUTH_BITBUCKET_ID'),
-                'clientSecret' => getenv('OAUTH_BITBUCKET_SECRET'),
-                'redirectUri'  => $this->generateUrl('connect_check', ['oauthCode' => 'bitbucket'], UrlGeneratorInterface::ABSOLUTE_URL),
-            ]
-        );
-
-        return $provider;
+        $this->setConfigProvider();
+        parent::__construct($container);
     }
 
-    protected function initProviderGithub()
+    protected function setConfigProvider()
     {
-        $provider = new Github(
-            [
-                'clientId'     => getenv('OAUTH_GITHUB_ID'),
-                'clientSecret' => getenv('OAUTH_GITHUB_SECRET'),
-                'redirectUri'  => $this->generateUrl('connect_check', ['oauthCode' => 'github'], UrlGeneratorInterface::ABSOLUTE_URL),
-            ]
-        );
-
-        return $provider;
+        $this->configProvider = [
+            'bitbucket' => [
+                'params' => [
+                    'urlAuthorize'            => 'https://bitbucket.org/site/oauth2/authorize',
+                    'urlAccessToken'          => 'https://bitbucket.org/site/oauth2/access_token',
+                    'urlResourceOwnerDetails' => 'https://api.bitbucket.org/2.0/user',
+                ],
+            ],
+            'github' => [
+                'params' => [
+                    'urlAuthorize'            => 'https://github.com/login/oauth/authorize',
+                    'urlAccessToken'          => 'https://github.com/login/oauth/access_token',
+                    'urlResourceOwnerDetails' => 'https://api.github.com/user',
+                ],
+            ],
+            'discord' => [
+                'params' => [
+                    'urlAuthorize'            => 'https://discordapp.com/api/v6/oauth2/authorize',
+                    'urlAccessToken'          => 'https://discordapp.com/api/v6/oauth2/token',
+                    'urlResourceOwnerDetails' => 'https://discordapp.com/api/v6/users/@me',
+                ],
+                'scopeseparator' => ' ',
+                'scopes'         => [
+                    'identify',
+                    'email',
+                    'connections',
+                    'guilds',
+                    'guilds.join',
+                ],
+            ],
+            'google' => [
+                'params' => [
+                    'urlAuthorize'            => 'https://accounts.google.com/o/oauth2/v2/auth',
+                    'urlAccessToken'          => 'https://www.googleapis.com/oauth2/v4/token',
+                    'urlResourceOwnerDetails' => 'https://openidconnect.googleapis.com/v1/userinfo',
+                ],
+                'redirect'       => 1,
+                'scopeseparator' => ' ',
+                'scopes'         => [
+                    'openid',
+                    'email',
+                    'profile',
+                ],
+            ],
+        ];
     }
 
-    protected function initProviderGoogle()
+    protected function getConfigProvider($code)
     {
-        $provider = new Google(
-            [
-                'clientId'     => getenv('OAUTH_GOOGLE_ID'),
-                'clientSecret' => getenv('OAUTH_GOOGLE_SECRET'),
-                'redirectUri'  => $this->generateUrl('connect_check', ['oauthCode' => 'google'], UrlGeneratorInterface::ABSOLUTE_URL),
-            ]
-        );
-
-        return $provider;
+        return (isset($this->configProvider[$code])) ? $this->configProvider[$code] : [];
     }
 
-    protected function initProviderDiscord()
+    protected function initProvider($clientName)
     {
-        $provider = new Discord(
-            [
-                'clientId'     => getenv('OAUTH_DISCORD_ID'),
-                'clientSecret' => getenv('OAUTH_DISCORD_SECRET'),
-                'redirectUri'  => $this->generateUrl('connect_check', ['oauthCode' => 'discord'], UrlGeneratorInterface::ABSOLUTE_URL),
-            ]
-        );
+        $config = $this->getConfigProvider($clientName);
+        if (isset($config['redirect'])) {
+            $config['params']['redirectUri'] = $this->generateUrl('connect_check', ['oauthCode' => $clientName], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
 
-        return $provider;
-    }
+        $code                             = strtoupper($clientName);
+        $config['params']['clientId']     = getenv('OAUTH_'.$code.'_ID');
+        $config['params']['clientSecret'] = getenv('OAUTH_'.$code.'_SECRET');
 
-    protected function initProviderAmazon()
-    {
-        $provider = new Amazon(
-            [
-                'clientId'     => getenv('OAUTH_AMAZON_ID'),
-                'clientSecret' => getenv('OAUTH_AMAZON_SECRET'),
-                'redirectUri' => $this->generateUrl('connect_check', ['oauthCode' => 'amazon'], UrlGeneratorInterface::ABSOLUTE_URL),
-            ]
+        $provider = new GenericProviderLib(
+            $config['params']
         );
+        if (isset($config['scopes'])) {
+            $provider->setDefaultScopes($config['scopes']);
+        }
+
+        if (isset($config['scopeseparator'])) {
+            $provider->setScopeSeparator($config['scopeseparator']);
+        }
 
         return $provider;
     }
 
     protected function setProvider($clientName)
     {
-        if ('bitbucket' == $clientName) {
-            return $this->initProviderBitbucket();
+        if (isset($this->configProvider[$clientName])) {
+            return $this->initProvider($clientName);
         }
-
-        if ('github' == $clientName) {
-            return $this->initProviderGithub();
-        }
-
-        if ('google' == $clientName) {
-            return $this->initProviderGoogle();
-        }
-
-        if ('discord' == $clientName) {
-            return $this->initProviderDiscord();
-        }
-
-        if ('amazon' == $clientName) {
-            return $this->initProviderAmazon();
-        }
-
-        return null;
     }
 
     protected function connectRedirect(string $clientName)
@@ -111,7 +113,7 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         }
 
         $authUrl = $provider->getAuthorizationUrl();
-        $_SESSION['oauth2state'] = $provider->getState();
+
         return $this->redirect(
             $authUrl
         );
@@ -128,9 +130,10 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         $token = $provider->getAccessToken(
             'authorization_code',
             [
-                'code' => $_GET['code']
+                'code' => $_GET['code'],
             ]
         );
+
         try {
             $user = $provider->getResourceOwner($token);
             dump($user);
