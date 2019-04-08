@@ -85,14 +85,6 @@ class CategoryAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, Category $category): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $category->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($category);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('category_index');
+        return $this->actionDelete($request, $category, 'category_index');
     }
 }

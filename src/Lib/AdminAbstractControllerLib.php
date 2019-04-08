@@ -10,4 +10,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AdminAbstractControllerLib extends AbstractControllerLib
 {
+
+    protected function actionDelete(Request $request, $entity, $route): Response
+    {
+        $token = $request->request->get('_token');
+        $uuid  = $entity->getId();
+        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($entity);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute($route);
+    }
 }
