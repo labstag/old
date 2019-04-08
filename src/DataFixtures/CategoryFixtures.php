@@ -2,10 +2,10 @@
 
 namespace Labstag\DataFixtures;
 
-use Labstag\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Labstag\Entity\Category;
 
 class CategoryFixtures extends Fixture
 {

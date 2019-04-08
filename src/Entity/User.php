@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ApiResource()
+ * @ApiResource
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username",                             message="Username déjà pris")
  * @Vich\Uploadable
@@ -24,7 +24,7 @@ class User implements UserInterface, \Serializable
     use TimestampableEntity;
 
     /**
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid",             unique=true)
      */
@@ -32,13 +32,13 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=180, options={"default":true})
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=180, options={"default": true})
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -61,7 +61,7 @@ class User implements UserInterface, \Serializable
     private $apiKey;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":true})
+     * @ORM\Column(type="boolean", options={"default": true})
      */
     private $enable;
 
@@ -72,7 +72,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
-     * @Assert\File(mimeTypes                       = {"image/*"})
+     * @Assert\File(mimeTypes={"image/*"})
      *
      * @var File
      */
@@ -90,8 +90,8 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->enable = true;
-        $this->posts  = new ArrayCollection();
+        $this->enable            = true;
+        $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
     }
 

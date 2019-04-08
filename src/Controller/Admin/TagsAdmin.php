@@ -31,62 +31,40 @@ class TagsAdmin extends AdminAbstractControllerLib
      */
     public function new(Request $request): Response
     {
-        $tag  = new Tags();
-        $form = $this->createForm(TagsType::class, $tag);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($tag);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admintags_index');
-        }
-
-        return $this->showForm(
+        return $this->crudNewAction(
+            $request,
             [
-                'entity'   => $tag,
-                'title'    => 'Add new tag',
-                'url_back' => 'admintag_index',
-                'form'     => $form->createView(),
+                'entity'    => new Tags(),
+                'form'      => TagsType::class,
+                'url_edit'  => 'admintag_edit',
+                'url_index' => 'admintag_index',
+                'title'     => 'Add new tag',
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="admintags_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="admintags_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Tags $tag): Response
     {
-        $form = $this->createForm(TagsType::class, $tag);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectForm(
-                [
-                    'url'    => 'admintag_edit',
-                    'entity' => $tag,
-                ]
-            );
-        }
-
-        return $this->showForm(
+        return $this->crudEditAction(
+            $request,
             [
-                'entity'   => $tag,
-                'title'    => 'Edit tag',
-                'url_back' => 'admintags_index',
-                'form'     => $form->createView(),
+                'form'      => TagsType::class,
+                'entity'    => $tag,
+                'url_index' => 'admintag_index',
+                'url_edit'  => 'admintag_edit',
+                'title'     => 'Edit tag',
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="admintags_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="admintags_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Tags $tag): Response
     {
-        return $this->actionDelete($request, $tag, 'admintags_index');
+        return $this->crudActionDelete($request, $tag, 'admintags_index');
     }
 }
