@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1efec7114cc18b834e2f76075ad098ed",
+    "content-hash": "d9a3445c3a010dbe23a416031ced2b18",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -3331,112 +3331,6 @@
             "time": "2018-11-22T18:33:57+00:00"
         },
         {
-            "name": "league/oauth2-github",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/oauth2-github.git",
-                "reference": "e63d64f3ec167c09232d189c6b0c397458a99357"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-github/zipball/e63d64f3ec167c09232d189c6b0c397458a99357",
-                "reference": "e63d64f3ec167c09232d189c6b0c397458a99357",
-                "shasum": ""
-            },
-            "require": {
-                "league/oauth2-client": "^2.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\OAuth2\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Steven Maguire",
-                    "email": "stevenmaguire@gmail.com",
-                    "homepage": "https://github.com/stevenmaguire"
-                }
-            ],
-            "description": "Github OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
-            "keywords": [
-                "authorisation",
-                "authorization",
-                "client",
-                "github",
-                "oauth",
-                "oauth2"
-            ],
-            "time": "2017-01-26T01:14:51+00:00"
-        },
-        {
-            "name": "league/oauth2-google",
-            "version": "3.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/oauth2-google.git",
-                "reference": "3290273029f7cc2a468aae68bad184479a23b9d2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-google/zipball/3290273029f7cc2a468aae68bad184479a23b9d2",
-                "reference": "3290273029f7cc2a468aae68bad184479a23b9d2",
-                "shasum": ""
-            },
-            "require": {
-                "league/oauth2-client": "^2.0"
-            },
-            "require-dev": {
-                "eloquent/phony-phpunit": "^2.0",
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^6.0",
-                "squizlabs/php_codesniffer": "^2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "League\\OAuth2\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Woody Gilk",
-                    "email": "woody.gilk@gmail.com",
-                    "homepage": "http://shadowhand.me"
-                }
-            ],
-            "description": "Google OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
-            "keywords": [
-                "Authentication",
-                "authorization",
-                "client",
-                "google",
-                "oauth",
-                "oauth2"
-            ],
-            "time": "2018-12-28T16:18:33+00:00"
-        },
-        {
             "name": "lexik/jwt-authentication-bundle",
             "version": "v2.6.2",
             "source": {
@@ -3532,56 +3426,6 @@
                 "symfony"
             ],
             "time": "2019-04-01T10:25:29+00:00"
-        },
-        {
-            "name": "luchianenco/oauth2-amazon",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/luchianenco/oauth2-amazon.git",
-                "reference": "788bf63953e03a2307d4bc17f992424bc442eb32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/luchianenco/oauth2-amazon/zipball/788bf63953e03a2307d4bc17f992424bc442eb32",
-                "reference": "788bf63953e03a2307d4bc17f992424bc442eb32",
-                "shasum": ""
-            },
-            "require": {
-                "league/oauth2-client": "^2.0",
-                "php": "^5.6 || ^7.0 || ^7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Luchianenco\\OAuth2\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Serghei Luchianenco",
-                    "email": "s@luchianenco.com",
-                    "homepage": "https://luchianenco.com"
-                }
-            ],
-            "description": "Amazon OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
-            "keywords": [
-                "Authentication",
-                "amazon",
-                "authorization",
-                "client",
-                "oauth",
-                "oauth2"
-            ],
-            "time": "2017-09-13T14:44:28+00:00"
         },
         {
             "name": "markbaker/complex",
@@ -5730,61 +5574,6 @@
                 "pdf"
             ],
             "time": "2019-01-30T14:38:19+00:00"
-        },
-        {
-            "name": "stevenmaguire/oauth2-bitbucket",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stevenmaguire/oauth2-bitbucket.git",
-                "reference": "7ab903e7ac47b3fb18ff27fe5b7c8d2a494bd39c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stevenmaguire/oauth2-bitbucket/zipball/7ab903e7ac47b3fb18ff27fe5b7c8d2a494bd39c",
-                "reference": "7ab903e7ac47b3fb18ff27fe5b7c8d2a494bd39c",
-                "shasum": ""
-            },
-            "require": {
-                "league/oauth2-client": "^2.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Stevenmaguire\\OAuth2\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Steven Maguire",
-                    "email": "stevenmaguire@gmail.com",
-                    "homepage": "https://github.com/stevenmaguire"
-                }
-            ],
-            "description": "Bitbucket OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
-            "keywords": [
-                "authorisation",
-                "authorization",
-                "bitbucket",
-                "client",
-                "oauth",
-                "oauth2"
-            ],
-            "time": "2018-05-03T22:50:12+00:00"
         },
         {
             "name": "stevenmaguire/oauth2-dropbox",
@@ -9856,65 +9645,6 @@
                 "negotiation"
             ],
             "time": "2017-05-14T17:21:12+00:00"
-        },
-        {
-            "name": "wohali/oauth2-discord-new",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wohali/oauth2-discord-new.git",
-                "reference": "990bdfb59b4cd2086e0524b429dc12b5142d66ad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wohali/oauth2-discord-new/zipball/990bdfb59b4cd2086e0524b429dc12b5142d66ad",
-                "reference": "990bdfb59b4cd2086e0524b429dc12b5142d66ad",
-                "shasum": ""
-            },
-            "require": {
-                "league/oauth2-client": "^2.0"
-            },
-            "conflict": {
-                "team-reflex/oauth2-discord": ">=1.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-parallel-lint": "~0.9",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "^5.0",
-                "squizlabs/php_codesniffer": "^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Wohali\\OAuth2\\Client\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joan Touzet",
-                    "email": "wohali@gmail.com",
-                    "homepage": "https://github.com/wohali"
-                }
-            ],
-            "description": "Discord OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
-            "keywords": [
-                "authorisation",
-                "authorization",
-                "client",
-                "discord",
-                "oauth",
-                "oauth2"
-            ],
-            "time": "2017-10-15T23:24:28+00:00"
         },
         {
             "name": "zendframework/zend-code",
