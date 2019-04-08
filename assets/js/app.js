@@ -45,6 +45,13 @@ class Site {
     let table = $('.dataTable').DataTable({
       dom: 'Bfrtip',
       buttons: [
+        'selected',
+        'selectedSingle',
+        'selectAll',
+        'selectNone',
+        'selectRows',
+        'selectColumns',
+        'selectCells',
         'copy', 'csv', 'print'
       ],
       columnDefs: [{
