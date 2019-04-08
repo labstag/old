@@ -27,7 +27,7 @@ class UserAdmin extends AdminAbstractControllerLib
     }
 
     /**
-     * @Route("/new", name="adminuser_new", methods={"GET","POST"})
+     * @Route("/new", name="adminuser_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -43,17 +43,18 @@ class UserAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('adminuser_index');
         }
 
-        return $this->twig(
-            'admin/user/new.html.twig',
+        return $this->showForm(
             [
-                'user' => $user,
-                'form' => $form->createView(),
+                'entity'   => $user,
+                'title'    => 'Add new user',
+                'url_back' => 'adminuser_index',
+                'form'     => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminuser_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="adminuser_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -63,19 +64,20 @@ class UserAdmin extends AdminAbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute(
-                'adminuser_index',
+            return $this->redirectForm(
                 [
-                    'id' => $user->getId(),
+                    'url'    => 'adminuser_edit',
+                    'entity' => $user,
                 ]
             );
         }
 
-        return $this->twig(
-            'admin/user/edit.html.twig',
+        return $this->showForm(
             [
-                'user' => $user,
-                'form' => $form->createView(),
+                'entity'   => $user,
+                'title'    => 'Edit user',
+                'url_back' => 'adminuser_index',
+                'form'     => $form->createView(),
             ]
         );
     }
