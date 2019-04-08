@@ -6,8 +6,8 @@ use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\Entity\User;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Labstag\Lib\ServiceEntityRepositoryLib;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method null|Post find($id, $lockMode = null, $lockVersion = null)

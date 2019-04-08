@@ -2,8 +2,8 @@
 
 namespace Labstag\Security;
 
-use Labstag\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Labstag\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,6 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
-
     private $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -71,16 +70,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         Request $request,
         TokenInterface $token,
         $providerKey
-    )
-    {
+    ) {
         // on success, let the request continue
     }
 
     public function onAuthenticationFailure(
         Request $request,
         AuthenticationException $exception
-    )
-    {
+    ) {
         $data = [
             'message' => strtr(
                 $exception->getMessageKey(),
@@ -100,8 +97,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function start(
         Request $request,
         AuthenticationException $authException = null
-    )
-    {
+    ) {
         $data = [
             // you might translate this message
             'message' => 'Authentication Required',

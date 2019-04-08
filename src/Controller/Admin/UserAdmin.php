@@ -31,62 +31,40 @@ class UserAdmin extends AdminAbstractControllerLib
      */
     public function new(Request $request): Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('adminuser_index');
-        }
-
-        return $this->showForm(
+        return $this->crudNewAction(
+            $request,
             [
-                'entity'   => $user,
-                'title'    => 'Add new user',
-                'url_back' => 'adminuser_index',
-                'form'     => $form->createView(),
+                'entity'    => new User(),
+                'form'      => UserType::class,
+                'url_edit'  => 'adminuser_edit',
+                'url_index' => 'adminuser_index',
+                'title'     => 'Add new user',
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminuser_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminuser_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectForm(
-                [
-                    'url'    => 'adminuser_edit',
-                    'entity' => $user,
-                ]
-            );
-        }
-
-        return $this->showForm(
+        return $this->crudEditAction(
+            $request,
             [
-                'entity'   => $user,
-                'title'    => 'Edit user',
-                'url_back' => 'adminuser_index',
-                'form'     => $form->createView(),
+                'form'      => UserType::class,
+                'entity'    => $user,
+                'url_index' => 'adminuser_index',
+                'url_edit'  => 'adminuser_edit',
+                'title'     => 'Edit user',
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="adminuser_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="adminuser_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
-        return $this->actionDelete($request, $user, 'adminuser_index');
+        return $this->crudActionDelete($request, $user, 'adminuser_index');
     }
 }

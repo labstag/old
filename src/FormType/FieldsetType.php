@@ -30,10 +30,6 @@ class FieldsetType extends AbstractType
         );
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if (!empty($options['fields']) && is_callable($options['fields'])) {
@@ -41,17 +37,11 @@ class FieldsetType extends AbstractType
         }
     }
 
-    /**
-     * @param FormView      $view
-     * @param FormInterface $form
-     * @param array         $options
-     */
     public function buildView(
         FormView $view,
         FormInterface $form,
         array $options
-    )
-    {
+    ) {
         if (false !== $options['legend']) {
             $view->vars['legend'] = $options['legend'];
         }

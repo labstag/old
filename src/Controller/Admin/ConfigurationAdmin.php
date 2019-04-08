@@ -32,69 +32,44 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
      */
     public function new(Request $request): Response
     {
-        $configuration = new Configuration();
-        $form          = $this->createForm(
-            ConfigurationType::class,
-            $configuration
-        );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($configuration);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('adminconfiguration_index');
-        }
-
-        return $this->showForm(
+        return $this->crudNewAction(
+            $request,
             [
-                'entity'   => $configuration,
-                'title'    => 'Add new configuration',
-                'url_back' => 'adminconfiguration_index',
-                'form'     => $form->createView(),
+                'entity'    => new Configuration(),
+                'form'      => ConfigurationType::class,
+                'url_edit'  => 'adminconfiguration_edit',
+                'url_index' => 'adminconfiguration_index',
+                'title'     => 'Add new configuration',
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminconfiguration_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminconfiguration_edit", methods={"GET", "POST"})
      */
     public function edit(
         Request $request,
         Configuration $configuration
     ): Response {
-        $form = $this->createForm(ConfigurationType::class, $configuration);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectForm(
-                [
-                    'url'    => 'adminconfiguration_edit',
-                    'entity' => $post,
-                ]
-            );
-        }
-
-        return $this->showForm(
+        return $this->crudEditAction(
+            $request,
             [
-                'entity'   => $configuration,
-                'title'    => 'Edit configuration',
-                'url_back' => 'adminconfiguration_index',
-                'form'     => $form->createView(),
+                'form'      => ConfigurationType::class,
+                'entity'    => $configuration,
+                'url_index' => 'adminconfiguration_index',
+                'url_edit'  => 'adminconfiguration_edit',
+                'title'     => 'Edit configuration',
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="adminconfiguration_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="adminconfiguration_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
         Configuration $configuration
     ): Response {
-        return $this->actionDelete($request, $configuration, 'adminconfiguration_index');
+        return $this->crudActionDelete($request, $configuration, 'adminconfiguration_index');
     }
 }
