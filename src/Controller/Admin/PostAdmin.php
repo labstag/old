@@ -85,14 +85,6 @@ class PostAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, Post $post): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $post->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($post);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('post_index');
+        return $this->actionDelete($request, $post, 'post_index');
     }
 }

@@ -96,14 +96,6 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
         Configuration $configuration
     ): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $configuration->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($configuration);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('adminconfiguration_index');
+        return $this->actionDelete($request, $configuration, 'adminconfiguration_index');
     }
 }

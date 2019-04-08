@@ -84,14 +84,6 @@ class TagsAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, Tags $tag): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $tag->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($tag);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('tags_index');
+        return $this->actionDelete($request, $tag, 'tags_index');
     }
 }
