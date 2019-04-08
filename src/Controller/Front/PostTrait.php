@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller\Front;
+namespace Labstag\Controller\Front;
 
-use App\Entity\Category;
-use App\Entity\Post;
-use App\Entity\Tags;
-use App\Entity\User;
-use App\Repository\PostRepository;
+use Labstag\Entity\Category;
+use Labstag\Entity\Post;
+use Labstag\Entity\Tags;
+use Labstag\Entity\User;
+use Labstag\Repository\PostRepository;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +19,11 @@ trait PostTrait
     public function postUser(
         User $user,
         PostRepository $postRepository
-    ): Response
-    {
+    ): Response {
         $posts = $postRepository->findAllActiveByUser($user);
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 
     /**
@@ -33,12 +32,11 @@ trait PostTrait
     public function postCategory(
         Category $category,
         PostRepository $postRepository
-    ): Response
-    {
+    ): Response {
         $posts = $postRepository->findAllActiveByCategory($category);
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 
     /**
@@ -47,12 +45,11 @@ trait PostTrait
     public function PostTags(
         Tags $tag,
         PostRepository $postRepository
-    ): Response
-    {
+    ): Response {
         $posts = $postRepository->findAllActiveByTag($tag);
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 
     /**
@@ -64,7 +61,7 @@ trait PostTrait
             throw new FileNotFoundException('The product does not exist');
         }
 
-        return $this->render(
+        return $this->twig(
             'front/posts/show.html.twig',
             ['post' => $post]
         );
@@ -78,6 +75,6 @@ trait PostTrait
         $posts = $postRepository->findAllActive();
         $this->paginator($posts);
 
-        return $this->render('front/posts/list.html.twig');
+        return $this->twig('front/posts/list.html.twig');
     }
 }

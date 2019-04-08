@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,8 +11,8 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ApiResource
+ * @ORM\Entity(repositoryClass="Labstag\Repository\CategoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",                     timeAware=false)
  */
 class Category
@@ -21,7 +21,7 @@ class Category
     use TimestampableEntity;
 
     /**
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid",             unique=true)
      */
@@ -33,7 +33,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="refcategory")
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refcategory")
      */
     private $posts;
 

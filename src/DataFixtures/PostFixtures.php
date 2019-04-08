@@ -1,15 +1,15 @@
 <?php
 
-namespace App\DataFixtures;
+namespace Labstag\DataFixtures;
 
-use App\Entity\Post;
-use App\Repository\CategoryRepository;
-use App\Repository\TagsRepository;
-use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Labstag\Entity\Post;
+use Labstag\Repository\CategoryRepository;
+use Labstag\Repository\TagsRepository;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
@@ -20,8 +20,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         UserRepository $userRepository,
         CategoryRepository $categoryRepository,
         TagsRepository $tagsRepository
-    )
-    {
+    ) {
         $this->userRepository     = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagsRepository     = $tagsRepository;
@@ -35,7 +34,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $faker      = Factory::create('fr_FR');
         for ($i = 0; $i < self::NUMBER; ++$i) {
             $post = new Post();
-            $post->setName($faker->unique()->text(rand(5,50)));
+            $post->setName($faker->unique()->text(rand(5, 50)));
             $post->setContent($faker->unique()->paragraphs(4, true));
             $post->setRefuser($users[array_rand($users)]);
             $post->setRefcategory($categories[array_rand($categories)]);

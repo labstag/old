@@ -1,5 +1,5 @@
 resources:
-  App\Entity\User:
+  Labstag\Entity\User:
     itemOperations:
       get: ~
       put: ~

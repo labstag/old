@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace Labstag\Controller;
 
+use Labstag\Lib\AdminAbstractControllerLib;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Lib\AdminAbstractControllerLib;
 
 /**
  * @Route("/admin")
@@ -16,9 +16,8 @@ class AdminController extends AdminAbstractControllerLib
      */
     public function index(): Response
     {
-        return $this->render(
-            'admin/index.html.twig',
-            ['controller_name' => 'AdminController']
+        return $this->twig(
+            'admin/index.html.twig'
         );
     }
 }
