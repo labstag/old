@@ -2,6 +2,7 @@
 
 namespace Labstag\Lib;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -28,15 +29,15 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
                     'urlResourceOwnerDetails' => 'https://api.bitbucket.org/2.0/user',
                 ],
             ],
-            'github' => [
+            'github'    => [
                 'params' => [
                     'urlAuthorize'            => 'https://github.com/login/oauth/authorize',
                     'urlAccessToken'          => 'https://github.com/login/oauth/access_token',
                     'urlResourceOwnerDetails' => 'https://api.github.com/user',
                 ],
             ],
-            'discord' => [
-                'params' => [
+            'discord'   => [
+                'params'         => [
                     'urlAuthorize'            => 'https://discordapp.com/api/v6/oauth2/authorize',
                     'urlAccessToken'          => 'https://discordapp.com/api/v6/oauth2/token',
                     'urlResourceOwnerDetails' => 'https://discordapp.com/api/v6/users/@me',
@@ -50,8 +51,8 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
                     'guilds.join',
                 ],
             ],
-            'google' => [
-                'params' => [
+            'google'    => [
+                'params'         => [
                     'urlAuthorize'            => 'https://accounts.google.com/o/oauth2/v2/auth',
                     'urlAccessToken'          => 'https://www.googleapis.com/oauth2/v4/token',
                     'urlResourceOwnerDetails' => 'https://openidconnect.googleapis.com/v1/userinfo',
@@ -67,16 +68,17 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         ];
     }
 
-    protected function getConfigProvider($code)
-    {
-        return (isset($this->configProvider[$code])) ? $this->configProvider[$code] : [];
-    }
-
     protected function initProvider($clientName)
     {
-        $config = $this->getConfigProvider($clientName);
+        $config = (isset($this->configProvider[$clientName])) ? $this->configProvider[$clientName] : [];
         if (isset($config['redirect'])) {
-            $config['params']['redirectUri'] = $this->generateUrl('connect_check', ['oauthCode' => $clientName], UrlGeneratorInterface::ABSOLUTE_URL);
+            $config['params']['redirectUri'] = $this->generateUrl(
+                'connect_check',
+                [
+                    'oauthCode' => $clientName,
+                ],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
         }
 
         $code                             = strtoupper($clientName);
@@ -104,37 +106,46 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         }
     }
 
-    protected function connectRedirect(string $clientName)
+    protected function connectRedirect(Request $request, string $clientName)
     {
         $provider = $this->setProvider($clientName);
 
         if (is_null($provider)) {
-            return;
+            return $this->redirect(
+                $this->generateUrl('front')
+            );
         }
 
         $authUrl = $provider->getAuthorizationUrl();
-
+        $session = $request->getSession();
+        $session->set('oauth2state', $provider->getState());
         return $this->redirect(
             $authUrl
         );
     }
 
-    protected function connectCheck(string $clientName)
+    protected function connectCheck(Request $request, string $clientName)
     {
-        $provider = $this->setProvider($clientName);
-
-        if (is_null($provider)) {
-            return;
+        $provider    = $this->setProvider($clientName);
+        $query       = $request->query->all();
+        $session     = $request->getSession();
+        $oauth2state = $session->get('oauth2state');
+        if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
+            $session->remove('oauth2state');
+            return $this->redirect(
+                $this->generateUrl('front')
+            );
         }
 
-        $token = $provider->getAccessToken(
-            'authorization_code',
-            [
-                'code' => $_GET['code'],
-            ]
-        );
-
         try {
+            $token = $provider->getAccessToken(
+                'authorization_code',
+                [
+                    'code' => $query['code'],
+                ]
+            );
+
+            $session->remove('oauth2state');
             $user = $provider->getResourceOwner($token);
             dump($user);
             exit();

@@ -13,9 +13,9 @@ class ConnectController extends ConnectAbstractControllerLib
      *
      * @Route("/connect/{oauthCode}", name="connect_start")
      */
-    public function connectAction(string $oauthCode)
+    public function connectAction(Request $request, string $oauthCode)
     {
-        return $this->connectRedirect($oauthCode);
+        return $this->connectRedirect($request, $oauthCode);
     }
 
     /**
@@ -27,6 +27,6 @@ class ConnectController extends ConnectAbstractControllerLib
      */
     public function connectCheckAction(Request $request, string $oauthCode)
     {
-        $this->connectCheck($oauthCode);
+        return $this->connectCheck($request, $oauthCode);
     }
 }
