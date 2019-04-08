@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Security;
+namespace Labstag\Security;
 
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Labstag\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -23,21 +25,51 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * @var ClientRegistry
+     */
+    private $clientRegistry;
+
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
+    /**
+     * @var UrlGeneratorInterface
+     */
     private $urlGenerator;
 
+    /**
+     * @var CsrfTokenManagerInterface
+     */
     private $csrfTokenManager;
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
+    /**
+     * @var String
+     */
+    private $route;
+
     public function __construct(
+        ContainerInterface $container,
+        ClientRegistry $clientRegistry,
         EntityManagerInterface $entityManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
-    )
-    {
+    ) {
+        $this->container        = $container;
+        $this->clientRegistry   = $clientRegistry;
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -46,9 +78,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        $route = $request->attributes->get('_route');
+        $route       = $request->attributes->get('_route');
+        $this->route = $route;
 
-        return 'app_login' === $route && $request->isMethod('POST');
+        $test1 = 'app_login' === $route && $request->isMethod('POST');
+        $user  = $this->container->get('security.token_storage')->getToken();
+        $test2 = 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
+
+        return $test1 || $test2;
     }
 
     public function getCredentials(Request $request)
@@ -70,7 +107,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('login', $credentials['_token']);
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        if (!$this->csrfTokenManager->isTokenValid($token) && 'connect_check' != $this->route) {
             throw new InvalidCsrfTokenException();
         }
 
@@ -104,8 +141,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         Request $request,
         TokenInterface $token,
         $providerKey
-    )
-    {
+    ) {
         $getTargetPath = $this->getTargetPath(
             $request->getSession(),
             $providerKey

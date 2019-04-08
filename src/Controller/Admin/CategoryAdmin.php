@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Labstag\Controller\Admin;
 
-use App\Entity\Category;
-use App\Form\Admin\CategoryType;
-use App\Lib\AdminAbstractControllerLib;
-use App\Repository\CategoryRepository;
+use Labstag\Entity\Category;
+use Labstag\Form\Admin\CategoryType;
+use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,79 +20,50 @@ class CategoryAdmin extends AdminAbstractControllerLib
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
-        $categories = $categoryRepository->findAll();
-        $this->paginator($categories);
+        $this->crudListAction($categoryRepository);
 
-        return $this->render('admin/category/index.html.twig');
+        return $this->twig('admin/category/index.html.twig');
     }
 
     /**
-     * @Route("/new", name="admincategory_new", methods={"GET","POST"})
+     * @Route("/new", name="admincategory_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
-        $category = new Category();
-        $form     = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('category_index');
-        }
-
-        return $this->render(
-            'admin/category/new.html.twig',
+        return $this->crudNewAction(
+            $request,
             [
-                'category' => $category,
-                'form'     => $form->createView(),
+                'entity'    => new Category(),
+                'form'      => CategoryType::class,
+                'url_edit'  => 'admincategory_edit',
+                'url_index' => 'admincategory_index',
+                'title'     => 'Add new categorie',
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="admincategory_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="admincategory_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Category $category): Response
     {
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute(
-                'category_index',
-                [
-                    'id' => $category->getId(),
-                ]
-            );
-        }
-
-        return $this->render(
-            'admin/category/edit.html.twig',
+        return $this->crudEditAction(
+            $request,
             [
-                'category' => $category,
-                'form'     => $form->createView(),
+                'form'      => CategoryType::class,
+                'entity'    => $category,
+                'url_index' => 'admincategory_index',
+                'url_edit'  => 'admincategory_edit',
+                'title'     => 'Edit categorie',
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="admincategory_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="admincategory_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Category $category): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $category->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($category);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('category_index');
+        return $this->crudActionDelete($request, $category, 'admincategory_index');
     }
 }

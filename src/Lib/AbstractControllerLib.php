@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Lib;
+namespace Labstag\Lib;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractControllerLib extends AbstractController
 {
-
     /**
      * @var Request
      */
@@ -51,12 +50,11 @@ abstract class AbstractControllerLib extends AbstractController
      *
      * @return Response
      */
-    public function render(
+    public function twig(
         string $view,
         array $parameters = [],
         ?Response $response = null
-    ): Response
-    {
+    ): Response {
         $this->addParamViewsSite();
         $parameters = array_merge($parameters, $this->parameters);
 
@@ -68,7 +66,6 @@ abstract class AbstractControllerLib extends AbstractController
      */
     protected function addParamViewsSite(): void
     {
-        $this->addManifest();
     }
 
     protected function paginator($query)
@@ -86,19 +83,5 @@ abstract class AbstractControllerLib extends AbstractController
         $pagination->setFiltrationTemplate('paginator/filtration.html.twig');
 
         $this->parameters['pagination'] = $pagination;
-    }
-
-    /**
-     * Get generate manifest by webpack.
-     */
-    private function addManifest(): void
-    {
-        $file     = 'assets/manifest.json';
-        $manifest = [];
-        if (is_file($file)) {
-            $manifest = json_decode(file_get_contents($file), true);
-        }
-
-        $this->parameters['manifest'] = $manifest;
     }
 }
