@@ -1,5 +1,4 @@
 const Encore = require('@symfony/webpack-encore');
-
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore.setOutputPath('public/build/');

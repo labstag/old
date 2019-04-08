@@ -3,7 +3,6 @@
 namespace Labstag\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Labstag\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,11 +28,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      * @var ContainerInterface
      */
     private $container;
-
-    /**
-     * @var ClientRegistry
-     */
-    private $clientRegistry;
 
     /**
      * @var EntityManagerInterface
@@ -62,14 +56,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function __construct(
         ContainerInterface $container,
-        ClientRegistry $clientRegistry,
         EntityManagerInterface $entityManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
         $this->container        = $container;
-        $this->clientRegistry   = $clientRegistry;
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;

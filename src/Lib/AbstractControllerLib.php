@@ -55,18 +55,17 @@ abstract class AbstractControllerLib extends AbstractController
         array $parameters = [],
         Response $response = null
     ): Response {
-        $this->addParamViewsSite();
-        $parameters = array_merge($parameters, $this->paramViews);
+        $this->addParamViewsSite($parameters);
 
-        return parent::render($view, $parameters, $response);
+        return parent::render($view, $this->paramViews, $response);
     }
 
     /**
      * Add param to twig.
      */
-    protected function addParamViewsSite(array $data): void
+    protected function addParamViewsSite(array $parameters = []): void
     {
-        $this->paramViews = array_merge($data, $this->paramViews);
+        $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
     protected function paginator($query)

@@ -140,7 +140,7 @@
             {
                 "ObjectExpression": "always",
                 "ObjectPattern": "always",
-                "ImportDeclaration": "always",
+                "ImportDeclaration": "never",
                 "ExportDeclaration": "always"
             }
         ],

@@ -20,7 +20,6 @@
         "knplabs/knp-menu-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^3.0",
         "knplabs/knp-time-bundle": "^1.9",
-        "knpuniversity/oauth2-client-bundle": "^1.28",
         "league/glide-symfony": "^1.0",
         "league/oauth2-github": "^2.0",
         "league/oauth2-google": "^3.0",

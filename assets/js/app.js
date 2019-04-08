@@ -1,26 +1,22 @@
 require('../css/app.scss');
-const $ = require('jquery');
-global.$ = $;
-global.Jquery = $;
+import $ from 'jquery';
 import 'bootstrap';
-
 import 'datatables.net';
 import 'datatables.net-bs4';
-
 import 'datatables.net-select';
 import 'datatables.net-select-bs4';
-
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.colVis.min.js';
 import 'datatables.net-buttons/js/buttons.flash.min.js';
 import 'datatables.net-buttons/js/buttons.html5.min.js';
 import 'datatables.net-buttons/js/buttons.print.min.js';
 import 'datatables.net-buttons-bs4';
-
-
 import 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
 import 'tinymce/skins/ui/oxide/content.min.css';
+
+global.$ = $;
+global.Jquery = $;
 class Site {
 
   /**
@@ -102,7 +98,7 @@ class Site {
       toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | addcomment',
       language: 'fr_FR',
       'images_upload_handler'(blobInfo, success, failure) {},
-    })
+    });
   }
 
 }
