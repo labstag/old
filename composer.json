@@ -21,10 +21,7 @@
         "knplabs/knp-paginator-bundle": "^3.0",
         "knplabs/knp-time-bundle": "^1.9",
         "league/glide-symfony": "^1.0",
-        "league/oauth2-github": "^2.0",
-        "league/oauth2-google": "^3.0",
         "lexik/jwt-authentication-bundle": "^2.6",
-        "luchianenco/oauth2-amazon": "^1.1",
         "martinssipenko/password-policy": "^1.0",
         "omines/oauth2-gitlab": "^3.1",
         "phpoffice/phppresentation": "^0.9.0",
@@ -36,7 +33,6 @@
         "sensio/framework-extra-bundle": "^5.1",
         "sentry/sentry-symfony": "^2.3",
         "setasign/fpdi-fpdf": "^2.2",
-        "stevenmaguire/oauth2-bitbucket": "^3.0",
         "stevenmaguire/oauth2-dropbox": "^3.0",
         "stof/doctrine-extensions-bundle": "^1.3",
         "symfony/apache-pack": "^1.0",
@@ -72,7 +68,6 @@
         "twig/extensions": "^1.5",
         "vich/uploader-bundle": "^1.9",
         "webonyx/graphql-php": "^0.13.0",
-        "wohali/oauth2-discord-new": "^1.0",
         "zendframework/zend-soap": "^2.7"
     },
     "require-dev": {
