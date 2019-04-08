@@ -20,8 +20,7 @@ class PostAdmin extends AdminAbstractControllerLib
      */
     public function index(PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findAll();
-        $this->paginator($posts);
+        $this->crudListAction($postRepository);
 
         return $this->twig('admin/post/index.html.twig');
     }

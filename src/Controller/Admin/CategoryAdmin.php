@@ -20,8 +20,7 @@ class CategoryAdmin extends AdminAbstractControllerLib
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
-        $categories = $categoryRepository->findAll();
-        $this->paginator($categories);
+        $this->crudListAction($categoryRepository);
 
         return $this->twig('admin/category/index.html.twig');
     }

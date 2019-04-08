@@ -20,8 +20,7 @@ class TagsAdmin extends AdminAbstractControllerLib
      */
     public function index(TagsRepository $tagsRepository): Response
     {
-        $tags = $tagsRepository->findAll();
-        $this->paginator($tags);
+        $this->crudListAction($tagsRepository);
 
         return $this->twig('admin/tags/index.html.twig');
     }
