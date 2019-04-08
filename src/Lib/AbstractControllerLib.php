@@ -13,7 +13,7 @@ abstract class AbstractControllerLib extends AbstractController
     /**
      * @var Request
      */
-    private $request;
+    protected $request;
 
     /**
      * @var PaginatorInterface
@@ -34,7 +34,7 @@ abstract class AbstractControllerLib extends AbstractController
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->parameters   = [];
+        $this->paramViews   = [];
         $this->container    = $container;
         $this->paginator    = $container->get('knp_paginator');
         $this->requestStack = $container->get('request_stack');
@@ -53,10 +53,10 @@ abstract class AbstractControllerLib extends AbstractController
     public function twig(
         string $view,
         array $parameters = [],
-        ?Response $response = null
+        Response $response = null
     ): Response {
         $this->addParamViewsSite();
-        $parameters = array_merge($parameters, $this->parameters);
+        $parameters = array_merge($parameters, $this->paramViews);
 
         return parent::render($view, $parameters, $response);
     }
@@ -64,8 +64,9 @@ abstract class AbstractControllerLib extends AbstractController
     /**
      * Add param to twig.
      */
-    protected function addParamViewsSite(): void
+    protected function addParamViewsSite(array $data): void
     {
+        $this->paramViews = array_merge($data, $this->paramViews);
     }
 
     protected function paginator($query)
@@ -82,6 +83,6 @@ abstract class AbstractControllerLib extends AbstractController
         $pagination->setSortableTemplate('paginator/sortable.html.twig');
         $pagination->setFiltrationTemplate('paginator/filtration.html.twig');
 
-        $this->parameters['pagination'] = $pagination;
+        $this->paramViews['pagination'] = $pagination;
     }
 }
