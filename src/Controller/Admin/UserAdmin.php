@@ -85,14 +85,6 @@ class UserAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, User $user): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $user->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('adminuser_index');
+        return $this->actionDelete($request, $user, 'adminuser_index');
     }
 }
