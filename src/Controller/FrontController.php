@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace Labstag\Controller;
 
-use League\Glide\ServerFactory;
-use App\Lib\AbstractControllerLib;
-use App\Controller\Front\PostTrait;
-use League\Glide\Urls\UrlBuilderFactory;
-use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Controller\Front\PostTrait;
+use Labstag\Lib\AbstractControllerLib;
 use League\Glide\Responses\SymfonyResponseFactory;
+use League\Glide\ServerFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractControllerLib
 {

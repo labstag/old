@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Labstag\Controller\Admin;
 
-use App\Entity\User;
-use App\Form\Admin\UserType;
-use App\Lib\AdminAbstractControllerLib;
-use App\Repository\UserRepository;
+use Labstag\Entity\User;
+use Labstag\Form\Admin\UserType;
+use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,79 +20,50 @@ class UserAdmin extends AdminAbstractControllerLib
      */
     public function index(UserRepository $userRepository): Response
     {
-        $users = $userRepository->findAll();
-        $this->paginator($users);
+        $this->crudListAction($userRepository);
 
-        return $this->render('admin/user/index.html.twig');
+        return $this->twig('admin/user/index.html.twig');
     }
 
     /**
-     * @Route("/new", name="adminuser_new", methods={"GET","POST"})
+     * @Route("/new", name="adminuser_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('adminuser_index');
-        }
-
-        return $this->render(
-            'admin/user/new.html.twig',
+        return $this->crudNewAction(
+            $request,
             [
-                'user' => $user,
-                'form' => $form->createView(),
+                'entity'    => new User(),
+                'form'      => UserType::class,
+                'url_edit'  => 'adminuser_edit',
+                'url_index' => 'adminuser_index',
+                'title'     => 'Add new user',
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminuser_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="adminuser_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute(
-                'adminuser_index',
-                [
-                    'id' => $user->getId(),
-                ]
-            );
-        }
-
-        return $this->render(
-            'admin/user/edit.html.twig',
+        return $this->crudEditAction(
+            $request,
             [
-                'user' => $user,
-                'form' => $form->createView(),
+                'form'      => UserType::class,
+                'entity'    => $user,
+                'url_index' => 'adminuser_index',
+                'url_edit'  => 'adminuser_edit',
+                'title'     => 'Edit user',
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="adminuser_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="adminuser_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $user->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('adminuser_index');
+        return $this->crudActionDelete($request, $user, 'adminuser_index');
     }
 }

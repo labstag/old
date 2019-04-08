@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace Labstag\Repository;
 
-use App\Entity\Tags;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Labstag\Entity\Tags;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Tags[]    findAll()
  * @method Tags[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagsRepository extends ServiceEntityRepository
+class TagsRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(RegistryInterface $registry)
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repository;
+namespace Labstag\Repository;
 
-use App\Entity\Category;
-use App\Entity\Post;
-use App\Entity\Tags;
-use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Labstag\Entity\Category;
+use Labstag\Entity\Post;
+use Labstag\Entity\Tags;
+use Labstag\Entity\User;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Post[]    findAll()
  * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PostRepository extends ServiceEntityRepository
+class PostRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(RegistryInterface $registry)
     {

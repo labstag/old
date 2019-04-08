@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Security;
+namespace Labstag\Form\Security;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

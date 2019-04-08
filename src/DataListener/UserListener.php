@@ -1,16 +1,15 @@
 <?php
 
-namespace App\DataListener;
+namespace Labstag\DataListener;
 
-use App\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Labstag\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserListener implements EventSubscriber
 {
-
     /**
      * password Encoder.
      *

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,8 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ApiResource
+ * @ORM\Entity(repositoryClass="Labstag\Repository\PostRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",                 timeAware=false)
  * @Vich\Uploadable
  */
@@ -25,7 +25,7 @@ class Post
     use TimestampableEntity;
 
     /**
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid",             unique=true)
      */
@@ -43,7 +43,7 @@ class Post
 
     /**
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="file")
-     * @Assert\File(mimeTypes                     = {"image/*"})
+     * @Assert\File(mimeTypes={"image/*"})
      *
      * @var File
      */
@@ -55,19 +55,19 @@ class Post
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $refuser;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\Category", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $refcategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tags", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tags", inversedBy="posts")
      */
     private $tags;
 
@@ -78,7 +78,7 @@ class Post
     private $slug;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":true}))
+     * @ORM\Column(type="boolean", options={"default": true}))
      */
     private $enable;
 

@@ -3,16 +3,17 @@ knpu_oauth2_client:
         # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration
         # the key "facebook_main" can be anything, it
         # will create a service: "knpu.oauth2.client.facebook_main"
-        facebook_main:
+
+        gitlab_main:
             # this will be one of the supported types
-            type: facebook
-            client_id: '%env(OAUTH_FACEBOOK_ID)%'
-            client_secret: '%env(OAUTH_FACEBOOK_SECRET)%'
+            type: gitlab
+            client_id: '%env(OAUTH_GITLAB_ID)%'
+            client_secret: '%env(OAUTH_GITLAB_SECRET)%'
             # the route that you're redirected to after
             # see the controller example below
-            redirect_route: connect_facebook_check
-            redirect_params: {}
-            graph_api_version: v2.12
+            redirect_route: connect_check
+            redirect_params: {'oauthCode': 'gitlab'}
+            
         google_main:
             # this will be one of the supported types
             type: google
@@ -20,8 +21,8 @@ knpu_oauth2_client:
             client_secret: '%env(OAUTH_GOOGLE_SECRET)%'
             # the route that you're redirected to after
             # see the controller example below
-            redirect_route: connect_google_check
-            redirect_params: {}
+            redirect_route: connect_check
+            redirect_params: {'oauthCode': 'google'}
         github_main:
             # this will be one of the supported types
             type: github
@@ -29,6 +30,32 @@ knpu_oauth2_client:
             client_secret: '%env(OAUTH_GITHUB_SECRET)%'
             # the route that you're redirected to after
             # see the controller example below
-            redirect_route: connect_github_check
-            redirect_params: {}
-
+            redirect_route: connect_check
+            redirect_params: {'oauthCode': 'github'}
+        bitbucket_main:
+            # this will be one of the supported types
+            type: bitbucket
+            client_id: '%env(OAUTH_BITBUCKET_ID)%'
+            client_secret: '%env(OAUTH_BITBUCKET_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_check
+            redirect_params: {'oauthCode': 'aa'}
+        discord_main:
+            # this will be one of the supported types
+            type: discord
+            client_id: '%env(OAUTH_DISCORD_ID)%'
+            client_secret: '%env(OAUTH_DISCORD_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_check
+            redirect_params: {'oauthCode': 'discord'}
+        amazon_main:
+            # this will be one of the supported types
+            type: amazon
+            client_id: '%env(OAUTH_AMAZON_ID)%'
+            client_secret: '%env(OAUTH_AMAZON_SECRET)%'
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: connect_check
+            redirect_params: {'oauthCode': 'amazon'}

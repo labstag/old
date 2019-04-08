@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Form\Admin;
+namespace Labstag\Form\Admin;
 
-use App\Entity\Post;
-use App\FormType\WysiwygType;
+use Labstag\Entity\Post;
+use Labstag\FormType\WysiwygType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PostType extends AbstractType
 {

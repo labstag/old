@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FormType;
+namespace Labstag\FormType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,8 +13,7 @@ class WysiwygType extends AbstractType
         FormView $view,
         FormInterface $form,
         array $options
-    ): void
-    {
+    ): void {
         $attr = $options['attr'];
         if (!isset($attr['class'])) {
             $attr['class'] = '';
