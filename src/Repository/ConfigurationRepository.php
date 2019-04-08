@@ -3,8 +3,8 @@
 namespace Labstag\Repository;
 
 use Labstag\Entity\Configuration;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
  * @method null|Configuration find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Configuration[]    findAll()
  * @method Configuration[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ConfigurationRepository extends ServiceEntityRepository
+class ConfigurationRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(RegistryInterface $registry)
     {

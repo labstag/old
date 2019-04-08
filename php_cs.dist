@@ -18,7 +18,6 @@ return PhpCsFixer\Config::create()
         'general_phpdoc_annotation_remove' => ['annotations' => ['author']],
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
-        'no_blank_lines_before_namespace' => true,
         'no_superfluous_phpdoc_tags' => true,
         'simplified_null_return' => true,
         'ternary_to_null_coalescing' => true,

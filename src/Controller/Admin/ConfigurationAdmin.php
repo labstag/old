@@ -20,8 +20,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
      */
     public function index(
         ConfigurationRepository $configurationRepository
-    ): Response
-    {
+    ): Response {
         $configurations = $configurationRepository->findAll();
         $this->paginator($configurations);
 
@@ -29,7 +28,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
     }
 
     /**
-     * @Route("/new", name="adminconfiguration_new", methods={"GET","POST"})
+     * @Route("/new", name="adminconfiguration_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -48,42 +47,43 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('adminconfiguration_index');
         }
 
-        return $this->twig(
-            'admin/configuration/new.html.twig',
+        return $this->showForm(
             [
-                'configuration' => $configuration,
-                'form'          => $form->createView(),
+                'entity'   => $configuration,
+                'title'    => 'Add new configuration',
+                'url_back' => 'adminconfiguration_index',
+                'form'     => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminconfiguration_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="adminconfiguration_edit", methods={"GET", "POST"})
      */
     public function edit(
         Request $request,
         Configuration $configuration
-    ): Response
-    {
+    ): Response {
         $form = $this->createForm(ConfigurationType::class, $configuration);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute(
-                'adminconfiguration_index',
+            return $this->redirectForm(
                 [
-                    'id' => $configuration->getId(),
+                    'url'    => 'adminconfiguration_edit',
+                    'entity' => $post,
                 ]
             );
         }
 
-        return $this->twig(
-            'admin/configuration/edit.html.twig',
+        return $this->showForm(
             [
-                'configuration' => $configuration,
-                'form'          => $form->createView(),
+                'entity'   => $configuration,
+                'title'    => 'Edit configuration',
+                'url_back' => 'adminconfiguration_index',
+                'form'     => $form->createView(),
             ]
         );
     }
@@ -94,8 +94,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
     public function delete(
         Request $request,
         Configuration $configuration
-    ): Response
-    {
+    ): Response {
         return $this->actionDelete($request, $configuration, 'adminconfiguration_index');
     }
 }

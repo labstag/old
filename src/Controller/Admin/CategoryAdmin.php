@@ -27,7 +27,7 @@ class CategoryAdmin extends AdminAbstractControllerLib
     }
 
     /**
-     * @Route("/new", name="admincategory_new", methods={"GET","POST"})
+     * @Route("/new", name="admincategory_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -43,17 +43,18 @@ class CategoryAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->twig(
-            'admin/category/new.html.twig',
+        return $this->showForm(
             [
-                'category' => $category,
+                'entity'   => $category,
+                'title'    => 'Add new categorie',
+                'url_back' => 'admincategorie_index',
                 'form'     => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="admincategory_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admincategory_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -71,10 +72,11 @@ class CategoryAdmin extends AdminAbstractControllerLib
             );
         }
 
-        return $this->twig(
-            'admin/category/edit.html.twig',
+        return $this->showForm(
             [
-                'category' => $category,
+                'entity'   => $category,
+                'title'    => 'Edit categorie',
+                'url_back' => 'admincategory_index',
                 'form'     => $form->createView(),
             ]
         );
@@ -85,6 +87,6 @@ class CategoryAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, Category $category): Response
     {
-        return $this->actionDelete($request, $category, 'category_index');
+        return $this->actionDelete($request, $category, 'admincategory_index');
     }
 }

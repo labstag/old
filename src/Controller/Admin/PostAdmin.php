@@ -27,7 +27,7 @@ class PostAdmin extends AdminAbstractControllerLib
     }
 
     /**
-     * @Route("/new", name="adminpost_new", methods={"GET","POST"})
+     * @Route("/new", name="adminpost_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -43,17 +43,18 @@ class PostAdmin extends AdminAbstractControllerLib
             return $this->redirectToRoute('post_index');
         }
 
-        return $this->twig(
-            'admin/post/new.html.twig',
+        return $this->showForm(
             [
-                'post' => $post,
-                'form' => $form->createView(),
+                'entity'   => $post,
+                'title'    => 'Add new post',
+                'url_back' => 'adminpost_index',
+                'form'     => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminpost_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="adminpost_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Post $post): Response
     {
@@ -63,19 +64,20 @@ class PostAdmin extends AdminAbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute(
-                'post_index',
+            return $this->redirectForm(
                 [
-                    'id' => $post->getId(),
+                    'url'    => 'adminpost_edit',
+                    'entity' => $post,
                 ]
             );
         }
 
-        return $this->twig(
-            'admin/post/edit.html.twig',
+        return $this->showForm(
             [
-                'post' => $post,
-                'form' => $form->createView(),
+                'entity'   => $post,
+                'title'    => 'Edit post',
+                'url_back' => 'adminpost_index',
+                'form'     => $form->createView(),
             ]
         );
     }
@@ -85,6 +87,6 @@ class PostAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, Post $post): Response
     {
-        return $this->actionDelete($request, $post, 'post_index');
+        return $this->actionDelete($request, $post, 'adminpost_index');
     }
 }

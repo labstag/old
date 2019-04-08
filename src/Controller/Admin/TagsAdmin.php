@@ -22,11 +22,12 @@ class TagsAdmin extends AdminAbstractControllerLib
     {
         $tags = $tagsRepository->findAll();
         $this->paginator($tags);
+
         return $this->twig('admin/tags/index.html.twig');
     }
 
     /**
-     * @Route("/new", name="admintags_new", methods={"GET","POST"})
+     * @Route("/new", name="admintags_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -39,20 +40,21 @@ class TagsAdmin extends AdminAbstractControllerLib
             $entityManager->persist($tag);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tags_index');
+            return $this->redirectToRoute('admintags_index');
         }
 
-        return $this->twig(
-            'admin/tags/new.html.twig',
+        return $this->showForm(
             [
-                'tag'  => $tag,
-                'form' => $form->createView(),
+                'entity'   => $tag,
+                'title'    => 'Add new tag',
+                'url_back' => 'admintag_index',
+                'form'     => $form->createView(),
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="admintags_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admintags_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Tags $tag): Response
     {
@@ -62,19 +64,20 @@ class TagsAdmin extends AdminAbstractControllerLib
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute(
-                'tags_index',
+            return $this->redirectForm(
                 [
-                    'id' => $tag->getId(),
+                    'url'    => 'admintag_edit',
+                    'entity' => $tag,
                 ]
             );
         }
 
-        return $this->twig(
-            'admin/tags/edit.html.twig',
+        return $this->showForm(
             [
-                'tag'  => $tag,
-                'form' => $form->createView(),
+                'entity'   => $tag,
+                'title'    => 'Edit tag',
+                'url_back' => 'admintags_index',
+                'form'     => $form->createView(),
             ]
         );
     }
@@ -84,6 +87,6 @@ class TagsAdmin extends AdminAbstractControllerLib
      */
     public function delete(Request $request, Tags $tag): Response
     {
-        return $this->actionDelete($request, $tag, 'tags_index');
+        return $this->actionDelete($request, $tag, 'admintags_index');
     }
 }
