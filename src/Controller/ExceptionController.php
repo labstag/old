@@ -10,30 +10,40 @@
 
 namespace Labstag\Controller;
 
-use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
+use Labstag\Lib\AbstractControllerLib;
 use Twig\Loader\ExistsLoaderInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Debug\Exception\FlattenException;
+use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * ExceptionController renders error or exception pages for a given
  * FlattenException.
  */
-class ExceptionController
+class ExceptionController extends AbstractControllerLib
 {
+    /**
+     * @var Environment
+     */
     protected $twig;
+
+    /**
+     * @var bool
+     */
     protected $debug;
 
     /**
      * @param bool $debug Show error (false) or exception (true) pages by default
      */
-    public function __construct(Environment $twig, bool $debug)
+    public function __construct(Environment $twig, ContainerInterface $container, bool $debug)
     {
         $this->twig  = $twig;
         $this->debug = $debug;
+        parent::__construct($container);
     }
 
     /**
@@ -53,15 +63,17 @@ class ExceptionController
         $showException  = $request->attributes->get('showException', $this->debug); // As opposed to an additional parameter, this maintains BC
         $code           = $exception->getStatusCode();
 
+        $parameters = [
+            'status_code'    => $code,
+            'status_text'    => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : '',
+            'exception'      => $exception,
+            'logger'         => $logger,
+            'currentContent' => $currentContent,
+        ];
+        $this->addParamViewsSite($parameters);
         return new Response($this->twig->render(
             (string) $this->findTemplate($request, $request->getRequestFormat(), $code, $showException),
-            [
-                'status_code'    => $code,
-                'status_text'    => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : '',
-                'exception'      => $exception,
-                'logger'         => $logger,
-                'currentContent' => $currentContent,
-            ]
+            $this->paramViews
         ), 200, ['Content-Type' => $request->getMimeType($request->getRequestFormat()) ?: 'text/html']);
     }
 
