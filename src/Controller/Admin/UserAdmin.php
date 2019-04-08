@@ -20,8 +20,7 @@ class UserAdmin extends AdminAbstractControllerLib
      */
     public function index(UserRepository $userRepository): Response
     {
-        $users = $userRepository->findAll();
-        $this->paginator($users);
+        $this->crudListAction($userRepository);
 
         return $this->twig('admin/user/index.html.twig');
     }
