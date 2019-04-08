@@ -21,8 +21,7 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
     public function index(
         ConfigurationRepository $configurationRepository
     ): Response {
-        $configurations = $configurationRepository->findAll();
-        $this->paginator($configurations);
+        $this->crudListAction($configurationRepository);
 
         return $this->twig('admin/configuration/index.html.twig');
     }
