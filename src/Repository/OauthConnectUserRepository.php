@@ -3,8 +3,8 @@
 namespace Labstag\Repository;
 
 use Labstag\Entity\OauthConnectUser;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
  * @method OauthConnectUser|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method OauthConnectUser[]    findAll()
  * @method OauthConnectUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OauthConnectUserRepository extends ServiceEntityRepository
+class OauthConnectUserRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(RegistryInterface $registry)
     {
