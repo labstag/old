@@ -3,12 +3,11 @@
 namespace Labstag\Lib;
 
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class ConnectAbstractControllerLib extends AbstractControllerLib
 {
-
     /**
      * @var ClientRegistry
      */
@@ -17,20 +16,18 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
     public function __construct(
         ContainerInterface $container,
         ClientRegistry $clientRegistry
-    )
-    {
+    ) {
         $this->clientRegistry = $clientRegistry;
         parent::__construct($container);
     }
 
     protected function connectRedirect(string $clientName)
     {
-        $service  = $this->clientRegistry->getClient($clientName.'_main');
-        $redirect = $service->redirect(
+        $service = $this->clientRegistry->getClient($clientName.'_main');
+
+        return $service->redirect(
             []
         );
-
-        return $redirect;
     }
 
     protected function connectCheck(string $clientName)
@@ -48,9 +45,10 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
             $user = $client->fetchUser();
 
             // do something with all this new power!
-	        // e.g. $name = $user->getFirstName();
+            // e.g. $name = $user->getFirstName();
             dump($user);
             exit();
+
             return;
             // ...
         } catch (IdentityProviderException $e) {
@@ -58,6 +56,7 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
             // probably you should return the reason to the user
             dump($e->getMessage());
             exit();
+
             return;
         }
     }

@@ -31,62 +31,40 @@ class PostAdmin extends AdminAbstractControllerLib
      */
     public function new(Request $request): Response
     {
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($post);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('post_index');
-        }
-
-        return $this->showForm(
+        return $this->crudNewAction(
+            $request,
             [
-                'entity'   => $post,
-                'title'    => 'Add new post',
-                'url_back' => 'adminpost_index',
-                'form'     => $form->createView(),
+                'entity'    => new Post(),
+                'form'      => PostType::class,
+                'url_edit'  => 'adminpost_edit',
+                'url_index' => 'adminpost_index',
+                'title'     => 'Add new post',
             ]
         );
     }
 
     /**
-     * @Route("/{id}/edit", name="adminpost_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminpost_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Post $post): Response
     {
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectForm(
-                [
-                    'url'    => 'adminpost_edit',
-                    'entity' => $post,
-                ]
-            );
-        }
-
-        return $this->showForm(
+        return $this->crudEditAction(
+            $request,
             [
-                'entity'   => $post,
-                'title'    => 'Edit post',
-                'url_back' => 'adminpost_index',
-                'form'     => $form->createView(),
+                'form'      => PostType::class,
+                'entity'    => $post,
+                'url_index' => 'adminpost_index',
+                'url_edit'  => 'adminpost_edit',
+                'title'     => 'Edit post',
             ]
         );
     }
 
     /**
-     * @Route("/{id}", name="adminpost_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="adminpost_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Post $post): Response
     {
-        return $this->actionDelete($request, $post, 'adminpost_index');
+        return $this->crudActionDelete($request, $post, 'adminpost_index');
     }
 }
