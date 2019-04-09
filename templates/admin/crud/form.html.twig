@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block content_title %}{{ title }}{% endblock %}
 
-{% block body %}
+{% block bodyAdmin %}
     <h1>{{ title }}</h1>
     {{ form_start(form) }}
         {{ form_widget(form) }}
