@@ -7,7 +7,7 @@
         {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body{% if classBody is defined %} class="{{ classBody }}"{% endif %}>
         <div class="container">
         {% block body %}{% endblock %}
         {% if pagination is defined %}
