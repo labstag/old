@@ -3,14 +3,16 @@
 {% block page_title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-offset-md-2 col-md-8">
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            {{ form_start(formLogin) }}
-            {{ form_end(formLogin) }}
+    <div class="LoginPage">
+        <div class="row">
+            <div class="col-offset-md-2 col-md-8">
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {{ form_start(formLogin) }}
+                {{ form_end(formLogin) }}
+            </div>
         </div>
     </div>
 {% endblock %}
