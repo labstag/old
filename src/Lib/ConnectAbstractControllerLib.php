@@ -2,9 +2,13 @@
 
 namespace Labstag\Lib;
 
+use Labstag\Entity\User;
+use Labstag\Entity\OauthConnectUser;
 use Symfony\Component\HttpFoundation\Request;
+use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 abstract class ConnectAbstractControllerLib extends AbstractControllerLib
 {
@@ -111,6 +115,7 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         $provider = $this->setProvider($clientName);
 
         if (is_null($provider)) {
+            $this->addFlash("warning", "Connexion Oauh impossible");
             return $this->redirect(
                 $this->generateUrl('front')
             );
@@ -132,13 +137,14 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         $oauth2state = $session->get('oauth2state');
         if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
             $session->remove('oauth2state');
+            $this->addFlash("warning", "Probleme d'identification");
             return $this->redirect(
                 $this->generateUrl('front')
             );
         }
 
         try {
-            $token = $provider->getAccessToken(
+            $tokenProvider = $provider->getAccessToken(
                 'authorization_code',
                 [
                     'code' => $query['code'],
@@ -146,12 +152,49 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
             );
 
             $session->remove('oauth2state');
-            $user = $provider->getResourceOwner($token);
-            dump($user);
-            exit();
+            $userOauth = $provider->getResourceOwner($tokenProvider);
+            $token     = $this->get('security.token_storage')->getToken();
+            if (!($token instanceof AnonymousToken)) {
+                $user = $token->getUser();
+                $this->addOauthToUser($clientName, $user, $userOauth);
+                dump($user);
+            }
+
+            return $this->redirect(
+                $this->generateUrl('front')
+            );
         } catch (Exception $e) {
-            dump('Oh dear...');
+            $this->addFlash("warning", "Probleme d'identification");
+            return $this->redirect(
+                $this->generateUrl('front')
+            );
             exit();
+        }
+    }
+
+    private function addOauthToUser(string $client, User $user, GenericResourceOwner $userOauth)
+    {
+        $oauthConnects = $user->getOauthConnectUsers();
+        $find = 0;
+        foreach($oauthConnects as $oauthConnect)
+        { 
+            if ($oauthConnect->getName() == $client)
+            {
+                $find = 1;
+                $this->addFlash("warning", "Compte ".$client." déjà associé à un autre utilisateur");
+                break;
+            }
+        }
+
+        if ($find === 0) {
+            $oauthConnect = new OauthConnectUser();
+            $oauthConnect->setRefuser($user);
+            $oauthConnect->setName($client);
+            $oauthConnect->setData($userOauth->toArray());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($oauthConnect);
+            $entityManager->flush();
+            $this->addFlash("success", "Compte ".$client." associé à l'utilisateur ".$user);
         }
     }
 }
