@@ -3,7 +3,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore.setOutputPath('public/build/');
 Encore.setPublicPath('/build');
-Encore.addEntry('app', './assets/js/app.js');
+Encore.addEntry('app', './assets/ts/app.ts');
+// Encore.addEntry('app', './assets/js/app.js');
 Encore.splitEntryChunks();
 Encore.enableSingleRuntimeChunk();
 Encore.cleanupOutputBeforeBuild();
@@ -41,6 +42,9 @@ Encore.addPlugin(new CopyWebpackPlugin([{
     }
 ]));
 Encore.enableTypeScriptLoader();
+Encore.enableForkedTypeScriptTypesChecking();
 Encore.enableIntegrityHashes();
 
-module.exports = Encore.getWebpackConfig();
+let webpack = Encore.getWebpackConfig();
+webpack.output.jsonpFunction = "labstag";
+module.exports = webpack;
