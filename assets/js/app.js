@@ -71,7 +71,7 @@ class Site {
 
     setWysiwyg() {
         console.log('aa');
-        tinymce.init({
+        var dataTinymce = {
             branding: false,
             selector: '.wysiwyg',
             height: 400,
@@ -105,7 +105,18 @@ class Site {
             toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | addcomment',
             language: 'fr_FR',
             'images_upload_handler'(blobInfo, success, failure) {},
-        });
+        };
+        $('.wysiwyg').each(
+            function () {
+                var $id = $(this).attr('id');
+
+                var tinymceData = dataTinymce;
+
+                tinymceData.selector = "#" + $id;
+
+                tinymce.init(tinymceData);
+            }
+        );
     }
 
 }
