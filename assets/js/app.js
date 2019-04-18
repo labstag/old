@@ -16,7 +16,15 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 import 'datatables.net-buttons-bs4';
 import 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
+import 'clipboard';
 import 'prismjs';
+import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
+import 'prismjs/plugins/toolbar/prism-toolbar';
+import 'prismjs/plugins/autolinker/prism-autolinker';
+import 'prismjs/plugins/previewers/prism-previewers';
+import 'prismjs/plugins/show-language/prism-show-language';
+import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';
+import 'prismjs/components';
 
 global.$ = $;
 global.Jquery = $;
@@ -28,7 +36,7 @@ class Site {
     launch() {
         this.setWysiwyg();
         this.setDatatables();
-        this.formBuilder();
+        this.ïnitFormBuilder();
         const NUMBER = 1;
 
         let test = NUMBER;
@@ -41,7 +49,7 @@ class Site {
         return test;
     }
 
-    formBuilder() {
+    ïnitFormBuilder() {
         $('#formBuilder').formBuilder({
             i18n: {
                 location: $('#formBuilder').attr('data-url'),
