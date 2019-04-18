@@ -1,9 +1,11 @@
+@import '~prismjs/themes/prism-coy.css';
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 @import '~datatables.net-select-bs4/css/select.bootstrap4.min.css';
 @import '~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css';
 @import '~jquery-ui/themes/base/all.css';
+@import '~tinymce/skins/ui/oxide/content.min.css';
 
 .AdminPages {
     font-size: .875rem;
@@ -191,4 +193,14 @@ label {
             color: red;
         }
     }
+}
+
+:not(pre)>code[class*=language-],
+pre[class*=language-] {
+    border: 0px !important;
+}
+
+pre[class*="language-"]:before,
+pre[class*="language-"]:after {
+    box-shadow: 0px 0px 0px !important;
 }

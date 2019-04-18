@@ -13,7 +13,15 @@ class OauthType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('activate');
+        $builder->add('activate',
+            ChoiceType::class,
+            [
+                'choices' => [
+                    'Non'    => '0',
+                    'Oui'    => '1'
+                ]
+            ]
+        );
         $builder->add(
             'type',
             ChoiceType::class,
@@ -27,8 +35,8 @@ class OauthType extends AbstractType
                 ]
             ]
         );
-        $builder->add('key', TextType::class);
-        $builder->add('secret', TextType::class);
+        $builder->add('key', TextType::class,['required' => false]);
+        $builder->add('secret', TextType::class,['required' => false]);
         unset($options);
     }
 
