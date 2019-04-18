@@ -41,6 +41,10 @@ Encore.addPlugin(new CopyWebpackPlugin([{
     {
         'from': 'node_modules/tinymce/plugins',
         'to': 'plugins',
+    },
+    {
+        'from': 'node_modules/formbuilder-languages',
+        'to': 'formbuilder-lang',
     }
 ]));
 // Encore.enableTypeScriptLoader();

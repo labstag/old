@@ -44,6 +44,7 @@ class Site {
     formBuilder() {
         $('#formBuilder').formBuilder({
             i18n: {
+                location: $('#formBuilder').attr('data-url'),
                 locale: "fr-FR"
             }
         });
