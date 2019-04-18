@@ -16,7 +16,7 @@ import 'datatables.net-buttons/js/buttons.print.min.js';
 import 'datatables.net-buttons-bs4';
 import 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
-import 'tinymce/skins/ui/oxide/content.min.css';
+import 'prismjs';
 
 global.$ = $;
 global.Jquery = $;
