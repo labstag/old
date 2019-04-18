@@ -37,6 +37,19 @@ class Site {
         return test;
     }
 
+    ajaxThen1(response) {
+        return response.blob();
+    }
+
+    ajaxThen2(myBlob) {
+        var objectURL = URL.createObjectURL(myBlob);
+        console.log(objectURL);
+    }
+
+    ajax() {
+        fetchPolyfill('flowers.jpg').then(this.ajaxThen1).then(this.ajaxThen2);
+    }
+
     setDatatables() {
         let $tables = $('.dataTable');
         $($tables).each(
