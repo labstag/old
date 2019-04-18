@@ -41,8 +41,8 @@
     "datatables.net-scroller-bs4": "^2.0.0",
     "datatables.net-select-bs4": "^1.3.0",
     "detect-mobile-browser": "^5.0.0",
-    "eslint-plugin-varspacing": "^1.2.1",
-    "fork-ts-checker-webpack-plugin": "^0.4.1",
+    "formBuilder": "^3.2.1",
+    "jquery-ui": "^1.12.1",
     "jszip": "^3.2.1",
     "moment": "^2.24.0",
     "pdfmake": "^0.1.54",
@@ -51,6 +51,8 @@
     "tinymce-i18n": "^19.4.15"
   },
   "devDependencies": {
+    "eslint-plugin-varspacing": "^1.2.1",
+    "fork-ts-checker-webpack-plugin": "^0.4.1",
     "@babel/preset-env": "^7.4.3",
     "@symfony/webpack-encore": "^0.26.0",
     "@types/tinymce": "^4.5.20",
