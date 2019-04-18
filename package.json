@@ -42,6 +42,7 @@
     "datatables.net-select-bs4": "^1.3.0",
     "detect-mobile-browser": "^5.0.0",
     "formBuilder": "^3.2.1",
+    "formbuilder-languages": "^0.1.0",
     "jquery-ui": "^1.12.1",
     "jszip": "^3.2.1",
     "moment": "^2.24.0",
