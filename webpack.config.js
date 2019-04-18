@@ -4,7 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 Encore.setOutputPath('public/build/');
 Encore.setPublicPath('/build');
 // Encore.addEntry('app', './assets/ts/app.ts');
-Encore.addEntry('app', './assets/js/app.js');
+Encore.addEntry('app', [
+    './assets/js/app.js'
+]);
 Encore.splitEntryChunks();
 Encore.enableSingleRuntimeChunk();
 Encore.cleanupOutputBeforeBuild();

@@ -8,22 +8,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/param")
+ * @Route("/admin/formbuilder")
  */
-class ParamAdmin extends AdminAbstractControllerLib
+class FormBuilderAdmin extends AdminAbstractControllerLib
 {
     /**
-     * @Route("/", name="adminparam_index")
+     * @Route("/", name="adminformbuilder_index")
      */
     public function index(Request $request): Response
     {
 
-        $form = $this->createForm(ParamType::class);
         return $this->twig(
-            'admin/param.html.twig',
+            'admin/formbuilder.html.twig',
             [
-                'title' => 'Paramètres',
-                'form'  => $form->createView(),
+                'title' => 'FormBuilder'
             ]
         );
     }

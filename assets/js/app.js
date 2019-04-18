@@ -1,6 +1,9 @@
 require('../css/app.scss');
 import $ from 'jquery';
+import 'jquery-ui';
+import 'jquery-ui-sortable';
 import 'bootstrap';
+import 'formBuilder';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'datatables.net-select';
@@ -25,6 +28,7 @@ class Site {
     launch() {
         this.setWysiwyg();
         this.setDatatables();
+        this.formBuilder();
         const NUMBER = 1;
 
         let test = NUMBER;
@@ -35,6 +39,14 @@ class Site {
         test += NUMBER;
 
         return test;
+    }
+
+    formBuilder() {
+        $('#formBuilder').formBuilder({
+            i18n: {
+                locale: "fr-FR"
+            }
+        });
     }
 
     ajaxThen1(response) {
@@ -134,5 +146,4 @@ class Site {
 
 }
 const site = new Site();
-
 site.launch();
