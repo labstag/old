@@ -64,9 +64,15 @@ class Site {
         }
         let calendarEl   = document.getElementById('fullCalendar');
         let dataCalendar = {
-            'locales': allLocales,
-            'locale' : $('html').attr('lang'),
-            'plugins': [dayGridPlugin, timeGridPlugin, listPlugin]
+            'header': {
+                'left'  : 'prev,next today',
+                'center': 'title',
+                'right' : 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            'locales'    : allLocales,
+            'locale'     : $('html').attr('lang'),
+            'plugins'    : [dayGridPlugin, timeGridPlugin, listPlugin],
+            'defaultView': 'dayGridMonth'
         };
         let calendar     = new Calendar(calendarEl, dataCalendar);
 
