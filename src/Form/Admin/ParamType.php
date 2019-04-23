@@ -16,6 +16,8 @@ class ParamType extends AbstractType
             'oauth',
             CollectionType::class,
             [
+                'allow_add' => true,
+                'allow_delete' => true,
                 'entry_type' => OauthType::class
             ]
         );
