@@ -43,18 +43,19 @@
     "detect-mobile-browser": "^5.0.0",
     "formBuilder": "^3.2.1",
     "formbuilder-languages": "^0.1.0",
+    "fullcalendar": "^3.10.0",
     "jquery-ui": "^1.12.1",
     "jszip": "^3.2.1",
     "moment": "^2.24.0",
     "pdfmake": "^0.1.54",
-    "popper.js": "^1.14.7",
+    "popper.js": "^1.15.0",
     "prismjs": "^1.16.0",
-    "tinymce": "^5.0.3",
+    "tinymce": "^5.0.4",
     "tinymce-i18n": "^19.4.15"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
-    "@symfony/webpack-encore": "^0.26.0",
+    "@symfony/webpack-encore": "^0.27.0",
     "@types/tinymce": "^4.5.20",
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.2",
@@ -62,15 +63,15 @@
     "eslint": "^5.16.0",
     "eslint-plugin-dollar-sign": "^1.0.2",
     "eslint-plugin-varspacing": "^1.2.1",
-    "fork-ts-checker-webpack-plugin": "^0.4.1",
-    "jscpd": "^2.0.13",
+    "fork-ts-checker-webpack-plugin": "^0.4.15",
+    "jscpd": "^2.0.14",
     "license-checker": "^25.0.1",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "semantic-git-commit-cli": "^3.2.2",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.4.3",
+    "ts-loader": "^5.4.3",
+    "typescript": "^3.4.4",
     "url-loader": "^1.1.2",
-    "webpack-notifier": "^1.6.0"
+    "webpack-notifier": "^1.7.0"
   }
 }
