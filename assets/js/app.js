@@ -4,6 +4,14 @@ import 'jquery-ui';
 import 'jquery-ui-sortable';
 import 'bootstrap';
 import 'formBuilder';
+import 'moment';
+import {
+    Calendar
+} from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import allLocales from '@fullcalendar/core/locales-all';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import 'datatables.net-select';
@@ -35,7 +43,9 @@ class Site {
     launch() {
         this.setWysiwyg();
         this.setDatatables();
-        this.ïnitFormBuilder();
+        this.initFormBuilder();
+        this.initFullCalendar();
+        this.initFormCollection();
         const NUMBER = 1;
 
         let test = NUMBER;
@@ -48,13 +58,84 @@ class Site {
         return test;
     }
 
-    ïnitFormBuilder() {
-        $('#formBuilder').formBuilder( {
+    initFullCalendarDomContentLoaded() {
+        if ($('#fullCalendar').length == 0) {
+            return;
+        }
+        let calendarEl   = document.getElementById('fullCalendar');
+        let dataCalendar = {
+            'locales': allLocales,
+            'locale' : $('html').attr('lang'),
+            'plugins': [dayGridPlugin, timeGridPlugin, listPlugin]
+        };
+        let calendar     = new Calendar(calendarEl, dataCalendar);
+
+        // console.log(calendar);
+
+        calendar.render();
+    }
+
+    initFullCalendar() {
+        document.addEventListener('DOMContentLoaded', this.initFullCalendarDomContentLoaded);
+    }
+
+    initFormCollectionAdd() {
+        if ($('.BtnCollectionAdd').length == 0) {
+            return;
+        }
+        $(document).on(
+            'click',
+            '.BtnCollectionAdd',
+            function (event) {
+                let fieldset      = $(event.currentTarget).closest('fieldset');
+                let prototype     = $(fieldset).attr('data-prototype');
+                let index         = $(fieldset).find('tr').length;
+                let tags          = prototype.replace(/__name__/g, index);
+                let tabCollection = $(fieldset).find('.TabCollection');
+
+                $(tabCollection).append(tags);
+            }
+        );
+    }
+    initFormCollectionDelete() {
+        if ($('.BtnCollectionDelete').length == 0) {
+            return;
+        }
+        $(document).on(
+            'click',
+            '.BtnCollectionDelete',
+            function () {
+                $(this).closest('.CollectionRow').remove();
+            }
+        );
+    }
+
+    initFormCollection() {
+        this.initFormCollectionAdd();
+        this.initFormCollectionDelete();
+    }
+
+    initFormBuilder() {
+        let dataFormBuilder = {
             'i18n': {
                 'location': $('#formBuilder').attr('data-url'),
                 'locale'  : 'fr-FR'
-            }
-        } );
+            },
+            'disabledActionButtons': ['data', 'save'],
+            'roles'                : ''
+        };
+
+        this.formBuilder = $('#formBuilder').formBuilder(dataFormBuilder);
+        $('#SaveFormBuilder').on('click', this.saveFormBuilder.bind(this));
+    }
+
+    saveFormBuilder(event) {
+        event.preventDefault();
+        this.getFormBuilder();
+    }
+
+    getFormBuilder() {
+        console.log(this.formBuilder.actions.getData('json', true));
     }
 
     ajaxThen1(response) {

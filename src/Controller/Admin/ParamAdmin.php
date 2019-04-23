@@ -20,13 +20,7 @@ class ParamAdmin extends AdminAbstractControllerLib
     {
 
         $data = [
-            'oauth' => [
-                ['type' => 'bitbucket', 'activate' => 0],
-                ['type' => 'discord', 'activate' => 0],
-                ['type' => 'github', 'activate' => 0],
-                ['type' => 'gitlab', 'activate' => 0],
-                ['type' => 'google', 'activate' => 0]
-            ]
+            'oauth' => []
         ];
 
         $form = $this->createForm(ParamType::class, $data);
