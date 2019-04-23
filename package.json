@@ -26,8 +26,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
+    "@fullcalendar/core": "^4.0.2",
+    "@fullcalendar/daygrid": "^4.0.1",
+    "@fullcalendar/list": "^4.0.1",
+    "@fullcalendar/timegrid": "^4.0.1",
     "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.8.0",
+    "chart.js": "^2.8.0",
     "datatables.net-autofill-bs4": "^2.3.3",
     "datatables.net-bs4": "^1.10.19",
     "datatables.net-buttons-bs4": "^1.5.6",
