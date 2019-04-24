@@ -33,8 +33,9 @@ security:
             guard:
                 authenticators:
                     - Labstag\Security\TokenAuthenticator
-                    - Labstag\Security\LoginFormAuthenticator
-                entry_point: Labstag\Security\LoginFormAuthenticator
+                    - Labstag\Security\OauthAuthenticator
+                    - Labstag\Security\FormAuthenticator
+                entry_point: Labstag\Security\FormAuthenticator
             # activate different ways to authenticate
 
             # http_basic: true

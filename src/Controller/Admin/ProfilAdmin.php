@@ -8,20 +8,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/formbuilder")
+ * @Route("/admin/profil")
  */
-class FormBuilderAdmin extends AdminAbstractControllerLib
+class ProfilAdmin extends AdminAbstractControllerLib
 {
     /**
-     * @Route("/", name="adminformbuilder_index")
+     * @Route("/", name="adminprofil_index")
      */
     public function index(Request $request): Response
     {
-        return $this->twig(
-            'admin/formbuilder.html.twig',
-            [
-                'title' => 'FormBuilder'
-            ]
-        );
+        $auth_checker = $this->get('security.authorization_checker');
+        return $this->json($auth_checker->isGranted('IS_AUTHENTICATED_FULLY'));
     }
 }
