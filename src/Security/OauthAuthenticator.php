@@ -20,7 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
+class OauthAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
@@ -72,13 +72,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $route       = $request->attributes->get('_route');
         $this->route = $route;
-
-        $test1 = 'app_login' === $route && $request->isMethod('POST');
         $user  = $this->container->get('security.token_storage')->getToken();
-        // $test2 = 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
-
-        // return $test1 || $test2;
-        return $test1;
+        return false;
+        return 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
     }
 
     public function getCredentials(Request $request)

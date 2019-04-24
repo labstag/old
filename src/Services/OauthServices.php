@@ -1,27 +1,20 @@
 <?php
 
-namespace Labstag\Lib;
+namespace Labstag\Services;
 
 use Labstag\Entity\User;
 use Labstag\Entity\OauthConnectUser;
 use Symfony\Component\HttpFoundation\Request;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
-abstract class ConnectAbstractControllerLib extends AbstractControllerLib
+class OauthServices
 {
     /**
      * @var array
      */
     protected $configProvider;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->setConfigProvider();
-        parent::__construct($container);
-    }
 
     protected function setConfigProvider()
     {
@@ -103,72 +96,10 @@ abstract class ConnectAbstractControllerLib extends AbstractControllerLib
         return $provider;
     }
 
-    protected function setProvider($clientName)
+    public function setProvider($clientName)
     {
         if (isset($this->configProvider[$clientName])) {
             return $this->initProvider($clientName);
-        }
-    }
-
-    protected function connectRedirect(Request $request, string $clientName)
-    {
-        $provider = $this->setProvider($clientName);
-
-        if (is_null($provider)) {
-            $this->addFlash("warning", "Connexion Oauh impossible");
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
-        }
-
-        $authUrl = $provider->getAuthorizationUrl();
-        $session = $request->getSession();
-        $session->set('oauth2state', $provider->getState());
-        return $this->redirect(
-            $authUrl
-        );
-    }
-
-    protected function connectCheck(Request $request, string $clientName)
-    {
-        $provider    = $this->setProvider($clientName);
-        $query       = $request->query->all();
-        $session     = $request->getSession();
-        $oauth2state = $session->get('oauth2state');
-        if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
-            $session->remove('oauth2state');
-            $this->addFlash("warning", "Probleme d'identification");
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
-        }
-
-        try {
-            $tokenProvider = $provider->getAccessToken(
-                'authorization_code',
-                [
-                    'code' => $query['code'],
-                ]
-            );
-
-            $session->remove('oauth2state');
-            $userOauth = $provider->getResourceOwner($tokenProvider);
-            $token     = $this->get('security.token_storage')->getToken();
-            if (!($token instanceof AnonymousToken)) {
-                $user = $token->getUser();
-                $this->addOauthToUser($clientName, $user, $userOauth);
-                dump($user);
-            }
-
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
-        } catch (Exception $e) {
-            $this->addFlash("warning", "Probleme d'identification");
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
-            exit();
         }
     }
 
