@@ -24,6 +24,7 @@ import {
 import {
     workflow
 } from './modules/workflow';
+import 'whatwg-fetch';
 global.$      = $;
 global.Jquery = $;
 class Site {
@@ -38,6 +39,8 @@ class Site {
         this.wysiwyg      = new wysiwyg();
         this.datatables   = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
+        this.test('aa', 'bb', 'cc', 'dd');
+        this.ajax();
         const NUMBER      = 1;
 
         let test = NUMBER;
@@ -48,6 +51,10 @@ class Site {
         test = test + NUMBER;
 
         return test;
+    }
+
+    test(a, b, c, d) {
+        console.log(arguments);
     }
 
     ajaxThen1(response) {
@@ -61,7 +68,7 @@ class Site {
     }
 
     ajax() {
-        fetchPolyfill('flowers.jpg').then(this.ajaxThen1).then(this.ajaxThen2);
+        window.fetch('flowers.jpg').then(this.ajaxThen1).then(this.ajaxThen2);
     }
 }
 const site = new Site();
