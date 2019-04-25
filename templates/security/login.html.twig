@@ -4,10 +4,23 @@
 {% block page_title %}Log in!{% endblock %}
 
 {% block body %}
-    {{ form_start(formLogin) }}
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div id="RowLogin">
+        {{ form_start(formLogin) }}
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        {{ form_end(formLogin) }}
+        {% if oauths|length != 0 %}
+            Se connecter avec :
+            <ul class="list-inline">
+            {% for oauth in oauths %}
+                <li class="list-inline-item"><a href="{{ path('connect_start', {'oauthCode': oauth.name}) }}">
+                    <i class="fab fa-{{ oauth.name }}"></i>
+                    {{ oauth.name }}
+                </a></li>
+            {% endfor %}
+            </ul>
         {% endif %}
-    {{ form_end(formLogin) }}
+    </div>
 {% endblock %}

@@ -3,7 +3,6 @@
 namespace Labstag\DataListener;
 
 use Doctrine\ORM\Events;
-use Labstag\Entity\User;
 use Labstag\Services\OauthServices;
 use Doctrine\Common\EventSubscriber;
 use Labstag\Entity\OauthConnectUser;
@@ -67,7 +66,7 @@ class OauthConnectUserListener implements EventSubscriber
         $enm->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    private function setIdentity(User $entity)
+    private function setIdentity(OauthConnectUser $entity)
     {
         $name = $entity->getName();
         $data = $entity->getData();

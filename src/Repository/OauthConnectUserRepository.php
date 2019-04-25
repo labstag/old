@@ -63,4 +63,13 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
 
         return $builder->getQuery()->getOneOrNullResult();
     }
+
+    public function findDistinctAllOauth()
+    {
+        $builder = $this->createQueryBuilder('u');
+        $builder->select('u.name');
+        $builder->distinct('u.name');
+        $builder->orderBy('u.name', 'ASC');
+        return $builder->getQuery()->getResult();
+    }
 }
