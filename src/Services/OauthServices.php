@@ -27,14 +27,14 @@ class OauthServices
     public function getIdentity($data, $oauth)
     {
         switch ($oauth) {
+            case 'gitlab':
             case 'github':
+            case 'discord':
                 return $data['id'];
             case 'google':
                 return $data['sub'];
             case 'bitbucket':
                 return $data['uuid'];
-            case 'discord':
-                return $data['id'];
             default:
                 return '';
         }
@@ -52,7 +52,7 @@ class OauthServices
                 'redirect'       => 1,
                 'scopeseparator' => ' ',
                 'scopes'         => [
-                    'api'
+                    'read_user'
                 ]
             ],
             'bitbucket' => [
