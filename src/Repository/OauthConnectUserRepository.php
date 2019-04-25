@@ -47,4 +47,20 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         ;
     }
     */
+
+    public function login($identity, $oauth)
+    {
+        $builder = $this->createQueryBuilder('u');
+        $builder->where(
+            'u.name = :name AND u.identity = :identity'
+        );
+        $builder->setParameters(
+            [
+                'name'     => $oauth,
+                'identity' => $identity,
+            ]
+        );
+
+        return $builder->getQuery()->getOneOrNullResult();
+    }
 }
