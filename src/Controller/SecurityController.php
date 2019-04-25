@@ -8,13 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Labstag\Repository\OauthConnectUserRepository;
 
 class SecurityController extends AbstractControllerLib
 {
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, OauthConnectUserRepository $repository): Response
     {
         
         $token     = $this->get('security.token_storage')->getToken();
@@ -31,9 +32,12 @@ class SecurityController extends AbstractControllerLib
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
 
+        $oauths = $repository->findDistinctAllOauth();
+        dump($oauths);
         return $this->twig(
             'security/login.html.twig',
             [
+                'oauths'    => $oauths,
                 'formLogin' => $form->createView(),
                 'error'     => $error,
             ]

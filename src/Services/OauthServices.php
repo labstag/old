@@ -31,8 +31,6 @@ class OauthServices
                 return $data['id'];
             case 'google':
                 return $data['sub'];
-            case 'gitlab':
-                return $data['id'];
             case 'bitbucket':
                 return $data['uuid'];
             case 'discord':

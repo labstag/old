@@ -4,6 +4,7 @@ namespace Labstag\Controller;
 
 use Labstag\Entity\User;
 use Labstag\Services\OauthServices;
+use Labstag\Entity\OauthConnectUser;
 use Labstag\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
