@@ -143,7 +143,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
             $this->oauthCode
         );
         $oauthConnectUser = $enm->login($identity, $this->oauthCode);
-        if (!$oauthConnectUser) {
+        if (!$oauthConnectUser || $identity == '') {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException(
                 'Username could not be found.'
