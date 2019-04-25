@@ -129,6 +129,6 @@ class OauthController extends AbstractControllerLib
         if ($find == 0) {
             return "Compte ".$client." associé à l'utilisateur ".$user;
         }
-        return $message =  "Compte ".$client." associé à l'utilisateur ".$user;
+        return "Compte ".$client." associé à l'utilisateur ".$user;
     }
 }
