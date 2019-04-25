@@ -7,6 +7,7 @@ use Labstag\Lib\GenericProviderLib;
 use Labstag\Entity\OauthConnectUser;
 use Symfony\Component\HttpFoundation\Request;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
@@ -17,23 +18,45 @@ class OauthServices
      */
     protected $configProvider;
 
-    public function __construct(){
+    public function __construct(ContainerInterface $container){
+        $this->container    = $container;
+        $this->router       = $container->get('router');
         $this->setConfigProvider();
     }
 
     public function getIdentity($data, $oauth)
     {
-        if ($oauth=='github'){
-            return $data['id'];
-        }else {
-            print_r($data);
-            exit();
+        switch ($oauth) {
+            case 'github':
+                return $data['id'];
+            case 'google':
+                return $data['sub'];
+            case 'gitlab':
+                return $data['id'];
+            case 'bitbucket':
+                return $data['uuid'];
+            case 'discord':
+                return $data['id'];
+            default:
+                return '';
         }
     }
 
     protected function setConfigProvider()
     {
         $this->configProvider = [
+            'gitlab' => [
+                'params' => [
+                    'urlAuthorize'            => 'https://gitlab.com/oauth/authorize',
+                    'urlAccessToken'          => 'https://gitlab.com/oauth/token',
+                    'urlResourceOwnerDetails' => 'https://gitlab.com/api/v4/user',
+                ],
+                'redirect'       => 1,
+                'scopeseparator' => ' ',
+                'scopes'         => [
+                    'api'
+                ]
+            ],
             'bitbucket' => [
                 'params' => [
                     'urlAuthorize'            => 'https://bitbucket.org/site/oauth2/authorize',
@@ -84,7 +107,7 @@ class OauthServices
     {
         $config = (isset($this->configProvider[$clientName])) ? $this->configProvider[$clientName] : [];
         if (isset($config['redirect'])) {
-            $config['params']['redirectUri'] = $this->generateUrl(
+            $config['params']['redirectUri'] = $this->router->generate(
                 'connect_check',
                 [
                     'oauthCode' => $clientName,
