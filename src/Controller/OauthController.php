@@ -106,20 +106,29 @@ class OauthController extends AbstractControllerLib
             if ($oauthConnect->getName() == $client)
             {
                 $find = 1;
-                $this->addFlash("warning", "Compte ".$client." déjà associé à un autre utilisateur");
                 break;
             }
         }
 
-        if ($find === 0) {
+        if (0 === $find) {
             $oauthConnect = new OauthConnectUser();
             $oauthConnect->setRefuser($user);
             $oauthConnect->setName($client);
-            $oauthConnect->setData($userOauth->toArray());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($oauthConnect);
-            $entityManager->flush();
-            $this->addFlash("success", "Compte ".$client." associé à l'utilisateur ".$user);
         }
+
+        $oauthConnect->setData($userOauth->toArray());
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($oauthConnect);
+        $entityManager->flush();
+        $message = $this->setMessagefindaddOauthToUser($find, $client, $user);
+        $this->addFlash("success", $message);
+    }
+
+    private function setMessagefindaddOauthToUser($find, $client, $user)
+    {
+        if ($find == 0) {
+            return "Compte ".$client." associé à l'utilisateur ".$user;
+        }
+        return $message =  "Compte ".$client." associé à l'utilisateur ".$user;
     }
 }
