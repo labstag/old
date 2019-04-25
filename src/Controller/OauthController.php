@@ -2,11 +2,14 @@
 
 namespace Labstag\Controller;
 
+use Labstag\Entity\User;
+use Labstag\Services\OauthServices;
 use Labstag\Lib\AbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Labstag\Services\OauthServices;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 class OauthController extends AbstractControllerLib
 {
@@ -78,8 +81,7 @@ class OauthController extends AbstractControllerLib
             $token     = $this->get('security.token_storage')->getToken();
             if (!($token instanceof AnonymousToken)) {
                 $user = $token->getUser();
-                $this->addOauthToUser($clientName, $user, $userOauth);
-                dump($user);
+                $this->addOauthToUser($oauthCode, $user, $userOauth);
             }
 
             return $this->redirect(
@@ -91,6 +93,32 @@ class OauthController extends AbstractControllerLib
                 $this->generateUrl('front')
             );
             exit();
+        }
+    }
+
+    private function addOauthToUser(string $client, User $user, GenericResourceOwner $userOauth)
+    {
+        $oauthConnects = $user->getOauthConnectUsers();
+        $find = 0;
+        foreach($oauthConnects as $oauthConnect)
+        { 
+            if ($oauthConnect->getName() == $client)
+            {
+                $find = 1;
+                $this->addFlash("warning", "Compte ".$client." déjà associé à un autre utilisateur");
+                break;
+            }
+        }
+
+        if ($find === 0) {
+            $oauthConnect = new OauthConnectUser();
+            $oauthConnect->setRefuser($user);
+            $oauthConnect->setName($client);
+            $oauthConnect->setData($userOauth->toArray());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($oauthConnect);
+            $entityManager->flush();
+            $this->addFlash("success", "Compte ".$client." associé à l'utilisateur ".$user);
         }
     }
 }

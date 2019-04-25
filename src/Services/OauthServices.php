@@ -3,6 +3,7 @@
 namespace Labstag\Services;
 
 use Labstag\Entity\User;
+use Labstag\Lib\GenericProviderLib;
 use Labstag\Entity\OauthConnectUser;
 use Symfony\Component\HttpFoundation\Request;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
@@ -15,6 +16,20 @@ class OauthServices
      * @var array
      */
     protected $configProvider;
+
+    public function __construct(){
+        $this->setConfigProvider();
+    }
+
+    public function getIdentity($data, $oauth)
+    {
+        if ($oauth=='github'){
+            return $data['id'];
+        }else {
+            print_r($data);
+            exit();
+        }
+    }
 
     protected function setConfigProvider()
     {
@@ -100,32 +115,6 @@ class OauthServices
     {
         if (isset($this->configProvider[$clientName])) {
             return $this->initProvider($clientName);
-        }
-    }
-
-    private function addOauthToUser(string $client, User $user, GenericResourceOwner $userOauth)
-    {
-        $oauthConnects = $user->getOauthConnectUsers();
-        $find = 0;
-        foreach($oauthConnects as $oauthConnect)
-        { 
-            if ($oauthConnect->getName() == $client)
-            {
-                $find = 1;
-                $this->addFlash("warning", "Compte ".$client." déjà associé à un autre utilisateur");
-                break;
-            }
-        }
-
-        if ($find === 0) {
-            $oauthConnect = new OauthConnectUser();
-            $oauthConnect->setRefuser($user);
-            $oauthConnect->setName($client);
-            $oauthConnect->setData($userOauth->toArray());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($oauthConnect);
-            $entityManager->flush();
-            $this->addFlash("success", "Compte ".$client." associé à l'utilisateur ".$user);
         }
     }
 }
