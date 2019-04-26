@@ -20,7 +20,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         UserRepository $userRepository,
         CategoryRepository $categoryRepository,
         TagsRepository $tagsRepository
-    ) {
+    )
+    {
         $this->userRepository     = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagsRepository     = $tagsRepository;

@@ -60,7 +60,8 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
-    ) {
+    )
+    {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
@@ -72,6 +73,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $route       = $request->attributes->get('_route');
         $this->route = $route;
+
         return 'app_login' === $route && $request->isMethod('POST');
     }
 
@@ -128,7 +130,8 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         Request $request,
         TokenInterface $token,
         $providerKey
-    ) {
+    )
+    {
         $getTargetPath = $this->getTargetPath(
             $request->getSession(),
             $providerKey

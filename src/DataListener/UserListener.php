@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserListener implements EventSubscriber
 {
+
     /**
      * password Encoder.
      *

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractControllerLib extends AbstractController
 {
+
     /**
      * @var Request
      */
@@ -54,7 +55,8 @@ abstract class AbstractControllerLib extends AbstractController
         string $view,
         array $parameters = [],
         Response $response = null
-    ): Response {
+    ): Response
+    {
         $this->addParamViewsSite($parameters);
 
         return parent::render($view, $this->paramViews, $response);
