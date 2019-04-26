@@ -31,8 +31,6 @@ class WysiwygType extends AbstractType
 
     /**
      * {@inheritdoc}
-     *
-     * @return string
      */
     public function getParent(): string
     {
