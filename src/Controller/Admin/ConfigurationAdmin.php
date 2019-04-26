@@ -20,7 +20,8 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
      */
     public function index(
         ConfigurationRepository $configurationRepository
-    ): Response {
+    ): Response
+    {
         $this->crudListAction($configurationRepository);
 
         return $this->twig('admin/configuration/index.html.twig');
@@ -49,7 +50,8 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
     public function edit(
         Request $request,
         Configuration $configuration
-    ): Response {
+    ): Response
+    {
         return $this->crudEditAction(
             $request,
             [
@@ -68,7 +70,8 @@ class ConfigurationAdmin extends AdminAbstractControllerLib
     public function delete(
         Request $request,
         Configuration $configuration
-    ): Response {
+    ): Response
+    {
         return $this->crudActionDelete($request, $configuration, 'adminconfiguration_index');
     }
 }

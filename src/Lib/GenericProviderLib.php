@@ -10,8 +10,9 @@ class GenericProviderLib extends GenericProvider
     protected $scopes;
 
     protected $scopeSeparator;
+
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setDefaultScopes($scopes)
     {

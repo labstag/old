@@ -18,12 +18,12 @@ class ParamAdmin extends AdminAbstractControllerLib
      */
     public function index(Request $request): Response
     {
-
         $data = [
-            'oauth' => []
+            'oauth' => [],
         ];
 
         $form = $this->createForm(ParamType::class, $data);
+
         return $this->twig(
             'admin/param.html.twig',
             [

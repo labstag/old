@@ -15,6 +15,7 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
+
     private $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -70,14 +71,16 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         Request $request,
         TokenInterface $token,
         $providerKey
-    ) {
+    )
+    {
         // on success, let the request continue
     }
 
     public function onAuthenticationFailure(
         Request $request,
         AuthenticationException $exception
-    ) {
+    )
+    {
         $data = [
             'message' => strtr(
                 $exception->getMessageKey(),
@@ -97,7 +100,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function start(
         Request $request,
         AuthenticationException $authException = null
-    ) {
+    )
+    {
         $data = [
             // you might translate this message
             'message' => 'Authentication Required',

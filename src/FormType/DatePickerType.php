@@ -18,7 +18,8 @@ class DatePickerType extends AbstractType
         FormView $view,
         FormInterface $form,
         array $options
-    ): void {
+    ): void
+    {
         $attr = $options['attr'];
         if (!isset($attr['class'])) {
             $attr['class'] = '';
