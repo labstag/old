@@ -48,8 +48,6 @@ abstract class AbstractControllerLib extends AbstractController
      * @param string    $view       template
      * @param array     $parameters data
      * @param ?Response $response   ??
-     *
-     * @return Response
      */
     public function twig(
         string $view,

@@ -50,7 +50,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
     private $passwordEncoder;
 
     /**
-     * @var String
+     * @var string
      */
     private $route;
 

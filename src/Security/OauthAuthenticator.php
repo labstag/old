@@ -54,7 +54,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     private $passwordEncoder;
 
     /**
-     * @var String
+     * @var string
      */
     private $route;
 
@@ -64,7 +64,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     private $oauthServices;
 
     /**
-     * @var String
+     * @var string
      */
     private $oauthCode;
 
