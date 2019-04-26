@@ -17,12 +17,9 @@ class FullCalendarAdmin extends AdminAbstractControllerLib
      */
     public function index(Request $request): Response
     {
-
         return $this->twig(
             'admin/fullcalendar.html.twig',
-            [
-                'title' => 'fullcalendar'
-            ]
+            ['title' => 'fullcalendar']
         );
     }
 }

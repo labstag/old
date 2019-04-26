@@ -2,25 +2,22 @@
 
 namespace Labstag\Services;
 
-use Labstag\Entity\User;
 use Labstag\Lib\GenericProviderLib;
-use Labstag\Entity\OauthConnectUser;
-use Symfony\Component\HttpFoundation\Request;
-use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 class OauthServices
 {
+
     /**
      * @var array
      */
     protected $configProvider;
 
-    public function __construct(ContainerInterface $container){
-        $this->container    = $container;
-        $this->router       = $container->get('router');
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+        $this->router    = $container->get('router');
         $this->setConfigProvider();
     }
 
@@ -40,20 +37,25 @@ class OauthServices
         }
     }
 
+    public function setProvider($clientName)
+    {
+        if (isset($this->configProvider[$clientName])) {
+            return $this->initProvider($clientName);
+        }
+    }
+
     protected function setConfigProvider()
     {
         $this->configProvider = [
-            'gitlab' => [
-                'params' => [
+            'gitlab'    => [
+                'params'         => [
                     'urlAuthorize'            => 'https://gitlab.com/oauth/authorize',
                     'urlAccessToken'          => 'https://gitlab.com/oauth/token',
                     'urlResourceOwnerDetails' => 'https://gitlab.com/api/v4/user',
                 ],
                 'redirect'       => 1,
                 'scopeseparator' => ' ',
-                'scopes'         => [
-                    'read_user'
-                ]
+                'scopes'         => ['read_user'],
             ],
             'bitbucket' => [
                 'params' => [
@@ -107,9 +109,7 @@ class OauthServices
         if (isset($config['redirect'])) {
             $config['params']['redirectUri'] = $this->router->generate(
                 'connect_check',
-                [
-                    'oauthCode' => $clientName,
-                ],
+                ['oauthCode' => $clientName],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
         }
@@ -130,12 +130,5 @@ class OauthServices
         }
 
         return $provider;
-    }
-
-    public function setProvider($clientName)
-    {
-        if (isset($this->configProvider[$clientName])) {
-            return $this->initProvider($clientName);
-        }
     }
 }

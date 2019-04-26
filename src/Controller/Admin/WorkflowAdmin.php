@@ -17,12 +17,9 @@ class WorkflowAdmin extends AdminAbstractControllerLib
      */
     public function index(Request $request): Response
     {
-
         return $this->twig(
             'admin/workflow.html.twig',
-            [
-                'title' => 'workflow'
-            ]
+            ['title' => 'workflow']
         );
     }
 }

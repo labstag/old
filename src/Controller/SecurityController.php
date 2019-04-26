@@ -4,11 +4,11 @@ namespace Labstag\Controller;
 
 use Labstag\Form\Security\LoginType;
 use Labstag\Lib\AbstractControllerLib;
+use Labstag\Repository\OauthConnectUserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
-use Labstag\Repository\OauthConnectUserRepository;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractControllerLib
 {
@@ -17,8 +17,7 @@ class SecurityController extends AbstractControllerLib
      */
     public function login(AuthenticationUtils $authenticationUtils, OauthConnectUserRepository $repository): Response
     {
-        
-        $token     = $this->get('security.token_storage')->getToken();
+        $token = $this->get('security.token_storage')->getToken();
         if (!($token instanceof AnonymousToken)) {
             return $this->redirect($this->generateUrl('front'), 302);
         }
@@ -34,6 +33,7 @@ class SecurityController extends AbstractControllerLib
 
         $oauths = $repository->findDistinctAllOauth();
         dump($oauths);
+
         return $this->twig(
             'security/login.html.twig',
             [

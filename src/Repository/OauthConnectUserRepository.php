@@ -70,6 +70,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         $builder->select('u.name');
         $builder->distinct('u.name');
         $builder->orderBy('u.name', 'ASC');
+
         return $builder->getQuery()->getResult();
     }
 }

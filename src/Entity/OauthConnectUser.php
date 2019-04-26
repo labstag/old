@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OauthConnectUser
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")

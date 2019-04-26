@@ -19,9 +19,7 @@ class FormBuilderAdmin extends AdminAbstractControllerLib
     {
         return $this->twig(
             'admin/formbuilder.html.twig',
-            [
-                'title' => 'FormBuilder'
-            ]
+            ['title' => 'FormBuilder']
         );
     }
 }

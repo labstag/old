@@ -18,6 +18,7 @@ class ProfilAdmin extends AdminAbstractControllerLib
     public function index(Request $request): Response
     {
         $auth_checker = $this->get('security.authorization_checker');
+
         return $this->json($auth_checker->isGranted('IS_AUTHENTICATED_FULLY'));
     }
 }

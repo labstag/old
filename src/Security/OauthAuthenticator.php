@@ -2,29 +2,31 @@
 
 namespace Labstag\Security;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Services\OauthServices;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Labstag\Entity\OauthConnectUser;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class OauthAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
+
+    /**
+     * @var Request
+     */
+    protected $request;
 
     /**
      * @var ContainerInterface
@@ -65,10 +67,6 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      * @var String
      */
     private $oauthCode;
-    /**
-     * @var Request
-     */
-    protected $request;
 
     public function __construct(
         ContainerInterface $container,
@@ -76,7 +74,8 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
-    ) {
+    )
+    {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
@@ -90,10 +89,10 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        $route           = $request->attributes->get('_route');
-        $this->route     = $route;
-        $user            = $this->container->get('security.token_storage')->getToken();
-        
+        $route       = $request->attributes->get('_route');
+        $this->route = $route;
+        $user        = $this->container->get('security.token_storage')->getToken();
+
         return 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
     }
 
@@ -104,9 +103,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         $session     = $request->getSession();
         $oauth2state = $session->get('oauth2state');
         if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
-            $credentials = [];
-
-            return $credentials;
+            return [];
         }
 
         try {
@@ -116,15 +113,13 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
                     'code' => $query['code'],
                 ]
             );
-            $userOauth = $provider->getResourceOwner($tokenProvider);
+            $userOauth     = $provider->getResourceOwner($tokenProvider);
 
             $credentials['user'] = $userOauth;
 
             return $credentials;
         } catch (Exception $e) {
-            $credentials = [];
-
-            return $credentials;
+            return [];
         }
     }
 
@@ -138,12 +133,12 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
         $enm = $this->entityManager->getRepository(OauthConnectUser::class);
 
-        $identity = $this->oauthServices->getIdentity(
+        $identity         = $this->oauthServices->getIdentity(
             $credentials['user']->toArray(),
             $this->oauthCode
         );
         $oauthConnectUser = $enm->login($identity, $this->oauthCode);
-        if (!$oauthConnectUser || $identity == '') {
+        if (!$oauthConnectUser || '' == $identity) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException(
                 'Username could not be found.'
@@ -169,7 +164,8 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         Request $request,
         TokenInterface $token,
         $providerKey
-    ) {
+    )
+    {
         $getTargetPath = $this->getTargetPath(
             $request->getSession(),
             $providerKey

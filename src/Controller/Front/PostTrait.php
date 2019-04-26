@@ -19,7 +19,8 @@ trait PostTrait
     public function postUser(
         User $user,
         PostRepository $postRepository
-    ): Response {
+    ): Response
+    {
         $posts = $postRepository->findAllActiveByUser($user);
         $this->paginator($posts);
 
@@ -32,7 +33,8 @@ trait PostTrait
     public function postCategory(
         Category $category,
         PostRepository $postRepository
-    ): Response {
+    ): Response
+    {
         $posts = $postRepository->findAllActiveByCategory($category);
         $this->paginator($posts);
 
@@ -45,7 +47,8 @@ trait PostTrait
     public function PostTags(
         Tags $tag,
         PostRepository $postRepository
-    ): Response {
+    ): Response
+    {
         $posts = $postRepository->findAllActiveByTag($tag);
         $this->paginator($posts);
 

@@ -2,18 +2,19 @@
 
 namespace Labstag\Controller;
 
-use Labstag\Entity\User;
-use Labstag\Services\OauthServices;
 use Labstag\Entity\OauthConnectUser;
+use Labstag\Entity\User;
 use Labstag\Lib\AbstractControllerLib;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Services\OauthServices;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 class OauthController extends AbstractControllerLib
 {
+
     /**
      * @var OauthServices
      */
@@ -24,6 +25,7 @@ class OauthController extends AbstractControllerLib
         parent::__construct($container);
         $this->oauthServices = $this->container->get(OauthServices::class);
     }
+
     /**
      * Link to this controller to start the "connect" process.
      *
@@ -34,7 +36,8 @@ class OauthController extends AbstractControllerLib
         $provider = $this->oauthServices->setProvider($oauthCode);
 
         if (is_null($provider)) {
-            $this->addFlash("warning", "Connexion Oauh impossible");
+            $this->addFlash('warning', 'Connexion Oauh impossible');
+
             return $this->redirect(
                 $this->generateUrl('front')
             );
@@ -43,6 +46,7 @@ class OauthController extends AbstractControllerLib
         $authUrl = $provider->getAuthorizationUrl();
         $session = $request->getSession();
         $session->set('oauth2state', $provider->getState());
+
         return $this->redirect(
             $authUrl
         );
@@ -63,7 +67,8 @@ class OauthController extends AbstractControllerLib
         $oauth2state = $session->get('oauth2state');
         if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
             $session->remove('oauth2state');
-            $this->addFlash("warning", "Probleme d'identification");
+            $this->addFlash('warning', "Probleme d'identification");
+
             return $this->redirect(
                 $this->generateUrl('front')
             );
@@ -89,7 +94,8 @@ class OauthController extends AbstractControllerLib
                 $this->generateUrl('front')
             );
         } catch (Exception $e) {
-            $this->addFlash("warning", "Probleme d'identification");
+            $this->addFlash('warning', "Probleme d'identification");
+
             return $this->redirect(
                 $this->generateUrl('front')
             );
@@ -100,12 +106,11 @@ class OauthController extends AbstractControllerLib
     private function addOauthToUser(string $client, User $user, GenericResourceOwner $userOauth)
     {
         $oauthConnects = $user->getOauthConnectUsers();
-        $find = 0;
-        foreach($oauthConnects as $oauthConnect)
-        { 
-            if ($oauthConnect->getName() == $client)
-            {
+        $find          = 0;
+        foreach ($oauthConnects as $oauthConnect) {
+            if ($oauthConnect->getName() == $client) {
                 $find = 1;
+
                 break;
             }
         }
@@ -121,14 +126,15 @@ class OauthController extends AbstractControllerLib
         $entityManager->persist($oauthConnect);
         $entityManager->flush();
         $message = $this->setMessagefindaddOauthToUser($find, $client, $user);
-        $this->addFlash("success", $message);
+        $this->addFlash('success', $message);
     }
 
     private function setMessagefindaddOauthToUser($find, $client, $user)
     {
-        if ($find == 0) {
-            return "Compte ".$client." associé à l'utilisateur ".$user;
+        if (0 == $find) {
+            return 'Compte '.$client." associé à l'utilisateur ".$user;
         }
-        return "Compte ".$client." associé à l'utilisateur ".$user;
+
+        return 'Compte '.$client." associé à l'utilisateur ".$user;
     }
 }

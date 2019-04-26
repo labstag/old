@@ -10,15 +10,15 @@
 
 namespace Labstag\Controller;
 
-use Twig\Environment;
-use Twig\Error\LoaderError;
 use Labstag\Lib\AbstractControllerLib;
-use Twig\Loader\ExistsLoaderInterface;
+use Symfony\Component\Debug\Exception\FlattenException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Loader\ExistsLoaderInterface;
 
 /**
  * ExceptionController renders error or exception pages for a given
@@ -26,6 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ExceptionController extends AbstractControllerLib
 {
+
     /**
      * @var Environment
      */
@@ -60,8 +61,9 @@ class ExceptionController extends AbstractControllerLib
     public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
     {
         $currentContent = $this->getAndCleanOutputBuffering($request->headers->get('X-Php-Ob-Level', -1));
-        $showException  = $request->attributes->get('showException', $this->debug); // As opposed to an additional parameter, this maintains BC
-        $code           = $exception->getStatusCode();
+        $showException  = $request->attributes->get('showException', $this->debug);
+        // As opposed to an additional parameter, this maintains BC
+        $code = $exception->getStatusCode();
 
         $parameters = [
             'status_code'    => $code,
@@ -71,10 +73,15 @@ class ExceptionController extends AbstractControllerLib
             'currentContent' => $currentContent,
         ];
         $this->addParamViewsSite($parameters);
-        return new Response($this->twig->render(
-            (string) $this->findTemplate($request, $request->getRequestFormat(), $code, $showException),
-            $this->paramViews
-        ), 200, ['Content-Type' => $request->getMimeType($request->getRequestFormat()) ?: 'text/html']);
+
+        return new Response(
+            $this->twig->render(
+                (string) $this->findTemplate($request, $request->getRequestFormat(), $code, $showException),
+                $this->paramViews
+            ),
+            200,
+            ['Content-Type' => $request->getMimeType($request->getRequestFormat()) ?: 'text/html']
+        );
     }
 
     /**
@@ -87,7 +94,8 @@ class ExceptionController extends AbstractControllerLib
         if (ob_get_level() <= $startObLevel) {
             return '';
         }
-        Response::closeOutputBuffers($startObLevel + 1, true);
+
+        Response::closeOutputBuffers(($startObLevel + 1), true);
 
         return ob_get_clean();
     }
@@ -105,6 +113,7 @@ class ExceptionController extends AbstractControllerLib
         if ($showException && 'html' == $format) {
             $name = 'exception_full';
         }
+
         // For error pages, try to find a template for the specific HTTP status code and format
         if (!$showException) {
             $template = sprintf('exception/%s%s.%s.twig', $name, $code, $format);
@@ -112,11 +121,13 @@ class ExceptionController extends AbstractControllerLib
                 return $template;
             }
         }
+
         // try to find a template for the given format
         $template = sprintf('exception/%s.%s.twig', $name, $format);
         if ($this->templateExists($template)) {
             return $template;
         }
+
         // default to a generic HTML exception
         $request->setRequestFormat('html');
 
