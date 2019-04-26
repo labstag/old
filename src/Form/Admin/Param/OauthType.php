@@ -44,7 +44,7 @@ class OauthType extends AbstractType
     {
         $resolver->setDefaults(
             [
-            // Configure your form options here
+                // Configure your form options here
             ]
         );
     }
