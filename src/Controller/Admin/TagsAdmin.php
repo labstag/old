@@ -35,8 +35,8 @@ class TagsAdmin extends AdminAbstractControllerLib
             [
                 'entity'    => new Tags(),
                 'form'      => TagsType::class,
-                'url_edit'  => 'admintag_edit',
-                'url_index' => 'admintag_index',
+                'url_edit'  => 'admintags_edit',
+                'url_index' => 'admintags_index',
                 'title'     => 'Add new tag',
             ]
         );
@@ -52,8 +52,8 @@ class TagsAdmin extends AdminAbstractControllerLib
             [
                 'form'      => TagsType::class,
                 'entity'    => $tag,
-                'url_index' => 'admintag_index',
-                'url_edit'  => 'admintag_edit',
+                'url_index' => 'admintags_index',
+                'url_edit'  => 'admintags_edit',
                 'title'     => 'Edit tag',
             ]
         );

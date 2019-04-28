@@ -152,4 +152,98 @@ abstract class AdminAbstractControllerLib extends AbstractControllerLib
             $data
         );
     }
+
+    /**
+     * Show.
+     *
+     * @param string    $view       template
+     * @param array     $parameters data
+     * @param ?Response $response   ??
+     */
+    public function twig(
+        string $view,
+        array $parameters = [],
+        Response $response = null
+    ): Response
+    {
+        $this->addParamViewsAdmin($parameters);
+        return parent::twig($view, $parameters, $response);
+    }
+
+    /**
+     * Add param to twig.
+     */
+    protected function addParamViewsAdmin(array $parameters = []): void
+    {
+        $this->setMenuAdmin();
+        $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function setMenuAdmin()
+    {
+        $menuadmin = [
+            [
+                'url' => 'admin_dashboard',
+                'title' => 'Dashboard'
+            ],
+            [
+                'url' => 'admincategory_index',
+                'title' => 'Catégory'
+            ],
+            [
+                'url' => 'adminconfiguration_index',
+                'title' => 'Configuration'
+            ],
+            [
+                'url' => 'adminformbuilder_index',
+                'title' => 'Form Builder'
+            ],
+            [
+                'url' => 'adminfullcalendar_index',
+                'title' => 'Full Calendar'
+            ],
+            [
+                'url' => 'adminparam_index',
+                'title' => 'Param'
+            ],
+            [
+                'url' => 'adminpost_index',
+                'title' => 'Post'
+            ],
+            [
+                'url' => 'admintags_index',
+                'title' => 'Tags'
+            ],
+            [
+                'url' => 'adminuser_index',
+                'title' => 'User'
+            ],
+            [
+                'url' => 'adminworkflow_index',
+                'title' => 'Workflow'
+            ]
+        ];
+
+        $actualroute = $this->request->get('_route');
+        foreach ($menuadmin as &$menu) {
+            if ($this->isActualRoute($menu['url'], $actualroute)) {
+                $menu['current'] = true;
+            }
+        }
+
+        $this->paramViews['actualroute'] = $actualroute;
+        $this->paramViews['menuadmin']   = $menuadmin;
+    }
+
+    private function isActualRoute($url, $actualroute) {
+        if ($url == $actualroute) {
+            return true;
+        }
+
+        list($controller1, $route1) = explode("_", $url);
+        list($controller2, $route2) = explode("_", $actualroute);
+        if ($controller1 == $controller2) {
+            return true;
+        }
+    }
 }

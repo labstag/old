@@ -272,9 +272,6 @@
     "imagine/imagine": {
         "version": "1.2.0"
     },
-    "intervention/image": {
-        "version": "2.4.2"
-    },
     "jakub-onderka/php-console-color": {
         "version": "v0.2"
     },
@@ -310,15 +307,6 @@
     },
     "lcobucci/jwt": {
         "version": "3.2.5"
-    },
-    "league/flysystem": {
-        "version": "1.0.51"
-    },
-    "league/glide": {
-        "version": "1.4.0"
-    },
-    "league/glide-symfony": {
-        "version": "1.0.3"
     },
     "league/oauth2-client": {
         "version": "2.4.1"
