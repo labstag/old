@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-{% import "macros.html.twig" as macros %}
 {% block page_title %}Post{% endblock %}
 {% block body %}
     <div class="container">
@@ -7,7 +6,7 @@
             {% for post in pagination %}
                 <h2>{{ post.name }}</h2>
                 {% if post.file %}
-                    {{ macros.picture(post.file, post.name) }}
+                    <img src="{{ asset('file/'~post.file) }}" title="{{ post.name|e }}" class="img-fluid" />
                 {% endif %}
                 <div><a href="{{ path('posts_user',{'user': post.refuser.id}) }}">{{ post.refuser }}</a></div>
                 <div>créer le {{ post.createdAt|date }} et modifier le {{ post.updatedAt|date }}</div>

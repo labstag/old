@@ -21,7 +21,11 @@
             <tr>
                 <td></td>
                 <td>{{ post.name }}</td>
-                <td>{{ post.file }}</td>
+                <td>
+                    {% if post.file !='' %}
+                        <img src="{{ asset('file/'~post.file) }}" class="img-fluid" />
+                    {% endif %}
+                </td>
                 <td>{{ post.enable ? 'Yes' : 'No' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
