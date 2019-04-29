@@ -4,7 +4,7 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Tags;
 use Labstag\Form\Admin\TagsType;
-use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/tags")
  */
-class TagsAdmin extends AdminAbstractControllerLib
+class TagsAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="admintags_index", methods={"GET"})

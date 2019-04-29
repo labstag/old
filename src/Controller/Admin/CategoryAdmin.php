@@ -3,23 +3,26 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Category;
+use Labstag\Lib\AdminControllerLib;
 use Labstag\Form\Admin\CategoryType;
 use Labstag\Repository\CategoryRepository;
-use Labstag\Lib\AdminAbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
+use Omines\DataTablesBundle\Column\TextColumn;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Omines\DataTablesBundle\Adapter\ArrayAdapter;
 
 /**
  * @Route("/admin/category")
  */
-class CategoryAdmin extends AdminAbstractControllerLib
+class CategoryAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="admincategory_index", methods={"GET"})
      */
     public function index(Request $request, CategoryRepository $categoryRepository): Response
     {
+
         $this->crudListAction($categoryRepository);
 
         return $this->twig(

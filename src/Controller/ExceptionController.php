@@ -10,7 +10,7 @@
 
 namespace Labstag\Controller;
 
-use Labstag\Lib\AbstractControllerLib;
+use Labstag\Lib\ControllerLib;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,7 @@ use Twig\Loader\ExistsLoaderInterface;
  * ExceptionController renders error or exception pages for a given
  * FlattenException.
  */
-class ExceptionController extends AbstractControllerLib
+class ExceptionController extends ControllerLib
 {
 
     /**

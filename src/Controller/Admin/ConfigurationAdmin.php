@@ -4,7 +4,7 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Configuration;
 use Labstag\Form\Admin\ConfigurationType;
-use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/configuration")
  */
-class ConfigurationAdmin extends AdminAbstractControllerLib
+class ConfigurationAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="adminconfiguration_index", methods={"GET"})

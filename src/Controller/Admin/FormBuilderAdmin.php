@@ -2,7 +2,7 @@
 
 namespace Labstag\Controller\Admin;
 
-use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/formbuilder")
  */
-class FormBuilderAdmin extends AdminAbstractControllerLib
+class FormBuilderAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="adminformbuilder_index")

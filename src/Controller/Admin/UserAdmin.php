@@ -4,7 +4,7 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\User;
 use Labstag\Form\Admin\UserType;
-use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/user")
  */
-class UserAdmin extends AdminAbstractControllerLib
+class UserAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="adminuser_index", methods={"GET"})
