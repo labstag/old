@@ -256,6 +256,14 @@ path,
     background-color: #f5f5f5;
 
     #RowLogin {
+        .itemConnect {
+            text-align: center;
+
+            a {
+                color: white;
+            }
+        }
+
         width: 100%;
         max-width: 330px;
         padding: 15px;

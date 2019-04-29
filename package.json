@@ -49,6 +49,7 @@
     "formBuilder": "^3.2.2",
     "formbuilder-languages": "^0.1.0",
     "fullcalendar": "^3.10.0",
+    "jquery": "^3.4.0",
     "jquery-ui": "^1.12.1",
     "jsplumb": "^2.9.2",
     "jszip": "^3.2.1",

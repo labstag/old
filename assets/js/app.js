@@ -4,6 +4,9 @@ import 'jquery-ui';
 import 'jquery-ui-sortable';
 import 'bootstrap';
 import {
+    builderform
+} from './modules/builderform';
+import {
     fullCalendar
 } from './modules/fullcalendar';
 import {
@@ -12,9 +15,6 @@ import {
 import {
     wysiwyg
 } from './modules/wysiwyg';
-import {
-    formbuilder
-} from './modules/formbuilder';
 import {
     prismjs
 } from './modules/prismjs';
@@ -35,7 +35,7 @@ class Site {
         this.workflow     = new workflow('workflow');
         this.form         = new form();
         this.prismjs      = new prismjs();
-        this.formbuilder  = new formbuilder('formBuilder');
+        this.builderform  = new builderform('formBuilder');
         this.wysiwyg      = new wysiwyg();
         this.datatables   = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
@@ -71,6 +71,8 @@ class Site {
         window.fetch('flowers.jpg').then(this.ajaxThen1).then(this.ajaxThen2);
     }
 }
-const site = new Site();
+(($) => {
+    const site = new Site();
 
-site.launch();
+    site.launch();
+} )(jQuery);
