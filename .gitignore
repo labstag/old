@@ -52,4 +52,3 @@ public/file
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-/assets/js/modules
