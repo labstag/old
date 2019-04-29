@@ -3,7 +3,7 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Form\Admin\ParamType;
-use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/param")
  */
-class ParamAdmin extends AdminAbstractControllerLib
+class ParamAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="adminparam_index")

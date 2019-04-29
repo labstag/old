@@ -52,17 +52,14 @@ export class datatables {
                     dataDataTables.ServerSide = true;
                     dataDataTables.columns    = [];
                     th.forEach((element) => {
-                        dataDataTables.columns.push( {
+                        let column = {
                             'data'  : element.getAttribute('data-field'),
                             'render': function (data, type, row, meta) {
-                                console.log(data);
-                                console.log(type);
-                                console.log(row);
-                                console.log(meta);
-                                console.log('---');
                                 return data;
                             }
-                        } );
+                        };
+
+                        dataDataTables.columns.push(column);
                     } );
                     dataDataTables.ajax       = {
                         'url'    : dataApi,

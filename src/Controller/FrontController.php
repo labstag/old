@@ -3,11 +3,11 @@
 namespace Labstag\Controller;
 
 use Labstag\Controller\Front\PostTrait;
-use Labstag\Lib\AbstractControllerLib;
+use Labstag\Lib\ControllerLib;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FrontController extends AbstractControllerLib
+class FrontController extends ControllerLib
 {
     use PostTrait;
 

@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-abstract class AdminAbstractControllerLib extends AbstractControllerLib
+abstract class AdminControllerLib extends ControllerLib
 {
-    
+
     protected function crudListAction(ServiceEntityRepositoryLib $repository)
     {
         $entities = $repository->findAll();
