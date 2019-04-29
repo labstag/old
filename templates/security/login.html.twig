@@ -13,14 +13,17 @@
         {{ form_end(formLogin) }}
         {% if oauths|length != 0 %}
             Se connecter avec :
-            <ul class="list-inline">
+            <div class="row">
             {% for oauth in oauths %}
-                <li class="list-inline-item"><a href="{{ path('connect_start', {'oauthCode': oauth.name}) }}">
-                    <i class="fab fa-{{ oauth.name }}"></i>
-                    {{ oauth.name }}
-                </a></li>
+                <div class="col-md-4 itemConnect">
+                    <a href="{{ path('connect_start', {'oauthCode': oauth.name}) }}" title="{{ oauth.name|e }}">
+                        <i class="fab fa-{{ oauth.name }}"></i>
+                        <br />
+                        {{ oauth.name }}
+                    </a>
+                </div>
             {% endfor %}
-            </ul>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

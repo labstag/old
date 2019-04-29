@@ -1,4 +1,4 @@
-const Encore = require('@symfony/webpack-encore');
+const Encore            = require('@symfony/webpack-encore');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore.setOutputPath('public/build/');
@@ -15,36 +15,37 @@ Encore.enableSourceMaps(!Encore.isProduction());
 Encore.enableVersioning(Encore.isProduction());
 Encore.configureBabel(() => {}, {
     'useBuiltIns': 'usage',
-    'corejs': 3,
-});
-Encore.configureUrlLoader({
-    images: {
-        limit: 4096
+    'corejs'     : 3
+} );
+Encore.configureUrlLoader( {
+    'images': {
+        'limit': 4096
     }
-})
+} )
 Encore.enableSassLoader();
 Encore.autoProvidejQuery();
-Encore.autoProvideVariables({
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-});
+Encore.autoProvideVariables( {
+    '$'            : 'jquery',
+    'jQuery'       : 'jquery',
+    '$.formBuilder': 'formBuilder',
+    'window.jQuery': 'jquery'
+} );
 Encore.configureBabel();
 Encore.addPlugin(new CopyWebpackPlugin([{
         'from': 'node_modules/tinymce/skins',
-        'to': 'skins',
+        'to'  : 'skins'
     },
     {
         'from': 'node_modules/tinymce-i18n/langs',
-        'to': 'langs',
+        'to'  : 'langs'
     },
     {
         'from': 'node_modules/tinymce/plugins',
-        'to': 'plugins',
+        'to'  : 'plugins'
     },
     {
         'from': 'node_modules/formbuilder-languages',
-        'to': 'formbuilder-lang',
+        'to'  : 'formbuilder-lang'
     }
 ]));
 // Encore.enableTypeScriptLoader();
@@ -52,5 +53,8 @@ Encore.addPlugin(new CopyWebpackPlugin([{
 Encore.enableIntegrityHashes();
 
 let webpack = Encore.getWebpackConfig();
-webpack.output.jsonpFunction = "labstag";
+
+if (Encore.isProduction()) {
+    webpack.output.jsonpFunction = 'labstag';
+}
 module.exports = webpack;
