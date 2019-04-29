@@ -1,5 +1,8 @@
+import $ from 'jquery';
+import 'jquery-ui';
+import 'jquery-ui-sortable';
 import 'formBuilder';
-export class formbuilder {
+export class builderform {
     constructor(emplacement) {
         this.emplacement = emplacement;
         this.execute();
@@ -18,6 +21,7 @@ export class formbuilder {
             'roles'                : ''
         };
 
+        console.log(this.emplacement);
         this.formBuilder = $('#' + this.emplacement).formBuilder(dataFormBuilder);
         $('#SaveFormBuilder').on('click', this.save.bind(this));
     }
