@@ -3,14 +3,14 @@
 namespace Labstag\Controller;
 
 use Labstag\Form\Security\LoginType;
-use Labstag\Lib\AbstractControllerLib;
+use Labstag\Lib\ControllerLib;
 use Labstag\Repository\OauthConnectUserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractControllerLib
+class SecurityController extends ControllerLib
 {
     /**
      * @Route("/login", name="app_login")

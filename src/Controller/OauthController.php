@@ -4,7 +4,7 @@ namespace Labstag\Controller;
 
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
-use Labstag\Lib\AbstractControllerLib;
+use Labstag\Lib\ControllerLib;
 use Labstag\Services\OauthServices;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
-class OauthController extends AbstractControllerLib
+class OauthController extends ControllerLib
 {
 
     /**

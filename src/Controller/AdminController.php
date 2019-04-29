@@ -2,14 +2,14 @@
 
 namespace Labstag\Controller;
 
-use Labstag\Lib\AdminAbstractControllerLib;
+use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin")
  */
-class AdminController extends AdminAbstractControllerLib
+class AdminController extends AdminControllerLib
 {
     /**
      * @Route("/", name="admin_dashboard")
