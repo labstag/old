@@ -23,6 +23,7 @@ Encore.configureUrlLoader( {
     }
 } )
 Encore.enableSassLoader();
+Encore.enableLessLoader();
 Encore.autoProvidejQuery();
 Encore.autoProvideVariables( {
     '$'            : 'jquery',
@@ -46,6 +47,10 @@ Encore.addPlugin(new CopyWebpackPlugin([{
     {
         'from': 'node_modules/formbuilder-languages',
         'to'  : 'formbuilder-lang'
+    },
+    {
+        'from': 'node_modules/datatables.net-plugins/i18n',
+        'to'  : 'i18n-datatables'
     }
 ]));
 // Encore.enableTypeScriptLoader();

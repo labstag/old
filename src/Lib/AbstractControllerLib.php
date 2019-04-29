@@ -61,10 +61,21 @@ abstract class AbstractControllerLib extends AbstractController
     }
 
     /**
+     * Add Language Datatables
+     *
+     * @return void
+     */
+    private function addLangDatatables() 
+    {
+        $this->paramViews['langdatatables'] = 'build/i18n-datatables/French.lang';
+    }
+
+    /**
      * Add param to twig.
      */
     protected function addParamViewsSite(array $parameters = []): void
     {
+        $this->addLangDatatables();
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 

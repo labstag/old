@@ -4,8 +4,8 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Category;
 use Labstag\Form\Admin\CategoryType;
-use Labstag\Lib\AdminAbstractControllerLib;
 use Labstag\Repository\CategoryRepository;
+use Labstag\Lib\AdminAbstractControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,11 +18,16 @@ class CategoryAdmin extends AdminAbstractControllerLib
     /**
      * @Route("/", name="admincategory_index", methods={"GET"})
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(Request $request, CategoryRepository $categoryRepository): Response
     {
         $this->crudListAction($categoryRepository);
 
-        return $this->twig('admin/category/index.html.twig');
+        return $this->twig(
+            'admin/category/index.html.twig',
+            [
+                'api' => $this->generateUrl('api_categories_get_collection')
+            ]
+        );
     }
 
     /**

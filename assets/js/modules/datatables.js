@@ -14,9 +14,15 @@ export class datatables {
 
         $tables.forEach(
             function (element, index) {
-                let $table = $tables[index];
-
-                $($table).DataTable( {
+                let $table         = $tables[index];
+                let body           = document.querySelector('body');
+                let lang           = body.getAttribute('data-langdatatables');
+                let thead          = $tables[index].querySelector('thead');
+                let th             = thead.querySelectorAll('th');
+                let dataDataTables = {
+                    'language': {
+                        'url': lang
+                    },
                     'orderCellsTop': true,
                     'fixedHeader'  : true,
                     'dom'          : 'Bfrtip',
@@ -30,15 +36,51 @@ export class datatables {
                         'selectCells',
                         'copy', 'csv', 'print'
                     ],
-                    'columnDefs': [{
-                        'orderable': false,
-                        'className': 'select-checkbox',
-                        'targets'  : 0
-                    }],
+                    // 'columnDefs': [{
+                    //     'orderable': false,
+                    //     'className': 'select-checkbox',
+                    //     'targets'  : 0
+                    // }],
                     'select': {
                         'style': 'multi'
                     }
-                } );
+                };
+                let dataApi        = $tables[index].getAttribute('data-api');
+
+                if (dataApi != '') {
+                    dataDataTables.processing = true;
+                    dataDataTables.ServerSide = true;
+                    dataDataTables.columns    = [];
+                    th.forEach((element) => {
+                        dataDataTables.columns.push( {
+                            'data'  : element.getAttribute('data-field'),
+                            'render': function (data, type, row, meta) {
+                                console.log(data);
+                                console.log(type);
+                                console.log(row);
+                                console.log(meta);
+                                console.log('---');
+                                return data;
+                            }
+                        } );
+                    } );
+                    dataDataTables.ajax       = {
+                        'url'    : dataApi,
+                        'headers': {
+                            'Accept': 'application/ld+json'
+                        },
+                        'dataFilter': function (data) {
+                            let json = JSON.parse(data);
+
+                            json.recordTotal     = json['hydra:totalItems'];
+                            json.recordsFiltered = json['hydra:totalItems'];
+                            json.data            = json['hydra:member'];
+                            return JSON.stringify(json);
+                        }
+                    };
+                }
+
+                $($table).DataTable(dataDataTables);
             }
         );
     }
