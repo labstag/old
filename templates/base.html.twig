@@ -7,7 +7,7 @@
         {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
-    <body{% if classBody is defined %} class="{{ classBody }}"{% endif %} data-langdatatables="{{ asset(langdatatables) }}">
+    <body{% if classBody is defined %} class="{{ classBody }}"{% endif %}>
         {% block body %}{% endblock %}
         {% if pagination is defined %}
             {{ knp_pagination_render(pagination) }}
