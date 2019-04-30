@@ -11,6 +11,6 @@ export class datatables {
         window.dateFormatter = this.dateFormatter;
     }
     dateFormatter(value, row) {
-        return moment(value).format('MMMM Do YYYY, h:mm:ss a');
+        return moment(value).format('MMMM Do YYYY, H:mm:ss');
     }
 }
