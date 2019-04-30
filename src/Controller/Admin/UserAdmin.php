@@ -5,7 +5,6 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\User;
 use Labstag\Form\Admin\UserType;
 use Labstag\Lib\AdminControllerLib;
-use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,11 +17,14 @@ class UserAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminuser_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(): Response
     {
-        $this->crudListAction($userRepository);
-
-        return $this->twig('admin/user/index.html.twig');
+        return $this->twig(
+            'admin/user/index.html.twig',
+            [
+                'api' => $this->generateUrl('api_users_get_collection')
+            ]
+        );
     }
 
     /**

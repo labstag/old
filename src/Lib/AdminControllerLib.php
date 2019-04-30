@@ -9,7 +9,12 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 abstract class AdminControllerLib extends ControllerLib
 {
-
+    /**
+     * TODO: Le refaire pour prendre en compte bootstrap-table
+     *
+     * @param ServiceEntityRepositoryLib $repository
+     * @return void
+     */
     protected function crudListAction(ServiceEntityRepositoryLib $repository)
     {
         $entities = $repository->findAll();
