@@ -124,7 +124,13 @@ path,
     background-color: transparent;
 }
 
-.AdminPages {}
+.AdminPages {
+    table {
+        .img-thumbnail {
+            max-width: 20%;
+        }
+    }
+}
 
 .LoginPage {
     display: -ms-flexbox;

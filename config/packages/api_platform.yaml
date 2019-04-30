@@ -1,4 +1,8 @@
 api_platform:
+    collection:
+        pagination:
+            items_per_page: 5
+            items_per_page_parameter_name: 'limit'
     swagger:
         api_keys:
            apiKey:
