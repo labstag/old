@@ -2,19 +2,23 @@
 
 namespace Labstag\Controller\Front;
 
-use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\Entity\User;
+use Labstag\Entity\Category;
+use Labstag\Lib\ControllerLib;
 use Labstag\Repository\PostRepository;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
-trait PostTrait
+/**
+ * @Route("/post")
+ */
+class PostFront extends ControllerLib
 {
     /**
-     * @Route("/post/user/{user}", name="posts_user")
+     * @Route("/user/{user}", name="posts_user")
      */
     public function postUser(
         User $user,
@@ -28,7 +32,7 @@ trait PostTrait
     }
 
     /**
-     * @Route("/post/category/{slug}", name="posts_category")
+     * @Route("/category/{slug}", name="posts_category")
      */
     public function postCategory(
         Category $category,
@@ -42,7 +46,7 @@ trait PostTrait
     }
 
     /**
-     * @Route("/post/tags/{slug}", name="posts_tag")
+     * @Route("/tags/{slug}", name="posts_tag")
      */
     public function PostTags(
         Tags $tag,
@@ -56,7 +60,7 @@ trait PostTrait
     }
 
     /**
-     * @Route("/post/{slug}", name="posts_show")
+     * @Route("/{slug}", name="posts_show")
      */
     public function postShow(Post $post): Response
     {
@@ -71,7 +75,7 @@ trait PostTrait
     }
 
     /**
-     * @Route("/post/", name="posts_list")
+     * @Route("/", name="posts_list")
      */
     public function postList(PostRepository $postRepository): Response
     {

@@ -1,8 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.css";
-@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
-@import '~datatables.net-select-bs4/css/select.bootstrap4.min.css';
-@import '~datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css';
 @import '~jquery-ui/themes/base/all.css';
 @import '~tinymce/skins/ui/oxide/content.min.css';
 @import '~prismjs/themes/prism.css';
@@ -15,6 +12,7 @@
 @import '~@fullcalendar/timegrid/main.css';
 @import '~@fullcalendar/list/main.css';
 @import '~jsplumb/css/jsplumbtoolkit-defaults.css';
+@import '~bootstrap-table/dist/bootstrap-table.css';
 
 .flowchart-demo .window {
     border: 1px solid #346789;

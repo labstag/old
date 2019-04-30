@@ -18,11 +18,14 @@ class TagsAdmin extends AdminControllerLib
     /**
      * @Route("/", name="admintags_index", methods={"GET"})
      */
-    public function index(TagsRepository $tagsRepository): Response
+    public function index(): Response
     {
-        $this->crudListAction($tagsRepository);
-
-        return $this->twig('admin/tags/index.html.twig');
+        return $this->twig(
+            'admin/tags/index.html.twig',
+            [
+                'api' => $this->generateUrl('api_tags_get_collection')
+            ]
+        );
     }
 
     /**

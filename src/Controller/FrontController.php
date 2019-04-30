@@ -2,14 +2,13 @@
 
 namespace Labstag\Controller;
 
-use Labstag\Controller\Front\PostTrait;
 use Labstag\Lib\ControllerLib;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use function GuzzleHttp\Psr7\readline;
 
 class FrontController extends ControllerLib
 {
-    use PostTrait;
 
     /**
      * @Route("/", name="front")
