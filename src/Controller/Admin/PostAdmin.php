@@ -5,7 +5,6 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\Post;
 use Labstag\Form\Admin\PostType;
 use Labstag\Lib\AdminControllerLib;
-use Labstag\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,11 +17,14 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminpost_index", methods={"GET"})
      */
-    public function index(PostRepository $postRepository): Response
+    public function index(): Response
     {
-        $this->crudListAction($postRepository);
-
-        return $this->twig('admin/post/index.html.twig');
+        return $this->twig(
+            'admin/post/index.html.twig',
+            [
+                'api' => $this->generateUrl('api_posts_get_collection')
+            ]
+        );
     }
 
     /**

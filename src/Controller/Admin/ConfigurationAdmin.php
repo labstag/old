@@ -5,7 +5,6 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\Configuration;
 use Labstag\Form\Admin\ConfigurationType;
 use Labstag\Lib\AdminControllerLib;
-use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,13 +17,14 @@ class ConfigurationAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminconfiguration_index", methods={"GET"})
      */
-    public function index(
-        ConfigurationRepository $configurationRepository
-    ): Response
+    public function index(): Response
     {
-        $this->crudListAction($configurationRepository);
-
-        return $this->twig('admin/configuration/index.html.twig');
+        return $this->twig(
+            'admin/configuration/index.html.twig',
+            [
+                'api' => $this->generateUrl('api_configurations_get_collection')
+            ]
+        );
     }
 
     /**
