@@ -15,10 +15,33 @@ abstract class AdminControllerLib extends ControllerLib
      * @param ServiceEntityRepositoryLib $repository
      * @return void
      */
-    protected function crudListAction(ServiceEntityRepositoryLib $repository)
+    protected function crudListAction($data): Response
     {
-        $entities = $repository->findAll();
-        $this->paginator($entities);
+        if (!isset($data['datatable'])) {
+            throw new HttpException(500, 'Parametre [datatable] manquant');
+        }
+
+        if (!isset($data['api'])) {
+            throw new HttpException(500, 'Parametre [api] manquant');
+        }
+
+        if (!isset($data['new'])) {
+            throw new HttpException(500, 'Parametre [new] manquant');
+        }
+
+        if (!isset($data['title'])) {
+            throw new HttpException(500, 'Parametre [title] manquant');
+        }
+        return $this->twig(
+            'admin/crud/index.html.twig',
+            [
+                'datatable' => $data['datatable'],
+                'title'     => $data['title'],
+                'select'    => true,
+                'api'       => $data['api'],
+                'new'       => $data['new'],
+            ]
+        );
     }
 
     protected function crudNewAction(Request $request, array $data = [])

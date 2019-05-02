@@ -19,12 +19,59 @@ class UserAdmin extends AdminControllerLib
      */
     public function index(): Response
     {
-        return $this->twig(
-            'admin/user/index.html.twig',
-            [
-                'api' => $this->generateUrl('api_users_get_collection')
-            ]
-        );
+        $datatable = [
+            'Username'      => [
+                'field'    => 'username',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'Email' => [
+                'field'    => 'email',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'Roles' => [
+                'field'    => 'roles',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'Avatar'      => [
+                'field'     => 'avatar',
+                'sortable'  => true,
+                'formatter' => 'imageFormatter',
+                'valign'    => 'top',
+                'align'     => 'center',
+            ],
+            'api key' => [
+                'field'    => 'apiKey',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'Enable' => [
+                'field'    => 'enable',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+        ];
+        $data      = [
+            'title'     => 'Users index',
+            'datatable' => $datatable,
+            'api'       => $this->generateUrl('api_users_get_collection'),
+            'new'       => 'adminuser_new',
+        ];
+        return $this->crudListAction($data);
     }
 
     /**

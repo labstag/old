@@ -20,12 +20,32 @@ class TagsAdmin extends AdminControllerLib
      */
     public function index(): Response
     {
-        return $this->twig(
-            'admin/tags/index.html.twig',
-            [
-                'api' => $this->generateUrl('api_tags_get_collection')
-            ]
-        );
+        $datatable = [
+            'Name'      => [
+                'field'    => 'name',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+        ];
+        $data      = [
+            'title'     => 'Tags index',
+            'datatable' => $datatable,
+            'api'       => $this->generateUrl('api_tags_get_collection'),
+            'new'       => 'admintags_new',
+        ];
+        return $this->crudListAction($data);
     }
 
     /**

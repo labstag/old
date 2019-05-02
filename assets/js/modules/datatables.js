@@ -11,6 +11,7 @@ export class datatables {
     execute() {
         window.dateFormatter  = this.dateFormatter;
         window.imageFormatter = this.imageFormatter;
+        window.queryParams    = this.queryParams;
         window.ajaxOptions    = {
             'headers': {
                 'Accept': 'application/ld+json'
@@ -27,6 +28,17 @@ export class datatables {
                 return JSON.stringify(data);
             }
         };
+    }
+
+    queryParams(params) {
+        params.page = params.offset / params.limit;
+        if (params.page == 0) {
+            delete params.page;
+        }
+
+        delete params.offset;
+
+        return params;
     }
 
     dateFormatter(value, row) {

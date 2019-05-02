@@ -19,12 +19,45 @@ class PostAdmin extends AdminControllerLib
      */
     public function index(): Response
     {
-        return $this->twig(
-            'admin/post/index.html.twig',
-            [
-                'api' => $this->generateUrl('api_posts_get_collection')
-            ]
-        );
+        $datatable = [
+            'Name'      => [
+                'field'    => 'name',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'File'      => [
+                'field'     => 'file',
+                'sortable'  => true,
+                'formatter' => 'imageFormatter',
+                'valign'    => 'top',
+                'align'     => 'center',
+            ],
+            'Enable' => [
+                'field'     => 'enable',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+        ];
+        $data      = [
+            'title'     => 'Post index',
+            'datatable' => $datatable,
+            'api'       => $this->generateUrl('api_posts_get_collection'),
+            'new'       => 'adminpost_new',
+        ];
+        return $this->crudListAction($data);
     }
 
     /**
