@@ -9,10 +9,11 @@ export class datatables {
     }
 
     execute() {
-        window.dateFormatter  = this.dateFormatter;
-        window.imageFormatter = this.imageFormatter;
-        window.queryParams    = this.queryParams;
-        window.ajaxOptions    = {
+        window.dateFormatter      = this.dateFormatter;
+        window.imageFormatter     = this.imageFormatter;
+        window.queryParams        = this.queryParams;
+        window.operationDatatable = this.operations;
+        window.ajaxOptions        = {
             'headers': {
                 'Accept': 'application/ld+json'
             },
@@ -28,6 +29,11 @@ export class datatables {
                 return JSON.stringify(data);
             }
         };
+    }
+
+    operations(value, row) {
+        console.log('aa');
+        return 'aa';
     }
 
     queryParams(params) {
