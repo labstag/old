@@ -16,6 +16,9 @@
                     {% endfor %}>
                     {{ name }}</th>
                 {% endfor %}
+                {% if operation is defined %}
+                    <th data-formatter="operationDatatable">Opérations</th>
+                {% endif %}
             </tr>
         </thead>
     </table>

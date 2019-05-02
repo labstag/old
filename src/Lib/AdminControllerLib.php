@@ -37,6 +37,7 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'datatable' => $data['datatable'],
                 'title'     => $data['title'],
+                'operation' => true,
                 'select'    => true,
                 'api'       => $data['api'],
                 'new'       => $data['new'],
