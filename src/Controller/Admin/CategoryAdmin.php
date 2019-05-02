@@ -19,12 +19,29 @@ class CategoryAdmin extends AdminControllerLib
      */
     public function index(): Response
     {
-        return $this->twig(
-            'admin/category/index.html.twig',
-            [
-                'api' => $this->generateUrl('api_categories_get_collection')
-            ]
-        );
+        $datatable = [
+            'Name'      => [
+                'field'    => 'name',
+                'sortable' => true,
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+            ],
+        ];
+        $data      = [
+            'title'     => 'Category index',
+            'datatable' => $datatable,
+            'api'       => $this->generateUrl('api_categories_get_collection'),
+            'new'       => 'admincategory_new',
+        ];
+        return $this->crudListAction($data);
     }
 
     /**
