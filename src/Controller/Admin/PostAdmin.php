@@ -54,7 +54,7 @@ class PostAdmin extends AdminControllerLib
         $data      = [
             'title'     => 'Post index',
             'datatable' => $datatable,
-            'api'       => $this->generateUrl('api_posts_get_collection'),
+            'api'       => 'api_posts_get_collection',
             'new'       => 'adminpost_new',
         ];
         return $this->crudListAction($data);
