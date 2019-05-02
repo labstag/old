@@ -19,12 +19,33 @@ class ConfigurationAdmin extends AdminControllerLib
      */
     public function index(): Response
     {
-        return $this->twig(
-            'admin/configuration/index.html.twig',
-            [
-                'api' => $this->generateUrl('api_configurations_get_collection')
-            ]
-        );
+        $datatable = [
+            'Name'      => [
+                'field'    => 'name',
+                'sortable' => true,
+            ],
+            'Value'      => [
+                'field'    => 'value',
+                'sortable' => true,
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+            ],
+        ];
+        $data      = [
+            'title'     => 'Configuration index',
+            'datatable' => $datatable,
+            'api'       => $this->generateUrl('api_configurations_get_collection'),
+            'new'       => 'adminconfiguration_new',
+        ];
+        return $this->crudListAction($data);
     }
 
     /**
