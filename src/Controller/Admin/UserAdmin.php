@@ -68,7 +68,7 @@ class UserAdmin extends AdminControllerLib
         $data      = [
             'title'     => 'Users index',
             'datatable' => $datatable,
-            'api'       => $this->generateUrl('api_users_get_collection'),
+            'api'       => 'api_users_get_collection',
             'new'       => 'adminuser_new',
         ];
         return $this->crudListAction($data);

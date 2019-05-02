@@ -4,7 +4,7 @@
 
 {% block bodyAdmin %}
     <h1>{{ title }}</h1>
-    <table class="table table-border table-hover table-striped table-sm thead-light" data-query-params="queryParams" data-page-size="5" data-ajax-options="ajaxOptions" data-moment="MMMM Do YYYY, H:mm:ss" data-files="{{ asset('file/') }}" data-toggle="table" data-url="{{ api }}" data-locale="fr_FR" data-total-field="count" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-sortable="true" data-sort-class="table-active" data-height="600" data-side-pagination="server" data-sort-stable="true"  data-search="true" data-page-list="[5,10, 25, 50, All]" data-show-refresh="true" data-show-toggle="true" data-id-field="id" data-click-to-select="true" data-pagination="true">
+    <table class="table table-border table-hover table-striped table-sm thead-light" data-query-params="queryParams" data-page-size="5" data-ajax-options="ajaxOptions" data-moment="MMMM Do YYYY, H:mm:ss" data-files="{{ asset('file/') }}" data-toggle="table" data-url="{{ path(api) }}" data-locale="fr_FR" data-total-field="count" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-sortable="true" data-sort-class="table-active" data-height="600" data-side-pagination="server" data-sort-stable="true"  data-search="true" data-page-list="[5,10, 25, 50, All]" data-show-refresh="true" data-show-toggle="true" data-id-field="id" data-click-to-select="true" data-pagination="true">
         <thead>
             <tr>
                 {% if select is defined %}

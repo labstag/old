@@ -38,7 +38,7 @@ class CategoryAdmin extends AdminControllerLib
         $data      = [
             'title'     => 'Category index',
             'datatable' => $datatable,
-            'api'       => $this->generateUrl('api_categories_get_collection'),
+            'api'       => 'api_categories_get_collection',
             'new'       => 'admincategory_new',
         ];
         return $this->crudListAction($data);
