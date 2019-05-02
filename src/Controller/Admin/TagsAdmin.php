@@ -42,7 +42,7 @@ class TagsAdmin extends AdminControllerLib
         $data      = [
             'title'     => 'Tags index',
             'datatable' => $datatable,
-            'api'       => $this->generateUrl('api_tags_get_collection'),
+            'api'       => 'api_tags_get_collection',
             'new'       => 'admintags_new',
         ];
         return $this->crudListAction($data);

@@ -42,7 +42,7 @@ class ConfigurationAdmin extends AdminControllerLib
         $data      = [
             'title'     => 'Configuration index',
             'datatable' => $datatable,
-            'api'       => $this->generateUrl('api_configurations_get_collection'),
+            'api'       => 'api_configurations_get_collection',
             'new'       => 'adminconfiguration_new',
         ];
         return $this->crudListAction($data);
