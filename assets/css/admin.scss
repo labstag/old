@@ -1,0 +1,11 @@
+.AdminPages {
+    table {
+        .img-thumbnail {
+            max-width: 20%;
+        }
+    }
+
+    button[type=submit] {
+        display: none;
+    }
+}

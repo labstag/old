@@ -8,6 +8,7 @@ use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\UserRepository;
 
 /**
  * @Route("/admin/user")
@@ -66,10 +67,12 @@ class UserAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'     => 'Users index',
-            'datatable' => $datatable,
-            'api'       => 'api_users_get_collection',
-            'new'       => 'adminuser_new',
+            'title'      => 'Users index',
+            'datatable'  => $datatable,
+            'api'        => 'api_users_get_collection',
+            'url_new'    => 'adminuser_new',
+            'url_delete' => 'adminuser_delete',
+            'url_edit'   => 'adminuser_edit',
         ];
         return $this->crudListAction($data);
     }
@@ -103,16 +106,17 @@ class UserAdmin extends AdminControllerLib
                 'entity'    => $user,
                 'url_index' => 'adminuser_index',
                 'url_edit'  => 'adminuser_edit',
+                'url_delete'  => 'adminuser_delete',
                 'title'     => 'Edit user',
             ]
         );
     }
 
     /**
-     * @Route("/delete/{id}", name="adminuser_delete", methods={"DELETE"})
+     * @Route("/delete", name="adminuser_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, UserRepository $repository): Response
     {
-        return $this->crudActionDelete($request, $user, 'adminuser_index');
+        return $this->crudActionDelete($request, $repository, 'adminuser_index');
     }
 }

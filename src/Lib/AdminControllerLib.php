@@ -2,6 +2,7 @@
 
 namespace Labstag\Lib;
 
+use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,24 +26,31 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [api] manquant');
         }
 
-        if (!isset($data['new'])) {
-            throw new HttpException(500, 'Parametre [new] manquant');
+        if (!isset($data['url_new'])) {
+            throw new HttpException(500, 'Parametre [url_new] manquant');
         }
 
         if (!isset($data['title'])) {
             throw new HttpException(500, 'Parametre [title] manquant');
         }
-        return $this->twig(
-            'admin/crud/index.html.twig',
-            [
-                'datatable' => $data['datatable'],
-                'title'     => $data['title'],
-                'operation' => true,
-                'select'    => true,
-                'api'       => $data['api'],
-                'new'       => $data['new'],
-            ]
-        );
+
+        $paramtwig = [
+            'datatable' => $data['datatable'],
+            'title'     => $data['title'],
+            'operation' => true,
+            'select'    => true,
+            'api'       => $data['api'],
+            'url_new'   => $data['url_new'],
+        ];
+        if(isset($data['url_delete'])) {
+            $paramtwig['url_delete'] = $data['url_delete'];
+        }
+
+        if(isset($data['url_edit'])) {
+            $paramtwig['url_edit'] = $data['url_edit'];
+        }
+
+        return $this->twig('admin/crud/index.html.twig', $paramtwig);
     }
 
     protected function crudNewAction(Request $request, array $data = [])
@@ -67,7 +75,15 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [title] manquant');
         }
 
-        $form = $this->createForm($data['form'], $data['entity']);
+        $route = $request->attributes->get('_route');
+        $form = $this->createForm(
+            $data['form'],
+            $data['entity'],
+            [
+                'method' => 'POST',
+                'action' => $this->generateUrl($route)
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -85,7 +101,8 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'entity'   => $data['entity'],
                 'title'    => $data['title'],
-                'url_back' => $data['url_index'],
+                'url_list' => $data['url_index'],
+                'btnSave' => true,
                 'form'     => $form->createView(),
             ]
         );
@@ -109,11 +126,24 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [url_edit] manquant');
         }
 
+        if (!isset($data['url_delete'])) {
+            throw new HttpException(500, 'Parametre [url_delete] manquant');
+        }
+
         if (!isset($data['title'])) {
             throw new HttpException(500, 'Parametre [title] manquant');
         }
 
-        $form = $this->createForm($data['form'], $data['entity']);
+        $route = $request->attributes->get('_route');
+        $routeParams = $request->attributes->get('_route_params');
+        $form = $this->createForm(
+            $data['form'],
+            $data['entity'],
+            [
+                'action' => $this->generateUrl($route, $routeParams),
+                'method' => 'POST'
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -129,23 +159,25 @@ abstract class AdminControllerLib extends ControllerLib
 
         return $this->crudShowForm(
             [
-                'entity'   => $data['entity'],
-                'title'    => $data['title'],
-                'url_back' => $data['url_index'],
-                'form'     => $form->createView(),
+                'entity'     => $data['entity'],
+                'title'      => $data['title'],
+                'url_list'   => $data['url_index'],
+                'btnSave'    => true,
+                'url_delete' => $data['url_delete'],
+                'form'       => $form->createView(),
             ]
         );
     }
 
-    protected function crudActionDelete(Request $request, $entity, string $route): Response
+    protected function crudActionDelete(Request $request, ServiceEntityRepositoryLib $repository, string $route): Response
     {
-        $token = $request->request->get('_token');
-        $uuid  = $entity->getId();
-        if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($entity);
-            $entityManager->flush();
-        }
+        // $token = $request->request->get('_token');
+        // $uuid  = $entity->getId();
+        // if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager->remove($entity);
+        //     $entityManager->flush();
+        // }
 
         return $this->redirectToRoute($route);
     }
