@@ -3,12 +3,12 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Category;
-use Labstag\Lib\AdminControllerLib;
 use Labstag\Form\Admin\CategoryType;
+use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Labstag\Repository\CategoryRepository;
 
 /**
  * @Route("/admin/category")
@@ -44,6 +44,7 @@ class CategoryAdmin extends AdminControllerLib
             'url_delete' => 'admincategory_delete',
             'url_edit'   => 'admincategory_edit',
         ];
+
         return $this->crudListAction($data);
     }
 
@@ -72,12 +73,12 @@ class CategoryAdmin extends AdminControllerLib
         return $this->crudEditAction(
             $request,
             [
-                'form'      => CategoryType::class,
-                'entity'    => $category,
-                'url_index' => 'admincategory_index',
-                'url_edit'  => 'admincategory_edit',
-                'url_delete'  => 'admincategory_delete',
-                'title'     => 'Edit categorie',
+                'form'       => CategoryType::class,
+                'entity'     => $category,
+                'url_index'  => 'admincategory_index',
+                'url_edit'   => 'admincategory_edit',
+                'url_delete' => 'admincategory_delete',
+                'title'      => 'Edit categorie',
             ]
         );
     }

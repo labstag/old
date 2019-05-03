@@ -2,15 +2,15 @@
 
 namespace Labstag\Controller\Front;
 
+use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\Entity\User;
-use Labstag\Entity\Category;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\PostRepository;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 /**
  * @Route("/post")
