@@ -8,6 +8,7 @@ use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\PostRepository;
 
 /**
  * @Route("/admin/post")
@@ -52,10 +53,12 @@ class PostAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'     => 'Post index',
-            'datatable' => $datatable,
-            'api'       => 'api_posts_get_collection',
-            'new'       => 'adminpost_new',
+            'title'      => 'Post index',
+            'datatable'  => $datatable,
+            'api'        => 'api_posts_get_collection',
+            'url_new'    => 'adminpost_new',
+            'url_delete' => 'adminpost_delete',
+            'url_edit'   => 'adminpost_edit',
         ];
         return $this->crudListAction($data);
     }
@@ -89,16 +92,17 @@ class PostAdmin extends AdminControllerLib
                 'entity'    => $post,
                 'url_index' => 'adminpost_index',
                 'url_edit'  => 'adminpost_edit',
+                'url_delete'  => 'adminpost_delete',
                 'title'     => 'Edit post',
             ]
         );
     }
 
     /**
-     * @Route("/delete/{id}", name="adminpost_delete", methods={"DELETE"})
+     * @Route("/delete", name="adminpost_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Post $post): Response
+    public function delete(Request $request, PostRepository $repository): Response
     {
-        return $this->crudActionDelete($request, $post, 'adminpost_index');
+        return $this->crudActionDelete($request, $repository, 'adminpost_index');
     }
 }
