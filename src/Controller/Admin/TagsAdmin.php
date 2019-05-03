@@ -40,10 +40,12 @@ class TagsAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'     => 'Tags index',
-            'datatable' => $datatable,
-            'api'       => 'api_tags_get_collection',
-            'new'       => 'admintags_new',
+            'title'      => 'Tags index',
+            'datatable'  => $datatable,
+            'api'        => 'api_tags_get_collection',
+            'url_new'    => 'admintags_new',
+            'url_delete' => 'admintags_delete',
+            'url_edit'   => 'admintags_edit',
         ];
         return $this->crudListAction($data);
     }
@@ -77,16 +79,17 @@ class TagsAdmin extends AdminControllerLib
                 'entity'    => $tag,
                 'url_index' => 'admintags_index',
                 'url_edit'  => 'admintags_edit',
+                'url_delete'  => 'admintags_delete',
                 'title'     => 'Edit tag',
             ]
         );
     }
 
     /**
-     * @Route("/delete/{id}", name="admintags_delete", methods={"DELETE"})
+     * @Route("/delete", name="admintags_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Tags $tag): Response
+    public function delete(Request $request, TagsRepository $repository): Response
     {
-        return $this->crudActionDelete($request, $tag, 'admintags_index');
+        return $this->crudActionDelete($request, $repository, 'admintags_index');
     }
 }

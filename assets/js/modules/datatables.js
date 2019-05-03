@@ -32,7 +32,11 @@ export class datatables {
     }
 
     operations(value, row) {
-        return 'Modifier | Supprimer';
+        let operationDelete = document.querySelector('.OperationDelete').innerHTML;
+        let operationUpdate = document.querySelector('.OperationUpdate').innerHTML;
+
+        operationUpdate = operationUpdate.replace('code', row.id);
+        return operationUpdate + operationDelete;
     }
 
     queryParams(params) {

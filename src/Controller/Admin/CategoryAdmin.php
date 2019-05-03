@@ -8,6 +8,7 @@ use Labstag\Form\Admin\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\CategoryRepository;
 
 /**
  * @Route("/admin/category")
@@ -36,10 +37,12 @@ class CategoryAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'     => 'Category index',
-            'datatable' => $datatable,
-            'api'       => 'api_categories_get_collection',
-            'new'       => 'admincategory_new',
+            'title'      => 'Category index',
+            'datatable'  => $datatable,
+            'api'        => 'api_categories_get_collection',
+            'url_new'    => 'admincategory_new',
+            'url_delete' => 'admincategory_delete',
+            'url_edit'   => 'admincategory_edit',
         ];
         return $this->crudListAction($data);
     }
@@ -73,16 +76,17 @@ class CategoryAdmin extends AdminControllerLib
                 'entity'    => $category,
                 'url_index' => 'admincategory_index',
                 'url_edit'  => 'admincategory_edit',
+                'url_delete'  => 'admincategory_delete',
                 'title'     => 'Edit categorie',
             ]
         );
     }
 
     /**
-     * @Route("/delete/{id}", name="admincategory_delete", methods={"DELETE"})
+     * @Route("/delete", name="admincategory_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Category $category): Response
+    public function delete(Request $request, CategoryRepository $repository): Response
     {
-        return $this->crudActionDelete($request, $category, 'admincategory_index');
+        return $this->crudActionDelete($request, $repository, 'admincategory_index');
     }
 }

@@ -8,6 +8,7 @@ use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\ConfigurationRepository;
 
 /**
  * @Route("/admin/configuration")
@@ -40,10 +41,12 @@ class ConfigurationAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'     => 'Configuration index',
-            'datatable' => $datatable,
-            'api'       => 'api_configurations_get_collection',
-            'new'       => 'adminconfiguration_new',
+            'title'      => 'Configuration index',
+            'datatable'  => $datatable,
+            'api'        => 'api_configurations_get_collection',
+            'url_new'    => 'adminconfiguration_new',
+            'url_delete' => 'adminconfiguration_delete',
+            'url_edit'   => 'adminconfiguration_edit',
         ];
         return $this->crudListAction($data);
     }
@@ -68,10 +71,7 @@ class ConfigurationAdmin extends AdminControllerLib
     /**
      * @Route("/edit/{id}", name="adminconfiguration_edit", methods={"GET", "POST"})
      */
-    public function edit(
-        Request $request,
-        Configuration $configuration
-    ): Response
+    public function edit(Request $request, Configuration $configuration): Response
     {
         return $this->crudEditAction(
             $request,
@@ -80,19 +80,17 @@ class ConfigurationAdmin extends AdminControllerLib
                 'entity'    => $configuration,
                 'url_index' => 'adminconfiguration_index',
                 'url_edit'  => 'adminconfiguration_edit',
+                'url_delete'  => 'adminconfiguration_delete',
                 'title'     => 'Edit configuration',
             ]
         );
     }
 
     /**
-     * @Route("/delete/{id}", name="adminconfiguration_delete", methods={"DELETE"})
+     * @Route("/delete", name="adminconfiguration_delete", methods={"DELETE"})
      */
-    public function delete(
-        Request $request,
-        Configuration $configuration
-    ): Response
+    public function delete(Request $request, ConfigurationRepository $repository): Response
     {
-        return $this->crudActionDelete($request, $configuration, 'adminconfiguration_index');
+        return $this->crudActionDelete($request, $repository, 'adminconfiguration_index');
     }
 }
