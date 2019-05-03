@@ -5,10 +5,10 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\Configuration;
 use Labstag\Form\Admin\ConfigurationType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Labstag\Repository\ConfigurationRepository;
 
 /**
  * @Route("/admin/configuration")
@@ -25,7 +25,7 @@ class ConfigurationAdmin extends AdminControllerLib
                 'field'    => 'name',
                 'sortable' => true,
             ],
-            'Value'      => [
+            'Value'     => [
                 'field'    => 'value',
                 'sortable' => true,
             ],
@@ -48,6 +48,7 @@ class ConfigurationAdmin extends AdminControllerLib
             'url_delete' => 'adminconfiguration_delete',
             'url_edit'   => 'adminconfiguration_edit',
         ];
+
         return $this->crudListAction($data);
     }
 
@@ -76,12 +77,12 @@ class ConfigurationAdmin extends AdminControllerLib
         return $this->crudEditAction(
             $request,
             [
-                'form'      => ConfigurationType::class,
-                'entity'    => $configuration,
-                'url_index' => 'adminconfiguration_index',
-                'url_edit'  => 'adminconfiguration_edit',
-                'url_delete'  => 'adminconfiguration_delete',
-                'title'     => 'Edit configuration',
+                'form'       => ConfigurationType::class,
+                'entity'     => $configuration,
+                'url_index'  => 'adminconfiguration_index',
+                'url_edit'   => 'adminconfiguration_edit',
+                'url_delete' => 'adminconfiguration_delete',
+                'title'      => 'Edit configuration',
             ]
         );
     }

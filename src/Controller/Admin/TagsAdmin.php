@@ -47,6 +47,7 @@ class TagsAdmin extends AdminControllerLib
             'url_delete' => 'admintags_delete',
             'url_edit'   => 'admintags_edit',
         ];
+
         return $this->crudListAction($data);
     }
 
@@ -75,12 +76,12 @@ class TagsAdmin extends AdminControllerLib
         return $this->crudEditAction(
             $request,
             [
-                'form'      => TagsType::class,
-                'entity'    => $tag,
-                'url_index' => 'admintags_index',
-                'url_edit'  => 'admintags_edit',
-                'url_delete'  => 'admintags_delete',
-                'title'     => 'Edit tag',
+                'form'       => TagsType::class,
+                'entity'     => $tag,
+                'url_index'  => 'admintags_index',
+                'url_edit'   => 'admintags_edit',
+                'url_delete' => 'admintags_delete',
+                'title'      => 'Edit tag',
             ]
         );
     }

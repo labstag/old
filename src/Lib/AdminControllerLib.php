@@ -2,18 +2,34 @@
 
 namespace Labstag\Lib;
 
-use Labstag\Lib\ServiceEntityRepositoryLib;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 abstract class AdminControllerLib extends ControllerLib
 {
     /**
-     * TODO: Le refaire pour prendre en compte bootstrap-table
+     * Show.
      *
-     * @param ServiceEntityRepositoryLib $repository
+     * @param string    $view       template
+     * @param array     $parameters data
+     * @param ?Response $response   ??
+     */
+    public function twig(
+        string $view,
+        array $parameters = [],
+        Response $response = null
+    ): Response
+    {
+        $this->addParamViewsAdmin($parameters);
+
+        return parent::twig($view, $parameters, $response);
+    }
+
+    /**
+     * TODO: Le refaire pour prendre en compte bootstrap-table.
+     *
      * @return void
      */
     protected function crudListAction($data): Response
@@ -42,11 +58,11 @@ abstract class AdminControllerLib extends ControllerLib
             'api'       => $data['api'],
             'url_new'   => $data['url_new'],
         ];
-        if(isset($data['url_delete'])) {
+        if (isset($data['url_delete'])) {
             $paramtwig['url_delete'] = $data['url_delete'];
         }
 
-        if(isset($data['url_edit'])) {
+        if (isset($data['url_edit'])) {
             $paramtwig['url_edit'] = $data['url_edit'];
         }
 
@@ -76,12 +92,12 @@ abstract class AdminControllerLib extends ControllerLib
         }
 
         $route = $request->attributes->get('_route');
-        $form = $this->createForm(
+        $form  = $this->createForm(
             $data['form'],
             $data['entity'],
             [
                 'method' => 'POST',
-                'action' => $this->generateUrl($route)
+                'action' => $this->generateUrl($route),
             ]
         );
         $form->handleRequest($request);
@@ -102,7 +118,7 @@ abstract class AdminControllerLib extends ControllerLib
                 'entity'   => $data['entity'],
                 'title'    => $data['title'],
                 'url_list' => $data['url_index'],
-                'btnSave' => true,
+                'btnSave'  => true,
                 'form'     => $form->createView(),
             ]
         );
@@ -134,14 +150,14 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [title] manquant');
         }
 
-        $route = $request->attributes->get('_route');
+        $route       = $request->attributes->get('_route');
         $routeParams = $request->attributes->get('_route_params');
-        $form = $this->createForm(
+        $form        = $this->createForm(
             $data['form'],
             $data['entity'],
             [
                 'action' => $this->generateUrl($route, $routeParams),
-                'method' => 'POST'
+                'method' => 'POST',
             ]
         );
         $form->handleRequest($request);
@@ -216,23 +232,6 @@ abstract class AdminControllerLib extends ControllerLib
     }
 
     /**
-     * Show.
-     *
-     * @param string    $view       template
-     * @param array     $parameters data
-     * @param ?Response $response   ??
-     */
-    public function twig(
-        string $view,
-        array $parameters = [],
-        Response $response = null
-    ): Response
-    {
-        $this->addParamViewsAdmin($parameters);
-        return parent::twig($view, $parameters, $response);
-    }
-
-    /**
      * Add param to twig.
      */
     protected function addParamViewsAdmin(array $parameters = []): void
@@ -245,45 +244,45 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $menuadmin = [
             [
-                'url' => 'admin_dashboard',
-                'title' => 'Dashboard'
+                'url'   => 'admin_dashboard',
+                'title' => 'Dashboard',
             ],
             [
-                'url' => 'admincategory_index',
-                'title' => 'Catégory'
+                'url'   => 'admincategory_index',
+                'title' => 'Catégory',
             ],
             [
-                'url' => 'adminconfiguration_index',
-                'title' => 'Configuration'
+                'url'   => 'adminconfiguration_index',
+                'title' => 'Configuration',
             ],
             [
-                'url' => 'adminformbuilder_index',
-                'title' => 'Form Builder'
+                'url'   => 'adminformbuilder_index',
+                'title' => 'Form Builder',
             ],
             [
-                'url' => 'adminfullcalendar_index',
-                'title' => 'Full Calendar'
+                'url'   => 'adminfullcalendar_index',
+                'title' => 'Full Calendar',
             ],
             [
-                'url' => 'adminparam_index',
-                'title' => 'Param'
+                'url'   => 'adminparam_index',
+                'title' => 'Param',
             ],
             [
-                'url' => 'adminpost_index',
-                'title' => 'Post'
+                'url'   => 'adminpost_index',
+                'title' => 'Post',
             ],
             [
-                'url' => 'admintags_index',
-                'title' => 'Tags'
+                'url'   => 'admintags_index',
+                'title' => 'Tags',
             ],
             [
-                'url' => 'adminuser_index',
-                'title' => 'User'
+                'url'   => 'adminuser_index',
+                'title' => 'User',
             ],
             [
-                'url' => 'adminworkflow_index',
-                'title' => 'Workflow'
-            ]
+                'url'   => 'adminworkflow_index',
+                'title' => 'Workflow',
+            ],
         ];
 
         $actualroute = $this->request->get('_route');
@@ -297,13 +296,20 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews['menuadmin']   = $menuadmin;
     }
 
-    private function isActualRoute($url, $actualroute) {
+    private function isActualRoute($url, $actualroute)
+    {
         if ($url == $actualroute) {
             return true;
         }
 
-        list($controller1, $route1) = explode("_", $url);
-        list($controller2, $route2) = explode("_", $actualroute);
+        [
+            $controller1,
+            $route1,
+        ] = explode('_', $url);
+        [
+            $controller2,
+            $route2,
+        ] = explode('_', $actualroute);
         if ($controller1 == $controller2) {
             return true;
         }

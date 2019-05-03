@@ -5,10 +5,10 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\User;
 use Labstag\Form\Admin\UserType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Labstag\Repository\UserRepository;
 
 /**
  * @Route("/admin/user")
@@ -21,34 +21,34 @@ class UserAdmin extends AdminControllerLib
     public function index(): Response
     {
         $datatable = [
-            'Username'      => [
+            'Username'  => [
                 'field'    => 'username',
                 'sortable' => true,
                 'valign'   => 'top',
             ],
-            'Email' => [
+            'Email'     => [
                 'field'    => 'email',
                 'sortable' => true,
                 'valign'   => 'top',
             ],
-            'Roles' => [
+            'Roles'     => [
                 'field'    => 'roles',
                 'sortable' => true,
                 'valign'   => 'top',
             ],
-            'Avatar'      => [
+            'Avatar'    => [
                 'field'     => 'avatar',
                 'sortable'  => true,
                 'formatter' => 'imageFormatter',
                 'valign'    => 'top',
                 'align'     => 'center',
             ],
-            'api key' => [
+            'api key'   => [
                 'field'    => 'apiKey',
                 'sortable' => true,
                 'valign'   => 'top',
             ],
-            'Enable' => [
+            'Enable'    => [
                 'field'    => 'enable',
                 'sortable' => true,
                 'valign'   => 'top',
@@ -74,6 +74,7 @@ class UserAdmin extends AdminControllerLib
             'url_delete' => 'adminuser_delete',
             'url_edit'   => 'adminuser_edit',
         ];
+
         return $this->crudListAction($data);
     }
 
@@ -102,12 +103,12 @@ class UserAdmin extends AdminControllerLib
         return $this->crudEditAction(
             $request,
             [
-                'form'      => UserType::class,
-                'entity'    => $user,
-                'url_index' => 'adminuser_index',
-                'url_edit'  => 'adminuser_edit',
-                'url_delete'  => 'adminuser_delete',
-                'title'     => 'Edit user',
+                'form'       => UserType::class,
+                'entity'     => $user,
+                'url_index'  => 'adminuser_index',
+                'url_edit'   => 'adminuser_edit',
+                'url_delete' => 'adminuser_delete',
+                'title'      => 'Edit user',
             ]
         );
     }
