@@ -46,7 +46,22 @@ export class datatables {
         }
 
         delete params.offset;
+        if (params.search == '') {
+            delete params.search;
+        }
 
+        if (params.sort != undefined) {
+            let val  = 'order[' + params.sort + ']';
+            let sort = params.order;
+
+            delete params.order;
+            delete params.sort;
+            params[val] = sort;
+        } else {
+            delete params.order;
+        }
+
+        console.log(params);
         return params;
     }
 

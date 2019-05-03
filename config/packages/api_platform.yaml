@@ -1,5 +1,6 @@
 api_platform:
     collection:
+        order_parameter_name: order
         pagination:
             items_per_page: 5
             maximum_items_per_page: 40
