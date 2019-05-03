@@ -32,8 +32,7 @@ export class datatables {
     }
 
     operations(value, row) {
-        console.log('aa');
-        return 'aa';
+        return 'Modifier | Supprimer';
     }
 
     queryParams(params) {
