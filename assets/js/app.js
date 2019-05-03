@@ -24,6 +24,9 @@ import {
 import {
     workflow
 } from './modules/workflow';
+import {
+    admin
+} from './modules/admin';
 import 'whatwg-fetch';
 global.$      = $;
 global.Jquery = $;
@@ -32,6 +35,7 @@ class Site {
      * TODO: Test
      */
     launch() {
+        this.admin        = new admin();
         this.workflow     = new workflow('workflow');
         this.form         = new form();
         this.prismjs      = new prismjs();
