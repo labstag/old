@@ -61,7 +61,6 @@ export class datatables {
             delete params.order;
         }
 
-        console.log(params);
         return params;
     }
 
