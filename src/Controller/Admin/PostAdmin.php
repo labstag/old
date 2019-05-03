@@ -5,10 +5,10 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\Post;
 use Labstag\Form\Admin\PostType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Labstag\Repository\PostRepository;
 
 /**
  * @Route("/admin/post")
@@ -33,7 +33,7 @@ class PostAdmin extends AdminControllerLib
                 'valign'    => 'top',
                 'align'     => 'center',
             ],
-            'Enable' => [
+            'Enable'    => [
                 'field'     => 'enable',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
@@ -60,6 +60,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete' => 'adminpost_delete',
             'url_edit'   => 'adminpost_edit',
         ];
+
         return $this->crudListAction($data);
     }
 
@@ -88,12 +89,12 @@ class PostAdmin extends AdminControllerLib
         return $this->crudEditAction(
             $request,
             [
-                'form'      => PostType::class,
-                'entity'    => $post,
-                'url_index' => 'adminpost_index',
-                'url_edit'  => 'adminpost_edit',
-                'url_delete'  => 'adminpost_delete',
-                'title'     => 'Edit post',
+                'form'       => PostType::class,
+                'entity'     => $post,
+                'url_index'  => 'adminpost_index',
+                'url_edit'   => 'adminpost_edit',
+                'url_delete' => 'adminpost_delete',
+                'title'      => 'Edit post',
             ]
         );
     }
