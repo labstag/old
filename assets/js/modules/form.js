@@ -8,6 +8,7 @@ export class form {
 
     save() {
         $('.BtnActionSave').on('click', function (event) {
+            $(event.currentTarget).attr('disable', true);
             event.preventDefault();
             $('main').find('form').trigger('submit');
         } );
