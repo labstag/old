@@ -17,7 +17,10 @@ class AdminController extends AdminControllerLib
     public function index(): Response
     {
         return $this->twig(
-            'admin/index.html.twig'
+            'admin/index.html.twig',
+            [
+                'title' => 'Dashboard'
+            ]
         );
     }
 }
