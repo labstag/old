@@ -3,6 +3,14 @@ export class form {
         this.add();
         this.delete();
         this.session();
+        this.save();
+    }
+
+    save() {
+        $('.BtnActionSave').on('click', function (event) {
+            event.preventDefault();
+            $('main').find('form').trigger('submit');
+        } );
     }
 
     session() {

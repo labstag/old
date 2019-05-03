@@ -2,12 +2,15 @@
 
 namespace Labstag\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 /**
  * @ApiResource
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName"="order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ConfigurationRepository")
  */
 class Configuration

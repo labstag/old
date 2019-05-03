@@ -2,16 +2,19 @@
 
 namespace Labstag\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 /**
  * @ApiResource
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName"="order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\TagsRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",                 timeAware=false)
  */
