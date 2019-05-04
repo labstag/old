@@ -1,9 +1,78 @@
+import 'whatwg-fetch';
 export class form {
     constructor() {
         this.add();
         this.delete();
         this.session();
         this.save();
+        this.btndelete();
+    }
+
+    confirmDelete(event) {
+        event.preventDefault();
+        let data = [];
+        let url  = $('.BtnDeleteModalConfirm').attr('href');
+
+        if ($('main').find('form').length == 1) {
+            let id = $('main').find('form').attr('data-id');
+
+            data.push(id);
+        } else if ($('#CrudList').length == 1) {
+            let json = $('#CrudList').bootstrapTable('getSelections');
+
+            $(json).each(
+                function (index, row) {
+                    data.push(row.id);
+                }
+            );
+        }
+
+        url = url + ('?' + this.paramDelete(data));
+        window.fetch(
+            url, {
+                'method' : 'DELETE',
+                'headers': {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then((response) => {
+            return response.text();
+        } ).then((text) => {
+            return JSON.parse(text);
+        } ).then((json) => {
+            if (json.redirect != undefined) {
+                window.location.replace(json.redirect);
+            }
+        } );
+    }
+
+    btndelete() {
+        $('.BtnActionDelete').on('click', function (event) {
+            event.preventDefault();
+            $('.BtnDeleteModalConfirm').attr('href', $(event.currentTarget).attr('href'));
+            if ($('main').find('form').length == 1) {
+                $('#deleteModal').modal();
+            } else if ($('#CrudList').length != 0) {
+                let json = $('#CrudList').bootstrapTable('getSelections');
+
+                if (json.length != 0) {
+                    $('#deleteModal').modal();
+                }
+            }
+        } );
+        $('.BtnDeleteModalConfirm').on('click', this.confirmDelete.bind(this));
+    }
+
+    paramDelete(object) {
+        let parameters = [];
+
+        for (var property in object) {
+            if (object.hasOwnProperty(property)) {
+                parameters.push(encodeURI('id[' + property + ']=' + object[property]));
+            }
+        }
+
+        return parameters.join('&');
     }
 
     save() {

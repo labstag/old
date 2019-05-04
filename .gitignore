@@ -41,11 +41,6 @@ public/file
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
-
-###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
-###< lexik/jwt-authentication-bundle ###
-
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
