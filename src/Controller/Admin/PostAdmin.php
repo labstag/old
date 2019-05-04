@@ -9,6 +9,7 @@ use Labstag\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/post")
@@ -36,7 +37,6 @@ class PostAdmin extends AdminControllerLib
             'Enable'    => [
                 'field'     => 'enable',
                 'sortable'  => true,
-                'formatter' => 'dateFormatter',
                 'valign'    => 'top',
             ],
             'CreatedAt' => [
@@ -100,9 +100,9 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/delete", name="adminpost_delete", methods={"DELETE"})
+     * @Route("/", name="adminpost_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, PostRepository $repository): Response
+    public function delete(Request $request, PostRepository $repository): JsonResponse
     {
         return $this->crudActionDelete($request, $repository, 'adminpost_index');
     }

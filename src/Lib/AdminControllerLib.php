@@ -2,10 +2,12 @@
 
 namespace Labstag\Lib;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class AdminControllerLib extends ControllerLib
 {
@@ -24,7 +26,7 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->addParamViewsAdmin($parameters);
 
-        return parent::twig($view, $parameters, $response);
+        return parent::twig($view, $this->paramViews, $response);
     }
 
     /**
@@ -158,10 +160,12 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'action' => $this->generateUrl($route, $routeParams),
                 'method' => 'POST',
+                'attr'   => [
+                    'data-id' => $routeParams['id'],
+                ],
             ]
         );
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -185,17 +189,23 @@ abstract class AdminControllerLib extends ControllerLib
         );
     }
 
-    protected function crudActionDelete(Request $request, ServiceEntityRepositoryLib $repository, string $route): Response
+    protected function crudActionDelete(Request $request, ServiceEntityRepositoryLib $repository, string $route): JsonResponse
     {
-        // $token = $request->request->get('_token');
-        // $uuid  = $entity->getId();
-        // if ($this->isCsrfTokenValid('delete'.$uuid, $token)) {
-        //     $entityManager = $this->getDoctrine()->getManager();
-        //     $entityManager->remove($entity);
-        //     $entityManager->flush();
-        // }
+        $entityManager = $this->getDoctrine()->getManager();
+        $ids           = $request->query->get('id');
+        foreach ($ids as $id) {
+            $entity = $repository->find($id);
 
-        return $this->redirectToRoute($route);
+            $entityManager->remove($entity);
+            dump($entity);
+        }
+
+        $entityManager->flush();
+
+        $json = [
+            'redirect' => $this->generateUrl($route,[], UrlGeneratorInterface::ABSOLUTE_PATH)
+        ];
+        return $this->json($json);
     }
 
     protected function persistAndFlush(&$entity): void
@@ -237,7 +247,7 @@ abstract class AdminControllerLib extends ControllerLib
     protected function addParamViewsAdmin(array $parameters = []): void
     {
         $this->setMenuAdmin();
-        $this->paramViews = array_merge($parameters, $this->paramViews);
+        $this->addParamViewsSite($parameters);
     }
 
     private function setMenuAdmin()
