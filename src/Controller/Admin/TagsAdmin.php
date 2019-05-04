@@ -9,6 +9,7 @@ use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/tags")
@@ -87,9 +88,9 @@ class TagsAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/delete", name="admintags_delete", methods={"DELETE"})
+     * @Route("/", name="admintags_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, TagsRepository $repository): Response
+    public function delete(Request $request, TagsRepository $repository): JsonResponse
     {
         return $this->crudActionDelete($request, $repository, 'admintags_index');
     }

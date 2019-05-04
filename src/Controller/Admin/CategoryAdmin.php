@@ -3,12 +3,13 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Category;
-use Labstag\Form\Admin\CategoryType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Form\Admin\CategoryType;
 use Labstag\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/category")
@@ -84,9 +85,9 @@ class CategoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/delete", name="admincategory_delete", methods={"DELETE"})
+     * @Route("/", name="admincategory_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, CategoryRepository $repository): Response
+    public function delete(Request $request, CategoryRepository $repository): JsonResponse
     {
         return $this->crudActionDelete($request, $repository, 'admincategory_index');
     }

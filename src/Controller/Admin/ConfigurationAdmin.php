@@ -3,12 +3,13 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Configuration;
-use Labstag\Form\Admin\ConfigurationType;
 use Labstag\Lib\AdminControllerLib;
-use Labstag\Repository\ConfigurationRepository;
+use Labstag\Form\Admin\ConfigurationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/configuration")
@@ -88,9 +89,9 @@ class ConfigurationAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/delete", name="adminconfiguration_delete", methods={"DELETE"})
+     * @Route("/", name="adminconfiguration_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ConfigurationRepository $repository): Response
+    public function delete(Request $request, ConfigurationRepository $repository): JsonResponse
     {
         return $this->crudActionDelete($request, $repository, 'adminconfiguration_index');
     }

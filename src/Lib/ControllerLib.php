@@ -3,10 +3,11 @@
 namespace Labstag\Lib;
 
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Labstag\Repository\ConfigurationRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class ControllerLib extends Controller
 {
@@ -60,11 +61,28 @@ abstract class ControllerLib extends Controller
         return parent::render($view, $this->paramViews, $response);
     }
 
+    private function setConfigurationParam()
+    {
+        $configurationRepository = $this->container->get(ConfigurationRepository::class);
+        $data                    = $configurationRepository->GetDataArray();
+        $config                  = [];
+
+        foreach ($data as $row) {
+            $key          = $row['c_name'];
+            $value        = $row['c_value'];
+            $config[$key] = $value;
+        }
+
+        dump($config);
+        $this->paramViews['config'] = $config;
+    }
+
     /**
      * Add param to twig.
      */
     protected function addParamViewsSite(array $parameters = []): void
     {
+        $this->setConfigurationParam();
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 

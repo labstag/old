@@ -3,8 +3,8 @@
 
 {% block content_title %}{{ title }}{% endblock %}
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ path('admin_dashboard') }}">Company name</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ path('admin_dashboard') }}">{% if config['site_title'] is defined %}{{ config['site_title'] }}{% endif %}</a>
         <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
@@ -38,24 +38,28 @@
                                 {% if url_list is defined %}
                                     <a class="btn btn-secondary BtnActionList" href="{{ path(url_list) }}">
                                         <i class="fas fa-list"></i>
+                                        <br />
                                         <span>Liste</span>
                                     </a>
                                 {% endif %}
                                 {% if btnSave is defined %}
                                     <a class="btn btn-secondary BtnActionSave" href="#">
                                         <i class="fas fa-save"></i>
+                                        <br />
                                         <span>Sauvegarder</span>
                                     </a>
                                 {% endif %}
                                 {% if url_new is defined %}
                                     <a class="btn btn-secondary BtnActionAdd" href="{{ path(url_new) }}">
                                         <i class="fas fa-plus"></i>
+                                        <br />
                                         <span>Ajouter</span>
                                     </a>
                                 {% endif %}
                                 {% if url_delete is defined %}
                                     <a class="btn btn-secondary BtnActionDelete" href="{{ path(url_delete) }}">
                                         <i class="fas fa-trash-alt"></i>
+                                        <br />
                                         <span>Supprimer</span>
                                     </a>
                                 {% endif %}
@@ -69,4 +73,7 @@
             </main>
         </div>
     </div>
+    {% if url_delete is defined %}
+        {% include "admin/modal/delete.html.twig" %}
+    {% endif %}
 {% endblock %}

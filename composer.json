@@ -20,7 +20,6 @@
         "knplabs/knp-menu-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^3.0",
         "knplabs/knp-time-bundle": "^1.9",
-        "lexik/jwt-authentication-bundle": "^2.6",
         "martinssipenko/password-policy": "^1.0",
         "phpoffice/phppresentation": "^0.9.0",
         "phpoffice/phpspreadsheet": "^1.6",
