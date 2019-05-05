@@ -2,22 +2,21 @@
 
 namespace Labstag\Form\Admin;
 
-use Labstag\Entity\User;
+use Labstag\Entity\History;
+use Labstag\FormType\WysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class HistoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username');
-        $builder->add('email');
-        $builder->add('plainPassword');
-        $builder->add('apiKey');
+        $builder->add('name');
+        $builder->add('slug');
         $builder->add('enable');
-        $builder->add('avatar');
+        $builder->add('refuser');
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
@@ -26,7 +25,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => User::class,
+                'data_class' => History::class,
             ]
         );
     }

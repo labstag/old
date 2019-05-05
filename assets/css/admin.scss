@@ -1,6 +1,14 @@
 @import "~jquery-resizable-columns/dist/jquery.resizableColumns.css";
 
 .AdminPages {
+    .alert {
+        margin-top: 10px;
+    }
+
+    .bs-checkbox {
+        vertical-align: top;
+    }
+
     .user-menu {
         .img-circle {
             border-radius: 50%;

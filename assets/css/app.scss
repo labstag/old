@@ -17,6 +17,10 @@
 @import 'error.scss';
 @import 'login.scss';
 
+.custom-control-label {
+    cursor: pointer;
+}
+
 .flowchart-demo .window {
     border: 1px solid #346789;
     box-shadow: 2px 2px 19px #aaa;

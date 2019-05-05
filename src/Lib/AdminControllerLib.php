@@ -29,6 +29,17 @@ abstract class AdminControllerLib extends ControllerLib
         return parent::twig($view, $this->paramViews, $response);
     }
 
+    protected function crudEnableAction(Request $request, ServiceEntityRepositoryLib $repository) :JsonResponse
+    {
+        $data          = json_decode($request->getContent(),true);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entity = $repository->find($data['id']);
+        $entity->setEnable($data['state']);
+        $entityManager->persist($entity);
+        $entityManager->flush();
+        return $this->json([]);
+    }
+
     /**
      * TODO: Le refaire pour prendre en compte bootstrap-table.
      *
@@ -110,7 +121,7 @@ abstract class AdminControllerLib extends ControllerLib
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persistAndFlush($data['entity']);
-
+            $this->addFlash('success','Données sauvegardé');
             return $this->crudRedirectForm(
                 [
                     'url'    => $data['url_edit'],
@@ -172,7 +183,7 @@ abstract class AdminControllerLib extends ControllerLib
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success','Données sauvegardé');
             return $this->redirectToRoute(
                 $data['url_edit'],
                 [
@@ -193,15 +204,14 @@ abstract class AdminControllerLib extends ControllerLib
         );
     }
 
-    protected function crudActionDelete(Request $request, ServiceEntityRepositoryLib $repository, string $route): JsonResponse
+    protected function crudDeleteAction(Request $request, ServiceEntityRepositoryLib $repository, string $route): JsonResponse
     {
+        $data          = json_decode($request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
-        $ids           = $request->query->get('id');
-        foreach ($ids as $id) {
+        foreach ($data as $id) {
             $entity = $repository->find($id);
 
             $entityManager->remove($entity);
-            dump($entity);
         }
 
         $entityManager->flush();
@@ -251,7 +261,7 @@ abstract class AdminControllerLib extends ControllerLib
     protected function addParamViewsAdmin(array $parameters = []): void
     {
         $this->setMenuAdmin();
-        $this->addParamViewsSite($parameters);
+        $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
     private function setMenuAdmin()
@@ -284,6 +294,14 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'url'   => 'adminpost_index',
                 'title' => 'Post',
+            ],
+            [
+                'url'   => 'adminhistory_index',
+                'title' => 'History',
+            ],
+            [
+                'url'   => 'adminchapitre_index',
+                'title' => 'Chapitres',
             ],
             [
                 'url'   => 'admintags_index',

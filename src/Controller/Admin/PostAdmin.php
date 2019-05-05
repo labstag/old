@@ -70,9 +70,9 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/enable", name="adminpost_enable")
      */
-    public function enable(Request $request): JsonResponse
+    public function enable(Request $request, PostRepository $repository): JsonResponse
     {
-        return $this->json(array());
+        return $this->crudEnableAction($request, $repository);
     }
 
     /**
@@ -115,6 +115,6 @@ class PostAdmin extends AdminControllerLib
      */
     public function delete(Request $request, PostRepository $repository): JsonResponse
     {
-        return $this->crudActionDelete($request, $repository, 'adminpost_index');
+        return $this->crudDeleteAction($request, $repository, 'adminpost_index');
     }
 }
