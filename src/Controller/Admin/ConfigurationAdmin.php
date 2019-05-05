@@ -42,7 +42,7 @@ class ConfigurationAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Configuration index',
+            'title'      => 'Configuration list',
             'datatable'  => $datatable,
             'api'        => 'api_configurations_get_collection',
             'url_new'    => 'adminconfiguration_new',

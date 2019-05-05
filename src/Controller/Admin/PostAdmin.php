@@ -38,6 +38,9 @@ class PostAdmin extends AdminControllerLib
                 'field'     => 'enable',
                 'sortable'  => true,
                 'valign'    => 'top',
+                'formatter' => 'enableFormatter',
+                'url'       => $this->generateUrl('adminpost_enable'),
+                'align'     => 'right',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
@@ -53,7 +56,7 @@ class PostAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Post index',
+            'title'      => 'Post list',
             'datatable'  => $datatable,
             'api'        => 'api_posts_get_collection',
             'url_new'    => 'adminpost_new',
@@ -62,6 +65,14 @@ class PostAdmin extends AdminControllerLib
         ];
 
         return $this->crudListAction($data);
+    }
+
+    /**
+     * @Route("/enable", name="adminpost_enable")
+     */
+    public function enable(Request $request): JsonResponse
+    {
+        return $this->json(array());
     }
 
     /**

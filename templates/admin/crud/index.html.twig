@@ -1,6 +1,7 @@
 {% extends 'admin.html.twig' %}
 {% block bodyAdmin %}
-    <table id="CrudList" class="table table-border table-hover table-striped table-sm thead-light" data-query-params="queryParams" data-page-size="10" data-ajax-options="ajaxOptions" data-moment="MMMM Do YYYY, H:mm:ss" data-files="{{ asset('file/') }}" data-toggle="table" data-url="{{ path(api) }}" data-locale="fr_FR" data-total-field="count" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-sortable="true" data-sort-class="table-active" data-height="600" data-side-pagination="server" data-sort-stable="true"  data-search="true" data-page-list="[5,10, 25, 50, All]" data-show-refresh="true" data-show-toggle="true" data-id-field="id" data-click-to-select="true" data-pagination="true">
+    
+    <table id="CrudList" class="table table-border table-hover table-striped table-sm thead-light"{% if url_enable is defined %} data-enableurl="{{ path(url_enable) }}"{% endif %} data-toolbar="#toolbar" data-resizable="true" data-query-params="queryParams" data-page-size="10" data-ajax-options="ajaxOptions" data-moment="MMMM Do YYYY, H:mm:ss" data-files="{{ asset('file/') }}" data-toggle="table" data-url="{{ path(api) }}" data-locale="fr_FR" data-total-field="count" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-sortable="true" data-sort-class="table-active" data-side-pagination="server" data-sort-stable="true"  data-search="true" data-page-list="[5,10, 25, 50, All]" data-show-refresh="true" data-show-toggle="true" data-id-field="id" data-pagination="true">
         <thead>
             <tr>
                 {% if select is defined %}
@@ -9,11 +10,11 @@
                 {% for name, row in datatable %}
                     <th{% for key, val in row %}
                         data-{{ key }}="{% if val=='true' %}true{% elseif val=='false' %}false{% else %}{{ val|e }}{% endif %}"
-                    {% endfor %}>
+                    {% endfor %} data-sortable="true">
                     {{ name }}</th>
                 {% endfor %}
                 {% if operation is defined %}
-                    <th data-formatter="operationDatatable" data-align="center">Opérations</th>
+                    <th data-formatter="operationDatatable" data-align="center" data-sortable="true" data-valign="top">Opérations</th>
                 {% endif %}
             </tr>
         </thead>
@@ -23,7 +24,6 @@
             {% if url_delete is defined %}
                 <a class="OperationLinkDelete btn btn-danger btn-sm" href="{{ path(url_delete) }}" title="Supprimer">
                     <i class="fas fa-trash-alt"></i>
-                    <span>Supprimer</span>
                 </a>
             {% endif %}
         </div> 
@@ -31,7 +31,6 @@
             {% if url_edit is defined %}
                 <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(url_edit, {'id': 'code'}) }}" title="Modifier">
                     <i class="fas fa-edit"></i>
-                    <span>Modifier</span>
                 </a>
             {% endif %}
         </div>

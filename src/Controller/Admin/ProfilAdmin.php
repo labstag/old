@@ -17,8 +17,9 @@ class ProfilAdmin extends AdminControllerLib
      */
     public function index(Request $request): Response
     {
-        $auth_checker = $this->get('security.authorization_checker');
-
-        return $this->json($auth_checker->isGranted('IS_AUTHENTICATED_FULLY'));
+        return $this->twig(
+            'admin/profil.html.twig',
+            ['title' => 'Profil']
+        );
     }
 }
