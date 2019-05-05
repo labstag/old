@@ -47,10 +47,9 @@ export class datatables {
         let table   = $(element).closest('table');
         let url     = table.attr('data-enableurl');
 
-        console.log('aa');
         window.fetch(
             url, {
-                'method': 'post',
+                'method': 'POST',
                 'body'  : JSON.stringify( {
                     'state': state,
                     'id'   : $(element).attr('data-id')
