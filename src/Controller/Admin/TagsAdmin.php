@@ -27,6 +27,11 @@ class TagsAdmin extends AdminControllerLib
                 'sortable' => true,
                 'valign'   => 'top',
             ],
+            'Posts'     => [
+                'field'     => 'posts',
+                'sortable'  => true,
+                'formatter' => 'dataTotalFormatter',
+            ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'sortable'  => true,
@@ -41,7 +46,7 @@ class TagsAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Tags index',
+            'title'      => 'Tags list',
             'datatable'  => $datatable,
             'api'        => 'api_tags_get_collection',
             'url_new'    => 'admintags_new',

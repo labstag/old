@@ -1,11 +1,71 @@
+@import "~jquery-resizable-columns/dist/jquery.resizableColumns.css";
+
 .AdminPages {
+    .user-menu {
+        .img-circle {
+            border-radius: 50%;
+            border: 3px solid;
+            height: 90px;
+            width: 90px;
+        }
+    }
+
+    .navbar-custom-menu {
+        float: right;
+
+        .dropdown-menu {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+            padding: 1px 0 0 0;
+            border-top-width: 0;
+            width: 280px;
+            padding-bottom: 10px;
+
+            .user-header {
+                background-color: #343a40;
+                color: white;
+                height: 175px;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .user-body {
+                padding: 15px;
+                border-bottom: 1px solid #f4f4f4;
+                border-top: 1px solid #dddddd;
+            }
+
+            .user-footer {
+                background-color: #f9f9f9;
+                padding: 10px;
+            }
+        }
+    }
+
+    .user-image {
+        float: left;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+        margin-top: -2px;
+    }
+
+    main {
+        padding-top: 5px;
+    }
+
     .access-wrap {
         display: none;
     }
 
     table {
         .img-thumbnail {
-            max-width: 20%;
+            max-width: 200px;
+        }
+
+        li {
+            white-space: nowrap;
         }
     }
 

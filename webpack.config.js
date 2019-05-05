@@ -26,6 +26,7 @@ Encore.enableSassLoader();
 Encore.enableLessLoader();
 Encore.autoProvidejQuery();
 Encore.autoProvideVariables( {
+    'jsPDF'        : 'jspdf',
     '$'            : 'jquery',
     'jQuery'       : 'jquery',
     '$.formBuilder': 'formBuilder',
@@ -51,7 +52,9 @@ Encore.addPlugin(new CopyWebpackPlugin([{
 ]));
 // Encore.enableTypeScriptLoader();
 // Encore.enableForkedTypeScriptTypesChecking();
-Encore.enableIntegrityHashes();
+if (Encore.isProduction()) {
+    Encore.enableIntegrityHashes();
+}
 
 let webpack = Encore.getWebpackConfig();
 

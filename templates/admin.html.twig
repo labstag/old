@@ -3,15 +3,54 @@
 
 {% block content_title %}{{ title }}{% endblock %}
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ path('admin_dashboard') }}">{% if config['site_title'] is defined %}{{ config['site_title'] }}{% endif %}</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="{{ path('app_logout') }}">Sign out</a>
-            </li>
-        </ul>
-    </nav>
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ path('admin_dashboard') }}">{% if config['site_title'] is defined %}{{ config['site_title'] }}{% endif %}</a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{ asset('file/'~ app.user.avatar) }}" class="user-image" alt="User Image" />
+                        <span class="hidden-xs">{{ app.user }}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
+                            <p>
+                                {{ app.user }}
+                            </p>
+                        </li>
+                        {#
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <a href="#">Followers</a>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <a href="#">Sales</a>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <a href="#">Friends</a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        #}
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="float-left">
+                                <a href="{{ path('adminprofil_index') }}" class="btn btn-default btn-light">Profile</a>
+                            </div>
+                            <div class="float-right">
+                                <a class="btn btn-default btn-light" href="{{ path('app_logout') }}">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 sidebar">

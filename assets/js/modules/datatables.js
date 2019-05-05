@@ -1,6 +1,9 @@
+import 'whatwg-fetch';
+import 'jquery-resizable-columns';
 import 'bootstrap-table';
 import 'bootstrap-table/dist/bootstrap-table-locale-all';
-var moment = require('moment');
+import 'bootstrap-table/dist/extensions/resizable/bootstrap-table-resizable';
+let moment = require('moment');
 
 export class datatables {
     constructor() {
@@ -13,6 +16,8 @@ export class datatables {
         window.imageFormatter     = this.imageFormatter;
         window.queryParams        = this.queryParams;
         window.operationDatatable = this.operations;
+        window.dataTotalFormatter = this.dataTotal;
+        window.enableFormatter    = this.enable;
         window.ajaxOptions        = {
             'headers': {
                 'Accept': 'application/ld+json'
@@ -29,6 +34,55 @@ export class datatables {
                 return JSON.stringify(data);
             }
         };
+
+        $(document).on('change',
+            '.custom-control-input',
+            this.changeEnable.bind(this)
+        );
+    }
+
+    changeEnable(event) {
+        let element = $(event.currentTarget);
+        let state   = $(element).is(':checked');
+        let table   = $(element).closest('table');
+        let url     = table.attr('data-enableurl');
+
+        window.fetch(
+            url, {
+                'method': 'POST',
+                'body'  : JSON.stringify( {
+                    'id': $(element).attr('data-id')
+                } )
+            }
+        );
+    }
+
+    enable(value, row) {
+        let div = document.createElement('div');
+
+        div.setAttribute('class', 'custom-control custom-switch');
+        let input = document.createElement('input');
+
+        input.setAttribute('type', 'checkbox');
+        input.setAttribute('class', 'custom-control-input');
+        input.setAttribute('id', 'customSwitch' + row.id);
+        input.setAttribute('data-id', row.id);
+        if (value == true) {
+            input.setAttribute('checked', 'checked');
+        }
+
+        let label = document.createElement('label');
+
+        label.setAttribute('class', 'custom-control-label');
+        label.setAttribute('for', 'customSwitch' + row.id);
+        div.append(input);
+        div.append(label);
+
+        return div.outerHTML;
+    }
+
+    dataTotal(value, row) {
+        return value.length;
     }
 
     operations(value, row) {
@@ -40,7 +94,11 @@ export class datatables {
     }
 
     queryParams(params) {
-        params.page = params.offset / params.limit;
+        if (params.offset == 0) {
+            params.page = 1;
+        } else {
+            params.page = params.offset / params.limit + 1;
+        }
         if (params.page == 0) {
             delete params.page;
         }
@@ -70,7 +128,11 @@ export class datatables {
 
     imageFormatter(value, row) {
         if (value != null) {
-            return '<img src="/file/' + value + '" class="img-thumbnail" />';
+            let img = document.createElement('img');
+
+            img.setAttribute('src', '/file/' + value);
+            img.setAttribute('class', 'img-thumbnail');
+            return img.outerHTML;
         }
 
         return '';

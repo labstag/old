@@ -33,9 +33,10 @@ class UserAdmin extends AdminControllerLib
                 'valign'   => 'top',
             ],
             'Roles'     => [
-                'field'    => 'roles',
-                'sortable' => true,
-                'valign'   => 'top',
+                'field'     => 'roles',
+                'sortable'  => true,
+                'valign'    => 'top',
+                'formatter' => 'rolesFormatter',
             ],
             'Avatar'    => [
                 'field'     => 'avatar',
@@ -50,9 +51,11 @@ class UserAdmin extends AdminControllerLib
                 'valign'   => 'top',
             ],
             'Enable'    => [
-                'field'    => 'enable',
-                'sortable' => true,
-                'valign'   => 'top',
+                'field'     => 'enable',
+                'sortable'  => true,
+                'valign'    => 'top',
+                'formatter' => 'enableFormatter',
+                'align'     => 'right',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
@@ -68,8 +71,9 @@ class UserAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Users index',
+            'title'      => 'Users list',
             'datatable'  => $datatable,
+            'url_enable' => 'adminuser_enable',
             'api'        => 'api_users_get_collection',
             'url_new'    => 'adminuser_new',
             'url_delete' => 'adminuser_delete',
@@ -94,6 +98,14 @@ class UserAdmin extends AdminControllerLib
                 'title'     => 'Add new user',
             ]
         );
+    }
+
+    /**
+     * @Route("/enable", name="adminuser_enable")
+     */
+    public function enable(Request $request): JsonResponse
+    {
+        return $this->json(array());
     }
 
     /**
