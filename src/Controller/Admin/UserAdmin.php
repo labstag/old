@@ -103,9 +103,9 @@ class UserAdmin extends AdminControllerLib
     /**
      * @Route("/enable", name="adminuser_enable")
      */
-    public function enable(Request $request): JsonResponse
+    public function enable(Request $request, UserRepository $repository): JsonResponse
     {
-        return $this->json(array());
+        return $this->crudEnableAction($request, $repository);
     }
 
     /**
@@ -131,6 +131,6 @@ class UserAdmin extends AdminControllerLib
      */
     public function delete(Request $request, UserRepository $repository): JsonResponse
     {
-        return $this->crudActionDelete($request, $repository, 'adminuser_index');
+        return $this->crudDeleteAction($request, $repository, 'adminuser_index');
     }
 }

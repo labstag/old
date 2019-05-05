@@ -27,13 +27,10 @@ export class form {
             );
         }
 
-        url = url + ('?' + this.paramDelete(data));
         window.fetch(
             url, {
-                'method' : 'DELETE',
-                'headers': {
-                    'Content-Type': 'application/json'
-                }
+                'method': 'DELETE',
+                'body'  : JSON.stringify(data)
             }
         ).then((response) => {
             return response.text();

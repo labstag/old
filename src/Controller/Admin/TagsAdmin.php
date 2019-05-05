@@ -97,6 +97,6 @@ class TagsAdmin extends AdminControllerLib
      */
     public function delete(Request $request, TagsRepository $repository): JsonResponse
     {
-        return $this->crudActionDelete($request, $repository, 'admintags_index');
+        return $this->crudDeleteAction($request, $repository, 'admintags_index');
     }
 }
