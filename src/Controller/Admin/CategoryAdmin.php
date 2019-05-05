@@ -26,6 +26,11 @@ class CategoryAdmin extends AdminControllerLib
                 'field'    => 'name',
                 'sortable' => true,
             ],
+            'Posts'     => [
+                'field'     => 'posts',
+                'sortable'  => true,
+                'formatter' => 'dataTotalFormatter',
+            ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'sortable'  => true,
@@ -38,7 +43,7 @@ class CategoryAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Category index',
+            'title'      => 'Category list',
             'datatable'  => $datatable,
             'api'        => 'api_categories_get_collection',
             'url_new'    => 'admincategory_new',

@@ -68,6 +68,10 @@ abstract class AdminControllerLib extends ControllerLib
             $paramtwig['url_edit'] = $data['url_edit'];
         }
 
+        if (isset($data['url_enable'])) {
+            $paramtwig['url_enable'] = $data['url_enable'];
+        }
+
         return $this->twig('admin/crud/index.html.twig', $paramtwig);
     }
 
