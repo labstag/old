@@ -105,6 +105,17 @@
                             </div>
                         {% endif %}
                     </div>
+                    <div class="col-md-12">
+                        {% for label, messages in app.flashes %}
+                            <div class="alert alert-{{ label }}">
+                                <ul>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
     {% block bodyAdmin %}
 

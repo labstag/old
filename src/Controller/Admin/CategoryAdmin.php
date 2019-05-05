@@ -94,6 +94,6 @@ class CategoryAdmin extends AdminControllerLib
      */
     public function delete(Request $request, CategoryRepository $repository): JsonResponse
     {
-        return $this->crudActionDelete($request, $repository, 'admincategory_index');
+        return $this->crudDeleteAction($request, $repository, 'admincategory_index');
     }
 }

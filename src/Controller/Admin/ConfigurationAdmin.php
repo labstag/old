@@ -93,6 +93,6 @@ class ConfigurationAdmin extends AdminControllerLib
      */
     public function delete(Request $request, ConfigurationRepository $repository): JsonResponse
     {
-        return $this->crudActionDelete($request, $repository, 'adminconfiguration_index');
+        return $this->crudDeleteAction($request, $repository, 'adminconfiguration_index');
     }
 }
