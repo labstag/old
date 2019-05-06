@@ -30,27 +30,30 @@ class PostAdmin extends AdminControllerLib
         $datatable = [
             'Name'      => [
                 'field'    => 'name',
-                'sortable' => true,
+            ],
+            'User'      => [
+                'field'    => 'refuser',
+                'formatter' => 'dataFormatter',
+            ],
+            'Categorie'      => [
+                'field'    => 'refcategory',
+                'formatter' => 'dataFormatter',
             ],
             'File'      => [
                 'field'     => 'file',
-                'sortable'  => true,
                 'formatter' => 'imageFormatter',
             ],
             'Enable'    => [
                 'field'     => 'enable',
-                'sortable'  => true,
                 'formatter' => 'enableFormatter',
                 'url'       => $this->generateUrl('adminpost_enable'),
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
         ];
@@ -125,21 +128,17 @@ class PostAdmin extends AdminControllerLib
         $datatable = [
             'Name'      => [
                 'field'    => 'name',
-                'sortable' => true,
             ],
             'Posts'     => [
                 'field'     => 'posts',
-                'sortable'  => true,
                 'formatter' => 'dataTotalFormatter',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
         ];
@@ -206,21 +205,17 @@ class PostAdmin extends AdminControllerLib
         $datatable = [
             'Name'      => [
                 'field'    => 'name',
-                'sortable' => true,
             ],
             'Posts'     => [
                 'field'     => 'posts',
-                'sortable'  => true,
                 'formatter' => 'dataTotalFormatter',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
         ];

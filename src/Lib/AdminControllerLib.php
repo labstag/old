@@ -72,6 +72,10 @@ abstract class AdminControllerLib extends ControllerLib
                 $row['align'] = 'right';
             }
 
+            if (isset($row['formatter']) && in_array($row['formatter'], ['dataTotalFormatter'])) {
+                $row['align'] = 'right';
+            }
+
             if (isset($row['formatter']) && in_array($row['formatter'], ['enableFormatter', 'imageFormatter'])) {
                 $row['align'] = 'center';
             }
@@ -79,6 +83,8 @@ abstract class AdminControllerLib extends ControllerLib
             if (!isset($row['valign'])) {
                 $row['valign'] = 'top';
             }
+
+            $row['sortable'] = true;
         }
 
         $paramtwig = [

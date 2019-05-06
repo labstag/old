@@ -8,12 +8,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource
  * @ORM\Entity(repositoryClass="Labstag\Repository\HistoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt",                     timeAware=false)
+ * @Vich\Uploadable
  */
 class History
 {
