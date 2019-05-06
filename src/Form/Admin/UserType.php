@@ -18,7 +18,7 @@ class UserType extends AbstractType
         $builder->add('enable');
         $builder->add('apiKey');
         $builder->add('enable');
-        $builder->add('avatar');
+        $builder->add('imageFile');
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
