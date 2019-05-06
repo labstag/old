@@ -25,49 +25,39 @@ class UserAdmin extends AdminControllerLib
             'Username'  => [
                 'field'    => 'username',
                 'sortable' => true,
-                'valign'   => 'top',
             ],
             'Email'     => [
                 'field'    => 'email',
                 'sortable' => true,
-                'valign'   => 'top',
             ],
             'Roles'     => [
                 'field'     => 'roles',
                 'sortable'  => true,
-                'valign'    => 'top',
                 'formatter' => 'rolesFormatter',
             ],
             'Avatar'    => [
                 'field'     => 'avatar',
                 'sortable'  => true,
                 'formatter' => 'imageFormatter',
-                'valign'    => 'top',
-                'align'     => 'center',
             ],
             'api key'   => [
                 'field'    => 'apiKey',
                 'sortable' => true,
-                'valign'   => 'top',
             ],
             'Enable'    => [
                 'field'     => 'enable',
                 'sortable'  => true,
-                'valign'    => 'top',
                 'formatter' => 'enableFormatter',
-                'align'     => 'right',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
-                'valign'    => 'top',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
-                'valign'    => 'top',
             ],
         ];
         $data      = [

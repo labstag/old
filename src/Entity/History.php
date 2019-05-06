@@ -49,6 +49,19 @@ class History
     private $slug;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @Vich\UploadableField(mapping="upload_file", fileNameProperty="file")
+     * @Assert\File(mimeTypes={"image/*"})
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Chapitre", mappedBy="refhistory")
      */
     private $chapitres;
@@ -72,6 +85,31 @@ class History
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     public function setName(string $name): self

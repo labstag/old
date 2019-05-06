@@ -31,34 +31,27 @@ class PostAdmin extends AdminControllerLib
             'Name'      => [
                 'field'    => 'name',
                 'sortable' => true,
-                'valign'   => 'top',
             ],
             'File'      => [
                 'field'     => 'file',
                 'sortable'  => true,
                 'formatter' => 'imageFormatter',
-                'valign'    => 'top',
-                'align'     => 'center',
             ],
             'Enable'    => [
                 'field'     => 'enable',
                 'sortable'  => true,
-                'valign'    => 'top',
                 'formatter' => 'enableFormatter',
                 'url'       => $this->generateUrl('adminpost_enable'),
-                'align'     => 'right',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
-                'valign'    => 'top',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
-                'valign'    => 'top',
             ],
         ];
         $data      = [
@@ -214,7 +207,6 @@ class PostAdmin extends AdminControllerLib
             'Name'      => [
                 'field'    => 'name',
                 'sortable' => true,
-                'valign'   => 'top',
             ],
             'Posts'     => [
                 'field'     => 'posts',
@@ -225,13 +217,11 @@ class PostAdmin extends AdminControllerLib
                 'field'     => 'createdAt',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
-                'valign'    => 'top',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
                 'sortable'  => true,
                 'formatter' => 'dateFormatter',
-                'valign'    => 'top',
             ],
         ];
         $data      = [
