@@ -52,8 +52,6 @@ abstract class AdminControllerLib extends ControllerLib
 
     /**
      * TODO: Le refaire pour prendre en compte bootstrap-table.
-     *
-     * @return void
      */
     protected function crudListAction($data): Response
     {
