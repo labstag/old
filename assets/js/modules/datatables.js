@@ -1,8 +1,10 @@
 import 'whatwg-fetch';
 import 'jquery-resizable-columns';
 import 'bootstrap-table';
+import 'tableexport.jquery.plugin/tableExport.min';
 import 'bootstrap-table/dist/bootstrap-table-locale-all';
 import 'bootstrap-table/dist/extensions/resizable/bootstrap-table-resizable';
+import 'bootstrap-table/dist/extensions/export/bootstrap-table-export';
 let moment = require('moment');
 
 export class datatables {
@@ -18,6 +20,8 @@ export class datatables {
         window.operationDatatable = this.operations;
         window.dataTotalFormatter = this.dataTotal;
         window.enableFormatter    = this.enable;
+        window.dataFormatter      = this.dataFormatter;
+        window.urlData            = [];
         window.ajaxOptions        = {
             'headers': {
                 'Accept': 'application/ld+json'
@@ -35,10 +39,70 @@ export class datatables {
             }
         };
 
+        $('#CrudList').on('post-header.bs.table', this.postheader.bind(this));
         $(document).on('change',
             '.custom-control-input',
             this.changeEnable.bind(this)
         );
+    }
+
+    postheader() {
+        setTimeout(this.postheaderTime.bind(this), 2000);
+    }
+
+    postheaderTime() {
+        for (let url in window.urlData) {
+            this.launchData(url);
+        }
+        window.urlData = [];
+    }
+
+    launchData(url) {
+        window.fetch(
+            url, {}
+        ).then(
+            (response) => {
+                return response.text();
+            }
+        ).then((text) => {
+            return JSON.parse(text);
+        } ).then((json) => {
+            this.dataTreat(json);
+        } );
+    }
+
+    dataTreat(json) {
+        let id   = json['@id'];
+        let type = json['@type'];
+
+        if (json.name != undefined) {
+            this.changeDiv(id, json.name);
+        } else if (type == 'User') {
+            this.changeDiv(id, json.username);
+        } else {
+            console.log(type);
+        }
+    }
+
+    changeDiv(id, value) {
+        document.querySelectorAll('.DataSpan').forEach(
+            (element) => {
+                if (element.getAttribute('data-id') == id) {
+                    element.innerHTML = value;
+                }
+            }
+        );
+    }
+
+    dataFormatter(value, row) {
+        window.urlData[value] = 1;
+        let span              = document.createElement('span');
+
+        span.setAttribute('data-id', value);
+        span.setAttribute('class', 'DataSpan');
+        span.innerHTML = value;
+
+        return span.outerHTML;
     }
 
     changeEnable(event) {
