@@ -67,6 +67,20 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [title] manquant');
         }
 
+        foreach ($data['datatable'] as &$row) {
+            if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
+                $row['align'] = 'right';
+            }
+
+            if (isset($row['formatter']) && in_array($row['formatter'], ['enableFormatter', 'imageFormatter'])) {
+                $row['align'] = 'center';
+            }
+
+            if (!isset($row['valign'])) {
+                $row['valign'] = 'top';
+            }
+        }
+
         $paramtwig = [
             'datatable' => $data['datatable'],
             'title'     => $data['title'],
