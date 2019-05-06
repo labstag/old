@@ -55,7 +55,9 @@ class FormBuilderAdmin extends AdminControllerLib
         $data      = [
             'title'      => 'Formbuilder list',
             'datatable'  => $datatable,
-            'url_enable' => 'adminformbuilder_enable',
+            'url_enable' => [
+                'enable' => 'adminformbuilder_enable'
+            ],
             'api'        => 'api_formbuilders_get_collection',
             'url_new'    => 'adminformbuilder_new',
             'url_delete' => 'adminformbuilder_delete',
