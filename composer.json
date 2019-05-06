@@ -117,6 +117,10 @@
     },
     "scripts": {
         "phploc": "phploc src",
+        "php-fix": [
+            "composer php-cs-fixer",
+            "composer phpcbf"
+        ],
         "php-cs-fixer": "php-cs-fixer fix --config=php_cs.dist src -n",
         "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",
         "phpcbf": "phpcbf src tests --ignore=*/src/Migrations/*,src/Kernel.php",
