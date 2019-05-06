@@ -3,13 +3,13 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Configuration;
-use Labstag\Lib\AdminControllerLib;
 use Labstag\Form\Admin\ConfigurationType;
+use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\ConfigurationRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/configuration")

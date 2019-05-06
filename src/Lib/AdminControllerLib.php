@@ -2,10 +2,10 @@
 
 namespace Labstag\Lib;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -29,16 +29,23 @@ abstract class AdminControllerLib extends ControllerLib
         return parent::twig($view, $this->paramViews, $response);
     }
 
-    protected function crudEnableAction(Request $request, ServiceEntityRepositoryLib $repository) :JsonResponse
+    protected function crudEnableAction(Request $request, ServiceEntityRepositoryLib $repository, string $function): JsonResponse
     {
-        $data          = json_decode($request->getContent(),true);
+        $data          = json_decode($request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
         $entity        = $repository->find($data['id']);
-        if ($entity) {
-            $entity->setEnable($data['state']);
-            $entityManager->persist($entity);
-            $entityManager->flush();
+        if (!$entity) {
+            return $this->json([]);
         }
+
+        $methods = get_class_methods($entity);
+        if (!in_array($function, $methods)) {
+            return $this->json([]);
+        }
+
+        $entity->{$function}($data['state']);
+        $entityManager->persist($entity);
+        $entityManager->flush();
 
         return $this->json([]);
     }
@@ -72,6 +79,7 @@ abstract class AdminControllerLib extends ControllerLib
         if (isset($data['url_new'])) {
             $paramtwig['url_new'] = $data['url_new'];
         }
+
         if (isset($data['url_delete'])) {
             $paramtwig['url_delete'] = $data['url_delete'];
         }
@@ -122,7 +130,8 @@ abstract class AdminControllerLib extends ControllerLib
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persistAndFlush($data['entity']);
-            $this->addFlash('success','Données sauvegardé');
+            $this->addFlash('success', 'Données sauvegardé');
+
             return $this->crudRedirectForm(
                 [
                     'url'    => $data['url_edit'],
@@ -184,7 +193,8 @@ abstract class AdminControllerLib extends ControllerLib
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success','Données sauvegardé');
+            $this->addFlash('success', 'Données sauvegardé');
+
             return $this->redirectToRoute(
                 $data['url_edit'],
                 [
@@ -217,15 +227,17 @@ abstract class AdminControllerLib extends ControllerLib
                 $delete = 1;
             }
         }
-        if ($delete == 1) {
-            $this->addFlash('success','Données supprimé');
+
+        if (1 == $delete) {
+            $this->addFlash('success', 'Données supprimé');
         }
 
         $entityManager->flush();
 
         $json = [
-            'redirect' => $this->generateUrl($route,[], UrlGeneratorInterface::ABSOLUTE_PATH)
+            'redirect' => $this->generateUrl($route, [], UrlGeneratorInterface::ABSOLUTE_PATH),
         ];
+
         return $this->json($json);
     }
 
@@ -317,7 +329,7 @@ abstract class AdminControllerLib extends ControllerLib
                         'url'   => 'adminpostcategory_index',
                         'title' => 'Catégory',
                     ],
-                ]
+                ],
             ],
             [
                 'title' => 'Histoires',
@@ -330,8 +342,8 @@ abstract class AdminControllerLib extends ControllerLib
                         'url'   => 'adminhistorychapitre_index',
                         'title' => 'Chapitres',
                     ],
-                ]
                 ],
+            ],
         ];
 
         $actualroute = $this->request->get('_route');
@@ -345,7 +357,7 @@ abstract class AdminControllerLib extends ControllerLib
         foreach ($menuadmin as &$menu) {
             if (isset($menu['child'])) {
                 $this->setMenuActualRoute($menu['child'], $actualroute);
-            }elseif ($this->isActualRoute($menu['url'], $actualroute)) {
+            } elseif ($this->isActualRoute($menu['url'], $actualroute)) {
                 $menu['current'] = true;
             }
         }
