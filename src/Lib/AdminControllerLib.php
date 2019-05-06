@@ -310,11 +310,11 @@ abstract class AdminControllerLib extends ControllerLib
                         'title' => 'Post',
                     ],
                     [
-                        'url'   => 'admintags_index',
+                        'url'   => 'adminposttags_index',
                         'title' => 'Tags',
                     ],
                     [
-                        'url'   => 'admincategory_index',
+                        'url'   => 'adminpostcategory_index',
                         'title' => 'Catégory',
                     ],
                 ]
