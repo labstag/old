@@ -5,9 +5,9 @@ namespace Labstag\Controller;
 use Labstag\Form\Admin\ProfilType;
 use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/admin")
@@ -21,9 +21,7 @@ class AdminController extends AdminControllerLib
     {
         return $this->twig(
             'admin/index.html.twig',
-            [
-                'title' => 'Dashboard'
-            ]
+            ['title' => 'Dashboard']
         );
     }
 
@@ -38,12 +36,12 @@ class AdminController extends AdminControllerLib
             $user,
             [
                 'action' => $this->generateUrl('adminprofil_index'),
-                'method' => 'POST'
+                'method' => 'POST',
             ]
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success','Profil sauvegardé');
+            $this->addFlash('success', 'Profil sauvegardé');
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('adminprofil_index');
@@ -52,10 +50,10 @@ class AdminController extends AdminControllerLib
         return $this->twig(
             'admin/crud/form.html.twig',
             [
-                'entity'     => $user,
-                'title'      => 'Profil',
-                'btnSave'    => true,
-                'form'       => $form->createView(),
+                'entity'  => $user,
+                'title'   => 'Profil',
+                'btnSave' => true,
+                'form'    => $form->createView(),
             ]
         );
     }

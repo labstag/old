@@ -3,7 +3,6 @@
 namespace Labstag\Form\Admin;
 
 use Labstag\Entity\History;
-use Labstag\FormType\WysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +15,7 @@ class HistoryType extends AbstractType
         $builder->add('name');
         $builder->add('slug');
         $builder->add('enable');
+        $builder->add('end');
         $builder->add('refuser');
         $builder->add('submit', SubmitType::class);
         unset($options);

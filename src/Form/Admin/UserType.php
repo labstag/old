@@ -15,6 +15,7 @@ class UserType extends AbstractType
         $builder->add('username');
         $builder->add('email');
         $builder->add('plainPassword');
+        $builder->add('enable');
         $builder->add('apiKey');
         $builder->add('enable');
         $builder->add('avatar');

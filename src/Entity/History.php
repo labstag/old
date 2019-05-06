@@ -2,13 +2,13 @@
 
 namespace Labstag\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource
@@ -19,8 +19,9 @@ class History
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
+
     /**
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid",             unique=true)
      */
@@ -52,9 +53,14 @@ class History
      */
     private $chapitres;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $end;
+
     public function __construct()
     {
-        $this->enable = true;
+        $this->enable    = true;
         $this->chapitres = new ArrayCollection();
     }
 
@@ -112,7 +118,7 @@ class History
     }
 
     /**
-     * @return Collection|Chapitre[]
+     * @return Chapitre[]|Collection
      */
     public function getChapitres(): Collection
     {
@@ -138,6 +144,18 @@ class History
                 $chapitre->setRefhistory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEnd(): ?bool
+    {
+        return $this->end;
+    }
+
+    public function setEnd(bool $end): self
+    {
+        $this->end = $end;
 
         return $this;
     }
