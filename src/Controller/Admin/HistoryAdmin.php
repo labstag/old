@@ -38,7 +38,7 @@ class HistoryAdmin extends AdminControllerLib
             ],
             'Fin'       => [
                 'field'     => 'end',
-                'formatter' => 'enableFormatter',
+                'formatter' => 'endFormatter',
                 'url'       => $this->generateUrl('adminhistory_end'),
             ],
             'Enable'    => [
@@ -62,6 +62,10 @@ class HistoryAdmin extends AdminControllerLib
             'url_new'    => 'adminhistory_new',
             'url_delete' => 'adminhistory_delete',
             'url_edit'   => 'adminhistory_edit',
+            'url_enable' => [
+                'enable' => 'adminhistory_enable',
+                'end'    => 'adminhistory_end',
+            ],
         ];
 
         return $this->crudListAction($data);

@@ -19,7 +19,8 @@ export class datatables {
         window.queryParams        = this.queryParams;
         window.operationDatatable = this.operations;
         window.dataTotalFormatter = this.dataTotal;
-        window.enableFormatter    = this.enable;
+        window.enableFormatter    = this.enable.bind(this);
+        window.endFormatter       = this.end.bind(this);
         window.dataFormatter      = this.dataFormatter;
         window.urlData            = [];
         window.ajaxOptions        = {
@@ -107,9 +108,11 @@ export class datatables {
 
     changeEnable(event) {
         let element = $(event.currentTarget);
-        let state   = $(element).is(':checked');
-        let table   = $(element).closest('table');
-        let url     = table.attr('data-enableurl');
+        let enable  = $(element).attr('data-enable');
+
+        let state = $(element).is(':checked');
+        let table = $(element).closest('table');
+        let url   = table.attr('data-enableurl-' + enable);
 
         window.fetch(
             url, {
@@ -122,16 +125,32 @@ export class datatables {
         );
     }
 
+    end(value, row) {
+        return this.switch(value, row, 'end');
+    }
+
     enable(value, row) {
-        let div = document.createElement('div');
+        return this.switch(value, row, 'enable');
+    }
+
+    uniqid() {
+        return (new Date().getTime() + Math.floor((Math.random() * 10000) + 1)).toString(16);
+    }
+
+    switch (value, row, id) {
+        let div    = document.createElement('div');
+        let uniqid = this.uniqid();
+
+        console.log(uniqid);
 
         div.setAttribute('class', 'custom-control custom-switch');
         let input = document.createElement('input');
 
         input.setAttribute('type', 'checkbox');
         input.setAttribute('class', 'custom-control-input');
-        input.setAttribute('id', 'customSwitch' + row.id);
-        input.setAttribute('data-id', row.id);
+        input.setAttribute('data-enable', id);
+        input.setAttribute('id', 'customSwitch' + uniqid);
+        input.setAttribute('data-id', uniqid);
         if (value == true) {
             input.setAttribute('checked', 'checked');
         }
@@ -139,7 +158,7 @@ export class datatables {
         let label = document.createElement('label');
 
         label.setAttribute('class', 'custom-control-label');
-        label.setAttribute('for', 'customSwitch' + row.id);
+        label.setAttribute('for', 'customSwitch' + uniqid);
         div.append(input);
         div.append(label);
 
