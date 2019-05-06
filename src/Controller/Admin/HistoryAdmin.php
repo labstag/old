@@ -36,6 +36,10 @@ class HistoryAdmin extends AdminControllerLib
                 'field'     => 'chapitres',
                 'formatter' => 'dataTotalFormatter',
             ],
+            'File'      => [
+                'field'     => 'file',
+                'formatter' => 'imageFormatter',
+            ],
             'Fin'       => [
                 'field'     => 'end',
                 'formatter' => 'endFormatter',

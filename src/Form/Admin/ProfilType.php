@@ -17,7 +17,7 @@ class ProfilType extends AbstractType
         $builder->add('plainPassword');
         $builder->add('apiKey');
         $builder->add('enable');
-        $builder->add('avatar');
+        $builder->add('imageFile');
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
