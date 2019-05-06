@@ -159,15 +159,19 @@ abstract class AdminControllerLib extends ControllerLib
             );
         }
 
-        return $this->crudShowForm(
-            [
-                'entity'   => $data['entity'],
-                'title'    => $data['title'],
-                'url_list' => $data['url_index'],
-                'btnSave'  => true,
-                'form'     => $form->createView(),
-            ]
-        );
+        $params = [
+            'entity'   => $data['entity'],
+            'title'    => $data['title'],
+            'url_list' => $data['url_index'],
+            'btnSave'  => true,
+            'form'     => $form->createView(),
+        ];
+
+        if (isset($data['twig'])) {
+            $params['twig'] = $data['twig'];
+        }
+
+        return $this->crudShowForm($params);
     }
 
     protected function crudEditAction(Request $request, array $data = [])
@@ -221,17 +225,20 @@ abstract class AdminControllerLib extends ControllerLib
                 ]
             );
         }
+        $params = [
+            'entity'     => $data['entity'],
+            'title'      => $data['title'],
+            'url_list'   => $data['url_index'],
+            'btnSave'    => true,
+            'url_delete' => $data['url_delete'],
+            'form'       => $form->createView(),
+        ];
 
-        return $this->crudShowForm(
-            [
-                'entity'     => $data['entity'],
-                'title'      => $data['title'],
-                'url_list'   => $data['url_index'],
-                'btnSave'    => true,
-                'url_delete' => $data['url_delete'],
-                'form'       => $form->createView(),
-            ]
-        );
+        if (isset($data['twig'])) {
+            $params['twig'] = $data['twig'];
+        }
+
+        return $this->crudShowForm($params);
     }
 
     protected function crudDeleteAction(Request $request, ServiceEntityRepositoryLib $repository, string $route): JsonResponse
@@ -287,10 +294,13 @@ abstract class AdminControllerLib extends ControllerLib
 
     protected function crudShowForm(array $data = []): Response
     {
-        return $this->twig(
-            'admin/crud/form.html.twig',
-            $data
-        );
+        $twig = 'admin/crud/form.html.twig';
+        if (isset($data['twig'])) {
+            $twig = $data['twig'];
+            unset($data['twig']);
+        }
+
+        return $this->twig($twig, $data);
     }
 
     /**

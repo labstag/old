@@ -74,6 +74,11 @@ class History
      */
     private $end;
 
+    public function __toString(): ?string
+    {
+        return $this->getName();
+    }
+
     public function __construct()
     {
         $this->enable    = true;

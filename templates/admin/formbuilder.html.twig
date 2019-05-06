@@ -3,9 +3,10 @@
 {% block content_title %}{{ title }}{% endblock %}
 
 {% block bodyAdmin %}
-    <form>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
         <div id="formBuilder" data-url="{{ asset('build/formbuilder-lang') }}"></div>
         <a href="#" id="SaveFormBuilder">Save</a>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}
 

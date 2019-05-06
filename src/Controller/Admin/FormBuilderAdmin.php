@@ -6,10 +6,11 @@ use Labstag\Entity\Formbuilder;
 use Labstag\Form\Admin\FormType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Labstag\Form\Admin\FormbuilderType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/formbuilder")
@@ -22,34 +23,8 @@ class FormBuilderAdmin extends AdminControllerLib
     public function index(): Response
     {
         $datatable = [
-            'Username'  => [
-                'field'    => 'username',
-            ],
-            'Email'     => [
-                'field'    => 'email',
-            ],
-            'Roles'     => [
-                'field'     => 'roles',
-                'formatter' => 'rolesFormatter',
-            ],
-            'Avatar'    => [
-                'field'     => 'avatar',
-                'formatter' => 'imageFormatter',
-            ],
-            'api key'   => [
-                'field'    => 'apiKey',
-            ],
-            'Enable'    => [
-                'field'     => 'enable',
-                'formatter' => 'enableFormatter',
-            ],
-            'CreatedAt' => [
-                'field'     => 'createdAt',
-                'formatter' => 'dateFormatter',
-            ],
-            'UpdatedAt' => [
-                'field'     => 'updatedAt',
-                'formatter' => 'dateFormatter',
+            'Name'  => [
+                'field'    => 'name',
             ],
         ];
         $data      = [
@@ -75,8 +50,9 @@ class FormBuilderAdmin extends AdminControllerLib
         return $this->crudNewAction(
             $request,
             [
+                'twig'      => 'admin/formbuilder.html.twig',
                 'entity'    => new Formbuilder(),
-                'form'      => FormType::class,
+                'form'      => FormbuilderType::class,
                 'url_edit'  => 'adminformbuilder_edit',
                 'url_index' => 'adminformbuilder_index',
                 'title'     => 'Add new formbuilder',
@@ -100,6 +76,7 @@ class FormBuilderAdmin extends AdminControllerLib
         return $this->crudEditAction(
             $request,
             [
+                'twig'       => 'admin/formbuilder.html.twig',
                 'form'       => FormType::class,
                 'entity'     => $formbuilder,
                 'url_index'  => 'adminformbuilder_index',
