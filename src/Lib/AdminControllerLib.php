@@ -55,6 +55,7 @@ abstract class AdminControllerLib extends ControllerLib
      */
     protected function crudListAction($data): Response
     {
+        dump($data);
         if (!isset($data['datatable'])) {
             throw new HttpException(500, 'Parametre [datatable] manquant');
         }

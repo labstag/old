@@ -55,7 +55,9 @@ class UserAdmin extends AdminControllerLib
         $data      = [
             'title'      => 'Users list',
             'datatable'  => $datatable,
-            'url_enable' => 'adminuser_enable',
+            'url_enable' => [
+                'enable' => 'adminuser_enable'
+            ],
             'api'        => 'api_users_get_collection',
             'url_new'    => 'adminuser_new',
             'url_delete' => 'adminuser_delete',
