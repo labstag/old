@@ -3,8 +3,9 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Chapitre;
-use Labstag\Form\Admin\ChapitreType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Form\Admin\ChapitreType;
+use Labstag\Repository\HistoryRepository;
 use Labstag\Repository\ChapitreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class ChapitreAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminchapitre_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(HistoryRepository $repository): Response
     {
         $datatable = [
             'Name'      => [
@@ -57,10 +58,14 @@ class ChapitreAdmin extends AdminControllerLib
             'title'      => 'Chapitre list',
             'datatable'  => $datatable,
             'api'        => 'api_chapitres_get_collection',
-            'url_new'    => 'adminchapitre_new',
             'url_delete' => 'adminchapitre_delete',
             'url_edit'   => 'adminchapitre_edit',
         ];
+
+        $histoires = $repository->findAll();
+        if (count($histoires)) {
+            $data['url_new'] = 'adminchapitre_new';
+        }
 
         return $this->crudListAction($data);
     }
@@ -76,8 +81,13 @@ class ChapitreAdmin extends AdminControllerLib
     /**
      * @Route("/new", name="adminchapitre_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, HistoryRepository $repository): Response
     {
+        $histoires = $repository->findAll();
+        if (count($histoires) == 0) {
+            throw new HttpException(403, 'Vous ne pouvez pas créer de nouveau chapitre sans histoires');
+        }
+
         return $this->crudNewAction(
             $request,
             [
