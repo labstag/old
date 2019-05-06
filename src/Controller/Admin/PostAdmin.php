@@ -10,6 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Labstag\Entity\Category;
+use Labstag\Form\Admin\CategoryType;
+use Labstag\Repository\CategoryRepository;
+use Labstag\Entity\Tags;
+use Labstag\Form\Admin\TagsType;
+use Labstag\Repository\TagsRepository;
 
 /**
  * @Route("/admin/post")
@@ -116,5 +122,168 @@ class PostAdmin extends AdminControllerLib
     public function delete(Request $request, PostRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction($request, $repository, 'adminpost_index');
+    }
+    /**
+     * @Route("/category/", name="adminpostcategory_index", methods={"GET"})
+     */
+    public function indexCategory(): Response
+    {
+        $datatable = [
+            'Name'      => [
+                'field'    => 'name',
+                'sortable' => true,
+            ],
+            'Posts'     => [
+                'field'     => 'posts',
+                'sortable'  => true,
+                'formatter' => 'dataTotalFormatter',
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+            ],
+        ];
+        $data      = [
+            'title'      => 'Category list',
+            'datatable'  => $datatable,
+            'api'        => 'api_categories_get_collection',
+            'url_new'    => 'adminpostcategory_new',
+            'url_delete' => 'adminpostcategory_delete',
+            'url_edit'   => 'adminpostcategory_edit',
+        ];
+
+        return $this->crudListAction($data);
+    }
+
+    /**
+     * @Route("/category/new", name="adminpostcategory_new", methods={"GET", "POST"})
+     */
+    public function newCategory(Request $request): Response
+    {
+        return $this->crudNewAction(
+            $request,
+            [
+                'entity'    => new Category(),
+                'form'      => CategoryType::class,
+                'url_edit'  => 'adminpostcategory_edit',
+                'url_index' => 'adminpostcategory_index',
+                'title'     => 'Add new categorie',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/category/edit/{id}", name="adminpostcategory_edit", methods={"GET", "POST"})
+     */
+    public function editCategory(Request $request, Category $category): Response
+    {
+        return $this->crudEditAction(
+            $request,
+            [
+                'form'       => CategoryType::class,
+                'entity'     => $category,
+                'url_index'  => 'adminpostcategory_index',
+                'url_edit'   => 'adminpostcategory_edit',
+                'url_delete' => 'adminpostcategory_delete',
+                'title'      => 'Edit categorie',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/category/", name="adminpostcategory_delete", methods={"DELETE"})
+     */
+    public function deleteCategory(Request $request, CategoryRepository $repository): JsonResponse
+    {
+        return $this->crudDeleteAction($request, $repository, 'adminpostcategory_index');
+    }
+    /**
+     * @Route("/tags/", name="adminposttags_index", methods={"GET"})
+     */
+    public function indexTags(): Response
+    {
+        $datatable = [
+            'Name'      => [
+                'field'    => 'name',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'Posts'     => [
+                'field'     => 'posts',
+                'sortable'  => true,
+                'formatter' => 'dataTotalFormatter',
+            ],
+            'CreatedAt' => [
+                'field'     => 'createdAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+            'UpdatedAt' => [
+                'field'     => 'updatedAt',
+                'sortable'  => true,
+                'formatter' => 'dateFormatter',
+                'valign'    => 'top',
+            ],
+        ];
+        $data      = [
+            'title'      => 'Tags list',
+            'datatable'  => $datatable,
+            'api'        => 'api_tags_get_collection',
+            'url_new'    => 'adminposttags_new',
+            'url_delete' => 'adminposttags_delete',
+            'url_edit'   => 'adminposttags_edit',
+        ];
+
+        return $this->crudListAction($data);
+    }
+
+    /**
+     * @Route("/tags/new", name="adminposttags_new", methods={"GET", "POST"})
+     */
+    public function newTags(Request $request): Response
+    {
+        return $this->crudNewAction(
+            $request,
+            [
+                'entity'    => new Tags(),
+                'form'      => TagsType::class,
+                'url_edit'  => 'adminposttags_edit',
+                'url_index' => 'adminposttags_index',
+                'title'     => 'Add new tag',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/tags/edit/{id}", name="adminposttags_edit", methods={"GET", "POST"})
+     */
+    public function editTags(Request $request, Tags $tag): Response
+    {
+        return $this->crudEditAction(
+            $request,
+            [
+                'form'       => TagsType::class,
+                'entity'     => $tag,
+                'url_index'  => 'adminposttags_index',
+                'url_edit'   => 'adminposttags_edit',
+                'url_delete' => 'adminposttags_delete',
+                'title'      => 'Edit tag',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/tags/", name="adminposttags_delete", methods={"DELETE"})
+     */
+    public function deleteTags(Request $request, TagsRepository $repository): JsonResponse
+    {
+        return $this->crudDeleteAction($request, $repository, 'adminposttags_index');
     }
 }
