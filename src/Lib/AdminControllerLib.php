@@ -33,10 +33,13 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $data          = json_decode($request->getContent(),true);
         $entityManager = $this->getDoctrine()->getManager();
-        $entity = $repository->find($data['id']);
-        $entity->setEnable($data['state']);
-        $entityManager->persist($entity);
-        $entityManager->flush();
+        $entity        = $repository->find($data['id']);
+        if ($entity) {
+            $entity->setEnable($data['state']);
+            $entityManager->persist($entity);
+            $entityManager->flush();
+        }
+
         return $this->json([]);
     }
 
@@ -55,10 +58,6 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [api] manquant');
         }
 
-        if (!isset($data['url_new'])) {
-            throw new HttpException(500, 'Parametre [url_new] manquant');
-        }
-
         if (!isset($data['title'])) {
             throw new HttpException(500, 'Parametre [title] manquant');
         }
@@ -69,8 +68,10 @@ abstract class AdminControllerLib extends ControllerLib
             'operation' => true,
             'select'    => true,
             'api'       => $data['api'],
-            'url_new'   => $data['url_new'],
         ];
+        if (isset($data['url_new'])) {
+            $paramtwig['url_new'] = $data['url_new'];
+        }
         if (isset($data['url_delete'])) {
             $paramtwig['url_delete'] = $data['url_delete'];
         }
@@ -208,10 +209,16 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $data          = json_decode($request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
+        $delete        = 0;
         foreach ($data as $id) {
             $entity = $repository->find($id);
-
-            $entityManager->remove($entity);
+            if ($entity) {
+                $entityManager->remove($entity);
+                $delete = 1;
+            }
+        }
+        if ($delete == 1) {
+            $this->addFlash('success','Données supprimé');
         }
 
         $entityManager->flush();
@@ -272,10 +279,6 @@ abstract class AdminControllerLib extends ControllerLib
                 'title' => 'Dashboard',
             ],
             [
-                'url'   => 'admincategory_index',
-                'title' => 'Catégory',
-            ],
-            [
                 'url'   => 'adminconfiguration_index',
                 'title' => 'Configuration',
             ],
@@ -292,22 +295,6 @@ abstract class AdminControllerLib extends ControllerLib
                 'title' => 'Param',
             ],
             [
-                'url'   => 'adminpost_index',
-                'title' => 'Post',
-            ],
-            [
-                'url'   => 'adminhistory_index',
-                'title' => 'History',
-            ],
-            [
-                'url'   => 'adminchapitre_index',
-                'title' => 'Chapitres',
-            ],
-            [
-                'url'   => 'admintags_index',
-                'title' => 'Tags',
-            ],
-            [
                 'url'   => 'adminuser_index',
                 'title' => 'User',
             ],
@@ -315,17 +302,53 @@ abstract class AdminControllerLib extends ControllerLib
                 'url'   => 'adminworkflow_index',
                 'title' => 'Workflow',
             ],
+            [
+                'title' => 'Articles',
+                'child' => [
+                    [
+                        'url'   => 'adminpost_index',
+                        'title' => 'Post',
+                    ],
+                    [
+                        'url'   => 'admintags_index',
+                        'title' => 'Tags',
+                    ],
+                    [
+                        'url'   => 'admincategory_index',
+                        'title' => 'Catégory',
+                    ],
+                ]
+            ],
+            [
+                'title' => 'Histoires',
+                'child' => [
+                    [
+                        'url'   => 'adminhistory_index',
+                        'title' => 'History',
+                    ],
+                    [
+                        'url'   => 'adminhistorychapitre_index',
+                        'title' => 'Chapitres',
+                    ],
+                ]
+                ],
         ];
 
         $actualroute = $this->request->get('_route');
+        $this->setMenuActualRoute($menuadmin, $actualroute);
+        $this->paramViews['actualroute'] = $actualroute;
+        $this->paramViews['menuadmin']   = $menuadmin;
+    }
+
+    private function setMenuActualRoute(&$menuadmin, $actualroute)
+    {
         foreach ($menuadmin as &$menu) {
-            if ($this->isActualRoute($menu['url'], $actualroute)) {
+            if (isset($menu['child'])) {
+                $this->setMenuActualRoute($menu['child'], $actualroute);
+            }elseif ($this->isActualRoute($menu['url'], $actualroute)) {
                 $menu['current'] = true;
             }
         }
-
-        $this->paramViews['actualroute'] = $actualroute;
-        $this->paramViews['menuadmin']   = $menuadmin;
     }
 
     private function isActualRoute($url, $actualroute)
