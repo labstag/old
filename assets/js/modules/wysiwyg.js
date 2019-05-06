@@ -1,6 +1,4 @@
-import {
-    tinymce
-} from 'tinymce';
+import 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
 export class wysiwyg {
     constructor() {
