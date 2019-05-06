@@ -104,7 +104,7 @@ class User implements UserInterface, \Serializable
         $this->enable            = true;
         $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
-        $this->histories = new ArrayCollection();
+        $this->histories         = new ArrayCollection();
     }
 
     public function __toString()

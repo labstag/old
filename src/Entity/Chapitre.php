@@ -2,11 +2,10 @@
 
 namespace Labstag\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource
@@ -16,9 +15,10 @@ class Chapitre
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
+
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -42,6 +42,16 @@ class Chapitre
      * @ORM\Column(type="boolean", options={"default": true}))
      */
     private $enable;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $page;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
 
     public function __construct()
     {
@@ -97,6 +107,30 @@ class Chapitre
     public function setEnable(?bool $enable): self
     {
         $this->enable = $enable;
+
+        return $this;
+    }
+
+    public function getPage(): ?int
+    {
+        return $this->page;
+    }
+
+    public function setPage(int $page): self
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

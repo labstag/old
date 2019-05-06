@@ -6,10 +6,10 @@ use Labstag\Entity\User;
 use Labstag\Form\Admin\UserType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/user")
@@ -105,7 +105,7 @@ class UserAdmin extends AdminControllerLib
      */
     public function enable(Request $request, UserRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository);
+        return $this->crudEnableAction($request, $repository, 'setEnable');
     }
 
     /**

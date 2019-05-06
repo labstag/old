@@ -2,18 +2,17 @@
 
 namespace Labstag\Controller\Admin;
 
+use Labstag\Entity\Chapitre;
 use Labstag\Entity\History;
+use Labstag\Form\Admin\ChapitreType;
 use Labstag\Form\Admin\HistoryType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\ChapitreRepository;
 use Labstag\Repository\HistoryRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Labstag\Entity\Chapitre;
-use Labstag\Form\Admin\ChapitreType;
-use Labstag\Repository\ChapitreRepository;
-
 
 /**
  * @Route("/admin/history")
@@ -35,6 +34,19 @@ class HistoryAdmin extends AdminControllerLib
                 'field'    => 'refuser',
                 'sortable' => true,
                 'valign'   => 'top',
+            ],
+            'Chapitres' => [
+                'field'     => 'chapitres',
+                'sortable'  => true,
+                'formatter' => 'dataTotalFormatter',
+            ],
+            'Fin'       => [
+                'field'     => 'end',
+                'sortable'  => true,
+                'valign'    => 'top',
+                'formatter' => 'enableFormatter',
+                'url'       => $this->generateUrl('adminhistory_end'),
+                'align'     => 'right',
             ],
             'Enable'    => [
                 'field'     => 'enable',
@@ -74,7 +86,15 @@ class HistoryAdmin extends AdminControllerLib
      */
     public function enable(Request $request, HistoryRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository);
+        return $this->crudEnableAction($request, $repository, 'setEnd');
+    }
+
+    /**
+     * @Route("/end", name="adminhistory_end")
+     */
+    public function end(Request $request, HistoryRepository $repository): JsonResponse
+    {
+        return $this->crudEnableAction($request, $repository, 'setEnable');
     }
 
     /**
@@ -119,7 +139,7 @@ class HistoryAdmin extends AdminControllerLib
     {
         return $this->crudDeleteAction($request, $repository, 'adminhistory_index');
     }
-    
+
     /**
      * @Route("/chapitre/", name="adminhistorychapitre_index", methods={"GET"})
      */
@@ -131,8 +151,13 @@ class HistoryAdmin extends AdminControllerLib
                 'sortable' => true,
                 'valign'   => 'top',
             ],
-            'Histoire'     => [
+            'Histoire'  => [
                 'field'    => 'refhistory',
+                'sortable' => true,
+                'valign'   => 'top',
+            ],
+            'Page'      => [
+                'field'    => 'page',
                 'sortable' => true,
                 'valign'   => 'top',
             ],
@@ -168,8 +193,8 @@ class HistoryAdmin extends AdminControllerLib
         $histoires = $repository->findAll();
         if (count($histoires)) {
             $data['url_new'] = 'adminhistorychapitre_new';
-        }else{
-            $this->addFlash('warning',"Vous ne pouvez pas créer de chapitre sans créer d'histoires");
+        } else {
+            $this->addFlash('warning', "Vous ne pouvez pas créer de chapitre sans créer d'histoires");
         }
 
         return $this->crudListAction($data);
@@ -180,7 +205,7 @@ class HistoryAdmin extends AdminControllerLib
      */
     public function enableChapitre(Request $request, ChapitreRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository);
+        return $this->crudEnableAction($request, $repository, 'setEnable');
     }
 
     /**
@@ -189,7 +214,7 @@ class HistoryAdmin extends AdminControllerLib
     public function newChapitre(Request $request, HistoryRepository $repository): Response
     {
         $histoires = $repository->findAll();
-        if (count($histoires) == 0) {
+        if (0 == count($histoires)) {
             throw new HttpException(403, "Vous ne pouvez pas créer de chapitre sans créer d'histoires");
         }
 

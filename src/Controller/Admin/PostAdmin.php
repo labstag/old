@@ -2,20 +2,20 @@
 
 namespace Labstag\Controller\Admin;
 
+use Labstag\Entity\Category;
 use Labstag\Entity\Post;
+use Labstag\Entity\Tags;
+use Labstag\Form\Admin\CategoryType;
 use Labstag\Form\Admin\PostType;
+use Labstag\Form\Admin\TagsType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\PostRepository;
+use Labstag\Repository\TagsRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Labstag\Entity\Category;
-use Labstag\Form\Admin\CategoryType;
-use Labstag\Repository\CategoryRepository;
-use Labstag\Entity\Tags;
-use Labstag\Form\Admin\TagsType;
-use Labstag\Repository\TagsRepository;
 
 /**
  * @Route("/admin/post")
@@ -78,7 +78,7 @@ class PostAdmin extends AdminControllerLib
      */
     public function enable(Request $request, PostRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository);
+        return $this->crudEnableAction($request, $repository, 'setEnable');
     }
 
     /**
@@ -123,6 +123,7 @@ class PostAdmin extends AdminControllerLib
     {
         return $this->crudDeleteAction($request, $repository, 'adminpost_index');
     }
+
     /**
      * @Route("/category/", name="adminpostcategory_index", methods={"GET"})
      */
@@ -203,6 +204,7 @@ class PostAdmin extends AdminControllerLib
     {
         return $this->crudDeleteAction($request, $repository, 'adminpostcategory_index');
     }
+
     /**
      * @Route("/tags/", name="adminposttags_index", methods={"GET"})
      */

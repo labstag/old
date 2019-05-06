@@ -15,6 +15,8 @@ class ChapitreType extends AbstractType
     {
         $builder->add('name');
         $builder->add('enable');
+        $builder->add('refhistory');
+        $builder->add('page');
         $builder->add('content', WysiwygType::class);
         $builder->add('submit', SubmitType::class);
         unset($options);

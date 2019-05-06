@@ -7,8 +7,8 @@ use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method History|null find($id, $lockMode = null, $lockVersion = null)
- * @method History|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|History find($id, $lockMode = null, $lockVersion = null)
+ * @method null|History findOneBy(array $criteria, array $orderBy = null)
  * @method History[]    findAll()
  * @method History[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
