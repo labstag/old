@@ -27,37 +27,31 @@ class HistoryAdmin extends AdminControllerLib
         $datatable = [
             'Name'      => [
                 'field'    => 'name',
-                'sortable' => true,
             ],
             'User'      => [
                 'field'    => 'refuser',
-                'sortable' => true,
+                'formatter' => 'dataFormatter',
             ],
             'Chapitres' => [
                 'field'     => 'chapitres',
-                'sortable'  => true,
                 'formatter' => 'dataTotalFormatter',
             ],
             'Fin'       => [
                 'field'     => 'end',
-                'sortable'  => true,
                 'formatter' => 'enableFormatter',
                 'url'       => $this->generateUrl('adminhistory_end'),
             ],
             'Enable'    => [
                 'field'     => 'enable',
-                'sortable'  => true,
                 'formatter' => 'enableFormatter',
                 'url'       => $this->generateUrl('adminhistory_enable'),
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
         ];
@@ -140,35 +134,28 @@ class HistoryAdmin extends AdminControllerLib
         $datatable = [
             'Name'      => [
                 'field'    => 'name',
-                'sortable' => true,
             ],
             'Histoire'  => [
                 'field'    => 'refhistory',
-                'sortable' => true,
             ],
             'File'      => [
                 'field'     => 'file',
-                'sortable'  => true,
                 'formatter' => 'imageFormatter',
             ],
             'Page'      => [
                 'field'    => 'page',
-                'sortable' => true,
             ],
             'Enable'    => [
                 'field'     => 'enable',
-                'sortable'  => true,
                 'formatter' => 'enableFormatter',
                 'url'       => $this->generateUrl('adminhistorychapitre_enable'),
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
         ];

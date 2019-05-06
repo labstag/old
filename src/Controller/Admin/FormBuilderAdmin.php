@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/formbuilder")
  */
-class FormbuilderAdmin extends AdminControllerLib
+class FormBuilderAdmin extends AdminControllerLib
 {
     /**
      * @Route("/", name="adminformbuilder_index", methods={"GET"})
@@ -24,39 +24,31 @@ class FormbuilderAdmin extends AdminControllerLib
         $datatable = [
             'Username'  => [
                 'field'    => 'username',
-                'sortable' => true,
             ],
             'Email'     => [
                 'field'    => 'email',
-                'sortable' => true,
             ],
             'Roles'     => [
                 'field'     => 'roles',
-                'sortable'  => true,
                 'formatter' => 'rolesFormatter',
             ],
             'Avatar'    => [
                 'field'     => 'avatar',
-                'sortable'  => true,
                 'formatter' => 'imageFormatter',
             ],
             'api key'   => [
                 'field'    => 'apiKey',
-                'sortable' => true,
             ],
             'Enable'    => [
                 'field'     => 'enable',
-                'sortable'  => true,
                 'formatter' => 'enableFormatter',
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
             'UpdatedAt' => [
                 'field'     => 'updatedAt',
-                'sortable'  => true,
                 'formatter' => 'dateFormatter',
             ],
         ];
