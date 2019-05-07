@@ -16,11 +16,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 10;
 
-    public function __construct(
-        UserRepository $userRepository,
-        CategoryRepository $categoryRepository,
-        TagsRepository $tagsRepository
-    )
+    public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, TagsRepository $tagsRepository)
     {
         $this->userRepository     = $userRepository;
         $this->categoryRepository = $categoryRepository;

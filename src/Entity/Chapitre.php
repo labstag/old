@@ -55,6 +55,8 @@ class Chapitre
 
     public function __construct()
     {
+        $this->status = '';
+        $this->page   = 0;
         $this->enable = true;
     }
 

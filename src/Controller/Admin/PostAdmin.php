@@ -25,18 +25,17 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminpost_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(PostRepository $postRepository, CategoryRepository $categoryRepository): Response
     {
+        $total     = count($postRepository->findAll());
         $datatable = [
-            'Name'      => [
-                'field'    => 'name',
-            ],
+            'Name'      => ['field' => 'name'],
             'User'      => [
-                'field'    => 'refuser',
+                'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
             ],
-            'Categorie'      => [
-                'field'    => 'refcategory',
+            'Categorie' => [
+                'field'     => 'refcategory',
                 'formatter' => 'dataFormatter',
             ],
             'File'      => [
@@ -59,12 +58,19 @@ class PostAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'Post list',
+            'total'      => $total,
             'datatable'  => $datatable,
             'api'        => 'api_posts_get_collection',
-            'url_new'    => 'adminpost_new',
             'url_delete' => 'adminpost_delete',
             'url_edit'   => 'adminpost_edit',
         ];
+
+        $categories = $categoryRepository->findAll();
+        if (count($categories)) {
+            $data['url_new'] = 'adminpost_new';
+        } else {
+            $this->addFlash('warning', 'Vous ne pouvez pas créer de post sans créer de catégories');
+        }
 
         return $this->crudListAction($data);
     }
@@ -80,8 +86,13 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/new", name="adminpost_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CategoryRepository $repository): Response
     {
+        $categories = $repository->findAll();
+        if (0 == count($categories)) {
+            throw new HttpException(403, 'Vous ne pouvez pas créer de post sans créer de catégories');
+        }
+
         return $this->crudNewAction(
             $request,
             [
@@ -97,8 +108,13 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/edit/{id}", name="adminpost_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Request $request, Post $post, CategoryRepository $repository): Response
     {
+        $categories = $repository->findAll();
+        if (0 == count($categories)) {
+            throw new HttpException(403, 'Vous ne pouvez pas créer de post sans créer de catégories');
+        }
+
         return $this->crudEditAction(
             $request,
             [
@@ -123,12 +139,11 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/category/", name="adminpostcategory_index", methods={"GET"})
      */
-    public function indexCategory(): Response
+    public function indexCategory(CategoryRepository $repository): Response
     {
+        $total     = count($repository->findAll());
         $datatable = [
-            'Name'      => [
-                'field'    => 'name',
-            ],
+            'Name'      => ['field' => 'name'],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',
@@ -144,6 +159,7 @@ class PostAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'Category list',
+            'total'      => $total,
             'datatable'  => $datatable,
             'api'        => 'api_categories_get_collection',
             'url_new'    => 'adminpostcategory_new',
@@ -200,12 +216,11 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/", name="adminposttags_index", methods={"GET"})
      */
-    public function indexTags(): Response
+    public function indexTags(TagsRepository $repository): Response
     {
+        $total     = count($repository->findAll());
         $datatable = [
-            'Name'      => [
-                'field'    => 'name',
-            ],
+            'Name'      => ['field' => 'name'],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',
@@ -221,6 +236,7 @@ class PostAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'Tags list',
+            'total'      => $total,
             'datatable'  => $datatable,
             'api'        => 'api_tags_get_collection',
             'url_new'    => 'adminposttags_new',

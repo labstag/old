@@ -8,8 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -74,15 +75,16 @@ class History
      */
     private $end;
 
+    public function __construct()
+    {
+        $this->end       = false;
+        $this->enable    = true;
+        $this->chapitres = new ArrayCollection();
+    }
+
     public function __toString(): ?string
     {
         return $this->getName();
-    }
-
-    public function __construct()
-    {
-        $this->enable    = true;
-        $this->chapitres = new ArrayCollection();
     }
 
     public function getId(): ?string
