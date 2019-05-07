@@ -43,21 +43,25 @@ export class form {
         } );
     }
 
-    btndelete() {
-        $('.BtnActionDelete').on('click', function (event) {
-            event.preventDefault();
-            $('.BtnDeleteModalConfirm').attr('href', $(event.currentTarget).attr('href'));
-            if ($('main').find('form').length == 1) {
-                $('#deleteModal').modal();
-            } else if ($('#CrudList').length != 0) {
-                let json = $('#CrudList').bootstrapTable('getSelections');
-
-                if (json.length != 0) {
-                    $('#deleteModal').modal();
-                }
-            }
-        } );
+    btndeleteOnClick(event) {
+        event.preventDefault();
+        $('.BtnDeleteModalConfirm').attr('href', $(event.currentTarget).attr('href'));
+        console.log('aa');
+        $('.BtnDeleteModalConfirm').off('click');
         $('.BtnDeleteModalConfirm').on('click', this.confirmDelete.bind(this));
+        if ($('main').find('form').length == 1) {
+            $('#deleteModal').modal();
+        } else if ($('#CrudList').length != 0) {
+            let json = $('#CrudList').bootstrapTable('getSelections');
+
+            if (json.length != 0) {
+                $('#deleteModal').modal();
+            }
+        }
+    }
+
+    btndelete() {
+        $('.BtnActionDelete').on('click', this.btndeleteOnClick.bind(this));
     }
 
     paramDelete(object) {

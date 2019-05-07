@@ -141,8 +141,6 @@ export class datatables {
         let div    = document.createElement('div');
         let uniqid = this.uniqid();
 
-        console.log(uniqid);
-
         div.setAttribute('class', 'custom-control custom-switch');
         let input = document.createElement('input');
 
@@ -174,6 +172,7 @@ export class datatables {
         let operationUpdate = document.querySelector('.OperationUpdate').innerHTML;
 
         operationUpdate = operationUpdate.replace('code', row.id);
+        operationDelete = operationDelete.replace('code', row.id);
         return operationUpdate + operationDelete;
     }
 

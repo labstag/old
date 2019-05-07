@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {
-    private const NUMBER = 10;
+    private const NUMBER = 25;
 
     public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, TagsRepository $tagsRepository)
     {
@@ -69,6 +69,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $manager->persist($post);
+            sleep(1);
         }
 
         $manager->flush();
