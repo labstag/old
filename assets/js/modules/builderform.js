@@ -21,7 +21,6 @@ export class builderform {
             'roles'                : ''
         };
 
-        console.log(this.emplacement);
         this.formBuilder = $('#' + this.emplacement).formBuilder(dataFormBuilder);
         $('#SaveFormBuilder').on('click', this.save.bind(this));
     }
