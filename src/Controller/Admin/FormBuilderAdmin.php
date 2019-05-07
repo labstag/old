@@ -3,14 +3,15 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Formbuilder;
+use Labstag\Form\Admin\FormbuilderType;
 use Labstag\Form\Admin\FormType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\FormbuilderRepository;
 use Labstag\Repository\UserRepository;
-use Labstag\Form\Admin\FormbuilderType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/admin/formbuilder")
@@ -20,19 +21,17 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminformbuilder_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(FormbuilderRepository $repository): Response
     {
+        $total     = count($repository->findAll());
         $datatable = [
-            'Name'  => [
-                'field'    => 'name',
-            ],
+            'Name' => ['field' => 'name'],
         ];
         $data      = [
             'title'      => 'Formbuilder list',
+            'total'      => $total,
             'datatable'  => $datatable,
-            'url_enable' => [
-                'enable' => 'adminformbuilder_enable'
-            ],
+            'url_enable' => ['enable' => 'adminformbuilder_enable'],
             'api'        => 'api_formbuilders_get_collection',
             'url_new'    => 'adminformbuilder_new',
             'url_delete' => 'adminformbuilder_delete',

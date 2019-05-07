@@ -19,15 +19,12 @@ class UserAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminuser_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(UserRepository $repository): Response
     {
+        $total     = count($repository->findAll());
         $datatable = [
-            'Username'  => [
-                'field'    => 'username',
-            ],
-            'Email'     => [
-                'field'    => 'email',
-            ],
+            'Username'  => ['field' => 'username'],
+            'Email'     => ['field' => 'email'],
             'Roles'     => [
                 'field'     => 'roles',
                 'formatter' => 'rolesFormatter',
@@ -36,9 +33,7 @@ class UserAdmin extends AdminControllerLib
                 'field'     => 'avatar',
                 'formatter' => 'imageFormatter',
             ],
-            'api key'   => [
-                'field'    => 'apiKey',
-            ],
+            'api key'   => ['field' => 'apiKey'],
             'Enable'    => [
                 'field'     => 'enable',
                 'formatter' => 'enableFormatter',
@@ -54,10 +49,9 @@ class UserAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'Users list',
+            'total'      => $total,
             'datatable'  => $datatable,
-            'url_enable' => [
-                'enable' => 'adminuser_enable'
-            ],
+            'url_enable' => ['enable' => 'adminuser_enable'],
             'api'        => 'api_users_get_collection',
             'url_new'    => 'adminuser_new',
             'url_delete' => 'adminuser_delete',
