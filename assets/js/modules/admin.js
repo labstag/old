@@ -1,13 +1,47 @@
 export class admin {
     constructor() {
+        this.userList();
+        this.btndelete();
+    }
+
+    btndelete() {
         $(document).on(
             'click',
             '.OperationLinkDelete',
-            function (event) {
-                event.preventDefault();
-            }
+            this.btndeleteOnClick.bind(this)
         );
-        this.userList();
+    }
+
+    btndeleteOnClick(event) {
+        event.preventDefault();
+        $('.BtnDeleteModalConfirm').attr('href', $(event.currentTarget).attr('href'));
+        $('.BtnDeleteModalConfirm').attr('data-id', $(event.currentTarget).attr('data-id'));
+        $('.BtnDeleteModalConfirm').off('click');
+        $('.BtnDeleteModalConfirm').on('click', this.confirmDelete.bind(this));
+        $('#deleteModal').modal();
+    }
+
+    confirmDelete(event) {
+        event.preventDefault();
+        let data = [];
+        let url  = $('.BtnDeleteModalConfirm').attr('href');
+        let id   = $('.BtnDeleteModalConfirm').attr('data-id');
+
+        data.push(id);
+        window.fetch(
+            url, {
+                'method': 'DELETE',
+                'body'  : JSON.stringify(data)
+            }
+        ).then((response) => {
+            return response.text();
+        } ).then((text) => {
+            return JSON.parse(text);
+        } ).then((json) => {
+            if (json.redirect != undefined) {
+                window.location.replace(json.redirect);
+            }
+        } );
     }
 
     userList() {

@@ -51,11 +51,13 @@ abstract class AdminControllerLib extends ControllerLib
     }
 
     /**
-     * TODO: Le refaire pour prendre en compte bootstrap-table.
+     * Generate crud list
+     *
+     * @param array $data Données pour bootstrap-table
+     * @return Response
      */
     protected function crudListAction($data): Response
     {
-        dump($data);
         if (!isset($data['datatable'])) {
             throw new HttpException(500, 'Parametre [datatable] manquant');
         }
