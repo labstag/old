@@ -19,15 +19,12 @@ class ConfigurationAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminconfiguration_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(ConfigurationRepository $repository): Response
     {
+        $total     = count($repository->findAll());
         $datatable = [
-            'Name'      => [
-                'field'    => 'name',
-            ],
-            'Value'     => [
-                'field'    => 'value',
-            ],
+            'Name'      => ['field' => 'name'],
+            'Value'     => ['field' => 'value'],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'formatter' => 'dateFormatter',
@@ -39,6 +36,7 @@ class ConfigurationAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'Configuration list',
+            'total'      => $total,
             'datatable'  => $datatable,
             'api'        => 'api_configurations_get_collection',
             'url_new'    => 'adminconfiguration_new',

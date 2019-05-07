@@ -22,14 +22,13 @@ class HistoryAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminhistory_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(HistoryRepository $repository): Response
     {
+        $total     = count($repository->findAll());
         $datatable = [
-            'Name'      => [
-                'field'    => 'name',
-            ],
+            'Name'      => ['field' => 'name'],
             'User'      => [
-                'field'    => 'refuser',
+                'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
             ],
             'Chapitres' => [
@@ -61,6 +60,7 @@ class HistoryAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'History list',
+            'total'      => $total,
             'datatable'  => $datatable,
             'api'        => 'api_histories_get_collection',
             'url_new'    => 'adminhistory_new',
@@ -137,22 +137,17 @@ class HistoryAdmin extends AdminControllerLib
     /**
      * @Route("/chapitre/", name="adminhistorychapitre_index", methods={"GET"})
      */
-    public function indexChapitre(HistoryRepository $repository): Response
+    public function indexChapitre(ChapitreRepository $chapitreRepository, HistoryRepository $histoireRepository): Response
     {
+        $total     = count($chapitreRepository->findAll());
         $datatable = [
-            'Name'      => [
-                'field'    => 'name',
-            ],
-            'Histoire'  => [
-                'field'    => 'refhistory',
-            ],
+            'Name'      => ['field' => 'name'],
+            'Histoire'  => ['field' => 'refhistory'],
             'File'      => [
                 'field'     => 'file',
                 'formatter' => 'imageFormatter',
             ],
-            'Page'      => [
-                'field'    => 'page',
-            ],
+            'Page'      => ['field' => 'page'],
             'Enable'    => [
                 'field'     => 'enable',
                 'formatter' => 'enableFormatter',
@@ -169,13 +164,14 @@ class HistoryAdmin extends AdminControllerLib
         ];
         $data      = [
             'title'      => 'Chapitre list',
+            'total'      => $total,
             'datatable'  => $datatable,
             'api'        => 'api_chapitres_get_collection',
             'url_delete' => 'adminhistorychapitre_delete',
             'url_edit'   => 'adminhistorychapitre_edit',
         ];
 
-        $histoires = $repository->findAll();
+        $histoires = $histoireRepository->findAll();
         if (count($histoires)) {
             $data['url_new'] = 'adminhistorychapitre_new';
         } else {

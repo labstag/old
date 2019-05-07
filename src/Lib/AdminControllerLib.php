@@ -68,6 +68,10 @@ abstract class AdminControllerLib extends ControllerLib
             throw new HttpException(500, 'Parametre [title] manquant');
         }
 
+        if (!isset($data['total'])) {
+            throw new HttpException(500, 'Parametre [total] manquant');
+        }
+
         foreach ($data['datatable'] as &$row) {
             if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
                 $row['align'] = 'right';
@@ -90,7 +94,7 @@ abstract class AdminControllerLib extends ControllerLib
 
         $paramtwig = [
             'datatable' => $data['datatable'],
-            'title'     => $data['title'],
+            'title'     => $data['title'].' ('.$data['total'].')',
             'operation' => true,
             'select'    => true,
             'api'       => $data['api'],
@@ -225,6 +229,7 @@ abstract class AdminControllerLib extends ControllerLib
                 ]
             );
         }
+
         $params = [
             'entity'     => $data['entity'],
             'title'      => $data['title'],
