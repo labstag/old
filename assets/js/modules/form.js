@@ -46,7 +46,6 @@ export class form {
     btndeleteOnClick(event) {
         event.preventDefault();
         $('.BtnDeleteModalConfirm').attr('href', $(event.currentTarget).attr('href'));
-        console.log('aa');
         $('.BtnDeleteModalConfirm').off('click');
         $('.BtnDeleteModalConfirm').on('click', this.confirmDelete.bind(this));
         if ($('main').find('form').length == 1) {
