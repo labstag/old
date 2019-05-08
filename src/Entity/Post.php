@@ -19,7 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiResource
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\PostRepository")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt",                 timeAware=false)
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Vich\Uploadable
  */
 class Post
