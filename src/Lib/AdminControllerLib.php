@@ -51,10 +51,9 @@ abstract class AdminControllerLib extends ControllerLib
     }
 
     /**
-     * Generate crud list
+     * Generate crud list.
      *
      * @param array $data Données pour bootstrap-table
-     * @return Response
      */
     protected function crudListAction($data): Response
     {

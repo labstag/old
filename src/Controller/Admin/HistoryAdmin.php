@@ -142,7 +142,10 @@ class HistoryAdmin extends AdminControllerLib
         $total     = count($chapitreRepository->findAll());
         $datatable = [
             'Name'      => ['field' => 'name'],
-            'Histoire'  => ['field' => 'refhistory'],
+            'Histoire'  => [
+                'field'     => 'refhistory',
+                'formatter' => 'dataFormatter',
+            ],
             'File'      => [
                 'field'     => 'file',
                 'formatter' => 'imageFormatter',
