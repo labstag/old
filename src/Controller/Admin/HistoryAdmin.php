@@ -113,11 +113,9 @@ class HistoryAdmin extends AdminControllerLib
     /**
      * @Route("/trash/edit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
      */
-    public function trashedit($id, HistoryRepository $repository): Response
+    public function trashEdit($id, HistoryRepository $repository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->getFilters()->disable('softdeleteable');
-        $history = $em;
+        $history = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -247,8 +245,18 @@ class HistoryAdmin extends AdminControllerLib
      */
     public function trashEditChapitre($id, ChapitreRepository $repository): Response
     {
-        echo $id;
-        exit();
+        $chapitre = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'form'       => ChapitreType::class,
+                'entity'     => $chapitre,
+                'url_list'   => 'adminhistorychapitre_trash',
+                'url_edit'   => 'adminhistorychapitre_trashedit',
+                'url_delete' => 'adminhistorychapitre_deletetrash',
+                'title'      => 'Edit chapitre',
+            ]
+        );
     }
 
     /**

@@ -89,6 +89,25 @@ class UserAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/trash/edit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEdit($id, UserRepository $repository): Response
+    {
+        $user = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'form'       => UserType::class,
+                'entity'     => $user,
+                'url_list'   => 'adminuser_trash',
+                'url_edit'   => 'adminuser_trashedit',
+                'url_delete' => 'adminuser_deletetrash',
+                'title'      => 'Edit user',
+            ]
+        );
+    }
+
+    /**
      * @Route("/edit/{id}", name="adminuser_edit", methods={"GET", "POST"})
      */
     public function edit(User $user): Response
