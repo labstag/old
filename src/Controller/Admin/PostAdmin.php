@@ -63,6 +63,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete'      => 'adminpost_delete',
             'url_deletetrash' => 'adminpost_deletetrash',
             'url_trash'       => 'adminpost_trash',
+            'url_empty'       => 'adminpost_empty',
             'url_list'        => 'adminpost_list',
             'url_edit'        => 'adminpost_edit',
             'url_trashedit'   => 'adminpost_trashedit',
@@ -108,9 +109,9 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trash/edit/{id}", name="adminpost_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminpost_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit($id, PostRepository $repository): Response
+    public function trashEdit(PostRepository $repository, $id): Response
     {
         $post = $repository->findOneDateInTrash($id);
 
@@ -146,6 +147,14 @@ class PostAdmin extends AdminControllerLib
                 'title'      => 'Edit post',
             ]
         );
+    }
+
+    /**
+     * @Route("/tags/empty", name="adminpost_empty")
+     */
+    public function empty(TagsRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminpost_list');
     }
 
     /**
@@ -193,6 +202,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete'      => 'adminpostcategory_delete',
             'url_deletetrash' => 'adminpostcategory_deletetrash',
             'url_trash'       => 'adminpostcategory_trash',
+            'url_empty'       => 'adminpostcategory_empty',
             'url_list'        => 'adminpostcategory_list',
             'url_edit'        => 'adminpostcategory_edit',
             'url_trashedit'   => 'adminpostcategory_trashedit',
@@ -218,9 +228,9 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/category/trash/edit/{id}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
+     * @Route("/category/trashedit/{id}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditCategory($id, CategoryRepository $repository): Response
+    public function trashEditCategory(CategoryRepository $repository, $id): Response
     {
         $category = $repository->findOneDateInTrash($id);
 
@@ -251,6 +261,14 @@ class PostAdmin extends AdminControllerLib
                 'title'      => 'Edit categorie',
             ]
         );
+    }
+
+    /**
+     * @Route("/category/empty", name="adminpostcategory_empty")
+     */
+    public function emptyCategory(CategoryRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminpostcategory_list');
     }
 
     /**
@@ -298,6 +316,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete'      => 'adminposttags_delete',
             'url_deletetrash' => 'adminposttags_deletetrash',
             'url_trash'       => 'adminposttags_trash',
+            'url_empty'       => 'adminposttags_empty',
             'url_list'        => 'adminposttags_list',
             'url_edit'        => 'adminposttags_edit',
             'url_trashedit'   => 'adminposttags_trashedit',
@@ -323,9 +342,9 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/tags/trash/edit/{id}", name="adminposttags_trashedit", methods={"GET", "POST"})
+     * @Route("/tags/trashedit/{id}", name="adminposttags_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditTags($id, TagsRepository $repository): Response
+    public function trashEditTags(TagsRepository $repository, $id): Response
     {
         $tag = $repository->findOneDateInTrash($id);
 
@@ -356,6 +375,14 @@ class PostAdmin extends AdminControllerLib
                 'title'      => 'Edit tag',
             ]
         );
+    }
+
+    /**
+     * @Route("/tags/empty", name="adminposttags_empty")
+     */
+    public function emptyTags(TagsRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminposttags_list');
     }
 
     /**

@@ -43,6 +43,7 @@ class ConfigurationAdmin extends AdminControllerLib
             'url_deletetrash' => 'adminconfiguration_deletetrash',
             'url_list'        => 'adminconfiguration_list',
             'url_trash'       => 'adminconfiguration_trash',
+            'url_empty'       => 'adminconfiguration_empty',
             'url_edit'        => 'adminconfiguration_edit',
             'url_trashedit'   => 'adminconfiguration_trashedit',
         ];
@@ -67,9 +68,9 @@ class ConfigurationAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trash/edit/{id}", name="adminconfiguration_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminconfiguration_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit($id, ConfigurationRepository $repository): Response
+    public function trashEdit(ConfigurationRepository $repository, $id): Response
     {
         $configuration = $repository->findOneDateInTrash($id);
 
@@ -100,6 +101,14 @@ class ConfigurationAdmin extends AdminControllerLib
                 'title'      => 'Edit configuration',
             ]
         );
+    }
+
+    /**
+     * @Route("/empty", name="adminconfiguration_empty")
+     */
+    public function empty(ConfigurationRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminconfiguration_list');
     }
 
     /**
