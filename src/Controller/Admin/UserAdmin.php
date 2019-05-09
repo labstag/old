@@ -56,6 +56,7 @@ class UserAdmin extends AdminControllerLib
             'url_delete'      => 'adminuser_delete',
             'url_deletetrash' => 'adminuser_deletetrash',
             'url_trash'       => 'adminuser_trash',
+            'url_empty'       => 'adminuser_empty',
             'url_list'        => 'adminuser_list',
             'url_edit'        => 'adminuser_edit',
             'url_trashedit'   => 'adminuser_trashedit',
@@ -89,9 +90,9 @@ class UserAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trash/edit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminuser_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit($id, UserRepository $repository): Response
+    public function trashEdit(UserRepository $repository, $id): Response
     {
         $user = $repository->findOneDateInTrash($id);
 
@@ -137,5 +138,13 @@ class UserAdmin extends AdminControllerLib
                 'url_trash' => 'adminuser_trash',
             ]
         );
+    }
+
+    /**
+     * @Route("/empty", name="adminuser_empty")
+     */
+    public function empty(UserRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminuser_list');
     }
 }

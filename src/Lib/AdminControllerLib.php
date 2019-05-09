@@ -117,8 +117,10 @@ abstract class AdminControllerLib extends ControllerLib
             $paramtwig['url_list']  = $data['url_list'];
             $paramtwig['url_edit']  = $data['url_trashedit'];
             if ($route == $data['url_trash']) {
-                unset($paramtwig['url_new']);
+                unset($paramtwig['url_new'], $paramtwig['url_trash']);
+
                 $paramtwig['dataInTrash'] = $dataInTrash;
+                $paramtwig['url_empty']   = $data['url_empty'];
                 $paramtwig['url_delete']  = $data['url_deletetrash'];
                 unset($paramtwig['api']);
             }
@@ -243,6 +245,22 @@ abstract class AdminControllerLib extends ControllerLib
         }
 
         return $this->crudShowForm($params);
+    }
+
+    protected function crudEmptyAction(ServiceEntityRepositoryLib $repository, string $route): JsonReponse
+    {
+        $data = $repository->findDataInTrash();
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach ($data as $entity) {
+            $entityManager->remove($entity);
+        }
+
+        $entityManager->flush();
+        $json = [
+            'redirect' => $this->generateUrl($route, [], UrlGeneratorInterface::ABSOLUTE_PATH),
+        ];
+
+        return $this->json($json);
     }
 
     protected function crudDeleteAction(ServiceEntityRepositoryLib $repository, array $route): JsonResponse
