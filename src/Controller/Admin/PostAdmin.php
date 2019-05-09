@@ -108,6 +108,25 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/trash/edit/{id}", name="adminpost_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEdit($id, PostRepository $repository): Response
+    {
+        $post = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'form'       => PostType::class,
+                'entity'     => $post,
+                'url_list'   => 'adminpost_trash',
+                'url_edit'   => 'adminpost_trashedit',
+                'url_delete' => 'adminpost_deletetrash',
+                'title'      => 'Edit post',
+            ]
+        );
+    }
+
+    /**
      * @Route("/edit/{id}", name="adminpost_edit", methods={"GET", "POST"})
      */
     public function edit(Post $post, CategoryRepository $repository): Response
@@ -199,6 +218,25 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/category/trash/edit/{id}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEditCategory($id, CategoryRepository $repository): Response
+    {
+        $category = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'form'       => CategoryType::class,
+                'entity'     => $category,
+                'url_list'   => 'adminpostcategory_trash',
+                'url_edit'   => 'adminpostcategory_trashedit',
+                'url_delete' => 'adminpostcategory_deletetrash',
+                'title'      => 'Edit categorie',
+            ]
+        );
+    }
+
+    /**
      * @Route("/category/edit/{id}", name="adminpostcategory_edit", methods={"GET", "POST"})
      */
     public function editCategory(Category $category): Response
@@ -280,6 +318,25 @@ class PostAdmin extends AdminControllerLib
                 'url_edit' => 'adminposttags_edit',
                 'url_list' => 'adminposttags_list',
                 'title'    => 'Add new tag',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/tags/trash/edit/{id}", name="adminposttags_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEditTags($id, TagsRepository $repository): Response
+    {
+        $tag = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'form'       => TagsType::class,
+                'entity'     => $tag,
+                'url_list'   => 'adminposttags_trash',
+                'url_edit'   => 'adminposttags_trashedit',
+                'url_delete' => 'adminposttags_deletetrash',
+                'title'      => 'Edit tag',
             ]
         );
     }

@@ -67,6 +67,25 @@ class ConfigurationAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/trash/edit/{id}", name="adminconfiguration_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEdit($id, ConfigurationRepository $repository): Response
+    {
+        $configuration = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'form'       => ConfigurationType::class,
+                'entity'     => $configuration,
+                'url_list'   => 'adminconfiguration_trash',
+                'url_edit'   => 'adminconfiguration_trashedit',
+                'url_delete' => 'adminconfiguration_deletetrash',
+                'title'      => 'Edit configuration',
+            ]
+        );
+    }
+
+    /**
      * @Route("/edit/{id}", name="adminconfiguration_edit", methods={"GET", "POST"})
      */
     public function edit(Configuration $configuration): Response
