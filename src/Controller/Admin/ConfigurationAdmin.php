@@ -44,6 +44,7 @@ class ConfigurationAdmin extends AdminControllerLib
             'url_list'        => 'adminconfiguration_list',
             'url_trash'       => 'adminconfiguration_trash',
             'url_edit'        => 'adminconfiguration_edit',
+            'url_trashedit'   => 'adminconfiguration_trashedit',
         ];
 
         return $this->crudListAction($data);
@@ -92,7 +93,7 @@ class ConfigurationAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminconfiguration_list',
-                'url_trash' => 'adminconfiguration_trash'
+                'url_trash' => 'adminconfiguration_trash',
             ]
         );
     }
