@@ -85,7 +85,7 @@
                         <h1>{{ title }}</h1>
                     </div>
                     <div class="col text-right">
-                        {% if url_list is defined or url_trash is defined or url_new is defined or url_delete is defined or btnSave is defined %}
+                        {% if url_empty is defined or url_list is defined or url_trash is defined or url_new is defined or url_delete is defined or btnSave is defined %}
                             <div class="btn-group BtnActions" role="group" aria-label="Basic example">
                                 {% if url_list is defined %}
                                     <a class="btn btn-secondary BtnActionList" href="{{ path(url_list) }}">
@@ -94,8 +94,15 @@
                                         <span>Liste</span>
                                     </a>
                                 {% endif %}
+                                {% if url_empty is defined %}
+                                    <a class="btn btn-secondary BtnActionEmpty" href="{{ path(url_empty) }}">
+                                        <i class="fas fa-recycle"></i>
+                                        <br />
+                                        <span>Vider</span>
+                                    </a>
+                                {% endif %}
                                 {% if url_trash is defined %}
-                                    <a class="btn btn-secondary BtnActionList" href="{{ path(url_trash) }}">
+                                    <a class="btn btn-secondary BtnActionTrash" href="{{ path(url_trash) }}">
                                         <i class="fas fa-trash"></i>
                                         <br />
                                         <span>Corbeille</span>
@@ -145,5 +152,8 @@
     </div>
     {% if url_delete is defined %}
         {% include "admin/modal/delete.html.twig" %}
+    {% endif %}
+    {% if url_empty is defined %}
+        {% include "admin/modal/empty.html.twig" %}
     {% endif %}
 {% endblock %}

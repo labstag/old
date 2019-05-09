@@ -4,7 +4,6 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Formbuilder;
 use Labstag\Form\Admin\FormbuilderType;
-use Labstag\Form\Admin\FormType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\FormbuilderRepository;
 use Labstag\Repository\UserRepository;
@@ -70,6 +69,26 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/trash/edit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEdit($id, ConfigurationRepository $repository): Response
+    {
+        $formbuilder = $repository->findOneDateInTrash($id);
+
+        return $this->crudEditAction(
+            [
+                'twig'       => 'admin/formbuilder.html.twig',
+                'form'       => FormbuilderType::class,
+                'entity'     => $formbuilder,
+                'url_list'   => 'adminformbuilder_trash',
+                'url_edit'   => 'adminformbuilder_trashedit',
+                'url_delete' => 'adminformbuilder_deletetrash',
+                'title'      => 'Edit formbuilder',
+            ]
+        );
+    }
+
+    /**
      * @Route("/edit/{id}", name="adminformbuilder_edit", methods={"GET", "POST"})
      */
     public function edit(Formbuilder $formbuilder): Response
@@ -77,7 +96,7 @@ class FormBuilderAdmin extends AdminControllerLib
         return $this->crudEditAction(
             [
                 'twig'       => 'admin/formbuilder.html.twig',
-                'form'       => FormType::class,
+                'form'       => FormbuilderType::class,
                 'entity'     => $formbuilder,
                 'url_list'   => 'adminformbuilder_list',
                 'url_edit'   => 'adminformbuilder_edit',
