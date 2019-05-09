@@ -66,6 +66,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_delete'      => 'adminhistory_delete',
             'url_deletetrash' => 'adminhistory_deletetrash',
             'url_trash'       => 'adminhistory_trash',
+            'url_empty'       => 'adminhistory_empty',
             'url_list'        => 'adminhistory_list',
             'url_edit'        => 'adminhistory_edit',
             'url_trashedit'   => 'adminhistory_trashedit',
@@ -111,9 +112,9 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trash/edit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit($id, HistoryRepository $repository): Response
+    public function trashEdit(HistoryRepository $repository, $id): Response
     {
         $history = $repository->findOneDateInTrash($id);
 
@@ -144,6 +145,14 @@ class HistoryAdmin extends AdminControllerLib
                 'title'      => 'Edit history',
             ]
         );
+    }
+
+    /**
+     * @Route("/empty", name="adminhistory_empty")
+     */
+    public function empty(HistoryRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminhistory_list');
     }
 
     /**
@@ -196,6 +205,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_delete'      => 'adminhistorychapitre_delete',
             'url_deletetrash' => 'adminhistorychapitre_deletetrash',
             'url_trash'       => 'adminhistorychapitre_trash',
+            'url_empty'       => 'adminhistorychapitre_empty',
             'url_list'        => 'adminhistorychapitre_list',
             'url_edit'        => 'adminhistorychapitre_edit',
             'url_trashedit'   => 'adminhistorychapitre_trashedit',
@@ -241,9 +251,9 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/chapitre/trash/edit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
+     * @Route("/chapitre/trashedit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditChapitre($id, ChapitreRepository $repository): Response
+    public function trashEditChapitre(ChapitreRepository $repository, $id): Response
     {
         $chapitre = $repository->findOneDateInTrash($id);
 
@@ -274,6 +284,14 @@ class HistoryAdmin extends AdminControllerLib
                 'title'      => 'Edit chapitre',
             ]
         );
+    }
+
+    /**
+     * @Route("/chapitre/empty", name="adminhistorychapitre_empty")
+     */
+    public function emptyChapitre(ChapitreRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminhistorychapitre_list');
     }
 
     /**

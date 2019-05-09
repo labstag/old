@@ -5,6 +5,7 @@ namespace Labstag\Controller\Admin;
 use Labstag\Entity\Formbuilder;
 use Labstag\Form\Admin\FormbuilderType;
 use Labstag\Lib\AdminControllerLib;
+use Labstag\Repository\ConfigurationRepository;
 use Labstag\Repository\FormbuilderRepository;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,6 +36,7 @@ class FormBuilderAdmin extends AdminControllerLib
             'url_delete'      => 'adminformbuilder_delete',
             'url_deletetrash' => 'adminformbuilder_deletetrash',
             'url_trash'       => 'adminformbuilder_trash',
+            'url_empty'       => 'adminformbuilder_empty',
             'url_list'        => 'adminformbuilder_list',
             'url_edit'        => 'adminformbuilder_edit',
             'url_trashedit'   => 'adminformbuilder_trashedit',
@@ -69,9 +71,9 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trash/edit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit($id, ConfigurationRepository $repository): Response
+    public function trashEdit(ConfigurationRepository $repository, $id): Response
     {
         $formbuilder = $repository->findOneDateInTrash($id);
 
@@ -104,6 +106,14 @@ class FormBuilderAdmin extends AdminControllerLib
                 'title'      => 'Edit formbuilder',
             ]
         );
+    }
+
+    /**
+     * @Route("/empty", name="adminformbuilder_empty")
+     */
+    public function empty(UserRepository $repository): JsonResponse
+    {
+        return $this->crudEmptyAction($repository, 'adminformbuilder_list');
     }
 
     /**
