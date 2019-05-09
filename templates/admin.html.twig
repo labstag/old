@@ -10,12 +10,12 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('file/'~ app.user.avatar) }}" class="user-image" alt="User Image" />
+                        <img data-src="{{ asset('file/'~ app.user.avatar) }}" class="user-image" alt="User Image" />
                         <span class="hidden-xs">{{ app.user }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
+                            <img data-src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
                             <p>
                                 {{ app.user }}
                             </p>
@@ -85,13 +85,20 @@
                         <h1>{{ title }}</h1>
                     </div>
                     <div class="col text-right">
-                        {% if url_list is defined or url_new is defined or url_delete is defined or btnSave is defined %}
+                        {% if url_list is defined or url_trash is defined or url_new is defined or url_delete is defined or btnSave is defined %}
                             <div class="btn-group BtnActions" role="group" aria-label="Basic example">
                                 {% if url_list is defined %}
                                     <a class="btn btn-secondary BtnActionList" href="{{ path(url_list) }}">
                                         <i class="fas fa-list"></i>
                                         <br />
                                         <span>Liste</span>
+                                    </a>
+                                {% endif %}
+                                {% if url_trash is defined %}
+                                    <a class="btn btn-secondary BtnActionList" href="{{ path(url_trash) }}">
+                                        <i class="fas fa-trash"></i>
+                                        <br />
+                                        <span>Corbeille</span>
                                     </a>
                                 {% endif %}
                                 {% if btnSave is defined %}

@@ -1,0 +1,55 @@
+{% extends 'admin.html.twig' %}
+{% import "admin/macro.html.twig" as macro %}
+{% block bodyAdmin %}
+    <div class="row">
+        <div class="col-md-12">
+            <table id="CrudList" class="table table-border table-hover table-striped table-sm thead-light"{% if url_enable is defined %}{% for key, val in url_enable %} data-enableurl-{{ key }}="{{ path(val) }}"{% endfor %}{% endif %} data-toolbar="#toolbar" data-resizable="true" data-query-params="queryParams" data-page-size="10" data-ajax-options="ajaxOptions" data-moment="MMMM Do YYYY, H:mm:ss" data-files="{{ asset('file/') }}" data-toggle="table"{% if api is defined %} data-url="{{ path(api) }}"{% endif %} data-locale="fr_FR" data-total-field="count" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-sortable="true" data-sort-class="table-active" data-side-pagination="server" data-sort-stable="true"  data-search="true" data-page-list="[5,10, 25, 50, All]" data-show-refresh="true" data-show-toggle="true" data-id-field="id" data-pagination="true" data-show-export="true">
+                <thead>
+                    <tr>
+                        {% if select is defined %}
+                            <th data-checkbox="true"></th>
+                        {% endif %}
+                        {% for name, row in datatable %}
+                            <th{% for key, val in row %}
+                                data-{{ key }}="{% if val=='true' %}true{% elseif val=='false' %}false{% else %}{{ val|e }}{% endif %}"
+                            {% endfor %} data-sortable="true">
+                            {{ name }}</th>
+                        {% endfor %}
+                        {% if operation is defined %}
+                            <th data-formatter="operationDatatable" data-align="center" data-sortable="true" data-valign="top">Opérations</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% if dataInTrash is defined %}
+                    <tbody>
+                        {% for data in dataInTrash %}
+                            <tr>
+                                {% if select is defined %}
+                                    <td></td>
+                                {% endif %}
+                                {% for name, row in datatable %}
+                                    <td>
+                                        {% set field = row.field %}
+                                        {% if field == 'updatedAt' or field == 'createdAt' or field == 'deletedAt' %}
+                                            {{ data|crudExist(field)|date("Y-m-d\\TH:i:sP") }}
+                                        {% else %}
+                                            {{ data|crudExist(field) }}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                                {% if operation is defined %}
+                                    <td>
+                                        {{ macro.operation(data.id, url_delete, url_edit) }}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+    <div class="d-none">
+        {{ macro.operation('code', url_delete, url_edit) }}
+    </div>
+{% endblock %}

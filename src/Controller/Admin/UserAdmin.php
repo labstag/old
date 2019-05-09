@@ -7,7 +7,6 @@ use Labstag\Form\Admin\UserType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminuser_index", methods={"GET"})
+     * @Route("/", name="adminuser_list", methods={"GET"})
+     * @Route("/trash", name="adminuser_trash", methods={"GET"})
      */
-    public function index(UserRepository $repository): Response
+    public function list(UserRepository $repository): Response
     {
-        $total     = count($repository->findAll());
         $datatable = [
             'Username'  => ['field' => 'username'],
             'Email'     => ['field' => 'email'],
@@ -48,14 +47,17 @@ class UserAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Users list',
-            'total'      => $total,
-            'datatable'  => $datatable,
-            'url_enable' => ['enable' => 'adminuser_enable'],
-            'api'        => 'api_users_get_collection',
-            'url_new'    => 'adminuser_new',
-            'url_delete' => 'adminuser_delete',
-            'url_edit'   => 'adminuser_edit',
+            'title'           => 'Users list',
+            'datatable'       => $datatable,
+            'repository'      => $repository,
+            'url_enable'      => ['enable' => 'adminuser_enable'],
+            'api'             => 'api_users_get_collection',
+            'url_new'         => 'adminuser_new',
+            'url_delete'      => 'adminuser_delete',
+            'url_deletetrash' => 'adminuser_deletetrash',
+            'url_trash'       => 'adminuser_trash',
+            'url_list'        => 'adminuser_list',
+            'url_edit'        => 'adminuser_edit',
         ];
 
         return $this->crudListAction($data);
@@ -64,16 +66,15 @@ class UserAdmin extends AdminControllerLib
     /**
      * @Route("/new", name="adminuser_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(): Response
     {
         return $this->crudNewAction(
-            $request,
             [
-                'entity'    => new User(),
-                'form'      => UserType::class,
-                'url_edit'  => 'adminuser_edit',
-                'url_index' => 'adminuser_index',
-                'title'     => 'Add new user',
+                'entity'   => new User(),
+                'form'     => UserType::class,
+                'url_edit' => 'adminuser_edit',
+                'url_list' => 'adminuser_list',
+                'title'    => 'Add new user',
             ]
         );
     }
@@ -81,22 +82,21 @@ class UserAdmin extends AdminControllerLib
     /**
      * @Route("/enable", name="adminuser_enable")
      */
-    public function enable(Request $request, UserRepository $repository): JsonResponse
+    public function enable(UserRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository, 'setEnable');
+        return $this->crudEnableAction($repository, 'setEnable');
     }
 
     /**
      * @Route("/edit/{id}", name="adminuser_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(User $user): Response
     {
         return $this->crudEditAction(
-            $request,
             [
                 'form'       => UserType::class,
                 'entity'     => $user,
-                'url_index'  => 'adminuser_index',
+                'url_list'   => 'adminuser_list',
                 'url_edit'   => 'adminuser_edit',
                 'url_delete' => 'adminuser_delete',
                 'title'      => 'Edit user',
@@ -106,9 +106,16 @@ class UserAdmin extends AdminControllerLib
 
     /**
      * @Route("/", name="adminuser_delete", methods={"DELETE"})
+     * @Route("/trash", name="adminuser_deletetrash", methods={"DELETE"})
      */
-    public function delete(Request $request, UserRepository $repository): JsonResponse
+    public function delete(UserRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction($request, $repository, 'adminuser_index');
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminuser_list',
+                'url_trash' => 'adminuser_trash'
+            ]
+        );
     }
 }

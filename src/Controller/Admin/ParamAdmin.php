@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParamAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminparam_index")
+     * @Route("/", name="adminparam_list")
      */
-    public function index(Request $request): Response
+    public function list(Request $request): Response
     {
         $data = [
             'oauth' => [],
