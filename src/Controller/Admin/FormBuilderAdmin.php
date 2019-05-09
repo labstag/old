@@ -38,6 +38,7 @@ class FormBuilderAdmin extends AdminControllerLib
             'url_trash'       => 'adminformbuilder_trash',
             'url_list'        => 'adminformbuilder_list',
             'url_edit'        => 'adminformbuilder_edit',
+            'url_trashedit'   => 'adminformbuilder_trashedit',
         ];
 
         return $this->crudListAction($data);
@@ -96,7 +97,7 @@ class FormBuilderAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminformbuilder_list',
-                'url_trash' => 'adminformbuilder_trash'
+                'url_trash' => 'adminformbuilder_trash',
             ]
         );
     }

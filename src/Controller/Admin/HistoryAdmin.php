@@ -68,6 +68,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_trash'       => 'adminhistory_trash',
             'url_list'        => 'adminhistory_list',
             'url_edit'        => 'adminhistory_edit',
+            'url_trashedit'   => 'adminhistory_trashedit',
             'url_enable'      => [
                 'enable' => 'adminhistory_enable',
                 'end'    => 'adminhistory_end',
@@ -111,13 +112,13 @@ class HistoryAdmin extends AdminControllerLib
 
     /**
      * @Route("/trash/edit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
-     * @return Response
      */
     public function trashedit($id, HistoryRepository $repository): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->getFilters()->disable('softdeleteable');
         $history = $em;
+
         return $this->crudEditAction(
             [
                 'form'       => HistoryType::class,
@@ -157,7 +158,7 @@ class HistoryAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminhistory_list',
-                'url_trash' => 'adminhistory_trash'
+                'url_trash' => 'adminhistory_trash',
             ]
         );
     }
@@ -199,6 +200,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_trash'       => 'adminhistorychapitre_trash',
             'url_list'        => 'adminhistorychapitre_list',
             'url_edit'        => 'adminhistorychapitre_edit',
+            'url_trashedit'   => 'adminhistorychapitre_trashedit',
         ];
 
         $histoires = $repository->findAll();
@@ -241,6 +243,15 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/chapitre/trash/edit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
+     */
+    public function trashEditChapitre($id, ChapitreRepository $repository): Response
+    {
+        echo $id;
+        exit();
+    }
+
+    /**
      * @Route("/chapitre/edit/{id}", name="adminhistorychapitre_edit", methods={"GET", "POST"})
      */
     public function editChapitre(Chapitre $chapitre): Response
@@ -267,7 +278,7 @@ class HistoryAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminhistorychapitre_list',
-                'url_trash' => 'adminhistorychapitre_trash'
+                'url_trash' => 'adminhistorychapitre_trash',
             ]
         );
     }
