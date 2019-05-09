@@ -35,7 +35,7 @@ class AdminController extends AdminControllerLib
             ProfilType::class,
             $user,
             [
-                'action' => $this->generateUrl('adminprofil_index'),
+                'action' => $this->generateUrl('adminprofil_list'),
                 'method' => 'POST',
             ]
         );
@@ -44,7 +44,7 @@ class AdminController extends AdminControllerLib
             $this->addFlash('success', 'Profil sauvegardé');
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('adminprofil_index');
+            return $this->redirectToRoute('adminprofil_list');
         }
 
         return $this->twig(

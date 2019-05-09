@@ -1,0 +1,16 @@
+{% macro operation(code, url_delete, url_edit) %}
+    <div class="OperationDelete">
+        {% if url_delete is defined %}
+            <a class="OperationLinkDelete btn btn-danger btn-sm" href="{{ path(url_delete) }}" title="Supprimer" data-id="{{ code }}">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        {% endif %}
+    </div> 
+    <div class="OperationUpdate">
+        {% if url_edit is defined %}
+            <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(url_edit, {'id': code}) }}" title="Modifier">
+                <i class="fas fa-edit"></i>
+            </a>
+        {% endif %}
+    </div>
+{% endmacro %}

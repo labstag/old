@@ -7,7 +7,6 @@ use Labstag\Form\Admin\ConfigurationType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConfigurationAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminconfiguration_index", methods={"GET"})
+     * @Route("/", name="adminconfiguration_list", methods={"GET"})
+     * @Route("/trash", name="adminconfiguration_trash", methods={"GET"})
      */
-    public function index(ConfigurationRepository $repository): Response
+    public function list(ConfigurationRepository $repository): Response
     {
-        $total     = count($repository->findAll());
         $datatable = [
             'Name'      => ['field' => 'name'],
             'Value'     => ['field' => 'value'],
@@ -35,13 +34,16 @@ class ConfigurationAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Configuration list',
-            'total'      => $total,
-            'datatable'  => $datatable,
-            'api'        => 'api_configurations_get_collection',
-            'url_new'    => 'adminconfiguration_new',
-            'url_delete' => 'adminconfiguration_delete',
-            'url_edit'   => 'adminconfiguration_edit',
+            'title'           => 'Configuration list',
+            'repository'      => $repository,
+            'datatable'       => $datatable,
+            'api'             => 'api_configurations_get_collection',
+            'url_new'         => 'adminconfiguration_new',
+            'url_delete'      => 'adminconfiguration_delete',
+            'url_deletetrash' => 'adminconfiguration_deletetrash',
+            'url_list'        => 'adminconfiguration_list',
+            'url_trash'       => 'adminconfiguration_trash',
+            'url_edit'        => 'adminconfiguration_edit',
         ];
 
         return $this->crudListAction($data);
@@ -50,16 +52,15 @@ class ConfigurationAdmin extends AdminControllerLib
     /**
      * @Route("/new", name="adminconfiguration_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(): Response
     {
         return $this->crudNewAction(
-            $request,
             [
-                'entity'    => new Configuration(),
-                'form'      => ConfigurationType::class,
-                'url_edit'  => 'adminconfiguration_edit',
-                'url_index' => 'adminconfiguration_index',
-                'title'     => 'Add new configuration',
+                'entity'   => new Configuration(),
+                'form'     => ConfigurationType::class,
+                'url_edit' => 'adminconfiguration_edit',
+                'url_list' => 'adminconfiguration_list',
+                'title'    => 'Add new configuration',
             ]
         );
     }
@@ -67,14 +68,13 @@ class ConfigurationAdmin extends AdminControllerLib
     /**
      * @Route("/edit/{id}", name="adminconfiguration_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Configuration $configuration): Response
+    public function edit(Configuration $configuration): Response
     {
         return $this->crudEditAction(
-            $request,
             [
                 'form'       => ConfigurationType::class,
                 'entity'     => $configuration,
-                'url_index'  => 'adminconfiguration_index',
+                'url_list'   => 'adminconfiguration_list',
                 'url_edit'   => 'adminconfiguration_edit',
                 'url_delete' => 'adminconfiguration_delete',
                 'title'      => 'Edit configuration',
@@ -84,9 +84,16 @@ class ConfigurationAdmin extends AdminControllerLib
 
     /**
      * @Route("/", name="adminconfiguration_delete", methods={"DELETE"})
+     * @Route("/trash", name="adminconfiguration_deletetrash", methods={"DELETE"})
      */
-    public function delete(Request $request, ConfigurationRepository $repository): JsonResponse
+    public function delete(ConfigurationRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction($request, $repository, 'adminconfiguration_index');
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminconfiguration_list',
+                'url_trash' => 'adminconfiguration_trash'
+            ]
+        );
     }
 }

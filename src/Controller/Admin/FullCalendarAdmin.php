@@ -13,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class FullCalendarAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminfullcalendar_index")
+     * @Route("/", name="adminfullcalendar_list")
      */
-    public function index(Request $request): Response
+    public function list(Request $request): Response
     {
         return $this->twig(
             'admin/fullcalendar.html.twig',

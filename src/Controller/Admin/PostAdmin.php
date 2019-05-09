@@ -13,7 +13,6 @@ use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\PostRepository;
 use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,11 +22,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminpost_index", methods={"GET"})
+     * @Route("/", name="adminpost_list", methods={"GET"})
+     * @Route("/trash", name="adminpost_trash", methods={"GET"})
      */
-    public function index(PostRepository $postRepository, CategoryRepository $categoryRepository): Response
+    public function list(PostRepository $repository): Response
     {
-        $total     = count($postRepository->findAll());
         $datatable = [
             'Name'      => ['field' => 'name'],
             'User'      => [
@@ -57,15 +56,18 @@ class PostAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Post list',
-            'total'      => $total,
-            'datatable'  => $datatable,
-            'api'        => 'api_posts_get_collection',
-            'url_delete' => 'adminpost_delete',
-            'url_edit'   => 'adminpost_edit',
+            'title'           => 'Post list',
+            'datatable'       => $datatable,
+            'repository'      => $repository,
+            'api'             => 'api_posts_get_collection',
+            'url_delete'      => 'adminpost_delete',
+            'url_deletetrash' => 'adminpost_deletetrash',
+            'url_trash'       => 'adminpost_trash',
+            'url_list'        => 'adminpost_list',
+            'url_edit'        => 'adminpost_edit',
         ];
 
-        $categories = $categoryRepository->findAll();
+        $categories = $repository->findAll();
         if (count($categories)) {
             $data['url_new'] = 'adminpost_new';
         } else {
@@ -78,15 +80,15 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/enable", name="adminpost_enable")
      */
-    public function enable(Request $request, PostRepository $repository): JsonResponse
+    public function enable(PostRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository, 'setEnable');
+        return $this->crudEnableAction($repository, 'setEnable');
     }
 
     /**
      * @Route("/new", name="adminpost_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, CategoryRepository $repository): Response
+    public function new(CategoryRepository $repository): Response
     {
         $categories = $repository->findAll();
         if (0 == count($categories)) {
@@ -94,13 +96,12 @@ class PostAdmin extends AdminControllerLib
         }
 
         return $this->crudNewAction(
-            $request,
             [
-                'entity'    => new Post(),
-                'form'      => PostType::class,
-                'url_edit'  => 'adminpost_edit',
-                'url_index' => 'adminpost_index',
-                'title'     => 'Add new post',
+                'entity'   => new Post(),
+                'form'     => PostType::class,
+                'url_edit' => 'adminpost_edit',
+                'url_list' => 'adminpost_list',
+                'title'    => 'Add new post',
             ]
         );
     }
@@ -108,7 +109,7 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/edit/{id}", name="adminpost_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Post $post, CategoryRepository $repository): Response
+    public function edit(Post $post, CategoryRepository $repository): Response
     {
         $categories = $repository->findAll();
         if (0 == count($categories)) {
@@ -116,11 +117,10 @@ class PostAdmin extends AdminControllerLib
         }
 
         return $this->crudEditAction(
-            $request,
             [
                 'form'       => PostType::class,
                 'entity'     => $post,
-                'url_index'  => 'adminpost_index',
+                'url_list'   => 'adminpost_list',
                 'url_edit'   => 'adminpost_edit',
                 'url_delete' => 'adminpost_delete',
                 'title'      => 'Edit post',
@@ -130,18 +130,25 @@ class PostAdmin extends AdminControllerLib
 
     /**
      * @Route("/", name="adminpost_delete", methods={"DELETE"})
+     * @Route("/trash", name="adminpost_deletetrash", methods={"DELETE"})
      */
-    public function delete(Request $request, PostRepository $repository): JsonResponse
+    public function delete(PostRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction($request, $repository, 'adminpost_index');
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminpost_list',
+                'url_trash' => 'adminpost_trash'
+            ]
+        );
     }
 
     /**
-     * @Route("/category/", name="adminpostcategory_index", methods={"GET"})
+     * @Route("/category/", name="adminpostcategory_list", methods={"GET"})
+     * @Route("/category/trash", name="adminpostcategory_trash", methods={"GET"})
      */
-    public function indexCategory(CategoryRepository $repository): Response
+    public function listCategory(CategoryRepository $repository): Response
     {
-        $total     = count($repository->findAll());
         $datatable = [
             'Name'      => ['field' => 'name'],
             'Posts'     => [
@@ -158,13 +165,16 @@ class PostAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Category list',
-            'total'      => $total,
-            'datatable'  => $datatable,
-            'api'        => 'api_categories_get_collection',
-            'url_new'    => 'adminpostcategory_new',
-            'url_delete' => 'adminpostcategory_delete',
-            'url_edit'   => 'adminpostcategory_edit',
+            'title'           => 'Category list',
+            'datatable'       => $datatable,
+            'repository'      => $repository,
+            'api'             => 'api_categories_get_collection',
+            'url_new'         => 'adminpostcategory_new',
+            'url_delete'      => 'adminpostcategory_delete',
+            'url_deletetrash' => 'adminpostcategory_deletetrash',
+            'url_trash'       => 'adminpostcategory_trash',
+            'url_list'        => 'adminpostcategory_list',
+            'url_edit'        => 'adminpostcategory_edit',
         ];
 
         return $this->crudListAction($data);
@@ -173,16 +183,15 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/category/new", name="adminpostcategory_new", methods={"GET", "POST"})
      */
-    public function newCategory(Request $request): Response
+    public function newCategory(): Response
     {
         return $this->crudNewAction(
-            $request,
             [
-                'entity'    => new Category(),
-                'form'      => CategoryType::class,
-                'url_edit'  => 'adminpostcategory_edit',
-                'url_index' => 'adminpostcategory_index',
-                'title'     => 'Add new categorie',
+                'entity'   => new Category(),
+                'form'     => CategoryType::class,
+                'url_edit' => 'adminpostcategory_edit',
+                'url_list' => 'adminpostcategory_list',
+                'title'    => 'Add new categorie',
             ]
         );
     }
@@ -190,14 +199,13 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/category/edit/{id}", name="adminpostcategory_edit", methods={"GET", "POST"})
      */
-    public function editCategory(Request $request, Category $category): Response
+    public function editCategory(Category $category): Response
     {
         return $this->crudEditAction(
-            $request,
             [
                 'form'       => CategoryType::class,
                 'entity'     => $category,
-                'url_index'  => 'adminpostcategory_index',
+                'url_list'   => 'adminpostcategory_list',
                 'url_edit'   => 'adminpostcategory_edit',
                 'url_delete' => 'adminpostcategory_delete',
                 'title'      => 'Edit categorie',
@@ -207,18 +215,25 @@ class PostAdmin extends AdminControllerLib
 
     /**
      * @Route("/category/", name="adminpostcategory_delete", methods={"DELETE"})
+     * @Route("/category/trash", name="adminpostcategory_deletetrash", methods={"DELETE"})
      */
-    public function deleteCategory(Request $request, CategoryRepository $repository): JsonResponse
+    public function deleteCategory(CategoryRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction($request, $repository, 'adminpostcategory_index');
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminpostcategory_list',
+                'url_trash' => 'adminpostcategory_trash'
+            ]
+        );
     }
 
     /**
-     * @Route("/tags/", name="adminposttags_index", methods={"GET"})
+     * @Route("/tags/", name="adminposttags_list", methods={"GET"})
+     * @Route("/tags/trash", name="adminposttags_trash", methods={"GET"})
      */
-    public function indexTags(TagsRepository $repository): Response
+    public function listTags(TagsRepository $repository): Response
     {
-        $total     = count($repository->findAll());
         $datatable = [
             'Name'      => ['field' => 'name'],
             'Posts'     => [
@@ -235,13 +250,16 @@ class PostAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'      => 'Tags list',
-            'total'      => $total,
-            'datatable'  => $datatable,
-            'api'        => 'api_tags_get_collection',
-            'url_new'    => 'adminposttags_new',
-            'url_delete' => 'adminposttags_delete',
-            'url_edit'   => 'adminposttags_edit',
+            'title'           => 'Tags list',
+            'datatable'       => $datatable,
+            'repository'      => $repository,
+            'api'             => 'api_tags_get_collection',
+            'url_new'         => 'adminposttags_new',
+            'url_delete'      => 'adminposttags_delete',
+            'url_deletetrash' => 'adminposttags_deletetrash',
+            'url_trash'       => 'adminposttags_trash',
+            'url_list'        => 'adminposttags_list',
+            'url_edit'        => 'adminposttags_edit',
         ];
 
         return $this->crudListAction($data);
@@ -250,16 +268,15 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/new", name="adminposttags_new", methods={"GET", "POST"})
      */
-    public function newTags(Request $request): Response
+    public function newTags(): Response
     {
         return $this->crudNewAction(
-            $request,
             [
-                'entity'    => new Tags(),
-                'form'      => TagsType::class,
-                'url_edit'  => 'adminposttags_edit',
-                'url_index' => 'adminposttags_index',
-                'title'     => 'Add new tag',
+                'entity'   => new Tags(),
+                'form'     => TagsType::class,
+                'url_edit' => 'adminposttags_edit',
+                'url_list' => 'adminposttags_list',
+                'title'    => 'Add new tag',
             ]
         );
     }
@@ -267,14 +284,13 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/edit/{id}", name="adminposttags_edit", methods={"GET", "POST"})
      */
-    public function editTags(Request $request, Tags $tag): Response
+    public function editTags(Tags $tag): Response
     {
         return $this->crudEditAction(
-            $request,
             [
                 'form'       => TagsType::class,
                 'entity'     => $tag,
-                'url_index'  => 'adminposttags_index',
+                'url_list'   => 'adminposttags_list',
                 'url_edit'   => 'adminposttags_edit',
                 'url_delete' => 'adminposttags_delete',
                 'title'      => 'Edit tag',
@@ -284,9 +300,16 @@ class PostAdmin extends AdminControllerLib
 
     /**
      * @Route("/tags/", name="adminposttags_delete", methods={"DELETE"})
+     * @Route("/tags/trash", name="adminposttags_deletetrash", methods={"DELETE"})
      */
-    public function deleteTags(Request $request, TagsRepository $repository): JsonResponse
+    public function deleteTags(TagsRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction($request, $repository, 'adminposttags_index');
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminposttags_list',
+                'url_trash' => 'adminposttags_trash'
+            ]
+        );
     }
 }

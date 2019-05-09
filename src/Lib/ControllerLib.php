@@ -29,6 +29,8 @@ abstract class ControllerLib extends Controller
      */
     private $parameters;
 
+    private $router;
+
     /**
      * Init controller.
      *
@@ -40,6 +42,7 @@ abstract class ControllerLib extends Controller
         $this->container    = $container;
         $this->paginator    = $container->get('knp_paginator');
         $this->requestStack = $container->get('request_stack');
+        $this->router       = $container->get('router');
         $this->request      = $this->requestStack->getCurrentRequest();
     }
 
