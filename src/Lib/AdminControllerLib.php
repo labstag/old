@@ -247,7 +247,7 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->crudShowForm($params);
     }
 
-    protected function crudEmptyAction(ServiceEntityRepositoryLib $repository, string $route): JsonReponse
+    protected function crudEmptyAction(ServiceEntityRepositoryLib $repository, string $route): JsonResponse
     {
         $data = $repository->findDataInTrash();
         $entityManager = $this->getDoctrine()->getManager();
