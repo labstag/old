@@ -115,13 +115,16 @@ abstract class AdminControllerLib extends ControllerLib
         if (count($dataInTrash)) {
             $paramtwig['url_trash'] = $data['url_trash'];
             $paramtwig['url_list']  = $data['url_list'];
+            $paramtwig['url_edit']  = $data['url_trashedit'];
             if ($route == $data['url_trash']) {
+                unset($paramtwig['url_new']);
                 $paramtwig['dataInTrash'] = $dataInTrash;
                 $paramtwig['url_delete']  = $data['url_deletetrash'];
                 unset($paramtwig['api']);
             }
-        }elseif ($route == $data['url_trash']) {
+        } elseif ($route == $data['url_trash']) {
             $this->addFlash('info', 'Aucune donnée dans la corbeille');
+
             return $this->redirect(
                 $this->generateUrl($data['url_list']),
                 301
@@ -244,16 +247,16 @@ abstract class AdminControllerLib extends ControllerLib
 
     protected function crudDeleteAction(ServiceEntityRepositoryLib $repository, array $route): JsonResponse
     {
-        
         $tabDataCheck = [
             'url_list',
-            'url_trash'
+            'url_trash',
         ];
         foreach ($tabDataCheck as $key) {
             if (!isset($route[$key])) {
                 throw new HttpException(500, 'Parametre ['.$key.'] manquant');
             }
         }
+
         $routeActual   = $this->request->attributes->get('_route');
         $data          = json_decode($this->request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
@@ -268,7 +271,7 @@ abstract class AdminControllerLib extends ControllerLib
         $delete = 0;
         foreach ($data as $id) {
             $entity = $repository->find($id);
-            if ($entity && (($trash == 1 && $entity->getDeletedAt() != null) || $trash == 0)) {
+            if ($entity && ((1 == $trash && null != $entity->getDeletedAt()) || 0 == $trash)) {
                 $entityManager->remove($entity);
                 $delete = 1;
             }

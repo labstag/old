@@ -65,6 +65,7 @@ class PostAdmin extends AdminControllerLib
             'url_trash'       => 'adminpost_trash',
             'url_list'        => 'adminpost_list',
             'url_edit'        => 'adminpost_edit',
+            'url_trashedit'   => 'adminpost_trashedit',
         ];
 
         $categories = $repository->findAll();
@@ -138,7 +139,7 @@ class PostAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminpost_list',
-                'url_trash' => 'adminpost_trash'
+                'url_trash' => 'adminpost_trash',
             ]
         );
     }
@@ -175,6 +176,7 @@ class PostAdmin extends AdminControllerLib
             'url_trash'       => 'adminpostcategory_trash',
             'url_list'        => 'adminpostcategory_list',
             'url_edit'        => 'adminpostcategory_edit',
+            'url_trashedit'   => 'adminpostcategory_trashedit',
         ];
 
         return $this->crudListAction($data);
@@ -223,7 +225,7 @@ class PostAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminpostcategory_list',
-                'url_trash' => 'adminpostcategory_trash'
+                'url_trash' => 'adminpostcategory_trash',
             ]
         );
     }
@@ -260,6 +262,7 @@ class PostAdmin extends AdminControllerLib
             'url_trash'       => 'adminposttags_trash',
             'url_list'        => 'adminposttags_list',
             'url_edit'        => 'adminposttags_edit',
+            'url_trashedit'   => 'adminposttags_trashedit',
         ];
 
         return $this->crudListAction($data);
@@ -308,7 +311,7 @@ class PostAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminposttags_list',
-                'url_trash' => 'adminposttags_trash'
+                'url_trash' => 'adminposttags_trash',
             ]
         );
     }

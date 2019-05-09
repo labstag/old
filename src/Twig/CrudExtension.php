@@ -3,9 +3,9 @@
 namespace Labstag\Twig;
 
 use DateTime;
+use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig\Extension\AbstractExtension;
 
 class CrudExtension extends AbstractExtension
 {
@@ -28,12 +28,12 @@ class CrudExtension extends AbstractExtension
 
     public function crudExist($entity, $key)
     {
-        $return = '';
+        $return  = '';
         $methods = get_class_methods($entity);
         foreach ($methods as $method) {
-            if( strtolower($method) == strtolower("get".$key)) {
-                $return = $entity->$method();
-                if (is_object($return) && !($return instanceof DateTime)){
+            if (strtolower($method) == strtolower('get'.$key)) {
+                $return = $entity->{$method}();
+                if (is_object($return) && !($return instanceof DateTime)) {
                     $return = $return->__toString();
                 }
             }

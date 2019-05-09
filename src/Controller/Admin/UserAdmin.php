@@ -58,6 +58,7 @@ class UserAdmin extends AdminControllerLib
             'url_trash'       => 'adminuser_trash',
             'url_list'        => 'adminuser_list',
             'url_edit'        => 'adminuser_edit',
+            'url_trashedit'   => 'adminuser_trashedit',
         ];
 
         return $this->crudListAction($data);
@@ -114,7 +115,7 @@ class UserAdmin extends AdminControllerLib
             $repository,
             [
                 'url_list'  => 'adminuser_list',
-                'url_trash' => 'adminuser_trash'
+                'url_trash' => 'adminuser_trash',
             ]
         );
     }
