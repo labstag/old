@@ -13,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class WorkflowAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminworkflow_index")
+     * @Route("/", name="adminworkflow_list")
      */
-    public function index(Request $request): Response
+    public function list(Request $request): Response
     {
         return $this->twig(
             'admin/workflow.html.twig',

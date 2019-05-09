@@ -4,7 +4,6 @@ namespace Labstag\Lib;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,20 +17,16 @@ abstract class AdminControllerLib extends ControllerLib
      * @param array     $parameters data
      * @param ?Response $response   ??
      */
-    public function twig(
-        string $view,
-        array $parameters = [],
-        Response $response = null
-    ): Response
+    public function twig(string $view, array $parameters = [], Response $response = null): Response
     {
         $this->addParamViewsAdmin($parameters);
 
         return parent::twig($view, $this->paramViews, $response);
     }
 
-    protected function crudEnableAction(Request $request, ServiceEntityRepositoryLib $repository, string $function): JsonResponse
+    protected function crudEnableAction(ServiceEntityRepositoryLib $repository, string $function): JsonResponse
     {
-        $data          = json_decode($request->getContent(), true);
+        $data          = json_decode($this->request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
         $entity        = $repository->find($data['id']);
         if (!$entity) {
@@ -57,20 +52,18 @@ abstract class AdminControllerLib extends ControllerLib
      */
     protected function crudListAction($data): Response
     {
-        if (!isset($data['datatable'])) {
-            throw new HttpException(500, 'Parametre [datatable] manquant');
-        }
-
-        if (!isset($data['api'])) {
-            throw new HttpException(500, 'Parametre [api] manquant');
-        }
-
-        if (!isset($data['title'])) {
-            throw new HttpException(500, 'Parametre [title] manquant');
-        }
-
-        if (!isset($data['total'])) {
-            throw new HttpException(500, 'Parametre [total] manquant');
+        $tabDataCheck = [
+            'datatable',
+            'api',
+            'title',
+            'url_list',
+            'url_trash',
+            'repository',
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (!isset($data[$key])) {
+                throw new HttpException(500, 'Parametre ['.$key.'] manquant');
+            }
         }
 
         foreach ($data['datatable'] as &$row) {
@@ -95,53 +88,65 @@ abstract class AdminControllerLib extends ControllerLib
 
         $paramtwig = [
             'datatable' => $data['datatable'],
-            'title'     => $data['title'].' ('.$data['total'].')',
+            'title'     => $data['title'],
             'operation' => true,
             'select'    => true,
             'api'       => $data['api'],
         ];
-        if (isset($data['url_new'])) {
-            $paramtwig['url_new'] = $data['url_new'];
+
+        $tabDataCheck = [
+            'url_new',
+            'url_delete',
+            'url_edit',
+            'url_enable',
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (isset($data[$key])) {
+                $paramtwig[$key] = $data[$key];
+            }
         }
 
-        if (isset($data['url_delete'])) {
-            $paramtwig['url_delete'] = $data['url_delete'];
+        /**
+         * @var ServiceEntityRepositoryLib
+         */
+        $repository  = $data['repository'];
+        $dataInTrash = $repository->findDataInTrash();
+        $route       = $this->request->attributes->get('_route');
+        if (count($dataInTrash)) {
+            $paramtwig['url_trash'] = $data['url_trash'];
+            $paramtwig['url_list']  = $data['url_list'];
+            if ($route == $data['url_trash']) {
+                $paramtwig['dataInTrash'] = $dataInTrash;
+                $paramtwig['url_delete']  = $data['url_deletetrash'];
+                unset($paramtwig['api']);
+            }
+        }elseif ($route == $data['url_trash']) {
+            $this->addFlash('info', 'Aucune donnée dans la corbeille');
+            return $this->redirect(
+                $this->generateUrl($data['url_list']),
+                301
+            );
         }
 
-        if (isset($data['url_edit'])) {
-            $paramtwig['url_edit'] = $data['url_edit'];
-        }
-
-        if (isset($data['url_enable'])) {
-            $paramtwig['url_enable'] = $data['url_enable'];
-        }
-
-        return $this->twig('admin/crud/index.html.twig', $paramtwig);
+        return $this->twig('admin/crud/list.html.twig', $paramtwig);
     }
 
-    protected function crudNewAction(Request $request, array $data = [])
+    protected function crudNewAction(array $data = [])
     {
-        if (!isset($data['form'])) {
-            throw new HttpException(500, 'Parametre [FORM] manquant');
+        $tabDataCheck = [
+            'form',
+            'entity',
+            'url_list',
+            'url_edit',
+            'title',
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (!isset($data[$key])) {
+                throw new HttpException(500, 'Parametre ['.$key.'] manquant');
+            }
         }
 
-        if (!isset($data['entity'])) {
-            throw new HttpException(500, 'Parametre [entity] manquant');
-        }
-
-        if (!isset($data['url_index'])) {
-            throw new HttpException(500, 'Parametre [url_index] manquant');
-        }
-
-        if (!isset($data['url_edit'])) {
-            throw new HttpException(500, 'Parametre [url_edit] manquant');
-        }
-
-        if (!isset($data['title'])) {
-            throw new HttpException(500, 'Parametre [title] manquant');
-        }
-
-        $route = $request->attributes->get('_route');
+        $route = $this->request->attributes->get('_route');
         $form  = $this->createForm(
             $data['form'],
             $data['entity'],
@@ -150,7 +155,7 @@ abstract class AdminControllerLib extends ControllerLib
                 'action' => $this->generateUrl($route),
             ]
         );
-        $form->handleRequest($request);
+        $form->handleRequest($this->request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persistAndFlush($data['entity']);
@@ -167,7 +172,7 @@ abstract class AdminControllerLib extends ControllerLib
         $params = [
             'entity'   => $data['entity'],
             'title'    => $data['title'],
-            'url_list' => $data['url_index'],
+            'url_list' => $data['url_list'],
             'btnSave'  => true,
             'form'     => $form->createView(),
         ];
@@ -179,34 +184,24 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->crudShowForm($params);
     }
 
-    protected function crudEditAction(Request $request, array $data = [])
+    protected function crudEditAction(array $data = [])
     {
-        if (!isset($data['form'])) {
-            throw new HttpException(500, 'Parametre [FORM] manquant');
+        $tabDataCheck = [
+            'form',
+            'entity',
+            'url_list',
+            'url_edit',
+            'url_delete',
+            'title',
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (!isset($data[$key])) {
+                throw new HttpException(500, 'Parametre ['.$key.'] manquant');
+            }
         }
 
-        if (!isset($data['entity'])) {
-            throw new HttpException(500, 'Parametre [entity] manquant');
-        }
-
-        if (!isset($data['url_index'])) {
-            throw new HttpException(500, 'Parametre [url_index] manquant');
-        }
-
-        if (!isset($data['url_edit'])) {
-            throw new HttpException(500, 'Parametre [url_edit] manquant');
-        }
-
-        if (!isset($data['url_delete'])) {
-            throw new HttpException(500, 'Parametre [url_delete] manquant');
-        }
-
-        if (!isset($data['title'])) {
-            throw new HttpException(500, 'Parametre [title] manquant');
-        }
-
-        $route       = $request->attributes->get('_route');
-        $routeParams = $request->attributes->get('_route_params');
+        $route       = $this->request->attributes->get('_route');
+        $routeParams = $this->request->attributes->get('_route_params');
         $form        = $this->createForm(
             $data['form'],
             $data['entity'],
@@ -218,7 +213,7 @@ abstract class AdminControllerLib extends ControllerLib
                 ],
             ]
         );
-        $form->handleRequest($request);
+        $form->handleRequest($this->request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Données sauvegardé');
@@ -234,7 +229,7 @@ abstract class AdminControllerLib extends ControllerLib
         $params = [
             'entity'     => $data['entity'],
             'title'      => $data['title'],
-            'url_list'   => $data['url_index'],
+            'url_list'   => $data['url_list'],
             'btnSave'    => true,
             'url_delete' => $data['url_delete'],
             'form'       => $form->createView(),
@@ -247,14 +242,33 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->crudShowForm($params);
     }
 
-    protected function crudDeleteAction(Request $request, ServiceEntityRepositoryLib $repository, string $route): JsonResponse
+    protected function crudDeleteAction(ServiceEntityRepositoryLib $repository, array $route): JsonResponse
     {
-        $data          = json_decode($request->getContent(), true);
+        
+        $tabDataCheck = [
+            'url_list',
+            'url_trash'
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (!isset($route[$key])) {
+                throw new HttpException(500, 'Parametre ['.$key.'] manquant');
+            }
+        }
+        $routeActual   = $this->request->attributes->get('_route');
+        $data          = json_decode($this->request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
-        $delete        = 0;
+        $trash         = 0;
+        $routeRedirect = $route['url_list'];
+        if (0 != substr_count($routeActual, 'trash')) {
+            $trash         = 1;
+            $routeRedirect = $route['url_trash'];
+            $entityManager->getFilters()->disable('softdeleteable');
+        }
+
+        $delete = 0;
         foreach ($data as $id) {
             $entity = $repository->find($id);
-            if ($entity) {
+            if ($entity && (($trash == 1 && $entity->getDeletedAt() != null) || $trash == 0)) {
                 $entityManager->remove($entity);
                 $delete = 1;
             }
@@ -267,7 +281,7 @@ abstract class AdminControllerLib extends ControllerLib
         $entityManager->flush();
 
         $json = [
-            'redirect' => $this->generateUrl($route, [], UrlGeneratorInterface::ABSOLUTE_PATH),
+            'redirect' => $this->generateUrl($routeRedirect, [], UrlGeneratorInterface::ABSOLUTE_PATH),
         ];
 
         return $this->json($json);
@@ -326,42 +340,42 @@ abstract class AdminControllerLib extends ControllerLib
                 'title' => 'Dashboard',
             ],
             [
-                'url'   => 'adminconfiguration_index',
+                'url'   => 'adminconfiguration_list',
                 'title' => 'Configuration',
             ],
             [
-                'url'   => 'adminformbuilder_index',
+                'url'   => 'adminformbuilder_list',
                 'title' => 'Form Builder',
             ],
             [
-                'url'   => 'adminfullcalendar_index',
+                'url'   => 'adminfullcalendar_list',
                 'title' => 'Full Calendar',
             ],
             [
-                'url'   => 'adminparam_index',
+                'url'   => 'adminparam_list',
                 'title' => 'Param',
             ],
             [
-                'url'   => 'adminuser_index',
+                'url'   => 'adminuser_list',
                 'title' => 'User',
             ],
             [
-                'url'   => 'adminworkflow_index',
+                'url'   => 'adminworkflow_list',
                 'title' => 'Workflow',
             ],
             [
                 'title' => 'Articles',
                 'child' => [
                     [
-                        'url'   => 'adminpost_index',
+                        'url'   => 'adminpost_list',
                         'title' => 'Post',
                     ],
                     [
-                        'url'   => 'adminposttags_index',
+                        'url'   => 'adminposttags_list',
                         'title' => 'Tags',
                     ],
                     [
-                        'url'   => 'adminpostcategory_index',
+                        'url'   => 'adminpostcategory_list',
                         'title' => 'Catégory',
                     ],
                 ],
@@ -370,11 +384,11 @@ abstract class AdminControllerLib extends ControllerLib
                 'title' => 'Histoires',
                 'child' => [
                     [
-                        'url'   => 'adminhistory_index',
+                        'url'   => 'adminhistory_list',
                         'title' => 'History',
                     ],
                     [
-                        'url'   => 'adminhistorychapitre_index',
+                        'url'   => 'adminhistorychapitre_list',
                         'title' => 'Chapitres',
                     ],
                 ],

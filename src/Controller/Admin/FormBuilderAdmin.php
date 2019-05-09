@@ -9,7 +9,6 @@ use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\FormbuilderRepository;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,23 +18,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormBuilderAdmin extends AdminControllerLib
 {
     /**
-     * @Route("/", name="adminformbuilder_index", methods={"GET"})
+     * @Route("/", name="adminformbuilder_list", methods={"GET"})
+     * @Route("/trash", name="adminformbuilder_trash", methods={"GET"})
      */
-    public function index(FormbuilderRepository $repository): Response
+    public function list(FormbuilderRepository $repository): Response
     {
-        $total     = count($repository->findAll());
         $datatable = [
             'Name' => ['field' => 'name'],
         ];
         $data      = [
-            'title'      => 'Formbuilder list',
-            'total'      => $total,
-            'datatable'  => $datatable,
-            'url_enable' => ['enable' => 'adminformbuilder_enable'],
-            'api'        => 'api_formbuilders_get_collection',
-            'url_new'    => 'adminformbuilder_new',
-            'url_delete' => 'adminformbuilder_delete',
-            'url_edit'   => 'adminformbuilder_edit',
+            'title'           => 'Formbuilder list',
+            'datatable'       => $datatable,
+            'repository'      => $repository,
+            'url_enable'      => ['enable' => 'adminformbuilder_enable'],
+            'api'             => 'api_formbuilders_get_collection',
+            'url_new'         => 'adminformbuilder_new',
+            'url_delete'      => 'adminformbuilder_delete',
+            'url_deletetrash' => 'adminformbuilder_deletetrash',
+            'url_trash'       => 'adminformbuilder_trash',
+            'url_list'        => 'adminformbuilder_list',
+            'url_edit'        => 'adminformbuilder_edit',
         ];
 
         return $this->crudListAction($data);
@@ -44,17 +46,16 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/new", name="adminformbuilder_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(): Response
     {
         return $this->crudNewAction(
-            $request,
             [
-                'twig'      => 'admin/formbuilder.html.twig',
-                'entity'    => new Formbuilder(),
-                'form'      => FormbuilderType::class,
-                'url_edit'  => 'adminformbuilder_edit',
-                'url_index' => 'adminformbuilder_index',
-                'title'     => 'Add new formbuilder',
+                'twig'     => 'admin/formbuilder.html.twig',
+                'entity'   => new Formbuilder(),
+                'form'     => FormbuilderType::class,
+                'url_edit' => 'adminformbuilder_edit',
+                'url_list' => 'adminformbuilder_list',
+                'title'    => 'Add new formbuilder',
             ]
         );
     }
@@ -62,23 +63,22 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/enable", name="adminformbuilder_enable")
      */
-    public function enable(Request $request, UserRepository $repository): JsonResponse
+    public function enable(UserRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($request, $repository, 'setEnable');
+        return $this->crudEnableAction($repository, 'setEnable');
     }
 
     /**
      * @Route("/edit/{id}", name="adminformbuilder_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Formbuilder $formbuilder): Response
+    public function edit(Formbuilder $formbuilder): Response
     {
         return $this->crudEditAction(
-            $request,
             [
                 'twig'       => 'admin/formbuilder.html.twig',
                 'form'       => FormType::class,
                 'entity'     => $formbuilder,
-                'url_index'  => 'adminformbuilder_index',
+                'url_list'   => 'adminformbuilder_list',
                 'url_edit'   => 'adminformbuilder_edit',
                 'url_delete' => 'adminformbuilder_delete',
                 'title'      => 'Edit formbuilder',
@@ -88,9 +88,16 @@ class FormBuilderAdmin extends AdminControllerLib
 
     /**
      * @Route("/", name="adminformbuilder_delete", methods={"DELETE"})
+     * @Route("/trash", name="adminformbuilder_deletetrash", methods={"DELETE"})
      */
-    public function delete(Request $request, UserRepository $repository): JsonResponse
+    public function delete(UserRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction($request, $repository, 'adminformbuilder_index');
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminformbuilder_list',
+                'url_trash' => 'adminformbuilder_trash'
+            ]
+        );
     }
 }
