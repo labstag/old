@@ -263,6 +263,44 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->json($json);
     }
 
+    protected function crudRestoreAction(ServiceEntityRepositoryLib $repository, array $route): JsonResponse
+    {
+        $tabDataCheck = [
+            'url_list',
+            'url_trash',
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (!isset($route[$key])) {
+                throw new HttpException(500, 'Parametre ['.$key.'] manquant');
+            }
+        }
+
+        $data          = json_decode($this->request->getContent(), true);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->getFilters()->disable('softdeleteable');
+        $restore = 0;
+        foreach ($data as $id) {
+            $entity = $repository->findOneDateInTrash($id);
+            if ($entity) {
+                $entityManager->setDeletedAt(null);
+                $entityManager->persist($entity);
+                $restore = 1;
+            }
+        }
+
+        if (1 == $restore) {
+            $this->addFlash('success', 'Données restoré');
+        }
+
+        $entityManager->flush();
+
+        $json = [
+            'redirect' => $this->generateUrl($routeRedirect, [], UrlGeneratorInterface::ABSOLUTE_PATH),
+        ];
+
+        return $this->json($json);
+    }
+
     protected function crudDeleteAction(ServiceEntityRepositoryLib $repository, array $route): JsonResponse
     {
         $tabDataCheck = [
@@ -288,8 +326,8 @@ abstract class AdminControllerLib extends ControllerLib
 
         $delete = 0;
         foreach ($data as $id) {
-            $entity = $repository->find($id);
-            if ($entity && ((1 == $trash && null != $entity->getDeletedAt()) || 0 == $trash)) {
+            $entity = $this->findEntity($trash, $repository, $id);
+            if ($entity) {
                 $entityManager->remove($entity);
                 $delete = 1;
             }
@@ -306,6 +344,15 @@ abstract class AdminControllerLib extends ControllerLib
         ];
 
         return $this->json($json);
+    }
+
+    private function findEntity($trash, $repository, $idEntity)
+    {
+        if ($trash == 1) {
+            return $repository->find($id);
+        }
+
+        return $repository->findOneDateInTrash($id);
     }
 
     protected function persistAndFlush(&$entity): void

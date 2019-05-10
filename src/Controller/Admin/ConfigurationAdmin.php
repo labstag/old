@@ -43,6 +43,7 @@ class ConfigurationAdmin extends AdminControllerLib
             'url_deletetrash' => 'adminconfiguration_deletetrash',
             'url_list'        => 'adminconfiguration_list',
             'url_trash'       => 'adminconfiguration_trash',
+            'url_restore'     => 'adminconfiguration_restore',
             'url_empty'       => 'adminconfiguration_empty',
             'url_edit'        => 'adminconfiguration_edit',
             'url_trashedit'   => 'adminconfiguration_trashedit',
@@ -112,12 +113,11 @@ class ConfigurationAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/", name="adminconfiguration_delete", methods={"DELETE"})
-     * @Route("/trash", name="adminconfiguration_deletetrash", methods={"DELETE"})
+     * @Route("/restore", name="adminconfiguration_restore")
      */
-    public function delete(ConfigurationRepository $repository): JsonResponse
+    public function restore(ConfigurationRepository $repository): JsonResponse
     {
-        return $this->crudDeleteAction(
+        return $this->crudRestoreAction(
             $repository,
             [
                 'url_list'  => 'adminconfiguration_list',

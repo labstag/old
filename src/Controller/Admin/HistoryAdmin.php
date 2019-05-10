@@ -66,6 +66,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_delete'      => 'adminhistory_delete',
             'url_deletetrash' => 'adminhistory_deletetrash',
             'url_trash'       => 'adminhistory_trash',
+            'url_restore'       => 'adminhistory_restore',
             'url_empty'       => 'adminhistory_empty',
             'url_list'        => 'adminhistory_list',
             'url_edit'        => 'adminhistory_edit',
@@ -156,6 +157,20 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/restore", name="adminhistory_restore")
+     */
+    public function restore(HistoryRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
+            $repository,
+            [
+                'url_list'  => 'adminhistory_list',
+                'url_trash' => 'adminhistory_trash',
+            ]
+        );
+    }
+
+    /**
      * @Route("/", name="adminhistory_delete", methods={"DELETE"})
      * @Route("/trash", name="adminhistory_deletetrash", methods={"DELETE"})
      */
@@ -205,6 +220,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_delete'      => 'adminhistorychapitre_delete',
             'url_deletetrash' => 'adminhistorychapitre_deletetrash',
             'url_trash'       => 'adminhistorychapitre_trash',
+            'url_restore'       => 'adminhistorychapitre_restore',
             'url_empty'       => 'adminhistorychapitre_empty',
             'url_list'        => 'adminhistorychapitre_list',
             'url_edit'        => 'adminhistorychapitre_edit',
@@ -301,6 +317,20 @@ class HistoryAdmin extends AdminControllerLib
     public function deleteChapitre(ChapitreRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminhistorychapitre_list',
+                'url_trash' => 'adminhistorychapitre_trash',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/chapitre/restore", name="adminhistorychapitre_restore")
+     */
+    public function restoreChapitre(ChapitreRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
             $repository,
             [
                 'url_list'  => 'adminhistorychapitre_list',

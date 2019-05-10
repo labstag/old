@@ -36,6 +36,7 @@ class FormBuilderAdmin extends AdminControllerLib
             'url_delete'      => 'adminformbuilder_delete',
             'url_deletetrash' => 'adminformbuilder_deletetrash',
             'url_trash'       => 'adminformbuilder_trash',
+            'url_restore'       => 'adminformbuilder_restore',
             'url_empty'       => 'adminformbuilder_empty',
             'url_list'        => 'adminformbuilder_list',
             'url_edit'        => 'adminformbuilder_edit',
@@ -123,6 +124,20 @@ class FormBuilderAdmin extends AdminControllerLib
     public function delete(UserRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminformbuilder_list',
+                'url_trash' => 'adminformbuilder_trash',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/restore", name="adminformbuilder_restore")
+     */
+    public function delete(UserRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
             $repository,
             [
                 'url_list'  => 'adminformbuilder_list',
