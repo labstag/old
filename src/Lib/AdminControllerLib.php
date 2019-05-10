@@ -249,7 +249,7 @@ abstract class AdminControllerLib extends ControllerLib
 
     protected function crudEmptyAction(ServiceEntityRepositoryLib $repository, string $route): JsonResponse
     {
-        $data = $repository->findDataInTrash();
+        $data          = $repository->findDataInTrash();
         $entityManager = $this->getDoctrine()->getManager();
         foreach ($data as $entity) {
             $entityManager->remove($entity);
@@ -346,15 +346,6 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->json($json);
     }
 
-    private function findEntity($trash, $repository, $idEntity)
-    {
-        if ($trash == 1) {
-            return $repository->find($id);
-        }
-
-        return $repository->findOneDateInTrash($id);
-    }
-
     protected function persistAndFlush(&$entity): void
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -398,6 +389,15 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->setMenuAdmin();
         $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function findEntity($trash, $repository, $idEntity)
+    {
+        if (1 == $trash) {
+            return $repository->find($id);
+        }
+
+        return $repository->findOneDateInTrash($id);
     }
 
     private function setMenuAdmin()
