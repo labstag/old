@@ -17,7 +17,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\FormbuilderRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\Loggable
  */
 class Formbuilder implements Translatable
 {
