@@ -135,7 +135,7 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/restore", name="adminformbuilder_restore")
      */
-    public function delete(UserRepository $repository): JsonResponse
+    public function restore(UserRepository $repository): JsonResponse
     {
         return $this->crudRestoreAction(
             $repository,
