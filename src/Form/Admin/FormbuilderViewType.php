@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -54,7 +55,7 @@ class FormbuilderViewType extends AbstractType
                 $this->addType($field, ChoiceType::class, $builder);
                 break;
             case 'date':
-                $this->addType($field, TextType::class, $builder);
+                $this->addType($field, DateType::class, $builder);
                 break;
             case 'file':
                 $this->addType($field, FileType::class, $builder);
@@ -118,8 +119,15 @@ class FormbuilderViewType extends AbstractType
 
         $data = [
             'label'    => $field['label'],
-            'required' => isset($field['required'])
+            'required' => isset($field['required']),
         ];
+
+        if (isset($field['className'])) {
+            $data['attr']['class'] = $field['className'];
+        }
+        if ($field['type'] == 'date') {
+            $data['widget'] = 'single_text';
+        }
 
         if (isset($field['description']) && $field['type'] != 'button') {
             $data['help'] = $field['description'];
