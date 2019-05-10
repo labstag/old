@@ -2,6 +2,7 @@
 
 namespace Labstag\Entity;
 
+use Gedmo\Translatable\Translatable;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -9,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -20,10 +22,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\PostRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
  * @Vich\Uploadable
  */
-class Post
+class Post implements Translatable
 {
+    use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
@@ -36,6 +40,7 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Versioned
      */
     private $name;
 
@@ -54,6 +59,7 @@ class Post
 
     /**
      * @ORM\Column(type="text")
+     * @Gedmo\Versioned
      */
     private $content;
 

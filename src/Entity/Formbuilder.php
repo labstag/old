@@ -2,9 +2,11 @@
 
 namespace Labstag\Entity;
 
+use Gedmo\Translatable\Translatable;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use Gedmo\Blameable\Traits\BlameableEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -15,9 +17,11 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\FormbuilderRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
  */
-class Formbuilder
+class Formbuilder implements Translatable
 {
+    use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
@@ -30,17 +34,13 @@ class Formbuilder
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Versioned
      */
     private $name;
 
     /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string",   length=255, nullable=true)
-     */
-    private $slug;
-
-    /**
      * @ORM\Column(type="text")
+     * @Gedmo\Versioned
      */
     private $formbuilder;
 
@@ -71,18 +71,6 @@ class Formbuilder
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(?string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }
