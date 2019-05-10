@@ -11,6 +11,7 @@ use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Form\Admin\FormbuilderViewType;
 
 /**
  * @Route("/admin/formbuilder")
@@ -41,6 +42,8 @@ class FormBuilderAdmin extends AdminControllerLib
             'url_list'        => 'adminformbuilder_list',
             'url_edit'        => 'adminformbuilder_edit',
             'url_trashedit'   => 'adminformbuilder_trashedit',
+            'url_view'        => 'adminformbuilder_view',
+            'url_trashview'   => 'adminformbuilder_trashview',
         ];
 
         return $this->crudListAction($data);
@@ -72,6 +75,44 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/trashview/{id}", name="adminformbuilder_trashview")
+     */
+    public function trashView(ConfigurationRepository $repository, $id): Response
+    {
+        $formbuilder = $repository->findOneDateInTrash($id);
+        
+        return $this->viewForm($formbuilder);
+    }
+
+    /**
+     * @Route("/view/{id}", name="adminformbuilder_view")
+     */
+    public function view(Formbuilder $formbuilder): Response
+    {
+        return $this->viewForm($formbuilder);
+    }
+
+    private function viewForm(Formbuilder $formbuilder)
+    {
+        $data = json_decode($formbuilder->getFormbuilder(), true);
+        dump($data);
+        $form = $this->createForm(
+            FormbuilderViewType::class,
+            [],
+            [
+                'data' => $data
+            ]
+        );
+        return $this->twig(
+            'admin/formbuilder/view.html.twig',
+            [
+                'title' => 'formbuilder View',
+                'form'  => $form->createView(),
+            ]
+        );
+    }
+
+    /**
      * @Route("/trashedit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
      */
     public function trashEdit(ConfigurationRepository $repository, $id): Response
@@ -80,7 +121,7 @@ class FormBuilderAdmin extends AdminControllerLib
 
         return $this->crudEditAction(
             [
-                'twig'       => 'admin/formbuilder.html.twig',
+                'twig'       => 'admin/formbuilder/form.html.twig',
                 'form'       => FormbuilderType::class,
                 'entity'     => $formbuilder,
                 'url_list'   => 'adminformbuilder_trash',
@@ -98,7 +139,7 @@ class FormBuilderAdmin extends AdminControllerLib
     {
         return $this->crudEditAction(
             [
-                'twig'       => 'admin/formbuilder.html.twig',
+                'twig'       => 'admin/formbuilder/form.html.twig',
                 'form'       => FormbuilderType::class,
                 'entity'     => $formbuilder,
                 'url_list'   => 'adminformbuilder_list',

@@ -96,6 +96,7 @@ abstract class AdminControllerLib extends ControllerLib
 
         $tabDataCheck = [
             'url_new',
+            'url_view',
             'url_delete',
             'url_edit',
             'url_enable',
@@ -123,6 +124,9 @@ abstract class AdminControllerLib extends ControllerLib
                 $paramtwig['url_empty']   = $data['url_empty'];
                 $paramtwig['url_delete']  = $data['url_deletetrash'];
                 unset($paramtwig['api']);
+                if (isset($data['url_trashview'])) {
+                    $paramtwig['url_view'] = $data['url_trashview'];
+                }
             }
         } elseif ($route == $data['url_trash']) {
             $this->addFlash('info', 'Aucune donnée dans la corbeille');
@@ -131,6 +135,18 @@ abstract class AdminControllerLib extends ControllerLib
                 $this->generateUrl($data['url_list']),
                 301
             );
+        }
+
+        $tabDataCheck = [
+            'url_delete',
+            'url_edit',
+            'url_view',
+        ];
+        $paramtwig['operation_link'] = array();
+        foreach ($tabDataCheck as $key) {
+            if (isset($paramtwig[$key])) {
+                $paramtwig['operation_link'][$key] = $paramtwig[$key];
+            }
         }
 
         return $this->twig('admin/crud/list.html.twig', $paramtwig);
