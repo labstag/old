@@ -1,15 +1,22 @@
-{% macro operation(code, url_delete, url_edit) %}
+{% macro operation(code, operation_link) %}
     <div class="OperationDelete">
-        {% if url_delete is defined %}
-            <a class="OperationLinkDelete btn btn-danger btn-sm" href="{{ path(url_delete) }}" title="Supprimer" data-id="{{ code }}">
+        {% if operation_link['url_delete'] is defined %}
+            <a class="OperationLinkDelete btn btn-danger btn-sm" href="{{ path(operation_link['url_delete']) }}" title="Supprimer" data-id="{{ code }}">
                 <i class="fas fa-trash-alt"></i>
             </a>
         {% endif %}
     </div> 
     <div class="OperationUpdate">
-        {% if url_edit is defined %}
-            <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(url_edit, {'id': code}) }}" title="Modifier">
+        {% if operation_link['url_edit'] is defined %}
+            <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(operation_link['url_edit'], {'id': code}) }}" title="Modifier">
                 <i class="fas fa-edit"></i>
+            </a>
+        {% endif %}
+    </div>
+    <div class="OperationView">
+        {% if operation_link['url_view'] is defined %}
+            <a class="OperationLinkView btn btn-success btn-sm" href="{{ path(operation_link['url_view'], {'id': code}) }}" title="Modifier">
+                <i class="fas fa-eye"></i>
             </a>
         {% endif %}
     </div>
