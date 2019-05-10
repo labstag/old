@@ -33,19 +33,16 @@ class Chapitre implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\Versioned
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
-     * @Gedmo\Versioned
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\History", inversedBy="chapitres")
-     * @Gedmo\Versioned
      */
     private $refhistory;
 

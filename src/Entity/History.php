@@ -39,7 +39,6 @@ class History implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\Versioned
      */
     private $name;
 
