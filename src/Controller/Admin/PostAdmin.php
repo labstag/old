@@ -63,6 +63,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete'      => 'adminpost_delete',
             'url_deletetrash' => 'adminpost_deletetrash',
             'url_trash'       => 'adminpost_trash',
+            'url_restore'       => 'adminpost_restore',
             'url_empty'       => 'adminpost_empty',
             'url_list'        => 'adminpost_list',
             'url_edit'        => 'adminpost_edit',
@@ -158,6 +159,20 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/restore", name="adminpost_restore")
+     */
+    public function restore(PostRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
+            $repository,
+            [
+                'url_list'  => 'adminpost_list',
+                'url_trash' => 'adminpost_trash',
+            ]
+        );
+    }
+
+    /**
      * @Route("/", name="adminpost_delete", methods={"DELETE"})
      * @Route("/trash", name="adminpost_deletetrash", methods={"DELETE"})
      */
@@ -202,6 +217,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete'      => 'adminpostcategory_delete',
             'url_deletetrash' => 'adminpostcategory_deletetrash',
             'url_trash'       => 'adminpostcategory_trash',
+            'url_restore'       => 'adminpostcategory_restore',
             'url_empty'       => 'adminpostcategory_empty',
             'url_list'        => 'adminpostcategory_list',
             'url_edit'        => 'adminpostcategory_edit',
@@ -287,6 +303,20 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
+     * @Route("/category/restore", name="adminpostcategory_restore")
+     */
+    public function restoreCategory(CategoryRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
+            $repository,
+            [
+                'url_list'  => 'adminpostcategory_list',
+                'url_trash' => 'adminpostcategory_trash',
+            ]
+        );
+    }
+
+    /**
      * @Route("/tags/", name="adminposttags_list", methods={"GET"})
      * @Route("/tags/trash", name="adminposttags_trash", methods={"GET"})
      */
@@ -316,6 +346,7 @@ class PostAdmin extends AdminControllerLib
             'url_delete'      => 'adminposttags_delete',
             'url_deletetrash' => 'adminposttags_deletetrash',
             'url_trash'       => 'adminposttags_trash',
+            'url_restore'       => 'adminposttags_restore',
             'url_empty'       => 'adminposttags_empty',
             'url_list'        => 'adminposttags_list',
             'url_edit'        => 'adminposttags_edit',
@@ -392,6 +423,20 @@ class PostAdmin extends AdminControllerLib
     public function deleteTags(TagsRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminposttags_list',
+                'url_trash' => 'adminposttags_trash',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/tags/restore", name="adminposttags_restore")
+     */
+    public function restoreTags(TagsRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
             $repository,
             [
                 'url_list'  => 'adminposttags_list',

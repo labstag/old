@@ -56,6 +56,7 @@ class UserAdmin extends AdminControllerLib
             'url_delete'      => 'adminuser_delete',
             'url_deletetrash' => 'adminuser_deletetrash',
             'url_trash'       => 'adminuser_trash',
+            'url_restore'       => 'adminuser_restore',
             'url_empty'       => 'adminuser_empty',
             'url_list'        => 'adminuser_list',
             'url_edit'        => 'adminuser_edit',
@@ -132,6 +133,20 @@ class UserAdmin extends AdminControllerLib
     public function delete(UserRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminuser_list',
+                'url_trash' => 'adminuser_trash',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/restore", name="adminuser_restore")
+     */
+    public function restore(UserRepository $repository): JsonResponse
+    {
+        return $this->crudRestoreAction(
             $repository,
             [
                 'url_list'  => 'adminuser_list',
