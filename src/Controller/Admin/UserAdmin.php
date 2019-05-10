@@ -56,7 +56,7 @@ class UserAdmin extends AdminControllerLib
             'url_delete'      => 'adminuser_delete',
             'url_deletetrash' => 'adminuser_deletetrash',
             'url_trash'       => 'adminuser_trash',
-            'url_restore'       => 'adminuser_restore',
+            'url_restore'     => 'adminuser_restore',
             'url_empty'       => 'adminuser_empty',
             'url_list'        => 'adminuser_list',
             'url_edit'        => 'adminuser_edit',
