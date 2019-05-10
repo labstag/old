@@ -39,7 +39,7 @@
                                 {% endfor %}
                                 {% if operation is defined %}
                                     <td>
-                                        {{ macro.operation(data.id, url_delete, url_edit) }}
+                                        {{ macro.operation(data.id, operation_link) }}
                                     </td>
                                 {% endif %}
                             </tr>
@@ -50,6 +50,6 @@
         </div>
     </div>
     <div class="d-none">
-        {{ macro.operation('code', url_delete, url_edit) }}
+        {{ macro.operation('code', operation_link) }}
     </div>
 {% endblock %}

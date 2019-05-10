@@ -14,26 +14,26 @@ export class datatables {
     }
 
     execute() {
-        window.dateFormatter = this.dateFormatter;
-        window.imageFormatter = this.imageFormatter;
-        window.queryParams = this.queryParams;
+        window.dateFormatter      = this.dateFormatter;
+        window.imageFormatter     = this.imageFormatter;
+        window.queryParams        = this.queryParams;
         window.operationDatatable = this.operations;
         window.dataTotalFormatter = this.dataTotal;
-        window.enableFormatter = this.enable.bind(this);
-        window.endFormatter = this.end.bind(this);
-        window.dataFormatter = this.dataFormatter;
-        window.urlData = [];
-        window.ajaxOptions = {
+        window.enableFormatter    = this.enable.bind(this);
+        window.endFormatter       = this.end.bind(this);
+        window.dataFormatter      = this.dataFormatter;
+        window.urlData            = [];
+        window.ajaxOptions        = {
             'headers': {
                 'Accept': 'application/ld+json'
             },
             'dataFilter': function (data) {
                 var json = JSON.parse(data);
                 var data = {
-                    'count': json['hydra:totalItems'],
+                    'count'           : json['hydra:totalItems'],
                     'totalNotFiltered': json['hydra:totalItems'],
-                    'rows': json['hydra:member'],
-                    'total': json['hydra:member'].length
+                    'rows'            : json['hydra:member'],
+                    'total'           : json['hydra:member'].length
                 };
 
                 return JSON.stringify(data);
@@ -67,13 +67,13 @@ export class datatables {
             }
         ).then((text) => {
             return JSON.parse(text);
-        }).then((json) => {
+        } ).then((json) => {
             this.dataTreat(json);
-        });
+        } );
     }
 
     dataTreat(json) {
-        let id = json['@id'];
+        let id   = json['@id'];
         let type = json['@type'];
 
         if (json.name != undefined) {
@@ -97,7 +97,7 @@ export class datatables {
 
     dataFormatter(value, row) {
         window.urlData[value] = 1;
-        let span = document.createElement('span');
+        let span              = document.createElement('span');
 
         span.setAttribute('data-id', value);
         span.setAttribute('class', 'DataSpan');
@@ -108,19 +108,19 @@ export class datatables {
 
     changeEnable(event) {
         let element = $(event.currentTarget);
-        let enable = $(element).attr('data-enable');
+        let enable  = $(element).attr('data-enable');
 
         let state = $(element).is(':checked');
         let table = $(element).closest('table');
-        let url = table.attr('data-enableurl-' + enable);
+        let url   = table.attr('data-enableurl-' + enable);
 
         window.fetch(
             url, {
                 'method': 'POST',
-                'body': JSON.stringify({
+                'body'  : JSON.stringify( {
                     'state': state,
-                    'id': $(element).attr('data-id')
-                })
+                    'id'   : $(element).attr('data-id')
+                } )
             }
         );
     }
@@ -138,7 +138,7 @@ export class datatables {
     }
 
     switch (value, row, id) {
-        let div = document.createElement('div');
+        let div    = document.createElement('div');
         let uniqid = this.uniqid();
 
         div.setAttribute('class', 'custom-control custom-switch');
@@ -170,10 +170,12 @@ export class datatables {
     operations(value, row) {
         let operationDelete = document.querySelector('.OperationDelete').innerHTML;
         let operationUpdate = document.querySelector('.OperationUpdate').innerHTML;
+        let operationView   = document.querySelector('.OperationView').innerHTML;
 
+        operationView   = operationView.replace('code', row.id);
         operationUpdate = operationUpdate.replace('code', row.id);
         operationDelete = operationDelete.replace('code', row.id);
-        return operationUpdate + operationDelete;
+        return operationUpdate + operationView + operationDelete;
     }
 
     queryParams(params) {
@@ -192,7 +194,7 @@ export class datatables {
         }
 
         if (params.sort != undefined) {
-            let val = 'order[' + params.sort + ']';
+            let val  = 'order[' + params.sort + ']';
             let sort = params.order;
 
             delete params.order;
