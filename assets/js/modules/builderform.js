@@ -18,19 +18,15 @@ export class builderform {
                 'locale'  : 'fr-FR'
             },
             'disabledActionButtons': ['data', 'save'],
-            'roles'                : ''
+            'roles'                : '',
+            'formData'             : $('#formbuilder_formbuilder').val()
         };
 
         this.formBuilder = $('#' + this.emplacement).formBuilder(dataFormBuilder);
-        $('#SaveFormBuilder').on('click', this.save.bind(this));
+        $("form[name='formbuilder']").on('submit', this.submit.bind(this));
     }
 
-    save(event) {
-        event.preventDefault();
-        this.get();
-    }
-
-    get() {
-        console.log(this.formBuilder.actions.getData('json', true));
+    submit() {
+        $('#formbuilder_formbuilder').val(this.formBuilder.actions.getData('json', true));
     }
 }

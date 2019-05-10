@@ -40,7 +40,7 @@ class Formbuilder
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $formbuilder;
 
@@ -49,12 +49,16 @@ class Formbuilder
      */
     private $enable;
 
+    public function __construct() {
+        $this->formbuilder = json_encode(array());
+    }
+
     public function __toString(): ?string
     {
         return $this->getName();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
