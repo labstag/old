@@ -33,13 +33,11 @@ class Formbuilder implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Gedmo\Versioned
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
-     * @Gedmo\Versioned
      */
     private $formbuilder;
 

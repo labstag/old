@@ -35,7 +35,6 @@ class Category implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Gedmo\Versioned
      */
     private $name;
 
