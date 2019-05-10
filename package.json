@@ -25,7 +25,7 @@
     "build": "encore production --progress"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
+    "@fortawesome/fontawesome-free": "^5.8.2",
     "@fullcalendar/core": "^4.1.0",
     "@fullcalendar/daygrid": "^4.1.0",
     "@fullcalendar/list": "^4.1.0",
@@ -42,21 +42,21 @@
     "jquery-resizable-columns": "^0.2.3",
     "jquery-ui": "^1.12.1",
     "jspdf": "^1.5.3",
-    "jsplumb": "^2.9.2",
+    "jsplumb": "^2.9.3",
     "jszip": "^3.2.1",
     "moment": "^2.24.0",
     "pdfmake": "^0.1.56",
     "popper.js": "^1.15.0",
     "prismjs": "^1.16.0",
     "tableexport.jquery.plugin": "^1.10.3",
-    "tinymce": "^5.0.4",
+    "tinymce": "^5.0.5",
     "tinymce-i18n": "^19.4.15",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.4",
     "@symfony/webpack-encore": "^0.27.0",
-    "@types/tinymce": "^4.5.20",
+    "@types/tinymce": "^4.5.21",
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.3",
     "core-js": "^3.0.0",
