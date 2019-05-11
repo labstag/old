@@ -44,6 +44,11 @@ class OauthServices
         }
     }
 
+    public function getActivedProvider($clientName)
+    {
+        return isset($this->configProvider[$clientName]);
+    }
+
     protected function setConfigProvider()
     {
         $this->configProvider = [

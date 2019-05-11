@@ -2,24 +2,68 @@
 
 namespace Labstag\DataFixtures;
 
+use Labstag\Entity\Configuration;
+use Labstag\Services\OauthServices;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Labstag\Entity\Configuration;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigurationFixtures extends Fixture
 {
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container     = $container;
+        $this->oauthServices = $this->container->get(OauthServices::class);
+    }
+
     public function load(ObjectManager $manager)
     {
-        $data = [
-            [
-                'name'  => 'site_title',
-                'value' => 'labstag',
+        $data  = [
+            'site_title' => 'labstag',
+            'oauth'      => [],
+            'moment'     => [
+                [
+                    'format' => 'MMMM Do YYYY, H:mm:ss',
+                    'lang'   => 'fr',
+                ]
             ],
+            'datatable'  => [
+                [
+                    'lang'     => 'fr-FR',
+                    'pagelist' => '[5, 10, 25, 50, All]'
+                ]
+            ]
         ];
-        foreach ($data as $row) {
+        $param = $_SERVER;
+        $oauth = [];
+        foreach ($param as $key => $val) {
+            if (0 != substr_count($key, 'OAUTH_')) {
+                $code = str_replace('OAUTH_', '', $key);
+                $code = strtolower($code);
+                [
+                    $type,
+                    $key,
+                ]     = explode('_', $code);
+                if (!isset($oauth[$type])) {
+                    $oauth[$type] = [
+                        'activate' => $this->oauthServices->getActivedProvider($type),
+                        'type'     => $type,
+                    ];
+                }
+
+                $oauth[$type][$key] = $val;
+            }
+        }
+
+        foreach ($oauth as $row) {
+            array_push($data['oauth'], $row);
+        }
+
+        foreach ($data as $key => $value) {
             $configuration = new Configuration();
-            $configuration->setName($row['name']);
-            $configuration->setValue($row['value']);
+            $configuration->setName($key);
+            $configuration->setValue($value);
             $manager->persist($configuration);
         }
 

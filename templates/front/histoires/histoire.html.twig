@@ -1,0 +1,35 @@
+{% extends 'site.html.twig' %}
+{% block page_title %}Post{% endblock %}
+{% block bodySite %}
+    <div class="container">
+        <div class="col-md-12">
+            <h2>{{ histoire.name }}</h2>
+            {% if histoire.file %}
+                <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
+            {% endif %}
+            <div>créer 
+                {% if histoire.refuser.id is defined %}
+                    par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">{{ histoire.refuser }}</a>
+                {% endif %} le {{ histoire.createdAt|date }} et modifier le {{ histoire.updatedAt|date }}</div>
+            <div>Nombre de chapitres {{ chapitres|length }}</div>
+            <ul>
+                {% for i, rowChapitre in chapitres %}
+                    <li>
+                        <a href="{{ path('history_show', {'slug': histoire.slug, 'chapitre' : rowChapitre.position+1}) }}">
+                            {{ rowChapitre.name }} ({{ rowChapitre.createdAt|date }})
+                            {% if i+1 == histoire.chapitres|length %}
+                                dernier
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if chapitre is defined %}
+        <div class="col-md-12">
+            <div>{{ chapitre.name }} {{ chapitre.createdAt|date }}</div>
+            {{ chapitre.content|raw }}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -6,6 +6,7 @@ use Labstag\Entity\Chapitre;
 use Labstag\Entity\History;
 use Labstag\Form\Admin\ChapitreType;
 use Labstag\Form\Admin\HistoryType;
+use Labstag\Form\Admin\PositionType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\ChapitreRepository;
 use Labstag\Repository\HistoryRepository;
@@ -41,12 +42,10 @@ class HistoryAdmin extends AdminControllerLib
             'Fin'       => [
                 'field'     => 'end',
                 'formatter' => 'endFormatter',
-                'url'       => $this->generateUrl('adminhistory_end'),
             ],
             'Enable'    => [
                 'field'     => 'enable',
                 'formatter' => 'enableFormatter',
-                'url'       => $this->generateUrl('adminhistory_enable'),
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
@@ -70,6 +69,14 @@ class HistoryAdmin extends AdminControllerLib
             'url_empty'       => 'adminhistory_empty',
             'url_list'        => 'adminhistory_list',
             'url_edit'        => 'adminhistory_edit',
+            'url_custom'      => [
+                'url_position' => [
+                    'id'   => 'Position',
+                    'link' => 'adminhistory_position',
+                    'text' => 'Position',
+                    'icon' => 'fas fa-arrows-alt',
+                ],
+            ],
             'url_trashedit'   => 'adminhistory_trashedit',
             'url_enable'      => [
                 'enable' => 'adminhistory_enable',
@@ -85,7 +92,7 @@ class HistoryAdmin extends AdminControllerLib
      */
     public function enable(HistoryRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($repository, 'setEnd');
+        return $this->crudEnableAction($repository, 'setEnable');
     }
 
     /**
@@ -93,7 +100,7 @@ class HistoryAdmin extends AdminControllerLib
      */
     public function end(HistoryRepository $repository): JsonResponse
     {
-        return $this->crudEnableAction($repository, 'setEnable');
+        return $this->crudEnableAction($repository, 'setEnd');
     }
 
     /**
@@ -127,6 +134,54 @@ class HistoryAdmin extends AdminControllerLib
                 'url_edit'   => 'adminhistory_trashedit',
                 'url_delete' => 'adminhistory_deletetrash',
                 'title'      => 'Edit history',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/position/{id}", name="adminhistory_position", methods={"GET", "POST"})
+     */
+    public function position(History $history, ChapitreRepository $repository): Response
+    {
+        $form = $this->createForm(
+            PositionType::class,
+            [],
+        );
+        $form->handleRequest($this->request);
+        if ($form->isSubmitted()) {
+            $post    = $this->request->request->get($form->getName());
+            $manager = $this->getDoctrine()->getManager();
+            $update  = 0;
+            foreach ($post as $key => $position) {
+                if ('_token' == $key) {
+                    continue;
+                }
+
+                $chapitre = $repository->find($key);
+                if (!$chapitre) {
+                    continue;
+                }
+
+                $chapitre->setPosition($position);
+                $manager->persist($chapitre);
+                $update = 1;
+            }
+
+            if ($update) {
+                $manager->flush();
+                $this->addFlash('success', 'Données sauvegardé');
+            }
+        }
+
+        return $this->twig(
+            'admin/position.html.twig',
+            [
+                'title'    => 'Position History '.$history->getName(),
+                'form'     => $form->createView(),
+                'entity'   => $history,
+                'btnSave'  => true,
+                'url_list' => 'adminhistory_list',
+                'data'     => $history->getChapitres(),
             ]
         );
     }
@@ -197,11 +252,10 @@ class HistoryAdmin extends AdminControllerLib
                 'field'     => 'refhistory',
                 'formatter' => 'dataFormatter',
             ],
-            'Page'      => ['field' => 'page'],
+            'Page'      => ['field' => 'position'],
             'Enable'    => [
                 'field'     => 'enable',
                 'formatter' => 'enableFormatter',
-                'url'       => $this->generateUrl('adminhistorychapitre_enable'),
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
@@ -224,6 +278,7 @@ class HistoryAdmin extends AdminControllerLib
             'url_empty'       => 'adminhistorychapitre_empty',
             'url_list'        => 'adminhistorychapitre_list',
             'url_edit'        => 'adminhistorychapitre_edit',
+            'url_enable'      => ['enable' => 'adminhistorychapitre_enable'],
             'url_trashedit'   => 'adminhistorychapitre_trashedit',
         ];
 

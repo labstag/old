@@ -34,7 +34,7 @@ class Configuration
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="object", nullable=true)
      */
     private $value;
 
@@ -55,12 +55,12 @@ class Configuration
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getValue()
     {
         return $this->value;
     }
 
-    public function setValue(?string $value): self
+    public function setValue($value): self
     {
         $this->value = $value;
 

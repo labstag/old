@@ -73,6 +73,7 @@ class History implements Translatable
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Chapitre", mappedBy="refhistory")
+     * @ORM\OrderBy({"position": "ASC"})
      */
     private $chapitres;
 
@@ -177,6 +178,18 @@ class History implements Translatable
     public function getChapitres(): Collection
     {
         return $this->chapitres;
+    }
+
+    public function getChapitresEnabled()
+    {
+        $chapitres = [];
+        foreach ($this->chapitres as $chapitre) {
+            if ($chapitre->isEnable()) {
+                array_push($chapitres, $chapitre);
+            }
+        }
+
+        return $chapitres;
     }
 
     public function addChapitre(Chapitre $chapitre): self

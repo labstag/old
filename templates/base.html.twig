@@ -7,7 +7,7 @@
         {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
-    <body{% if classBody is defined %} class="{{ classBody }}"{% endif %}>
+    <body{% if classBody is defined %} class="{{ classBody }}"{% endif %} data-moment="{{ config['moment'][0]['lang'] }}">
         {% block body %}{% endblock %}
         {% if pagination is defined %}
             {{ knp_pagination_render(pagination) }}

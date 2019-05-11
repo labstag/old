@@ -2,8 +2,22 @@ export class admin {
     constructor() {
         this.userList();
         this.btndelete();
+        this.sortable();
     }
 
+    sortable() {
+        $('#sortable').sortable( {
+            'stop': this.positionChange
+        } );
+    }
+
+    positionChange(event, ui) {
+        $('#sortable').find('input').each(
+            function (index) {
+                $(this).val(index);
+            }
+        );
+    }
     btndelete() {
         $(document).on(
             'click',

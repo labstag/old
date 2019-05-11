@@ -44,7 +44,6 @@ class PostAdmin extends AdminControllerLib
             'Enable'    => [
                 'field'     => 'enable',
                 'formatter' => 'enableFormatter',
-                'url'       => $this->generateUrl('adminpost_enable'),
             ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
@@ -64,6 +63,7 @@ class PostAdmin extends AdminControllerLib
             'url_deletetrash' => 'adminpost_deletetrash',
             'url_trash'       => 'adminpost_trash',
             'url_restore'     => 'adminpost_restore',
+            'url_enable'      => ['enable' => 'adminpost_enable'],
             'url_empty'       => 'adminpost_empty',
             'url_list'        => 'adminpost_list',
             'url_edit'        => 'adminpost_edit',

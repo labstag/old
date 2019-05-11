@@ -42,6 +42,13 @@ class Chapitre implements Translatable
     private $content;
 
     /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(type="integer")
+     */
+    private $position;
+
+    /**
+     * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\History", inversedBy="chapitres")
      */
     private $refhistory;
@@ -52,11 +59,6 @@ class Chapitre implements Translatable
     private $enable;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $page;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $status;
@@ -64,7 +66,6 @@ class Chapitre implements Translatable
     public function __construct()
     {
         $this->status = '';
-        $this->page   = 0;
         $this->enable = true;
     }
 
@@ -121,14 +122,14 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function getPage(): ?int
+    public function getPosition(): ?int
     {
-        return $this->page;
+        return $this->position;
     }
 
-    public function setPage(int $page): self
+    public function setPosition(int $position): self
     {
-        $this->page = $page;
+        $this->position = $position;
 
         return $this;
     }
