@@ -70,7 +70,6 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $manager->persist($post);
-            sleep(1);
         }
 
         $manager->flush();

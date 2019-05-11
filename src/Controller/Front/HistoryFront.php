@@ -44,7 +44,7 @@ class HistoryFront extends ControllerLib
         $idChapitre = $this->request->query->get('chapitre');
         $chapitres  = $history->getChapitresEnabled();
         $datatwig   = [
-            'histoire'  => $history,
+            'entity'    => $history,
             'chapitres' => $chapitres,
         ];
         if ('' == $idChapitre) {

@@ -28,33 +28,28 @@ import {
     admin
 } from './modules/admin';
 import 'whatwg-fetch';
-global.$      = $;
+global.$ = $;
 global.Jquery = $;
 class Site {
     /**
      * TODO: Test
      */
     launch() {
-        this.admin        = new admin();
-        this.workflow     = new workflow('workflow');
-        this.form         = new form();
-        this.prismjs      = new prismjs();
-        this.builderform  = new builderform('formBuilder');
-        this.wysiwyg      = new wysiwyg();
-        this.datatables   = new datatables();
+        this.admin = new admin();
+        this.workflow = new workflow('workflow');
+        this.form = new form();
+        this.prismjs = new prismjs();
+        this.builderform = new builderform('formBuilder');
+        this.wysiwyg = new wysiwyg();
+        this.datatables = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
+        this.login();
         this.test('aa', 'bb', 'cc', 'dd');
         this.ajax();
-        const NUMBER      = 1;
+    }
 
-        let test = NUMBER;
-
-        console.warn('coucou');
-        console.error('test');
-        console.debug('test');
-        test = test + NUMBER;
-
-        return test;
+    login() {
+        $('#login_username').trigger('focus');
     }
 
     test(a, b, c, d) {
@@ -79,4 +74,4 @@ class Site {
     const site = new Site();
 
     site.launch();
-} )(jQuery);
+})(jQuery);
