@@ -7,9 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class MomentType extends AbstractType
+class WysiwygType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,14 +22,13 @@ class MomentType extends AbstractType
                 'choices' => $lang
             ]
         );
-        $builder->add('format', TextType::class);
         unset($options);
     }
 
     private function getFilesLang()
     {
         $tabLang = [];
-        $files   = glob('../node_modules/moment/locale/*');
+        $files   = glob('../node_modules/tinymce-i18n/langs/*');
         foreach ($files as $file){
             $pathfile           = pathinfo($file);
             $filename           = $pathfile['filename'];

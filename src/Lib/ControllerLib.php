@@ -2,12 +2,13 @@
 
 namespace Labstag\Lib;
 
+use DateTimeInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 abstract class ControllerLib extends Controller
 {
@@ -70,7 +71,18 @@ abstract class ControllerLib extends Controller
     protected function addParamViewsSite(array $parameters = []): void
     {
         $this->setConfigurationParam();
+        $this->setMetaWithEntity($parameters);
         $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function setMetaWithEntity($parameters)
+    {
+        if (isset($parameters['setMeta'])) {
+            $entity = $parameters['setMeta'];
+
+            $this->paramViews['config']['meta'][0]['article:published_time'] = $entity->getCreatedAt()->format(DateTimeInterface::ATOM);
+            $this->paramViews['config']['meta'][0]['article:modified_time'] = $entity->getUpdatedAt()->format(DateTimeInterface::ATOM);
+        }
     }
 
     protected function paginator($query)

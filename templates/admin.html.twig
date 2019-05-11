@@ -3,81 +3,72 @@
 
 {% block content_title %}{{ title }}{% endblock %}
 {% block body %}
-    <header class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ path('admin_dashboard') }}">{% if config['site_title'] is defined %}{{ config['site_title'] }}{% endif %}</a>
-        <div class="navbar-custom-menu my-2 my-lg-0">
-            <ul class="nav navbar-nav">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('file/'~ app.user.avatar) }}" class="user-image" alt="User Image" />
-                        <span class="hidden-xs">{{ app.user }}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <img src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
-                            <p>
-                                {{ app.user }}
-                            </p>
-                        </li>
-                        {#
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-md-4 text-center">
-                                    <a href="#">Followers</a>
+    <header>
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ path('admin_dashboard') }}">{% if config['site_title'] is defined %}{{ config['site_title'] }}{% endif %}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ asset('file/'~ app.user.avatar) }}" class="user-image" alt="User Image" />
+                            <span class="hidden-xs">{{ app.user }}</span>
+                        </a>
+                        <!-- Here's the magic. Add the .animate and .slide-in classes to your .dropdown-menu and you're all set! -->
+                        <div class="dropdown-menu dropdown-menu-right animate slideIn  user user-menu" aria-labelledby="navbarDropdown">
+                            <div class="user-header">
+                                <img src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
+                                <p>
+                                    {{ app.user }}
+                                </p>
+                            </div>
+                            <div class="user-footer">
+                                <div class="float-left">
+                                    <a href="{{ path('adminprofil_index') }}" class="btn btn-default btn-light">Profile</a>
                                 </div>
-                                <div class="col-md-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-md-4 text-center">
-                                    <a href="#">Friends</a>
+                                <div class="float-right">
+                                    <a class="btn btn-default btn-light" href="{{ path('app_logout') }}">Sign out</a>
                                 </div>
                             </div>
-                            <!-- /.row -->
-                        </li>
-                        #}
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="float-left">
-                                <a href="{{ path('adminprofil_index') }}" class="btn btn-default btn-light">Profile</a>
-                            </div>
-                            <div class="float-right">
-                                <a class="btn btn-default btn-light" href="{{ path('app_logout') }}">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        {% for link in menuadmin %}
-                            <li class="nav-item">
-                                {% if link.child is defined %}
-                                    {{ link.title }}
-                                    <ul>
-                                        {% for child in link.child %}
-                                            <li class="nav-item">
-                                                <a class="nav-link {% if child.current is defined %} active{% endif %}" href="{{ path(child.url) }}">
-                                                    {{ child.title }}{% if child.current is defined %} <span class="sr-only">(current)</span>{% endif %}
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    <a class="nav-link{% if link.current is defined %} active{% endif %}" href="{{ path(link.url) }}">
-                                        {{ link.title }}{% if link.current is defined %} <span class="sr-only">(current)</span>{% endif %}
-                                    </a>
+                <ul class="nav nav-pills flex-column">
+                    {% for indexLink, link in menuadmin %}
+                    <li class="nav-item">
+                        {% if link.child is defined %}
+                            <a class="nav-link" data-toggle="collapse" href="#item-{{ indexLink }}">{{ link.title }}</a>
+                            {% set collapse = "" %}
+                            {% for child in link.child %}
+                                {% if child.current is defined %}
+                                    {% set collapse = "show" %}
                                 {% endif %}
+                            {% endfor %}
+                            <div id="item-{{ indexLink }}" class="collapse {{ collapse }}">
+                                <ul class="nav flex-column ml-3">
+                                    {% for child in link.child %}
+                                        <li class="nav-item">
+                                            <a class="nav-link{% if child.current is defined %} active{% endif %}" href="{{ path(child.url) }}">{{ child.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link{% if link.current is defined %} active{% endif %}" href="{{ path(link.url) }}">{{ link.title }}</a>
                             </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
             </nav>
             <main role="main" class="col-md-10">
                 <div class="row">
