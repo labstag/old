@@ -22,10 +22,24 @@ class ConfigurationFixtures extends Fixture
         $data  = [
             'site_title' => 'labstag',
             'oauth'      => [],
+            'meta'       => [
+                [
+                    'viewport'    => 'width=device-width, initial-scale=1, shrink-to-fit=no',
+                    'author'      => 'koromerzhin',
+                    'theme-color' => '#ff0000',
+                    'description' => '',
+                    'keywords'    => '',
+                ]
+            ],
             'moment'     => [
                 [
                     'format' => 'MMMM Do YYYY, H:mm:ss',
                     'lang'   => 'fr',
+                ]
+            ],
+            'wysiwyg'    => [
+                [
+                    'lang' => 'fr_FR'
                 ]
             ],
             'datatable'  => [

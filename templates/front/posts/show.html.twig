@@ -1,21 +1,21 @@
 {% extends 'site.html.twig' %}
-{% block page_title %}{{ post.name }}{% endblock %}
+{% block page_title %}{{ entity.name }}{% endblock %}
 
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
-            <h2>{{ post.name }}</h2>
-            {% if post.file %}
-                <img src="{{ asset('file/'~post.file) }}" title="{{ post.name|e }}" class="img-fluid" />
+            <h2>{{ entity.name }}</h2>
+            {% if entity.file %}
+                <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
             {% endif %}
-            <div><a href="{{ path('posts_user',{'user': post.refuser.id}) }}">{{ post.refuser }}</a></div>
-            <div>créer le {{ post.createdAt|date }} et modifier le {{ post.updatedAt|date }}</div>
-            <div>TAGS : {% for tag in post.tags %}
+            <div><a href="{{ path('posts_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a></div>
+            <div>créer le {{ entity.createdAt|date }} et modifier le {{ entity.updatedAt|date }}</div>
+            <div>TAGS : {% for tag in entity.tags %}
                 <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">{{ tag.name }}</a>
             {% endfor %}</div>
-            <div>categorie : <a href="{{ path('posts_category',{'slug': post.refcategory.slug}) }}">{{ post.refcategory.name }}</a></div>
+            <div>categorie : <a href="{{ path('posts_category',{'slug': entity.refcategory.slug}) }}">{{ entity.refcategory.name }}</a></div>
             <div>
-                {{ post.content|raw }}
+                {{ entity.content|raw }}
             </div>
         </div>
     </div>

@@ -7,35 +7,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class MomentType extends AbstractType
+class MetaSiteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $lang = $this->getFilesLang();
-        $builder->add(
-            'lang',
-            ChoiceType::class,
-            [
-                'choices' => $lang
-            ]
-        );
-        $builder->add('format', TextType::class);
+        $builder->add('theme-color', ColorType::class);
+        $builder->add('viewport', TextType::class, ['required' => false]);
+        $builder->add('description', TextType::class, ['required' => false]);
+        $builder->add('keywords', TextType::class, ['required' => false]);
         unset($options);
-    }
-
-    private function getFilesLang()
-    {
-        $tabLang = [];
-        $files   = glob('../node_modules/moment/locale/*');
-        foreach ($files as $file){
-            $pathfile           = pathinfo($file);
-            $filename           = $pathfile['filename'];
-            $tabLang[$filename] = $filename;
-        }
-
-        return $tabLang;
     }
 
     public function configureOptions(OptionsResolver $resolver)

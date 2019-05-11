@@ -11,7 +11,7 @@ let moment = require('moment');
 export class datatables {
     constructor() {
         this.execute();
-        moment.locale($('body').attr('data-moment'));
+        moment.locale($('body').attr('data-momentlang'));
     }
 
     execute() {
