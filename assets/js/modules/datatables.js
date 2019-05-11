@@ -5,12 +5,13 @@ import 'tableexport.jquery.plugin/tableExport.min';
 import 'bootstrap-table/dist/bootstrap-table-locale-all';
 import 'bootstrap-table/dist/extensions/resizable/bootstrap-table-resizable';
 import 'bootstrap-table/dist/extensions/export/bootstrap-table-export';
+import '@fancyapps/fancybox';
 let moment = require('moment');
 
 export class datatables {
     constructor() {
         this.execute();
-        moment.locale('fr');
+        moment.locale($('body').attr('data-moment'));
     }
 
     execute() {
@@ -110,9 +111,10 @@ export class datatables {
         let element = $(event.currentTarget);
         let enable  = $(element).attr('data-enable');
 
-        let state = $(element).is(':checked');
-        let table = $(element).closest('table');
-        let url   = table.attr('data-enableurl-' + enable);
+        let state   = $(element).is(':checked');
+        let table   = $(element).closest('table');
+        let idTable = $(table).attr('id');
+        let url     = $('#' + idTable).attr('data-enableurl-' + enable);
 
         window.fetch(
             url, {
@@ -148,7 +150,7 @@ export class datatables {
         input.setAttribute('class', 'custom-control-input');
         input.setAttribute('data-enable', id);
         input.setAttribute('id', 'customSwitch' + uniqid);
-        input.setAttribute('data-id', uniqid);
+        input.setAttribute('data-id', row.id);
         if (value == true) {
             input.setAttribute('checked', 'checked');
         }
@@ -168,14 +170,29 @@ export class datatables {
     }
 
     operations(value, row) {
-        let operationDelete = document.querySelector('.OperationDelete').innerHTML;
-        let operationUpdate = document.querySelector('.OperationUpdate').innerHTML;
-        let operationView   = document.querySelector('.OperationView').innerHTML;
+        let div   = document.querySelector('.OperationCrud');
+        let links = div.querySelectorAll('a');
+        let html  = '';
 
-        operationView   = operationView.replace('code', row.id);
-        operationUpdate = operationUpdate.replace('code', row.id);
-        operationDelete = operationDelete.replace('code', row.id);
-        return operationUpdate + operationView + operationDelete;
+        links.forEach(
+            (element) => {
+                let a = element.outerHTML;
+
+                a    = a.replace('code', row.id);
+                html = html + a;
+            }
+        );
+
+        return html;
+
+        // let operationDelete = document.querySelector('.OperationDelete').innerHTML;
+        // let operationUpdate = document.querySelector('.OperationUpdate').innerHTML;
+        // let operationView   = document.querySelector('.OperationView').innerHTML;
+
+        // operationView   = operationView.replace('code', row.id);
+        // operationUpdate = operationUpdate.replace('code', row.id);
+        // operationDelete = operationDelete.replace('code', row.id);
+        // return operationUpdate + operationView + operationDelete;
     }
 
     queryParams(params) {
@@ -213,12 +230,16 @@ export class datatables {
 
     imageFormatter(value, row) {
         if (value != null) {
-            let img = document.createElement('img');
-            let url = $('#CrudList').attr('data-files');
+            let link = document.createElement('a');
+            let img  = document.createElement('img');
+            let url  = $('#CrudList').attr('data-files');
 
+            link.setAttribute('data-fancybox', true);
+            link.setAttribute('href', url + value);
             img.setAttribute('src', url + value);
             img.setAttribute('class', 'img-thumbnail');
-            return img.outerHTML;
+            link.appendChild(img);
+            return link.outerHTML;
         }
 
         return '';

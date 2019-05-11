@@ -31,10 +31,3 @@ doctrine:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true
-stof_doctrine_extensions:
-    orm:
-        default:
-            tree: true
-            timestampable: true
-            loggable: true
-            softdeleteable: true

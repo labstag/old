@@ -33,23 +33,29 @@ class AdminController extends AdminControllerLib
         $user = $security->getUser();
         $form = $this->createForm(
             ProfilType::class,
-            $user,
-            [
-                'action' => $this->generateUrl('adminprofil_list'),
-                'method' => 'POST',
-            ]
+            $user
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Profil sauvegardé');
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('adminprofil_list');
+            return $this->redirectToRoute('adminprofil_index');
+        }
+
+        $this->setConfigurationParam();
+        $otherOauth = $this->paramViews['oauth_activated'];
+
+        foreach($user->getOauthConnectUsers() as $oauth)
+        {
+            $type = $oauth->getName();
+            unset($otherOauth[$type]);
         }
 
         return $this->twig(
-            'admin/crud/form.html.twig',
+            'admin/profil.html.twig',
             [
+                'otherOauth' => $otherOauth,
                 'entity'  => $user,
                 'title'   => 'Profil',
                 'btnSave' => true,

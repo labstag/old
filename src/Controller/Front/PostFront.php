@@ -20,12 +20,9 @@ class PostFront extends ControllerLib
     /**
      * @Route("/user/{user}", name="posts_user")
      */
-    public function postUser(
-        User $user,
-        PostRepository $postRepository
-    ): Response
+    public function postUser(User $user, PostRepository $repository): Response
     {
-        $posts = $postRepository->findAllActiveByUser($user);
+        $posts = $repository->findAllActiveByUser($user);
         $this->paginator($posts);
 
         return $this->twig('front/posts/list.html.twig');
@@ -34,12 +31,9 @@ class PostFront extends ControllerLib
     /**
      * @Route("/category/{slug}", name="posts_category")
      */
-    public function postCategory(
-        Category $category,
-        PostRepository $postRepository
-    ): Response
+    public function postCategory(Category $category, PostRepository $repository): Response
     {
-        $posts = $postRepository->findAllActiveByCategory($category);
+        $posts = $repository->findAllActiveByCategory($category);
         $this->paginator($posts);
 
         return $this->twig('front/posts/list.html.twig');
@@ -48,12 +42,9 @@ class PostFront extends ControllerLib
     /**
      * @Route("/tags/{slug}", name="posts_tag")
      */
-    public function PostTags(
-        Tags $tag,
-        PostRepository $postRepository
-    ): Response
+    public function PostTags(Tags $tag, PostRepository $repository): Response
     {
-        $posts = $postRepository->findAllActiveByTag($tag);
+        $posts = $repository->findAllActiveByTag($tag);
         $this->paginator($posts);
 
         return $this->twig('front/posts/list.html.twig');
@@ -77,9 +68,9 @@ class PostFront extends ControllerLib
     /**
      * @Route("/", name="posts_list")
      */
-    public function postList(PostRepository $postRepository): Response
+    public function postList(PostRepository $repository): Response
     {
-        $posts = $postRepository->findAllActive();
+        $posts = $repository->findAllActive();
         $this->paginator($posts);
 
         return $this->twig('front/posts/list.html.twig');

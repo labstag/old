@@ -17,6 +17,15 @@
 @import 'error.scss';
 @import 'login.scss';
 
+#sortable {
+    list-style-type: none;
+
+    li {
+        margin: 0 3px 3px 3px;
+        cursor: all-scroll;
+    }
+}
+
 .custom-control-label {
     cursor: pointer;
 }

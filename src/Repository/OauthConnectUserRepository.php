@@ -2,6 +2,7 @@
 
 namespace Labstag\Repository;
 
+use Labstag\Entity\User;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -17,6 +18,21 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, OauthConnectUser::class);
+    }
+
+    public function findOneOauthByUser(string $oauthCode, User $user)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->where('p.name=:name');
+        $dql->andWhere('p.refuser=:iduser');
+        $dql->setParameters(
+            [
+                'iduser' => $user->getId(),
+                'name'   => $oauthCode,
+            ]
+        );
+
+        return $dql->getQuery()->getOneOrNullResult();
     }
 
     // /**

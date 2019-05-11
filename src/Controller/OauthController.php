@@ -2,15 +2,17 @@
 
 namespace Labstag\Controller;
 
-use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
 use Labstag\Services\OauthServices;
+use Labstag\Entity\OauthConnectUser;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Routing\Annotation\Route;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Labstag\Repository\OauthConnectUserRepository;
 
 class OauthController extends ControllerLib
 {
@@ -29,27 +31,59 @@ class OauthController extends ControllerLib
     /**
      * Link to this controller to start the "connect" process.
      *
+     * @Route("/lost/{oauthCode}", name="connect_lost")
+     */
+    public function lostAction(Request $request, string $oauthCode, Security $security, OauthConnectUserRepository $repository)
+    {
+        $user = $security->getUser();
+        $referer = $request->headers->get('referer');
+        $session = $request->getSession();
+        $session->set('referer', $referer);
+        $url = $this->generateUrl('front');
+        if ($referer != '') {
+            $url = $referer;
+        }
+
+        $entity = $repository->findOneOauthByUser($oauthCode, $user);
+        $manager = $this->getDoctrine()->getManager();
+        if ($entity) {
+            $manager->remove($entity);
+            $manager->flush();
+            $this->addFlash('success', 'Connexion Oauh '.$oauth.' dissocié');
+        }
+
+        return $this->redirect($referer);
+    }
+
+    /**
+     * Link to this controller to start the "connect" process.
+     *
      * @Route("/connect/{oauthCode}", name="connect_start")
      */
     public function connectAction(Request $request, string $oauthCode)
     {
         $provider = $this->oauthServices->setProvider($oauthCode);
+        $session  = $request->getSession();
+        $referer  = $request->headers->get('referer');
+        $session->set('referer', $referer);
+        $url = $this->generateUrl('front');
+        if ($referer != '') {
+            $url = $referer;
+        }
 
         if (is_null($provider)) {
             $this->addFlash('warning', 'Connexion Oauh impossible');
 
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
+            return $this->redirect($referer);
         }
 
         $authUrl = $provider->getAuthorizationUrl();
         $session = $request->getSession();
+        $referer = $request->headers->get('referer');
+        $session->set('referer', $referer);
         $session->set('oauth2state', $provider->getState());
 
-        return $this->redirect(
-            $authUrl
-        );
+        return $this->redirect($authUrl);
     }
 
     /**
@@ -64,14 +98,19 @@ class OauthController extends ControllerLib
         $provider    = $this->oauthServices->setProvider($oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
+        $referer     = $session->get('referer');
         $oauth2state = $session->get('oauth2state');
+        $url         = $this->generateUrl('front');
+        if ($referer != '') {
+            $url = $referer;
+        }
+
         if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
             $session->remove('oauth2state');
+            $session->remove('referer');
             $this->addFlash('warning', "Probleme d'identification");
 
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
+            return $this->redirect($referer);
         }
 
         try {
@@ -83,6 +122,7 @@ class OauthController extends ControllerLib
             );
 
             $session->remove('oauth2state');
+            $session->remove('referer');
             $userOauth = $provider->getResourceOwner($tokenProvider);
             $token     = $this->get('security.token_storage')->getToken();
             if (!($token instanceof AnonymousToken)) {
@@ -90,15 +130,11 @@ class OauthController extends ControllerLib
                 $this->addOauthToUser($oauthCode, $user, $userOauth);
             }
 
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
+            return $this->redirect($referer);
         } catch (Exception $e) {
             $this->addFlash('warning', "Probleme d'identification");
 
-            return $this->redirect(
-                $this->generateUrl('front')
-            );
+            return $this->redirect($referer);
             exit();
         }
     }

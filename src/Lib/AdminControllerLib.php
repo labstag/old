@@ -38,7 +38,7 @@ abstract class AdminControllerLib extends ControllerLib
             return $this->json([]);
         }
 
-        $entity->{$function}($data['state']);
+        $entity->{$function}(('true' == $data['state']));
         $entityManager->persist($entity);
         $entityManager->flush();
 
@@ -100,6 +100,7 @@ abstract class AdminControllerLib extends ControllerLib
             'url_delete',
             'url_edit',
             'url_enable',
+            'url_custom',
         ];
         foreach ($tabDataCheck as $key) {
             if (isset($data[$key])) {
@@ -137,12 +138,13 @@ abstract class AdminControllerLib extends ControllerLib
             );
         }
 
-        $tabDataCheck = [
+        $tabDataCheck                = [
             'url_delete',
             'url_edit',
             'url_view',
+            'url_custom',
         ];
-        $paramtwig['operation_link'] = array();
+        $paramtwig['operation_link'] = [];
         foreach ($tabDataCheck as $key) {
             if (isset($paramtwig[$key])) {
                 $paramtwig['operation_link'][$key] = $paramtwig[$key];
@@ -258,6 +260,10 @@ abstract class AdminControllerLib extends ControllerLib
 
         if (isset($data['twig'])) {
             $params['twig'] = $data['twig'];
+        }
+
+        if (isset($data['url_view'])) {
+            $params['url_view'] = $data['url_view'];
         }
 
         return $this->crudShowForm($params);
