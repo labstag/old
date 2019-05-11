@@ -22,20 +22,8 @@ class OauthType extends AbstractType
                 ],
             ]
         );
-        $builder->add(
-            'type',
-            ChoiceType::class,
-            [
-                'choices' => [
-                    'bitbucket' => 'bitbucket',
-                    'discord'   => 'discord',
-                    'github'    => 'github',
-                    'gitlab'    => 'gitlab',
-                    'google'    => 'google',
-                ],
-            ]
-        );
-        $builder->add('key', TextType::class, ['required' => false]);
+        $builder->add('type', TextType::class);
+        $builder->add('id', TextType::class, ['required' => false]);
         $builder->add('secret', TextType::class, ['required' => false]);
         unset($options);
     }

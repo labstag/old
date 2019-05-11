@@ -49,9 +49,9 @@ class OauthConnectUserListener implements EventSubscriber
         }
 
         $this->setIdentity($entity);
-        // $enm  = $args->getEntityManager();
-        // $meta = $enm->getClassMetadata(get_class($entity));
-        // $enm->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
+        // $manager  = $args->getEntityManager();
+        // $meta = $manager->getClassMetadata(get_class($entity));
+        // $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
     public function preUpdate(LifecycleEventArgs $args)
@@ -62,9 +62,9 @@ class OauthConnectUserListener implements EventSubscriber
         }
 
         $this->setIdentity($entity);
-        $enm  = $args->getEntityManager();
-        $meta = $enm->getClassMetadata(get_class($entity));
-        $enm->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
+        $manager = $args->getEntityManager();
+        $meta    = $manager->getClassMetadata(get_class($entity));
+        $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
     private function setIdentity(OauthConnectUser $entity)

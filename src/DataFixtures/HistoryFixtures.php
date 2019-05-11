@@ -64,6 +64,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
+            FilesFixtures::class,
             UserFixtures::class,
         ];
     }

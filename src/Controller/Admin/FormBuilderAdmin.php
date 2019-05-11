@@ -4,6 +4,7 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Formbuilder;
 use Labstag\Form\Admin\FormbuilderType;
+use Labstag\Form\Admin\FormbuilderViewType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\ConfigurationRepository;
 use Labstag\Repository\FormbuilderRepository;
@@ -11,7 +12,6 @@ use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Labstag\Form\Admin\FormbuilderViewType;
 
 /**
  * @Route("/admin/formbuilder")
@@ -25,7 +25,11 @@ class FormBuilderAdmin extends AdminControllerLib
     public function list(FormbuilderRepository $repository): Response
     {
         $datatable = [
-            'Name' => ['field' => 'name'],
+            'Name'             => ['field' => 'name'],
+            'Nombre de champs' => [
+                'field'     => 'formbuilder',
+                'formatter' => 'dataFormBuilderFormatter',
+            ],
         ];
         $data      = [
             'title'           => 'Formbuilder list',
@@ -56,7 +60,7 @@ class FormBuilderAdmin extends AdminControllerLib
     {
         return $this->crudNewAction(
             [
-                'twig'     => 'admin/formbuilder.html.twig',
+                'twig'     => 'admin/formbuilder/form.html.twig',
                 'entity'   => new Formbuilder(),
                 'form'     => FormbuilderType::class,
                 'url_edit' => 'adminformbuilder_edit',
@@ -80,7 +84,7 @@ class FormBuilderAdmin extends AdminControllerLib
     public function trashView(ConfigurationRepository $repository, $id): Response
     {
         $formbuilder = $repository->findOneDateInTrash($id);
-        
+
         return $this->viewForm($formbuilder);
     }
 
@@ -90,26 +94,6 @@ class FormBuilderAdmin extends AdminControllerLib
     public function view(Formbuilder $formbuilder): Response
     {
         return $this->viewForm($formbuilder);
-    }
-
-    private function viewForm(Formbuilder $formbuilder)
-    {
-        $data = json_decode($formbuilder->getFormbuilder(), true);
-        dump($data);
-        $form = $this->createForm(
-            FormbuilderViewType::class,
-            [],
-            [
-                'data' => $data
-            ]
-        );
-        return $this->twig(
-            'admin/formbuilder/view.html.twig',
-            [
-                'title' => 'formbuilder View',
-                'form'  => $form->createView(),
-            ]
-        );
     }
 
     /**
@@ -126,6 +110,7 @@ class FormBuilderAdmin extends AdminControllerLib
                 'entity'     => $formbuilder,
                 'url_list'   => 'adminformbuilder_trash',
                 'url_edit'   => 'adminformbuilder_trashedit',
+                'url_view'   => 'adminformbuilder_trashview',
                 'url_delete' => 'adminformbuilder_deletetrash',
                 'title'      => 'Edit formbuilder',
             ]
@@ -144,6 +129,7 @@ class FormBuilderAdmin extends AdminControllerLib
                 'entity'     => $formbuilder,
                 'url_list'   => 'adminformbuilder_list',
                 'url_edit'   => 'adminformbuilder_edit',
+                'url_view'   => 'adminformbuilder_view',
                 'url_delete' => 'adminformbuilder_delete',
                 'title'      => 'Edit formbuilder',
             ]
@@ -183,6 +169,38 @@ class FormBuilderAdmin extends AdminControllerLib
             [
                 'url_list'  => 'adminformbuilder_list',
                 'url_trash' => 'adminformbuilder_trash',
+            ]
+        );
+    }
+
+    private function viewForm(Formbuilder $formbuilder)
+    {
+        $route   = $this->request->attributes->get('_route');
+        $urlList = 'adminformbuilder_list';
+        $urlEdit = 'adminformbuilder_edit';
+        if (0 != substr_count($route, 'trash')) {
+            $urlList = 'adminformbuilder_trash';
+            $urlList = 'adminformbuilder_trashedit';
+        }
+
+        $data = json_decode($formbuilder->getFormbuilder(), true);
+        $form = $this->createForm(
+            FormbuilderViewType::class,
+            [],
+            [
+                'attr' => ['onsubmit' => 'return false;'],
+                'data' => $data,
+            ]
+        );
+
+        return $this->twig(
+            'admin/formbuilder/view.html.twig',
+            [
+                'entity'   => $formbuilder,
+                'url_edit' => $urlEdit,
+                'url_list' => $urlList,
+                'title'    => 'formbuilder View',
+                'form'     => $form->createView(),
             ]
         );
     }

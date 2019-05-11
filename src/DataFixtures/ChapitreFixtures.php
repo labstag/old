@@ -34,10 +34,9 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
             $chapitre->setEnable($enable);
             $chapitre->setContent($faker->unique()->paragraphs(4, true));
             $manager->persist($chapitre);
+            $manager->flush();
             sleep(1);
         }
-
-        $manager->flush();
     }
 
     public function getDependencies()

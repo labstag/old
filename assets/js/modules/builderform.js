@@ -4,8 +4,13 @@ import 'jquery-ui-sortable';
 import 'formBuilder';
 export class builderform {
     constructor(emplacement) {
-        this.emplacement = emplacement;
+        this.emplacement                = emplacement;
+        window.dataFormBuilderFormatter = this.formatter;
         this.execute();
+    }
+
+    formatter(value, row) {
+        return JSON.parse(value).length;
     }
 
     execute() {
@@ -17,6 +22,7 @@ export class builderform {
                 'location': $('#' + this.emplacement).attr('data-url'),
                 'locale'  : 'fr-FR'
             },
+            'textarea'             : ['textarea', 'tinymce'],
             'disabledActionButtons': ['data', 'save'],
             'roles'                : '',
             'formData'             : $('#formbuilder_formbuilder').val()

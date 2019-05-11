@@ -3,6 +3,7 @@
 namespace Labstag\Repository;
 
 use Labstag\Entity\History;
+use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,36 @@ class HistoryRepository extends ServiceEntityRepositoryLib
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, History::class);
+    }
+
+    public function findAllActiveByUser(User $user)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->innerJoin('p.refuser', 'u');
+        $dql->where('p.enable=:enable');
+        $dql->andWhere('u.id=:iduser');
+        $dql->orderBy('p.createdAt', 'DESC');
+        $dql->setParameters(
+            [
+                'iduser' => $user->getId(),
+                'enable' => true,
+            ]
+        );
+
+        return $dql->getQuery();
+    }
+
+    public function findAllActive()
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->join('p.chapitres', 'c');
+        $dql->where('p.enable=:enable AND c.enable=:enable');
+        $dql->orderBy('p.updatedAt', 'DESC');
+        $dql->setParameters(
+            ['enable' => true]
+        );
+
+        return $dql->getQuery();
     }
 
     // /**

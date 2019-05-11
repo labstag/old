@@ -90,19 +90,35 @@ abstract class ControllerLib extends Controller
         $this->paramViews['pagination'] = $pagination;
     }
 
-    private function setConfigurationParam()
+    protected function setConfigurationParam()
     {
+        if (isset($this->paramViews['config'])) {
+            return;
+        }
+
         $configurationRepository = $this->container->get(ConfigurationRepository::class);
-        $data                    = $configurationRepository->GetDataArray();
+        $data                    = $configurationRepository->findAll();
         $config                  = [];
 
         foreach ($data as $row) {
-            $key          = $row['c_name'];
-            $value        = $row['c_value'];
+            $key   = $row->getName();
+            $value = $row->getValue();
+
             $config[$key] = $value;
         }
 
-        dump($config);
+        if(isset($config['oauth'])) {
+            $oauth = array();
+            foreach ($config['oauth'] as $data) {
+                if ($data['activate'] == 1) {
+                    $type         = $data['type'];
+                    $oauth[$type] = $data;
+                }
+            }
+
+            $this->paramViews['oauth_activated'] = $oauth;
+        }
+
         $this->paramViews['config'] = $config;
     }
 }

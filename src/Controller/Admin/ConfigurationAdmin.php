@@ -125,4 +125,19 @@ class ConfigurationAdmin extends AdminControllerLib
             ]
         );
     }
+
+    /**
+     * @Route("/", name="adminconfiguration_delete", methods={"DELETE"})
+     * @Route("/trash", name="adminconfiguration_deletetrash", methods={"DELETE"})
+     */
+    public function delete(ConfigurationRepository $repository): JsonResponse
+    {
+        return $this->crudDeleteAction(
+            $repository,
+            [
+                'url_list'  => 'adminconfiguration_list',
+                'url_trash' => 'adminconfiguration_trash',
+            ]
+        );
+    }
 }

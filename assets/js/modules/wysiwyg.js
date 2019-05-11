@@ -41,17 +41,6 @@ export class wysiwyg {
             'images_upload_handler'(blobInfo, success, failure) {}
         };
 
-        let wysiwyg = document.querySelectorAll('.wysiwyg');
-
-        wysiwyg.forEach(
-            function (element, index) {
-                var $id         = wysiwyg[index].getAttribute('id');
-                var tinymceData = dataTinymce;
-
-                tinymceData.selector = '#' + $id;
-
-                tinymce.init(tinymceData);
-            }
-        );
+        tinymce.init(dataTinymce);
     }
 }

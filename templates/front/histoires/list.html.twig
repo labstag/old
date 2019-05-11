@@ -1,0 +1,24 @@
+{% extends 'site.html.twig' %}
+{% block page_title %}Post{% endblock %}
+{% block bodySite %}
+    <div class="container">
+        <div class="col-md-12">
+            {% for histoire in pagination %}
+                <h2>{{ histoire.name }}</h2>
+                {% if histoire.file %}
+                    <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
+                {% endif %}
+                <div>créer 
+                {% if histoire.refuser.id is defined %}
+                    par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">{{ histoire.refuser }}</a>
+                {% endif %} le {{ histoire.createdAt|date }} et modifier le {{ histoire.updatedAt|date }}</div>
+                <div>Nombre de chapitres {{ histoire.chapitresenabled|length }}</div>
+                {% set lastchapitre = histoire.chapitresenabled|last %}
+                <ul>
+                    <li><a href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>
+                    <li><a href="{{ path('history_show', {'slug': histoire.slug, 'chapitre': lastchapitre.position+1}) }}">Lire le dernier chapitre</a></li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
