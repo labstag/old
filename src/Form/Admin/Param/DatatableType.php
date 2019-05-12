@@ -2,12 +2,11 @@
 
 namespace Labstag\Form\Admin\Param;
 
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class DatatableType extends AbstractType
 {
@@ -17,26 +16,10 @@ class DatatableType extends AbstractType
         $builder->add(
             'lang',
             ChoiceType::class,
-            [
-                'choices' => $lang
-            ]
+            ['choices' => $lang]
         );
         $builder->add('pagelist', TextType::class);
         unset($options);
-    }
-
-    private function getFilesLang()
-    {
-        $tabLang  = [];
-        $files    = glob('../node_modules/bootstrap-table/dist/locale/*');
-        foreach ($files as $file){
-            $code           = 'bootstrap-table-';
-            $lang           = substr($file, strpos($file,$code)+strlen($code));
-            $lang           = substr($lang, 0, strpos($lang, '.'));
-            $tabLang[$lang] = $lang;
-        }
-
-        return $tabLang;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -46,5 +29,19 @@ class DatatableType extends AbstractType
                 // Configure your form options here
             ]
         );
+    }
+
+    private function getFilesLang()
+    {
+        $tabLang = [];
+        $files   = glob('../node_modules/bootstrap-table/dist/locale/*');
+        foreach ($files as $file) {
+            $code           = 'bootstrap-table-';
+            $lang           = substr($file, (strpos($file, $code) + strlen($code)));
+            $lang           = substr($lang, 0, strpos($lang, '.'));
+            $tabLang[$lang] = $lang;
+        }
+
+        return $tabLang;
     }
 }

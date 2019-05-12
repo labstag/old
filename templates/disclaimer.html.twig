@@ -1,11 +1,14 @@
 {% set classBody = "DisclaimerPage" %}
 {% extends 'base.html.twig' %}
+{% import "macro.html.twig" as macroSite %}
 {% block content_title %}{{ title }}{% endblock %}
 {% block body %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {{ form_start(form) }}
+
+                {{ macroSite.flashbag(app) }}
                 {{ message|raw }}
                 {{ form_row(form.confirm) }}
                 <div class="row">

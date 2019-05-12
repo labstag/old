@@ -3,8 +3,8 @@
 namespace Labstag\DataListener;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 use Labstag\Entity\Configuration;
 
 class ConfigurationListener implements EventSubscriber
@@ -21,7 +21,6 @@ class ConfigurationListener implements EventSubscriber
             Events::prePersist,
         ];
     }
-
 
     public function prePersist(LifecycleEventArgs $args)
     {
@@ -45,9 +44,9 @@ class ConfigurationListener implements EventSubscriber
 
     private function traitement($entity)
     {
-        $name = $entity->getName();
+        $name  = $entity->getName();
         $value = $entity->getValue();
-        if ($name == "robotstxt") {
+        if ('robotstxt' == $name) {
             file_put_contents('robots.txt', $value);
         }
     }

@@ -2,12 +2,12 @@
 
 namespace Labstag\DataFixtures;
 
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Labstag\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
@@ -86,7 +86,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            FilesFixtures::class
+            FilesFixtures::class,
         ];
     }
 }

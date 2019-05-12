@@ -2,15 +2,14 @@
 
 namespace Labstag\DataFixtures;
 
-use Labstag\Entity\Configuration;
-use Labstag\Services\OauthServices;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Labstag\Entity\Configuration;
+use Labstag\Services\OauthServices;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigurationFixtures extends Fixture
 {
-
     public function __construct(ContainerInterface $container)
     {
         $this->container     = $container;
@@ -29,7 +28,7 @@ class ConfigurationFixtures extends Fixture
                     'theme-color' => '#ff0000',
                     'description' => '',
                     'keywords'    => '',
-                ]
+                ],
             ],
             'disclaimer' => [
                 [
@@ -37,25 +36,23 @@ class ConfigurationFixtures extends Fixture
                     'message'      => '',
                     'title'        => '',
                     'url-redirect' => 'http://www.google.fr',
-                ]
+                ],
             ],
             'moment'     => [
                 [
                     'format' => 'MMMM Do YYYY, H:mm:ss',
                     'lang'   => 'fr',
-                ]
+                ],
             ],
             'wysiwyg'    => [
-                [
-                    'lang' => 'fr_FR'
-                ]
+                ['lang' => 'fr_FR'],
             ],
             'datatable'  => [
                 [
                     'lang'     => 'fr-FR',
-                    'pagelist' => '[5, 10, 25, 50, All]'
-                ]
-            ]
+                    'pagelist' => '[5, 10, 25, 50, All]',
+                ],
+            ],
         ];
         $param = $_SERVER;
         $oauth = [];

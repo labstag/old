@@ -2,12 +2,11 @@
 
 namespace Labstag\Form\Admin\Param;
 
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class MomentType extends AbstractType
 {
@@ -17,25 +16,10 @@ class MomentType extends AbstractType
         $builder->add(
             'lang',
             ChoiceType::class,
-            [
-                'choices' => $lang
-            ]
+            ['choices' => $lang]
         );
         $builder->add('format', TextType::class);
         unset($options);
-    }
-
-    private function getFilesLang()
-    {
-        $tabLang = [];
-        $files   = glob('../node_modules/moment/locale/*');
-        foreach ($files as $file){
-            $pathfile           = pathinfo($file);
-            $filename           = $pathfile['filename'];
-            $tabLang[$filename] = $filename;
-        }
-
-        return $tabLang;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -45,5 +29,18 @@ class MomentType extends AbstractType
                 // Configure your form options here
             ]
         );
+    }
+
+    private function getFilesLang()
+    {
+        $tabLang = [];
+        $files   = glob('../node_modules/moment/locale/*');
+        foreach ($files as $file) {
+            $pathfile           = pathinfo($file);
+            $filename           = $pathfile['filename'];
+            $tabLang[$filename] = $filename;
+        }
+
+        return $tabLang;
     }
 }
