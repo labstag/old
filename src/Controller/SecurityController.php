@@ -13,6 +13,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends ControllerLib
 {
     /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): Response
+    {
+    }
+    /**
      * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils, OauthConnectUserRepository $repository): Response

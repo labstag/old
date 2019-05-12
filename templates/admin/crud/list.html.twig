@@ -1,5 +1,5 @@
 {% extends 'admin.html.twig' %}
-{% import "admin/macro.html.twig" as macro %}
+{% import "admin/macro.html.twig" as macroAdmin %}
 {% block bodyAdmin %}
     <div class="row">
         <div class="col-md-12">
@@ -39,7 +39,7 @@
                                 {% endfor %}
                                 {% if operation is defined %}
                                     <td>
-                                        {{ macro.operation(data.id, operation_link) }}
+                                        {{ macroAdmin.operation(data.id, operation_link) }}
                                     </td>
                                 {% endif %}
                             </tr>
@@ -50,6 +50,6 @@
         </div>
     </div>
     <div class="d-none OperationCrud">
-        {{ macro.operation('code', operation_link) }}
+        {{ macroAdmin.operation('code', operation_link) }}
     </div>
 {% endblock %}

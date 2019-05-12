@@ -69,7 +69,7 @@
 		<{{ element|default('label') }}{%- if label_attr -%}{%- with { attr: label_attr } -%}{{ block('attributes') }}{%- endwith -%}{%- endif -%}>
 			{{ label|trans }}
 			{%- if allow_add is defined and allow_add == true -%}
-				<div class="btn btn-primary btn-xs BtnCollectionAdd">
+				<div class="btn btn-primary btn-xs BtnCollectionAdd float-right">
 					<i class="glyphicon glyphicon-plus"></i>
 					<span>Ajouter</span>
 				</div>
