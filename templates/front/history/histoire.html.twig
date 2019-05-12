@@ -22,13 +22,13 @@
             <div>créer 
                 {% if entity.refuser.id is defined %}
                     par <a href="{{ path('history_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a>
-                {% endif %} le {{ entity.createdAt|date('d/m/Y H:i:s') }} et modifier le {{ entity.updatedAt|date('d/m/Y H:i:s') }}</div>
+                {% endif %} le {{ entity.createdAt|ago }} et modifier le {{ entity.updatedAt|ago }}</div>
             <div>Nombre de chapitres {{ chapitres|length }}</div>
             <ul>
                 {% for i, rowChapitre in chapitres %}
                     <li>
                         <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
-                            {{ rowChapitre.name }} ({{ rowChapitre.createdAt|date('d/m/Y H:i:s') }})
+                            {{ rowChapitre.name }} ({{ rowChapitre.createdAt|ago }})
                             {% if i+1 == entity.chapitres|length %}
                                 dernier
                             {% endif %}

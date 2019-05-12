@@ -9,7 +9,7 @@
                 <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
             {% endif %}
             <div><a href="{{ path('posts_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a></div>
-            <div>créer le {{ entity.createdAt|date }} et modifier le {{ entity.updatedAt|date }}</div>
+            <div>créer le {{ entity.createdAt|ago }} et modifier le {{ entity.updatedAt|ago }}</div>
             <div>TAGS : {% for tag in entity.tags %}
                 <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">{{ tag.name }}</a>
             {% endfor %}</div>

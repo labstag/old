@@ -11,7 +11,7 @@
                 <div>créer 
                 {% if histoire.refuser.id is defined %}
                     par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">{{ histoire.refuser }}</a>
-                {% endif %} le {{ histoire.createdAt|date }} et modifier le {{ histoire.updatedAt|date }}</div>
+                {% endif %} le {{ time_diff(histoire.createdAt) }} et modifier le {{ histoire.updatedAt|ago }}</div>
                 <div>Nombre de chapitres {{ histoire.chapitresenabled|length }}</div>
                 {% set lastchapitre = histoire.chapitresenabled|last %}
                 <ul>
