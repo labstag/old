@@ -149,7 +149,6 @@ abstract class ControllerLib extends Controller
             $this->paramViews['oauth_activated'] = $oauth;
         }
 
-        dump($config);
         $this->paramViews['config'] = $config;
     }
 }
