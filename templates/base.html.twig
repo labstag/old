@@ -25,9 +25,6 @@
     </head>
     <body{% if classBody is defined %} class="{{ classBody }}"{% endif %} data-momentlang="{{ config['moment'][0]['lang'] }}" data-wysiwyglang="{{ config['wysiwyg'][0]['lang'] }}">
         {% block body %}{% endblock %}
-        {% if pagination is defined %}
-            {{ knp_pagination_render(pagination) }}
-        {% endif %}
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
     </body>

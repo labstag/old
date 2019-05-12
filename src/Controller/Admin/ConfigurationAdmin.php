@@ -23,7 +23,6 @@ class ConfigurationAdmin extends AdminControllerLib
     {
         $datatable = [
             'Name'      => ['field' => 'name'],
-            'Value'     => ['field' => 'value'],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'formatter' => 'dateFormatter',

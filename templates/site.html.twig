@@ -1,9 +1,51 @@
+{% set classBody = "PublicPages" %}
 {% extends 'base.html.twig' %}
-
+{% import "macro.html.twig" as macroSite %}
 {% block body %}
-    <div class="container-fluid">
+    <header>
+        <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+            <a class="navbar-brand" href="{{ path('front') }}">{% if config['site_title'] is defined %}{{ config['site_title'] }}{% endif %}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('front') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('posts_list') }}">Weblog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('history_list') }}">Histoires</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_dashboard') }}">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <aside>
+            {% block aside %}
+            {% endblock %}
+        </aside>
+        <main class="container-fluid">
+            {{ macroSite.flashbag(app) }}
     {% block bodySite %}
-
     {% endblock %}
+            {% if pagination is defined %}
+                {{ knp_pagination_render(pagination) }}
+            {% endif %}
+        </main>
     </div>
+    <footer>
+
+    </footer>
 {% endblock %}
