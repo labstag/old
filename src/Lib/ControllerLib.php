@@ -61,8 +61,26 @@ abstract class ControllerLib extends Controller
     ): Response
     {
         $this->addParamViewsSite($parameters);
+        if ($this->disclaimerActivate($parameters)) {
+            return $this->redirect(
+                $this->generateUrl('disclaimer')
+            );
+        }
 
         return parent::render($view, $this->paramViews, $response);
+    }
+
+    private function disclaimerActivate($parameters)
+    {
+        $session = $this->request->getSession();
+        if ($session->get('disclaimer') !=1 && !isset($parameters['disclaimer']) && true == $this->paramViews['config']['disclaimer'][0]['activate']) {
+            $route = $this->request->attributes->get('_route');
+            if ('disclaimer' != $route) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -131,6 +149,7 @@ abstract class ControllerLib extends Controller
             $this->paramViews['oauth_activated'] = $oauth;
         }
 
+        dump($config);
         $this->paramViews['config'] = $config;
     }
 }

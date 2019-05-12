@@ -20,6 +20,7 @@ abstract class AdminControllerLib extends ControllerLib
     public function twig(string $view, array $parameters = [], Response $response = null): Response
     {
         $this->addParamViewsAdmin($parameters);
+        $this->paramViews['disclaimer'] = 0;
 
         return parent::twig($view, $this->paramViews, $response);
     }
