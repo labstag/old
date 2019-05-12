@@ -31,6 +31,14 @@ class ConfigurationFixtures extends Fixture
                     'keywords'    => '',
                 ]
             ],
+            'disclaimer' => [
+                [
+                    'activate'     => 0,
+                    'message'      => '',
+                    'title'        => '',
+                    'url-redirect' => 'http://www.google.fr',
+                ]
+            ],
             'moment'     => [
                 [
                     'format' => 'MMMM Do YYYY, H:mm:ss',
