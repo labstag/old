@@ -1,3 +1,4 @@
+{% import "macro.html.twig" as macroSite %}
 {% extends 'front/history/index.html.twig' %}
 {% block page_title %}Post{% endblock %}
 {% block bodySite %}
@@ -11,7 +12,7 @@
                 <div>créer 
                 {% if histoire.refuser.id is defined %}
                     par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">{{ histoire.refuser }}</a>
-                {% endif %} le {{ time_diff(histoire.createdAt) }} et modifier le {{ histoire.updatedAt|ago }}</div>
+                {% endif %} le {{ macroSite.timeago(histoire.createdAt) }} et modifier le {{ macroSite.timeago(histoire.updatedAt) }}</div>
                 <div>Nombre de chapitres {{ histoire.chapitresenabled|length }}</div>
                 {% set lastchapitre = histoire.chapitresenabled|last %}
                 <ul>

@@ -1,3 +1,4 @@
+{% import "macro.html.twig" as macroSite %}
 {% extends 'front/history/index.html.twig' %}
 {% block page_title %}{{ entity.name }}{% endblock %}
 {% block aside %}
@@ -22,7 +23,7 @@
             <div>créer 
                 {% if entity.refuser.id is defined %}
                     par <a href="{{ path('history_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a>
-                {% endif %} le {{ entity.createdAt|ago }} et modifier le {{ entity.updatedAt|ago }}</div>
+                {% endif %} le {{ macroSite.timeago(entity.createdAt) }} et modifier le {{ macroSite.timeago(entity.updatedAt) }}</div>
             <div>Nombre de chapitres {{ chapitres|length }}</div>
             <ul>
                 {% for i, rowChapitre in chapitres %}
