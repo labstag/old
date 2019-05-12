@@ -1,4 +1,6 @@
-{% set classBody = "PublicPages" %}
+{% if classBody is not defined %}
+    {% set classBody = "PublicPages" %}
+{% endif %}
 {% extends 'base.html.twig' %}
 {% import "macro.html.twig" as macroSite %}
 {% block body %}
