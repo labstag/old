@@ -2,16 +2,15 @@
 
 namespace Labstag\DataFixtures;
 
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Labstag\Entity\Post;
+use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\TagsRepository;
 use Labstag\Repository\UserRepository;
-use Labstag\DataFixtures\FilesFixtures;
-use Labstag\Repository\CategoryRepository;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {

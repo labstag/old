@@ -46,8 +46,7 @@ class AdminController extends AdminControllerLib
         $this->setConfigurationParam();
         $otherOauth = $this->paramViews['oauth_activated'];
 
-        foreach($user->getOauthConnectUsers() as $oauth)
-        {
+        foreach ($user->getOauthConnectUsers() as $oauth) {
             $type = $oauth->getName();
             unset($otherOauth[$type]);
         }
@@ -56,10 +55,10 @@ class AdminController extends AdminControllerLib
             'admin/profil.html.twig',
             [
                 'otherOauth' => $otherOauth,
-                'entity'  => $user,
-                'title'   => 'Profil',
-                'btnSave' => true,
-                'form'    => $form->createView(),
+                'entity'     => $user,
+                'title'      => 'Profil',
+                'btnSave'    => true,
+                'form'       => $form->createView(),
             ]
         );
     }

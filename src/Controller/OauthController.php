@@ -2,17 +2,17 @@
 
 namespace Labstag\Controller;
 
+use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
+use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Services\OauthServices;
-use Labstag\Entity\OauthConnectUser;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Routing\Annotation\Route;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
-use Labstag\Repository\OauthConnectUserRepository;
+use Symfony\Component\Security\Core\Security;
 
 class OauthController extends ControllerLib
 {
@@ -35,16 +35,16 @@ class OauthController extends ControllerLib
      */
     public function lostAction(Request $request, string $oauthCode, Security $security, OauthConnectUserRepository $repository)
     {
-        $user = $security->getUser();
+        $user    = $security->getUser();
         $referer = $request->headers->get('referer');
         $session = $request->getSession();
         $session->set('referer', $referer);
         $url = $this->generateUrl('front');
-        if ($referer != '') {
+        if ('' != $referer) {
             $url = $referer;
         }
 
-        $entity = $repository->findOneOauthByUser($oauthCode, $user);
+        $entity  = $repository->findOneOauthByUser($oauthCode, $user);
         $manager = $this->getDoctrine()->getManager();
         if ($entity) {
             $manager->remove($entity);
@@ -67,7 +67,7 @@ class OauthController extends ControllerLib
         $referer  = $request->headers->get('referer');
         $session->set('referer', $referer);
         $url = $this->generateUrl('front');
-        if ($referer != '') {
+        if ('' != $referer) {
             $url = $referer;
         }
 
@@ -101,7 +101,7 @@ class OauthController extends ControllerLib
         $referer     = $session->get('referer');
         $oauth2state = $session->get('oauth2state');
         $url         = $this->generateUrl('front');
-        if ($referer != '') {
+        if ('' != $referer) {
             $url = $referer;
         }
 
