@@ -1,5 +1,17 @@
-{% extends 'site.html.twig' %}
-{% block page_title %}Post{% endblock %}
+{% extends 'front/history/index.html.twig' %}
+{% block page_title %}{{ entity.name }}{% endblock %}
+{% block aside %}
+    <div>Liste des chapitres</div>
+    <ul>
+        {% for i, rowChapitre in chapitres %}
+            <li>
+                <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
+                    {{ rowChapitre.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
@@ -10,13 +22,13 @@
             <div>créer 
                 {% if entity.refuser.id is defined %}
                     par <a href="{{ path('history_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a>
-                {% endif %} le {{ entity.createdAt|date }} et modifier le {{ entity.updatedAt|date }}</div>
+                {% endif %} le {{ entity.createdAt|date('d/m/Y H:i:s') }} et modifier le {{ entity.updatedAt|date('d/m/Y H:i:s') }}</div>
             <div>Nombre de chapitres {{ chapitres|length }}</div>
             <ul>
                 {% for i, rowChapitre in chapitres %}
                     <li>
                         <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
-                            {{ rowChapitre.name }} ({{ rowChapitre.createdAt|date }})
+                            {{ rowChapitre.name }} ({{ rowChapitre.createdAt|date('d/m/Y H:i:s') }})
                             {% if i+1 == entity.chapitres|length %}
                                 dernier
                             {% endif %}
@@ -27,7 +39,7 @@
         </div>
         {% if chapitre is defined %}
         <div class="col-md-12">
-            <div>{{ chapitre.name }} {{ chapitre.createdAt|date }}</div>
+            <h3>{{ chapitre.name }}</h3>
             {{ chapitre.content|raw }}
         </div>
         {% endif %}

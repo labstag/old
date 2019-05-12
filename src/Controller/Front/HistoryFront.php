@@ -22,7 +22,7 @@ class HistoryFront extends ControllerLib
         $histoires = $repository->findAllActive();
         $this->paginator($histoires);
 
-        return $this->twig('front/histoires/list.html.twig');
+        return $this->twig('front/history/list.html.twig');
     }
 
     /**
@@ -33,7 +33,7 @@ class HistoryFront extends ControllerLib
         $histoires = $repository->findAllActiveByUser($user);
         $this->paginator($histoires);
 
-        return $this->twig('front/histoires/list.html.twig');
+        return $this->twig('front/history/list.html.twig');
     }
 
     /**
@@ -59,6 +59,6 @@ class HistoryFront extends ControllerLib
             }
         }
 
-        return $this->twig('front/histoires/histoire.html.twig', $datatwig);
+        return $this->twig('front/history/histoire.html.twig', $datatwig);
     }
 }
