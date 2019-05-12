@@ -2,26 +2,52 @@
 @import "~@fancyapps/fancybox/dist/jquery.fancybox.css";
 
 .AdminPages {
+    .FieldCollection {
+        border: 1px solid #000000;
+        padding: 10px;
+        border-radius: 5px;
+
+        legend {
+            width: 20%;
+            padding-left: 10px;
+            border: 1px solid #000000;
+            border-radius: 0px 5px 5px 0px;
+        }
+    }
+
+    .FieldCollections {
+        border: 1px solid #000000;
+        padding: 10px;
+        border-radius: 5px;
+
+        legend {
+            width: 20%;
+            padding-left: 10px;
+            border: 1px solid #000000;
+            border-radius: 0px 5px 5px 0px;
+        }
+    }
+
+    #CrudList {
+        .btn {
+            margin: 1px;
+        }
+    }
+
     .sidebar {
         .nav-link[data-toggle].collapsed {
             &:after {
                 float: right;
-                content: "▴";
+                content: "▾";
             }
         }
 
         .nav-link[data-toggle] {
-            .collapsed {
-                &:after {
-                    float: right;
-                    content: "▴";
-                }
-            }
 
             &:not(.collapsed) {
                 &:after {
                     float: right;
-                    content: "▾";
+                    content: "▴";
                 }
             }
         }
@@ -41,42 +67,32 @@
     }
 
     .user-menu {
-        .img-circle {
-            border-radius: 50%;
-            border: 3px solid;
-            height: 90px;
-            width: 90px;
+        padding-top: 0px;
+        width: 200px;
+
+        .user-header {
+            background-color: #343a40;
+            color: white;
+            height: 175px;
+            padding: 10px;
+            text-align: center;
+
+            .img-circle {
+                border-radius: 50%;
+                border: 3px solid;
+                height: 90px;
+                width: 90px;
+            }
         }
-    }
 
-    .navbar-custom-menu {
-        float: right;
+        .user-body {
+            padding: 15px;
+            border-bottom: 1px solid #f4f4f4;
+            border-top: 1px solid #dddddd;
+        }
 
-        .dropdown-menu {
-            border-top-right-radius: 0;
-            border-top-left-radius: 0;
-            padding: 1px 0 0 0;
-            border-top-width: 0;
-            width: 280px;
-            padding-bottom: 10px;
-
-            .user-header {
-                background-color: #343a40;
-                color: white;
-                height: 175px;
-                padding: 10px;
-                text-align: center;
-            }
-
-            .user-body {
-                padding: 15px;
-                border-bottom: 1px solid #f4f4f4;
-                border-top: 1px solid #dddddd;
-            }
-
-            .user-footer {
-                padding: 10px;
-            }
+        .user-footer {
+            padding: 10px;
         }
     }
 

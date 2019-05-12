@@ -42,6 +42,7 @@ class HistoryAdmin extends AdminControllerLib
             'Fin'       => [
                 'field'     => 'end',
                 'formatter' => 'endFormatter',
+                'align'     => 'center',
             ],
             'Enable'    => [
                 'field'     => 'enable',

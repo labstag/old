@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Labstag\Form\Admin\Param\WysiwygType;
 use Labstag\Form\Admin\Param\MetaSiteType;
 use Labstag\Form\Admin\Param\DatatableType;
+use Labstag\Form\Admin\Param\DisclaimerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -64,6 +65,15 @@ class ParamType extends AbstractType
                 'allow_add'    => false,
                 'allow_delete' => false,
                 'entry_type'   => WysiwygType::class,
+            ]
+        );
+        $builder->add(
+            'disclaimer',
+            CollectionType::class,
+            [
+                'allow_add'    => false,
+                'allow_delete' => false,
+                'entry_type'   => DisclaimerType::class,
             ]
         );
         $builder->add('submit', SubmitType::class);

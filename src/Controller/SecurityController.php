@@ -37,9 +37,10 @@ class SecurityController extends ControllerLib
         return $this->twig(
             'security/login.html.twig',
             [
-                'oauths'    => $oauths,
-                'formLogin' => $form->createView(),
-                'error'     => $error,
+                'disclaimer' => 0,
+                'oauths'     => $oauths,
+                'formLogin'  => $form->createView(),
+                'error'      => $error,
             ]
         );
     }

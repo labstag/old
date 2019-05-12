@@ -35,8 +35,8 @@ export class wysiwyg {
                 input.click();
             },
             'relative_urls': false,
-            'plugins'      : 'code emoticons visualblocks print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
-            'toolbar'      : 'formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | addcomment',
+            'plugins'      : 'code emoticons visualblocks print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
+            'toolbar'      : 'formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat | addcomment',
             'language'     : $('body').attr('data-wysiwyglang'),
             'images_upload_handler'(blobInfo, success, failure) {}
         };
