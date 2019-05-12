@@ -2,8 +2,8 @@
 
 namespace Labstag\Repository;
 
-use Labstag\Entity\User;
 use Labstag\Entity\OauthConnectUser;
+use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

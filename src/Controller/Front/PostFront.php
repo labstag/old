@@ -63,7 +63,7 @@ class PostFront extends ControllerLib
             'front/posts/show.html.twig',
             [
                 'entity'  => $post,
-                'setMeta' => $post
+                'setMeta' => $post,
             ]
         );
     }

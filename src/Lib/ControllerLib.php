@@ -4,11 +4,11 @@ namespace Labstag\Lib;
 
 use DateTimeInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class ControllerLib extends Controller
 {
@@ -70,19 +70,6 @@ abstract class ControllerLib extends Controller
         return parent::render($view, $this->paramViews, $response);
     }
 
-    private function disclaimerActivate($parameters)
-    {
-        $session = $this->request->getSession();
-        if ($session->get('disclaimer') !=1 && !isset($parameters['disclaimer']) && true == $this->paramViews['config']['disclaimer'][0]['activate']) {
-            $route = $this->request->attributes->get('_route');
-            if ('disclaimer' != $route) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * Add param to twig.
      */
@@ -91,16 +78,6 @@ abstract class ControllerLib extends Controller
         $this->setConfigurationParam();
         $this->setMetaWithEntity($parameters);
         $this->paramViews = array_merge($parameters, $this->paramViews);
-    }
-
-    private function setMetaWithEntity($parameters)
-    {
-        if (isset($parameters['setMeta'])) {
-            $entity = $parameters['setMeta'];
-
-            $this->paramViews['config']['meta'][0]['article:published_time'] = $entity->getCreatedAt()->format(DateTimeInterface::ATOM);
-            $this->paramViews['config']['meta'][0]['article:modified_time'] = $entity->getUpdatedAt()->format(DateTimeInterface::ATOM);
-        }
     }
 
     protected function paginator($query)
@@ -137,10 +114,10 @@ abstract class ControllerLib extends Controller
             $config[$key] = $value;
         }
 
-        if(isset($config['oauth'])) {
-            $oauth = array();
+        if (isset($config['oauth'])) {
+            $oauth = [];
             foreach ($config['oauth'] as $data) {
-                if ($data['activate'] == 1) {
+                if (1 == $data['activate']) {
                     $type         = $data['type'];
                     $oauth[$type] = $data;
                 }
@@ -150,5 +127,28 @@ abstract class ControllerLib extends Controller
         }
 
         $this->paramViews['config'] = $config;
+    }
+
+    private function disclaimerActivate($parameters)
+    {
+        $session = $this->request->getSession();
+        if (1 != $session->get('disclaimer') && !isset($parameters['disclaimer']) && true == $this->paramViews['config']['disclaimer'][0]['activate']) {
+            $route = $this->request->attributes->get('_route');
+            if ('disclaimer' != $route) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function setMetaWithEntity($parameters)
+    {
+        if (isset($parameters['setMeta'])) {
+            $entity = $parameters['setMeta'];
+
+            $this->paramViews['config']['meta'][0]['article:published_time'] = $entity->getCreatedAt()->format(DateTimeInterface::ATOM);
+            $this->paramViews['config']['meta'][0]['article:modified_time']  = $entity->getUpdatedAt()->format(DateTimeInterface::ATOM);
+        }
     }
 }

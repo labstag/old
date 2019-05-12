@@ -2,7 +2,11 @@ const Encore            = require('@symfony/webpack-encore');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore.setOutputPath('public/build/');
-Encore.setPublicPath('/build');
+if (Encore.isProduction()) {
+    Encore.setPublicPath('/labstag/public/build');
+} else {
+    Encore.setPublicPath('/build');
+}
 // Encore.addEntry('app', './assets/ts/app.ts');
 Encore.addEntry('app', [
     './assets/js/app.js'
