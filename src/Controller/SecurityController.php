@@ -38,7 +38,6 @@ class SecurityController extends ControllerLib
         // last username entered by the user
 
         $oauths = $repository->findDistinctAllOauth();
-        dump($oauths);
 
         return $this->twig(
             'security/login.html.twig',
