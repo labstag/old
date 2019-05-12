@@ -1,6 +1,6 @@
+{% import "macro.html.twig" as macroSite %}
 {% extends 'site.html.twig' %}
 {% block page_title %}{{ entity.name }}{% endblock %}
-
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
@@ -9,7 +9,7 @@
                 <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
             {% endif %}
             <div><a href="{{ path('posts_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a></div>
-            <div>créer le {{ entity.createdAt|ago }} et modifier le {{ entity.updatedAt|ago }}</div>
+                <div>créer le {{ macroSite.timeago(entity.createdAt) }} et modifier le {{ macroSite.timeago(entity.updatedAt) }}</div>
             <div>TAGS : {% for tag in entity.tags %}
                 <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">{{ tag.name }}</a>
             {% endfor %}</div>

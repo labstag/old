@@ -10,3 +10,6 @@
         </div>
     {% endfor %}
 {% endmacro %}
+{% macro timeago(temps) %}
+    <span class="timeago" title="{{ temps|date('d/m/Y \à H:i:s') }}">{{ temps|ago }}</span>
+{% endmacro %}
