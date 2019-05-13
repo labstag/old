@@ -9,6 +9,7 @@ class FilesFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        unset($manager);
         $folder = 'public/file';
         if (is_dir($folder)) {
             $this->delTree($folder);

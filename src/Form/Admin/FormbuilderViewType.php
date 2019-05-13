@@ -36,6 +36,65 @@ class FormbuilderViewType extends AbstractType
         );
     }
 
+    private function addText($field, $builder)
+    {
+        switch ($field['subtype']) {
+            case 'text':
+                $this->addType($field, TextType::class, $builder);
+
+                break;
+            case 'password':
+                $this->addType($field, PasswordType::class, $builder);
+
+                break;
+            case 'email':
+                $this->addType($field, EmailType::class, $builder);
+
+                break;
+            case 'color':
+                $this->addType($field, ColorType::class, $builder);
+
+                break;
+            case 'tel':
+                $this->addType($field, TelType::class, $builder);
+
+                break;
+        }
+    }
+
+    private function addButton($field, $builder)
+    {
+        switch ($field['subtype']) {
+            case 'button':
+                $this->addType($field, ButtonType::class, $builder);
+
+                break;
+            case 'submit':
+                $this->addType($field, SubmitType::class, $builder);
+
+                break;
+            case 'reset':
+                $this->addType($field, ResetType::class, $builder);
+
+                break;
+        }
+    }
+
+    private function addTextarea($field, $builder)
+    {
+        switch ($field['subtype']) {
+            case 'textarea':
+                $this->addType($field, TextareaType::class, $builder);
+
+                break;
+            case 'tinymce':
+            case 'quill':
+                $this->addType($field, WysiwygType::class, $builder);
+
+                break;
+        }
+    }
+
     private function addField($field, $builder)
     {
         switch ($field['type']) {
@@ -44,20 +103,8 @@ class FormbuilderViewType extends AbstractType
 
                 break;
             case 'button':
-                switch ($field['subtype']) {
-                    case 'button':
-                        $this->addType($field, ButtonType::class, $builder);
+                $this->addButton($field, $builder);
 
-                        break;
-                    case 'submit':
-                        $this->addType($field, SubmitType::class, $builder);
-
-                        break;
-                    case 'reset':
-                        $this->addType($field, ResetType::class, $builder);
-
-                        break;
-                }
                 break;
             case 'checkbox-group':
                 $this->addType($field, ChoiceType::class, $builder);
@@ -96,41 +143,12 @@ class FormbuilderViewType extends AbstractType
 
                 break;
             case 'text':
-                switch ($field['subtype']) {
-                    case 'text':
-                        $this->addType($field, TextType::class, $builder);
+                $this->addText($field, $builder);
 
-                        break;
-                    case 'password':
-                        $this->addType($field, PasswordType::class, $builder);
-
-                        break;
-                    case 'email':
-                        $this->addType($field, EmailType::class, $builder);
-
-                        break;
-                    case 'color':
-                        $this->addType($field, ColorType::class, $builder);
-
-                        break;
-                    case 'tel':
-                        $this->addType($field, TelType::class, $builder);
-
-                        break;
-                }
                 break;
             case 'textarea':
-                switch ($field['subtype']) {
-                    case 'textarea':
-                        $this->addType($field, TextareaType::class, $builder);
+                $this->addTextarea($field, $builder);
 
-                        break;
-                    case 'tinymce':
-                    case 'quill':
-                        $this->addType($field, WysiwygType::class, $builder);
-
-                        break;
-                }
                 break;
         }
     }
@@ -168,7 +186,7 @@ class FormbuilderViewType extends AbstractType
 
         if ('checkbox-group' == $field['type'] || 'radio-group' == $field['type']) {
             $choices = [];
-            foreach ($field['values'] as $key => $row) {
+            foreach ($field['values'] as $row) {
                 $label           = $row['label'];
                 $value           = $row['value'];
                 $choices[$label] = $value;

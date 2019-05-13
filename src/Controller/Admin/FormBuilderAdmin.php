@@ -79,17 +79,17 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashview/{id}", name="adminformbuilder_trashview")
+     * @Route("/trashview/{guid}", name="adminformbuilder_trashview")
      */
-    public function trashView(ConfigurationRepository $repository, $id): Response
+    public function trashView(ConfigurationRepository $repository, $guid): Response
     {
-        $formbuilder = $repository->findOneDateInTrash($id);
+        $formbuilder = $repository->findOneDateInTrash($guid);
 
         return $this->viewForm($formbuilder);
     }
 
     /**
-     * @Route("/view/{id}", name="adminformbuilder_view")
+     * @Route("/view/{guid}", name="adminformbuilder_view")
      */
     public function view(Formbuilder $formbuilder): Response
     {
@@ -97,11 +97,11 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{guid}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(ConfigurationRepository $repository, $id): Response
+    public function trashEdit(ConfigurationRepository $repository, $guid): Response
     {
-        $formbuilder = $repository->findOneDateInTrash($id);
+        $formbuilder = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -118,7 +118,7 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{id}", name="adminformbuilder_edit", methods={"GET", "POST"})
+     * @Route("/edit/{guid}", name="adminformbuilder_edit", methods={"GET", "POST"})
      */
     public function edit(Formbuilder $formbuilder): Response
     {
@@ -139,7 +139,7 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/empty", name="adminformbuilder_empty")
      */
-    public function empty(UserRepository $repository): JsonResponse
+    public function emptyFormBuilder(UserRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminformbuilder_list');
     }

@@ -8,9 +8,9 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
 {
     public function findDataInTrash()
     {
-        $em = $this->getEntityManager();
-        $em->getFilters()->disable('softdeleteable');
-        $dql = $em->createQueryBuilder();
+        $entityManager = $this->getEntityManager();
+        $entityManager->getFilters()->disable('softdeleteable');
+        $dql = $entityManager->createQueryBuilder();
         $dql->select('e');
         $dql->from($this->_entityName, 'e');
         $dql->where('e.deletedAt IS NOT NULL');
@@ -19,15 +19,15 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findOneDateInTrash($id)
+    public function findOneDateInTrash($guid)
     {
-        $em = $this->getEntityManager();
-        $em->getFilters()->disable('softdeleteable');
-        $dql = $em->createQueryBuilder();
+        $entityManager = $this->getEntityManager();
+        $entityManager->getFilters()->disable('softdeleteable');
+        $dql = $entityManager->createQueryBuilder();
         $dql->select('e');
         $dql->from($this->_entityName, 'e');
         $dql->where('e.deletedAt IS NOT NULL AND e.id=:id');
-        $dql->setParameter('id', $id);
+        $dql->setParameter('id', $guid);
         $query = $dql->getQuery();
 
         return $query->getOneOrNullResult();

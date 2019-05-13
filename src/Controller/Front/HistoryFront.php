@@ -5,7 +5,6 @@ namespace Labstag\Controller\Front;
 use Labstag\Entity\History;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
-use Labstag\Repository\ChapitreRepository;
 use Labstag\Repository\HistoryRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,7 +38,7 @@ class HistoryFront extends ControllerLib
     /**
      * @Route("/histoire/{slug}", name="history_show")
      */
-    public function histoire(History $history, ChapitreRepository $repository)
+    public function histoire(History $history)
     {
         $idChapitre = $this->request->query->get('chapitre');
         $chapitres  = $history->getChapitresEnabled();
