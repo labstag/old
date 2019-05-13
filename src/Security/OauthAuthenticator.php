@@ -68,13 +68,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $oauthCode;
 
-    public function __construct(
-        ContainerInterface $container,
-        EntityManagerInterface $entityManager,
-        UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder
-    )
+    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
@@ -125,6 +119,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        unset($userProvider);
         if (!isset($credentials['user'])) {
             throw new CustomUserMessageAuthenticationException(
                 'Connexion impossible avec ce service.'
@@ -157,15 +152,14 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        unset($credentials, $user);
+
         return true;
     }
 
-    public function onAuthenticationSuccess(
-        Request $request,
-        TokenInterface $token,
-        $providerKey
-    )
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        unset($token);
         $getTargetPath = $this->getTargetPath(
             $request->getSession(),
             $providerKey

@@ -3,9 +3,9 @@
 {% block page_title %}{{ entity.name }}{% endblock %}
 {% block aside %}
     <div>Liste des chapitres</div>
-    <ul>
+    <ul class="list-group">
         {% for i, rowChapitre in chapitres %}
-            <li>
+            <li class="list-group-item">
                 <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
                     {{ rowChapitre.name }}
                 </a>
@@ -23,7 +23,11 @@
             <div>créer 
                 {% if entity.refuser.id is defined %}
                     par <a href="{{ path('history_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a>
-                {% endif %} le {{ macroSite.timeago(entity.createdAt) }} et modifier le {{ macroSite.timeago(entity.updatedAt) }}</div>
+                {% endif %} le {{ macroSite.timeago(entity.createdAt) }} et modifier le {{ macroSite.timeago(entity.updatedAt) }}
+            </div>
+            <div>
+                {{ entity.resume|raw }}
+            </div>
             <div>Nombre de chapitres {{ chapitres|length }}</div>
             <ul>
                 {% for i, rowChapitre in chapitres %}

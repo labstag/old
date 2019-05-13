@@ -67,26 +67,7 @@ abstract class AdminControllerLib extends ControllerLib
             }
         }
 
-        foreach ($data['datatable'] as &$row) {
-            if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
-                $row['align'] = 'right';
-            }
-
-            if (isset($row['formatter']) && in_array($row['formatter'], ['dataTotalFormatter'])) {
-                $row['align'] = 'right';
-            }
-
-            if (isset($row['formatter']) && in_array($row['formatter'], ['enableFormatter', 'imageFormatter'])) {
-                $row['align'] = 'center';
-            }
-
-            if (!isset($row['valign'])) {
-                $row['valign'] = 'top';
-            }
-
-            $row['sortable'] = true;
-        }
-
+        $this->setDatatable($data);
         $paramtwig = [
             'datatable' => $data['datatable'],
             'title'     => $data['title'],
@@ -116,21 +97,10 @@ abstract class AdminControllerLib extends ControllerLib
         $dataInTrash = $repository->findDataInTrash();
         $route       = $this->request->attributes->get('_route');
         if (count($dataInTrash)) {
-            $paramtwig['url_trash'] = $data['url_trash'];
-            $paramtwig['url_list']  = $data['url_list'];
-            $paramtwig['url_edit']  = $data['url_trashedit'];
-            if ($route == $data['url_trash']) {
-                unset($paramtwig['url_new'], $paramtwig['url_trash']);
+            $this->dateInTrash($paramtwig, $dataInTrash, $data);
+        }
 
-                $paramtwig['dataInTrash'] = $dataInTrash;
-                $paramtwig['url_empty']   = $data['url_empty'];
-                $paramtwig['url_delete']  = $data['url_deletetrash'];
-                unset($paramtwig['api']);
-                if (isset($data['url_trashview'])) {
-                    $paramtwig['url_view'] = $data['url_trashview'];
-                }
-            }
-        } elseif ($route == $data['url_trash']) {
+        if (count($dataInTrash) == 0 && $route == $data['url_trash']) {
             $this->addFlash('info', 'Aucune donnée dans la corbeille');
 
             return $this->redirect(
@@ -301,7 +271,8 @@ abstract class AdminControllerLib extends ControllerLib
         $data          = json_decode($this->request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->getFilters()->disable('softdeleteable');
-        $restore = 0;
+        $restore       = 0;
+        $routeRedirect = $route['url_trash'];
         foreach ($data as $id) {
             $entity = $repository->findOneDateInTrash($id);
             if ($entity) {
@@ -316,9 +287,17 @@ abstract class AdminControllerLib extends ControllerLib
         }
 
         $entityManager->flush();
+        $dataInTrash = $repository->findDataInTrash();
+        if (count($dataInTrash)) {
+            $routeRedirect = $route['url_list'];
+        }
 
         $json = [
-            'redirect' => $this->generateUrl($routeRedirect, [], UrlGeneratorInterface::ABSOLUTE_PATH),
+            'redirect' => $this->generateUrl(
+                $routeRedirect,
+                [],
+                UrlGeneratorInterface::ABSOLUTE_PATH
+            ),
         ];
 
         return $this->json($json);
@@ -414,13 +393,55 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
-    private function findEntity($trash, $repository, $idEntity)
+    private function setDatatable(&$data)
+    {
+        foreach ($data['datatable'] as &$row) {
+            if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
+                $row['align'] = 'right';
+            }
+
+            if (isset($row['formatter']) && in_array($row['formatter'], ['dataTotalFormatter'])) {
+                $row['align'] = 'right';
+            }
+
+            if (isset($row['formatter']) && in_array($row['formatter'], ['enableFormatter', 'imageFormatter'])) {
+                $row['align'] = 'center';
+            }
+
+            if (!isset($row['valign'])) {
+                $row['valign'] = 'top';
+            }
+
+            $row['sortable'] = true;
+        }
+    }
+
+    private function dateInTrash(&$paramtwig, $dataInTrash, $data)
+    {
+        $route                  = $this->request->attributes->get('_route');
+        $paramtwig['url_trash'] = $data['url_trash'];
+        $paramtwig['url_list']  = $data['url_list'];
+        $paramtwig['url_edit']  = $data['url_trashedit'];
+        if ($route == $data['url_trash']) {
+            unset($paramtwig['url_new'], $paramtwig['url_trash']);
+
+            $paramtwig['dataInTrash'] = $dataInTrash;
+            $paramtwig['url_empty']   = $data['url_empty'];
+            $paramtwig['url_delete']  = $data['url_deletetrash'];
+            unset($paramtwig['api']);
+            if (isset($data['url_trashview'])) {
+                $paramtwig['url_view'] = $data['url_trashview'];
+            }
+        }
+    }
+
+    private function findEntity($trash, $repository, $dataInTrash)
     {
         if (1 == $trash) {
-            return $repository->find($id);
+            return $repository->find($dataInTrash);
         }
 
-        return $repository->findOneDateInTrash($id);
+        return $repository->findOneDateInTrash($dataInTrash);
     }
 
     private function setMenuAdmin()
@@ -517,6 +538,8 @@ abstract class AdminControllerLib extends ControllerLib
             $controller2,
             $route2,
         ] = explode('_', $actualroute);
+        unset($route1, $route2);
+
         if ($controller1 == $controller2) {
             return true;
         }

@@ -73,7 +73,9 @@ class PostAdmin extends AdminControllerLib
         $categories = $repository->findAll();
         if (count($categories)) {
             $data['url_new'] = 'adminpost_new';
-        } else {
+        }
+
+        if (0 == count($categories)) {
             $this->addFlash('warning', 'Vous ne pouvez pas créer de post sans créer de catégories');
         }
 
@@ -110,11 +112,11 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{id}", name="adminpost_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{guid}", name="adminpost_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(PostRepository $repository, $id): Response
+    public function trashEdit(PostRepository $repository, $guid): Response
     {
-        $post = $repository->findOneDateInTrash($id);
+        $post = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -129,7 +131,7 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{id}", name="adminpost_edit", methods={"GET", "POST"})
+     * @Route("/edit/{guid}", name="adminpost_edit", methods={"GET", "POST"})
      */
     public function edit(Post $post, CategoryRepository $repository): Response
     {
@@ -153,7 +155,7 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/empty", name="adminpost_empty")
      */
-    public function empty(TagsRepository $repository): JsonResponse
+    public function emptyPost(TagsRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminpost_list');
     }
@@ -244,11 +246,11 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/category/trashedit/{id}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
+     * @Route("/category/trashedit/{guid}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditCategory(CategoryRepository $repository, $id): Response
+    public function trashEditCategory(CategoryRepository $repository, $guid): Response
     {
-        $category = $repository->findOneDateInTrash($id);
+        $category = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -263,7 +265,7 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/category/edit/{id}", name="adminpostcategory_edit", methods={"GET", "POST"})
+     * @Route("/category/edit/{guid}", name="adminpostcategory_edit", methods={"GET", "POST"})
      */
     public function editCategory(Category $category): Response
     {
@@ -373,11 +375,11 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/tags/trashedit/{id}", name="adminposttags_trashedit", methods={"GET", "POST"})
+     * @Route("/tags/trashedit/{guid}", name="adminposttags_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditTags(TagsRepository $repository, $id): Response
+    public function trashEditTags(TagsRepository $repository, $guid): Response
     {
-        $tag = $repository->findOneDateInTrash($id);
+        $tag = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -392,7 +394,7 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/tags/edit/{id}", name="adminposttags_edit", methods={"GET", "POST"})
+     * @Route("/tags/edit/{guid}", name="adminposttags_edit", methods={"GET", "POST"})
      */
     public function editTags(Tags $tag): Response
     {

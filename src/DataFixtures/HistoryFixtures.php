@@ -26,6 +26,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < self::NUMBER; ++$i) {
             $history = new History();
             $history->setName($faker->unique()->safeColorName);
+            $history->setResume($faker->unique()->sentence);
             $enable = rand(0, 1);
             $history->setEnable($enable);
             $user = rand(0, 1);

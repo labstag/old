@@ -82,6 +82,11 @@ class History implements Translatable
      */
     private $end;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $resume;
+
     public function __construct()
     {
         $this->end       = false;
@@ -223,6 +228,18 @@ class History implements Translatable
     public function setEnd(bool $end): self
     {
         $this->end = $end;
+
+        return $this;
+    }
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(string $resume): self
+    {
+        $this->resume = $resume;
 
         return $this;
     }

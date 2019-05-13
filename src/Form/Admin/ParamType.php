@@ -77,6 +77,7 @@ class ParamType extends AbstractType
             ]
         );
         $builder->add('submit', SubmitType::class);
+        unset($options);
     }
 
     public function configureOptions(OptionsResolver $resolver)

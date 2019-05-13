@@ -121,11 +121,11 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{guid}", name="adminhistory_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(HistoryRepository $repository, $id): Response
+    public function trashEdit(HistoryRepository $repository, $guid): Response
     {
-        $history = $repository->findOneDateInTrash($id);
+        $history = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -140,7 +140,7 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/position/{id}", name="adminhistory_position", methods={"GET", "POST"})
+     * @Route("/position/{guid}", name="adminhistory_position", methods={"GET", "POST"})
      */
     public function position(History $history, ChapitreRepository $repository): Response
     {
@@ -188,7 +188,7 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{id}", name="adminhistory_edit", methods={"GET", "POST"})
+     * @Route("/edit/{guid}", name="adminhistory_edit", methods={"GET", "POST"})
      */
     public function edit(History $history): Response
     {
@@ -207,7 +207,7 @@ class HistoryAdmin extends AdminControllerLib
     /**
      * @Route("/empty", name="adminhistory_empty")
      */
-    public function empty(HistoryRepository $repository): JsonResponse
+    public function emptyHistory(HistoryRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminhistory_list');
     }
@@ -286,7 +286,9 @@ class HistoryAdmin extends AdminControllerLib
         $histoires = $repository->findAll();
         if (count($histoires)) {
             $data['url_new'] = 'adminhistorychapitre_new';
-        } else {
+        }
+
+        if (0 == count($histoires)) {
             $this->addFlash('warning', "Vous ne pouvez pas créer de chapitre sans créer d'histoires");
         }
 
@@ -323,11 +325,11 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/chapitre/trashedit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
+     * @Route("/chapitre/trashedit/{guid}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditChapitre(ChapitreRepository $repository, $id): Response
+    public function trashEditChapitre(ChapitreRepository $repository, $guid): Response
     {
-        $chapitre = $repository->findOneDateInTrash($id);
+        $chapitre = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -342,7 +344,7 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/chapitre/edit/{id}", name="adminhistorychapitre_edit", methods={"GET", "POST"})
+     * @Route("/chapitre/edit/{guid}", name="adminhistorychapitre_edit", methods={"GET", "POST"})
      */
     public function editChapitre(Chapitre $chapitre): Response
     {
