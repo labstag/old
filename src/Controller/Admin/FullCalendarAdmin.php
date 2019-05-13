@@ -3,7 +3,6 @@
 namespace Labstag\Controller\Admin;
 
 use Labstag\Lib\AdminControllerLib;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,7 +14,7 @@ class FullCalendarAdmin extends AdminControllerLib
     /**
      * @Route("/", name="adminfullcalendar_list")
      */
-    public function list(Request $request): Response
+    public function list(): Response
     {
         return $this->twig(
             'admin/fullcalendar.html.twig',

@@ -1,6 +1,6 @@
 {% import "macro.html.twig" as macroSite %}
 {% extends 'front/history/index.html.twig' %}
-{% block page_title %}Post{% endblock %}
+{% block page_title %}Histoires{% endblock %}
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
@@ -14,10 +14,13 @@
                     par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">{{ histoire.refuser }}</a>
                 {% endif %} le {{ macroSite.timeago(histoire.createdAt) }} et modifier le {{ macroSite.timeago(histoire.updatedAt) }}</div>
                 <div>Nombre de chapitres {{ histoire.chapitresenabled|length }}</div>
+                <div>
+                    {{ histoire.resume|raw }}
+                </div>
                 {% set lastchapitre = histoire.chapitresenabled|last %}
-                <ul>
-                    <li><a href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>
-                    <li><a href="{{ path('history_show', {'slug': histoire.slug, 'chapitre': lastchapitre.position+1}) }}">Lire le dernier chapitre</a></li>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>
+                    <li class="list-inline-item"><a href="{{ path('history_show', {'slug': histoire.slug, 'chapitre': lastchapitre.position+1}) }}">Lire le dernier chapitre</a></li>
                 </ul>
             {% endfor %}
         </div>

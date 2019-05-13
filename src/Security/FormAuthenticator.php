@@ -54,13 +54,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $route;
 
-    public function __construct(
-        ContainerInterface $container,
-        EntityManagerInterface $entityManager,
-        UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder
-    )
+    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
@@ -95,6 +89,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        unset($userProvider);
         $token = new CsrfToken('login', $credentials['_token']);
         if (!$this->csrfTokenManager->isTokenValid($token) && 'connect_check' != $this->route) {
             throw new InvalidCsrfTokenException();
@@ -126,12 +121,9 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
-    public function onAuthenticationSuccess(
-        Request $request,
-        TokenInterface $token,
-        $providerKey
-    )
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        unset($token);
         $getTargetPath = $this->getTargetPath(
             $request->getSession(),
             $providerKey

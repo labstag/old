@@ -42,7 +42,7 @@ class PostFront extends ControllerLib
     /**
      * @Route("/tags/{slug}", name="posts_tag")
      */
-    public function PostTags(Tags $tag, PostRepository $repository): Response
+    public function postTags(Tags $tag, PostRepository $repository): Response
     {
         $posts = $repository->findAllActiveByTag($tag);
         $this->paginator($posts);

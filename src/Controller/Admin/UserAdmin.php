@@ -91,11 +91,11 @@ class UserAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{id}", name="adminuser_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{guid}", name="adminuser_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(UserRepository $repository, $id): Response
+    public function trashEdit(UserRepository $repository, $guid): Response
     {
-        $user = $repository->findOneDateInTrash($id);
+        $user = $repository->findOneDateInTrash($guid);
 
         return $this->crudEditAction(
             [
@@ -110,7 +110,7 @@ class UserAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{id}", name="adminuser_edit", methods={"GET", "POST"})
+     * @Route("/edit/{guid}", name="adminuser_edit", methods={"GET", "POST"})
      */
     public function edit(User $user): Response
     {
@@ -158,7 +158,7 @@ class UserAdmin extends AdminControllerLib
     /**
      * @Route("/empty", name="adminuser_empty")
      */
-    public function empty(UserRepository $repository): JsonResponse
+    public function emptyUser(UserRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminuser_list');
     }

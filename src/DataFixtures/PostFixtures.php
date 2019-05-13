@@ -35,21 +35,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post->setContent($faker->unique()->paragraphs(4, true));
             $post->setRefuser($users[array_rand($users)]);
             $post->setRefcategory($categories[array_rand($categories)]);
-            $nbr = rand(0, count($tags));
-            if (0 !== $nbr) {
-                $tabIndex = array_rand(
-                    $tags,
-                    $nbr
-                );
-                if (is_array($tabIndex)) {
-                    foreach ($tabIndex as $j) {
-                        $post->addTag($tags[$j]);
-                    }
-                } else {
-                    $post->addTag($tags[$tabIndex]);
-                }
-            }
-
+            $this->addTags($post, $tags);
             $addImage = rand(0, 1);
             if (1 === $addImage) {
                 $image   = $faker->unique()->imageUrl(1920, 1920);
@@ -82,5 +68,27 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             CategoryFixtures::class,
             UserFixtures::class,
         ];
+    }
+
+    private function addTags($post, $tags)
+    {
+        $nbr = rand(0, count($tags));
+        if (0 == $nbr) {
+            return;
+        }
+
+        $tabIndex = array_rand(
+            $tags,
+            $nbr
+        );
+        if (is_array($tabIndex)) {
+            foreach ($tabIndex as $j) {
+                $post->addTag($tags[$j]);
+            }
+
+            return;
+        }
+
+        $post->addTag($tags[$tabIndex]);
     }
 }

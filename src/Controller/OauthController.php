@@ -49,7 +49,7 @@ class OauthController extends ControllerLib
         if ($entity) {
             $manager->remove($entity);
             $manager->flush();
-            $this->addFlash('success', 'Connexion Oauh '.$oauth.' dissocié');
+            $this->addFlash('success', 'Connexion Oauh '.$oauthCode.' dissocié');
         }
 
         return $this->redirect($referer);
@@ -135,7 +135,6 @@ class OauthController extends ControllerLib
             $this->addFlash('warning', "Probleme d'identification");
 
             return $this->redirect($referer);
-            exit();
         }
     }
 
