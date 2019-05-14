@@ -4,11 +4,11 @@ namespace Labstag\Lib;
 
 use DateTimeInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Repository\ConfigurationRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Labstag\Repository\ConfigurationRepository;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 abstract class ControllerLib extends AbstractController
 {
@@ -19,16 +19,18 @@ abstract class ControllerLib extends AbstractController
     protected $request;
 
     /**
-     * @var PaginatorInterface
-     */
-    private $paginator;
-
-    /**
      * Parameters for twig.
      *
      * @var array
      */
-    private $paramViews;
+    protected $paramViews;
+
+    protected $container;
+
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
 
     private $router;
 
@@ -45,6 +47,12 @@ abstract class ControllerLib extends AbstractController
         $this->requestStack = $container->get('request_stack');
         $this->router       = $container->get('router');
         $this->request      = $this->requestStack->getCurrentRequest();
+
+        $repository = [
+            'configuration' => $this->container->get(ConfigurationRepository::class),
+        ];
+
+        $this->repository = $repository;
     }
 
     /**
@@ -103,10 +111,8 @@ abstract class ControllerLib extends AbstractController
             return;
         }
 
-        $repository = $this->container->get(ConfigurationRepository::class);
-        $data       = $repository->findAll();
-        $config     = [];
-
+        $data   = $this->repository['configuration']->findAll();
+        $config = [];
         foreach ($data as $row) {
             $key   = $row->getName();
             $value = $row->getValue();

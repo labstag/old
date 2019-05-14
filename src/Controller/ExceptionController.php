@@ -42,9 +42,9 @@ class ExceptionController extends ControllerLib
      */
     public function __construct(Environment $twig, ContainerInterface $container, bool $debug)
     {
+        parent::__construct($container);
         $this->twig  = $twig;
         $this->debug = $debug;
-        parent::__construct($container);
     }
 
     /**
