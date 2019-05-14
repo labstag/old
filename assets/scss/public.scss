@@ -2,31 +2,31 @@
 @import "~@fancyapps/fancybox/dist/jquery.fancybox.css";
 
 .PublicPages {
-    .main {
-        width: 99%;
+  .main {
+    width: 99%;
 
-        aside {
-            float: left;
-            width: 15%;
-            padding-right: 2%;
-        }
-
-        main {
-            float: right;
-            width: 85%;
-        }
-
-        .FieldCollection {
-            border: 1px solid #000000;
-            padding: 10px;
-            border-radius: 5px;
-
-            legend {
-                width: 20%;
-                padding-left: 10px;
-                border: 1px solid #000000;
-                border-radius: 0px 5px 5px 0px;
-            }
-        }
+    aside {
+      float: left;
+      width: 15%;
+      padding-right: 2%;
     }
+
+    main {
+      float: right;
+      width: 85%;
+    }
+
+    .FieldCollection {
+      border: 1px solid #000;
+      padding: 10px;
+      border-radius: 5px;
+
+      legend {
+        width: 20%;
+        padding-left: 10px;
+        border: 1px solid #000;
+        border-radius: 0 5px 5px 0;
+      }
+    }
+  }
 }
