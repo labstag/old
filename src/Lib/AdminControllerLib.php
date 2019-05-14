@@ -100,7 +100,7 @@ abstract class AdminControllerLib extends ControllerLib
             $this->dateInTrash($paramtwig, $dataInTrash, $data);
         }
 
-        if (count($dataInTrash) == 0 && $route == $data['url_trash']) {
+        if (0 == count($dataInTrash) && $route == $data['url_trash']) {
             $this->addFlash('info', 'Aucune donnée dans la corbeille');
 
             return $this->redirect(

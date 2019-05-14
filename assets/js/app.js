@@ -1,4 +1,4 @@
-require('../css/app.scss');
+require('../scss/app.scss');
 import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui-sortable';
@@ -28,20 +28,20 @@ import {
     admin
 } from './modules/admin';
 import 'whatwg-fetch';
-global.$      = $;
+global.$ = $;
 global.Jquery = $;
 class Site {
     /**
      * TODO: Test
      */
     launch() {
-        this.admin        = new admin();
-        this.workflow     = new workflow('workflow');
-        this.form         = new form();
-        this.prismjs      = new prismjs();
-        this.builderform  = new builderform('formBuilder');
-        this.wysiwyg      = new wysiwyg();
-        this.datatables   = new datatables();
+        this.admin = new admin();
+        this.workflow = new workflow('workflow');
+        this.form = new form();
+        this.prismjs = new prismjs();
+        this.builderform = new builderform('formBuilder');
+        this.wysiwyg = new wysiwyg();
+        this.datatables = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
         this.login();
     }
@@ -54,4 +54,4 @@ class Site {
     const site = new Site();
 
     site.launch();
-} )(jQuery);
+})(jQuery);
