@@ -22,4 +22,10 @@
         "statusBar.background": "#7b3557",
         "statusBarItem.hoverBackground": "#9f4470"
     },
+    "[scss]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    }
 }
