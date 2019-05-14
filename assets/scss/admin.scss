@@ -2,145 +2,144 @@
 @import "~@fancyapps/fancybox/dist/jquery.fancybox.css";
 
 .AdminPages {
-    .main {
-        width: 99%;
+  main {
+    padding-top: 5px;
+  }
 
-        aside {
-            float: left;
-            width: 15%;
-            padding-right: 2%;
+  .main {
+    width: 99%;
 
-            .nav-link[data-toggle].collapsed {
-                &:after {
-                    float: right;
-                    content: "▾";
-                }
-            }
+    aside {
+      float: left;
+      width: 15%;
+      padding-right: 2%;
 
-            .nav-link[data-toggle] {
-
-                &:not(.collapsed) {
-                    &:after {
-                        float: right;
-                        content: "▴";
-                    }
-                }
-            }
+      .nav-link[data-toggle].collapsed {
+        &::after {
+          float: right;
+          content: "▾";
         }
+      }
 
-        main {
+      .nav-link[data-toggle] {
+        &:not(.collapsed) {
+          &::after {
             float: right;
-            width: 85%;
+            content: "▴";
+          }
         }
-
-        .FieldCollection {
-            border: 1px solid #000000;
-            padding: 10px;
-            border-radius: 5px;
-
-            legend {
-                width: 20%;
-                padding-left: 10px;
-                border: 1px solid #000000;
-                border-radius: 0px 5px 5px 0px;
-            }
-        }
-    }
-
-    .FieldCollections {
-        border: 1px solid #000000;
-        padding: 10px;
-        border-radius: 5px;
-
-        legend {
-            width: 20%;
-            padding-left: 10px;
-            border: 1px solid #000000;
-            border-radius: 0px 5px 5px 0px;
-
-            .btn {
-                margin-right: 10px;
-            }
-        }
-    }
-
-    #CrudList {
-        .btn {
-            margin: 1px;
-        }
-    }
-
-    form {
-        margin: 10px;
-        padding: 5px;
-    }
-
-    .alert {
-        margin-top: 10px;
-    }
-
-    .bs-checkbox {
-        vertical-align: top;
-    }
-
-    .user-menu {
-        padding-top: 0px;
-        width: 200px;
-
-        .user-header {
-            background-color: #343a40;
-            color: white;
-            height: 175px;
-            padding: 10px;
-            text-align: center;
-
-            .img-circle {
-                border-radius: 50%;
-                border: 3px solid;
-                height: 90px;
-                width: 90px;
-            }
-        }
-
-        .user-body {
-            padding: 15px;
-            border-bottom: 1px solid #f4f4f4;
-            border-top: 1px solid #dddddd;
-        }
-
-        .user-footer {
-            padding: 10px;
-        }
-    }
-
-    .user-image {
-        float: left;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        margin-right: 10px;
-        margin-top: -2px;
+      }
     }
 
     main {
-        padding-top: 5px;
+      float: right;
+      width: 85%;
+    }
+  }
+
+  .FieldCollection {
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+
+    legend {
+      width: 20%;
+      padding-left: 10px;
+      border: 1px solid #000;
+      border-radius: 0 5px 5px 0;
+    }
+  }
+
+  .FieldCollections {
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+
+    legend {
+      width: 20%;
+      padding-left: 10px;
+      border: 1px solid #000;
+      border-radius: 0 5px 5px 0;
+
+      .btn {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  #CrudList {
+    .btn {
+      margin: 1px;
+    }
+  }
+
+  form {
+    margin: 10px;
+    padding: 5px;
+  }
+
+  .alert {
+    margin-top: 10px;
+  }
+
+  .bs-checkbox {
+    vertical-align: top;
+  }
+
+  .user-menu {
+    padding-top: 0;
+    width: 200px;
+
+    .user-header {
+      background-color: #343a40;
+      color: white;
+      height: 175px;
+      padding: 10px;
+      text-align: center;
+
+      .img-circle {
+        border-radius: 50%;
+        border: 3px solid;
+        height: 90px;
+        width: 90px;
+      }
     }
 
-    .access-wrap {
-        display: none;
+    .user-body {
+      padding: 15px;
+      border-bottom: 1px solid #f4f4f4;
+      border-top: 1px solid #ddd;
     }
 
-    table {
-        .img-thumbnail {
-            max-width: 200px;
-        }
+    .user-footer {
+      padding: 10px;
+    }
+  }
 
-        li {
-            white-space: nowrap;
-        }
+  .user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .access-wrap {
+    display: none;
+  }
+
+  table {
+    .img-thumbnail {
+      max-width: 200px;
     }
 
-    button[type=submit] {
-        display: none;
+    li {
+      white-space: nowrap;
     }
+  }
+
+  button[type=submit] {
+    display: none;
+  }
 }
