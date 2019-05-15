@@ -1,6 +1,6 @@
 {% import "macro.html.twig" as macroSite %}
 {% extends 'site.html.twig' %}
-{% block page_title %}Post{% endblock %}
+{% block page_title %}Weblog{% endblock %}
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
@@ -9,12 +9,40 @@
                 {% if post.file %}
                     <img src="{{ asset('file/'~post.file) }}" title="{{ post.name|e }}" class="img-fluid" />
                 {% endif %}
-                <div><a href="{{ path('posts_user',{'user': post.refuser.id}) }}">{{ post.refuser }}</a></div>
-                <div>créer le {{ macroSite.timeago(post.createdAt) }} et modifier le {{ macroSite.timeago(post.updatedAt) }}</div>
-                <div>TAGS : {% for tag in post.tags %}
-                    <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">{{ tag.name }}</a>
-                {% endfor %}</div>
-                <div>categorie : <a href="{{ path('posts_category',{'slug': post.refcategory.slug}) }}">{{ post.refcategory.name }}</a></div>
+                <ul>
+                    <li>
+                        Créer par: <a href="{{ path('posts_user', {'user': post.refuser.id}) }}">
+                            {{ macroSite.user(post.refuser) }}
+                        </a>
+                    </li>
+                    <li>
+                        Créer le: {{ macroSite.timeago(post.createdAt) }}
+                    </li>
+                    <li>
+                        Modifier le: {{ macroSite.timeago(post.updatedAt) }}
+                    </li>
+                    <li>
+                        <i class="fas fa-tags"></i>
+                        Tags :
+                        <ul class="list-inline">
+                            {% for tag in post.tags %}
+                                <li class="list-inline-item">
+                                    <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">
+                                        <i class="fas fa-tag"></i>
+                                        <span>
+                                            {{ tag.name }}
+                                        </span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        Catégorie: <a href="{{ path('posts_category',{'slug': post.refcategory.slug}) }}">
+                            {{ post.refcategory.name }}
+                        </a>
+                    </li>
+                </ul>
                 <div>
                     {{ post.content|raw }}
                 </div>
