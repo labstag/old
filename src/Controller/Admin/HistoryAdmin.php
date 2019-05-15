@@ -121,11 +121,11 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{guid}", name="adminhistory_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(HistoryRepository $repository, $guid): Response
+    public function trashEdit(HistoryRepository $repository, $id): Response
     {
-        $history = $repository->findOneDateInTrash($guid);
+        $history = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -140,7 +140,7 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/position/{guid}", name="adminhistory_position", methods={"GET", "POST"})
+     * @Route("/position/{id}", name="adminhistory_position", methods={"GET", "POST"})
      */
     public function position(History $history, ChapitreRepository $repository): Response
     {
@@ -188,7 +188,7 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{guid}", name="adminhistory_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminhistory_edit", methods={"GET", "POST"})
      */
     public function edit(History $history): Response
     {
@@ -325,11 +325,11 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/chapitre/trashedit/{guid}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
+     * @Route("/chapitre/trashedit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditChapitre(ChapitreRepository $repository, $guid): Response
+    public function trashEditChapitre(ChapitreRepository $repository, $id): Response
     {
-        $chapitre = $repository->findOneDateInTrash($guid);
+        $chapitre = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -344,7 +344,7 @@ class HistoryAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/chapitre/edit/{guid}", name="adminhistorychapitre_edit", methods={"GET", "POST"})
+     * @Route("/chapitre/edit/{id}", name="adminhistorychapitre_edit", methods={"GET", "POST"})
      */
     public function editChapitre(Chapitre $chapitre): Response
     {

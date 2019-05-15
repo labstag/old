@@ -112,11 +112,11 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{guid}", name="adminpost_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminpost_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(PostRepository $repository, $guid): Response
+    public function trashEdit(PostRepository $repository, $id): Response
     {
-        $post = $repository->findOneDateInTrash($guid);
+        $post = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -131,7 +131,7 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{guid}", name="adminpost_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminpost_edit", methods={"GET", "POST"})
      */
     public function edit(Post $post, CategoryRepository $repository): Response
     {
@@ -246,11 +246,11 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/category/trashedit/{guid}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
+     * @Route("/category/trashedit/{id}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditCategory(CategoryRepository $repository, $guid): Response
+    public function trashEditCategory(CategoryRepository $repository, $id): Response
     {
-        $category = $repository->findOneDateInTrash($guid);
+        $category = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -265,7 +265,7 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/category/edit/{guid}", name="adminpostcategory_edit", methods={"GET", "POST"})
+     * @Route("/category/edit/{id}", name="adminpostcategory_edit", methods={"GET", "POST"})
      */
     public function editCategory(Category $category): Response
     {
@@ -375,11 +375,11 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/tags/trashedit/{guid}", name="adminposttags_trashedit", methods={"GET", "POST"})
+     * @Route("/tags/trashedit/{id}", name="adminposttags_trashedit", methods={"GET", "POST"})
      */
-    public function trashEditTags(TagsRepository $repository, $guid): Response
+    public function trashEditTags(TagsRepository $repository, $id): Response
     {
-        $tag = $repository->findOneDateInTrash($guid);
+        $tag = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -394,7 +394,7 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/tags/edit/{guid}", name="adminposttags_edit", methods={"GET", "POST"})
+     * @Route("/tags/edit/{id}", name="adminposttags_edit", methods={"GET", "POST"})
      */
     public function editTags(Tags $tag): Response
     {

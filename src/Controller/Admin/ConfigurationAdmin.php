@@ -68,11 +68,11 @@ class ConfigurationAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{guid}", name="adminconfiguration_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminconfiguration_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(ConfigurationRepository $repository, $guid): Response
+    public function trashEdit(ConfigurationRepository $repository, $id): Response
     {
-        $configuration = $repository->findOneDateInTrash($guid);
+        $configuration = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -87,7 +87,7 @@ class ConfigurationAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{guid}", name="adminconfiguration_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminconfiguration_edit", methods={"GET", "POST"})
      */
     public function edit(Configuration $configuration): Response
     {
