@@ -20,6 +20,23 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, OauthConnectUser::class);
     }
 
+    public function findOauthNotUser(User $user, $identity, string $client)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->where('p.refuser=:iduser');
+        $dql->andWhere('p.identity=:identity');
+        $dql->andWhere('p.name=:name');
+        $dql->setParameters(
+            [
+                'iduser'   => $user->getId(),
+                'name'     => $client,
+                'identity' => $identity,
+            ]
+        );
+
+        return $dql->getQuery()->getOneOrNullResult();
+    }
+
     public function findOneOauthByUser(string $oauthCode, User $user)
     {
         $dql = $this->createQueryBuilder('p');
