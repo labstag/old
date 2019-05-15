@@ -79,17 +79,17 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashview/{guid}", name="adminformbuilder_trashview")
+     * @Route("/trashview/{id}", name="adminformbuilder_trashview")
      */
-    public function trashView(ConfigurationRepository $repository, $guid): Response
+    public function trashView(ConfigurationRepository $repository, $id): Response
     {
-        $formbuilder = $repository->findOneDateInTrash($guid);
+        $formbuilder = $repository->findOneDateInTrash($id);
 
         return $this->viewForm($formbuilder);
     }
 
     /**
-     * @Route("/view/{guid}", name="adminformbuilder_view")
+     * @Route("/view/{id}", name="adminformbuilder_view")
      */
     public function view(Formbuilder $formbuilder): Response
     {
@@ -97,11 +97,11 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/trashedit/{guid}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
+     * @Route("/trashedit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
      */
-    public function trashEdit(ConfigurationRepository $repository, $guid): Response
+    public function trashEdit(ConfigurationRepository $repository, $id): Response
     {
-        $formbuilder = $repository->findOneDateInTrash($guid);
+        $formbuilder = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
@@ -118,7 +118,7 @@ class FormBuilderAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/edit/{guid}", name="adminformbuilder_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="adminformbuilder_edit", methods={"GET", "POST"})
      */
     public function edit(Formbuilder $formbuilder): Response
     {
