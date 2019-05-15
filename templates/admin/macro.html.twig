@@ -5,19 +5,19 @@
         </a>
     {% endif %}
     {% if operation_link['url_edit'] is defined %}
-        <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(operation_link['url_edit'], {'guid': code}) }}" title="Modifier">
+        <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(operation_link['url_edit'], {'id': code}) }}" title="Modifier">
             <i class="fas fa-edit"></i>
         </a>
     {% endif %}
     {% if operation_link['url_custom'] is defined %}
         {% for customlink in operation_link['url_custom'] %}
-            <a class="OperationLink{{ customlink['id'] }} btn btn-success btn-sm" href="{{ path(customlink['link'], {'guid': code}) }}" title="{{ customlink['text'] }}">
+            <a class="OperationLink{{ customlink['id'] }} btn btn-success btn-sm" href="{{ path(customlink['link'], {'id': code}) }}" title="{{ customlink['text'] }}">
                 <i class="{{ customlink['icon'] }}"></i>
             </a>
         {% endfor %}
     {% endif %}
     {% if operation_link['url_view'] is defined %}
-        <a class="OperationLinkView btn btn-success btn-sm" href="{{ path(operation_link['url_view'], {'guid': code}) }}" title="Voir">
+        <a class="OperationLinkView btn btn-success btn-sm" href="{{ path(operation_link['url_view'], {'id': code}) }}" title="Voir">
             <i class="fas fa-eye"></i>
         </a>
     {% endif %}

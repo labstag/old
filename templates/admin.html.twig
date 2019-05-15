@@ -88,14 +88,14 @@
                                 </a>
                             {% endif %}
                             {% if url_view is defined and entity is defined %}
-                                <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_view, {'guid': entity.id}) }}">
+                                <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_view, {'id': entity.id}) }}">
                                     <i class="fas fa-eye"></i>
                                     <br />
                                     <span>Voir</span>
                                 </a>
                             {% endif %}
                             {% if url_edit is defined and entity is defined %}
-                                <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_edit, {'guid': entity.id}) }}">
+                                <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_edit, {'id': entity.id}) }}">
                                     <i class="fas fa-edit"></i>
                                     <br />
                                     <span>Edit</span>
