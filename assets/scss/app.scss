@@ -40,23 +40,3 @@ label {
     }
   }
 }
-
-&:not(pre) {
-  > code[class*=language-] {
-    border: 0;
-  }
-}
-
-pre[class*=language-] {
-  border: 0;
-}
-
-pre[class*="language-"] {
-  &::before {
-    box-shadow: 0 0 0;
-  }
-
-  &::after {
-    box-shadow: 0 0 0;
-  }
-}

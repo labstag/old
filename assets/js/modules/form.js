@@ -6,6 +6,30 @@ export class form {
         this.session();
         this.save();
         this.btndelete();
+        this.minimize();
+    }
+
+    minimize() {
+        $('.ToggleFieldset').on('click', function () {
+            let $maximize = $(this).find('.fa-window-maximize');
+            let $minimize = $(this).find('.fa-window-minimize');
+            let $table    = $(this).closest('fieldset').find('table');
+            let $row      = $(this).closest('fieldset').find('.row');
+
+            if ($table.length == 0) {
+                $row.toggle('blind');
+            } else {
+                $table.toggle('blind');
+            }
+            if ($minimize.hasClass('d-none')) {
+                $minimize.removeClass('d-none');
+                $maximize.addClass('d-none');
+            }
+            if ($maximize.hasClass('d-none')) {
+                $maximize.removeClass('d-none');
+                $minimize.addClass('d-none');
+            }
+        } );
     }
 
     confirmDelete(event) {

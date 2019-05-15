@@ -33,6 +33,11 @@
 				}	
 			)-%}
 		{%- endif -%}
+		{%- set element_attr = element_attr|merge(
+			{
+				'id': random()
+			}	
+		)-%}
     {%- endif -%}
     {%- set widget_attr = {} -%}
     {%- if help is not empty -%}
@@ -68,6 +73,12 @@
         {%- endif -%}
 		<{{ element|default('label') }}{%- if label_attr -%}{%- with { attr: label_attr } -%}{{ block('attributes') }}{%- endwith -%}{%- endif -%}>
 			{{ label|trans }}
+			{%- if element|default('label') == 'legend' -%}
+				<div class="btn btn-info float-right ToggleFieldset">
+					<i class="far fa-window-minimize"></i>
+					<i class="fas fa-window-maximize d-none"></i>
+				</div>
+			{%- endif -%}
 			{%- if allow_add is defined and allow_add == true -%}
 				<div class="btn btn-primary btn-xs BtnCollectionAdd float-right">
 					<i class="glyphicon glyphicon-plus"></i>
