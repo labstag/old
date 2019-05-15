@@ -9,11 +9,24 @@
                 {% if histoire.file %}
                     <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
                 {% endif %}
-                <div>créer 
-                {% if histoire.refuser.id is defined %}
-                    par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">{{ histoire.refuser }}</a>
-                {% endif %} le {{ macroSite.timeago(histoire.createdAt) }} et modifier le {{ macroSite.timeago(histoire.updatedAt) }}</div>
-                <div>Nombre de chapitres {{ histoire.chapitresenabled|length }}</div>
+                <ul>
+                    {% if histoire.refuser.id is defined %}
+                        <li>
+                            Créer par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">
+                                {{ macroSite.user(histoire.refuser) }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        Créer le: {{ macroSite.timeago(histoire.createdAt) }}
+                    </li>
+                    <li>
+                        Modifier le: {{ macroSite.timeago(histoire.updatedAt) }}
+                    </li>
+                    <li>
+                        Nombre de chapitre: {{ histoire.chapitresenabled|length }}
+                    </li>
+                </ul>
                 <div>
                     {{ histoire.resume|raw }}
                 </div>
