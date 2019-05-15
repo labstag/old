@@ -76,6 +76,7 @@ class FormbuilderViewType extends AbstractType
 
     private function setClass(&$data, $field)
     {
+        $data['attr']['class'] = '';
         if (isset($field['className']) && ('textarea' != $field['type'] || ('textarea' == $field['type'] && 'textarea' == $field['subtype']))) {
             $data['attr']['class'] = $field['className'];
         }
@@ -262,6 +263,15 @@ class FormbuilderViewType extends AbstractType
 
             $data['choices']  = $choices;
             $data['expanded'] = true;
+            if (isset($field['inline'])) {
+                $data['attr']['class'] .= "form-check-inline";
+            }
+
+            $data['placeholder'] = false;
+        }
+
+        if ('radio-group' == $field['type']) {
+            $data['multiple'] = true;
         }
     }
 
