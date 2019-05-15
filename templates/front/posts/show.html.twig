@@ -8,12 +8,40 @@
             {% if entity.file %}
                 <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
             {% endif %}
-            <div><a href="{{ path('posts_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a></div>
-                <div>créer le {{ macroSite.timeago(entity.createdAt) }} et modifier le {{ macroSite.timeago(entity.updatedAt) }}</div>
-            <div>TAGS : {% for tag in entity.tags %}
-                <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">{{ tag.name }}</a>
-            {% endfor %}</div>
-            <div>categorie : <a href="{{ path('posts_category',{'slug': entity.refcategory.slug}) }}">{{ entity.refcategory.name }}</a></div>
+            <ul>
+                <li>
+                    Créer par: <a href="{{ path('posts_user',{'user': entity.refuser.id}) }}">
+                        {{ macroSite.user(entity.refuser) }}
+                    </a>
+                </li>
+                <li>
+                    Créer le: {{ macroSite.timeago(entity.createdAt) }}
+                </li>
+                <li>
+                    Modifier le: {{ macroSite.timeago(entity.updatedAt) }}
+                </li>
+                <li>
+                    <i class="fas fa-tags"></i>
+                    Tags:
+                    <ul class="list-inline">
+                        {% for tag in entity.tags %}
+                            <li class="list-inline-item">
+                                <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">
+                                    <i class="fas fa-tag"></i>
+                                    <span>
+                                        {{ tag.name }}
+                                    </span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li>
+                    Catégorie: <a href="{{ path('posts_category',{'slug': entity.refcategory.slug}) }}">
+                        {{ entity.refcategory.name }}
+                    </a>
+                </li>
+            </ul>
             <div>
                 {{ entity.content|raw }}
             </div>

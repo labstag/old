@@ -20,15 +20,27 @@
             {% if entity.file %}
                 <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
             {% endif %}
-            <div>créer 
-                {% if entity.refuser.id is defined %}
-                    par <a href="{{ path('history_user',{'user': entity.refuser.id}) }}">{{ entity.refuser }}</a>
-                {% endif %} le {{ macroSite.timeago(entity.createdAt) }} et modifier le {{ macroSite.timeago(entity.updatedAt) }}
-            </div>
+                <ul>
+                    {% if entity.refuser.id is defined %}
+                        <li>
+                            Créer par <a href="{{ path('history_user',{'user': entity.refuser.id}) }}">
+                                {{ macroSite.user(entity.refuser) }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        Créer le: {{ macroSite.timeago(entity.createdAt) }}
+                    </li>
+                    <li>
+                        Modifier le: {{ macroSite.timeago(entity.updatedAt) }}
+                    </li>
+                    <li>
+                        Nombre de chapitre: {{ entity.chapitresenabled|length }}
+                    </li>
+                </ul>
             <div>
                 {{ entity.resume|raw }}
             </div>
-            <div>Nombre de chapitres {{ chapitres|length }}</div>
             <ul>
                 {% for i, rowChapitre in chapitres %}
                     <li>
