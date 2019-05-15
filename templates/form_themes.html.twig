@@ -73,7 +73,7 @@
         {%- endif -%}
 		<{{ element|default('label') }}{%- if label_attr -%}{%- with { attr: label_attr } -%}{{ block('attributes') }}{%- endwith -%}{%- endif -%}>
 			{{ label|trans }}
-			{%- if element|default('label') == 'legend' -%}
+			{%- if element|default('label') == 'legend' and prototype is defined -%}
 				<div class="btn btn-info float-right ToggleFieldset">
 					<i class="far fa-window-minimize"></i>
 					<i class="fas fa-window-maximize d-none"></i>
