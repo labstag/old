@@ -19,6 +19,10 @@
 @import 'public.scss';
 @import 'disclaimer.scss';
 
+.btn {
+  cursor: pointer;
+}
+
 #sortable {
   list-style-type: none;
 

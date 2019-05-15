@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -38,6 +39,10 @@ class FormbuilderViewType extends AbstractType
 
     private function addText($field, $builder)
     {
+        if ('text' != $field['type']) {
+            return;
+        }
+
         switch ($field['subtype']) {
             case 'text':
                 $this->addType($field, TextType::class, $builder);
@@ -62,8 +67,40 @@ class FormbuilderViewType extends AbstractType
         }
     }
 
+    private function setPlaceholder(&$data, $field)
+    {
+        if (isset($field['placeholder'])) {
+            $data['placeholder'] = $field['placeholder'];
+        }
+    }
+
+    private function setClass(&$data, $field)
+    {
+        if (isset($field['className']) && ('textarea' != $field['type'] || ('textarea' == $field['type'] && 'textarea' == $field['subtype']))) {
+            $data['attr']['class'] = $field['className'];
+        }
+    }
+
+    private function setWidget(&$data, $field)
+    {
+        if ('date' == $field['type']) {
+            $data['widget'] = 'single_text';
+        }
+    }
+
+    private function setHelp(&$data, $field)
+    {
+        if (isset($field['description']) && 'button' != $field['type']) {
+            $data['help'] = $field['description'];
+        }
+    }
+
     private function addButton($field, $builder)
     {
+        if ('button' != $field['type']) {
+            return;
+        }
+
         switch ($field['subtype']) {
             case 'button':
                 $this->addType($field, ButtonType::class, $builder);
@@ -82,6 +119,10 @@ class FormbuilderViewType extends AbstractType
 
     private function addTextarea($field, $builder)
     {
+        if ('textarea' != $field['type']) {
+            return;
+        }
+
         switch ($field['subtype']) {
             case 'textarea':
                 $this->addType($field, TextareaType::class, $builder);
@@ -95,61 +136,132 @@ class FormbuilderViewType extends AbstractType
         }
     }
 
+    private function addAutocomplete($field, $builder)
+    {
+        if ('autocomplete' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, TextType::class, $builder);
+    }
+
+    private function addCheckboxGroup($field, $builder)
+    {
+        if ('checkbox-group' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, ChoiceType::class, $builder);
+    }
+
+    private function addDate($field, $builder)
+    {
+        if ('date' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, DateType::class, $builder);
+    }
+
+    private function addFile($field, $builder)
+    {
+        if ('file' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, FileType::class, $builder);
+    }
+
+    private function addHeader($field, $builder)
+    {
+        if ('header' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, TextType::class, $builder);
+    }
+
+    private function addHidden($field, $builder)
+    {
+        if ('hidden' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, HiddenType::class, $builder);
+    }
+
+    private function addNumber($field, $builder)
+    {
+        if ('number' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, IntegerType::class, $builder);
+    }
+
+    private function addParagraph($field, $builder)
+    {
+        if ('paragraph' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, TextType::class, $builder);
+    }
+
+    private function addRadioGroup($field, $builder)
+    {
+        if ('radio-group' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, ChoiceType::class, $builder);
+    }
+
+    private function addSelect($field, $builder)
+    {
+        if ('select' != $field['type']) {
+            return;
+        }
+
+        $this->addType($field, ChoiceType::class, $builder);
+    }
+
     private function addField($field, $builder)
     {
-        switch ($field['type']) {
-            case 'autocomplete':
-                $this->addType($field, TextType::class, $builder);
+        $this->addAutocomplete($field, $builder);
+        $this->addCheckboxGroup($field, $builder);
+        $this->addDate($field, $builder);
+        $this->addText($field, $builder);
+        $this->addFile($field, $builder);
+        $this->addTextarea($field, $builder);
+        $this->addButton($field, $builder);
+        $this->addHeader($field, $builder);
+        $this->addHidden($field, $builder);
+        $this->addNumber($field, $builder);
+        $this->addParagraph($field, $builder);
+        $this->addRadioGroup($field, $builder);
+        $this->addSelect($field, $builder);
+    }
 
-                break;
-            case 'button':
-                $this->addButton($field, $builder);
+    private function setButton(&$data, $field)
+    {
+        if ('button' == $field['type']) {
+            unset($data['required']);
+        }
+    }
 
-                break;
-            case 'checkbox-group':
-                $this->addType($field, ChoiceType::class, $builder);
+    private function setChoice(&$data, $field)
+    {
+        if ('checkbox-group' == $field['type'] || 'radio-group' == $field['type']) {
+            $choices = [];
+            foreach ($field['values'] as $row) {
+                $label           = $row['label'];
+                $value           = $row['value'];
+                $choices[$label] = $value;
+            }
 
-                break;
-            case 'date':
-                $this->addType($field, DateType::class, $builder);
-
-                break;
-            case 'file':
-                $this->addType($field, FileType::class, $builder);
-
-                break;
-            case 'header':
-                $this->addType($field, TextType::class, $builder);
-
-                break;
-            case 'hidden':
-                $this->addType($field, TextType::class, $builder);
-
-                break;
-            case 'number':
-                $this->addType($field, IntegerType::class, $builder);
-
-                break;
-            case 'paragraph':
-                $this->addType($field, TextType::class, $builder);
-
-                break;
-            case 'radio-group':
-                $this->addType($field, ChoiceType::class, $builder);
-
-                break;
-            case 'select':
-                $this->addType($field, ChoiceType::class, $builder);
-
-                break;
-            case 'text':
-                $this->addText($field, $builder);
-
-                break;
-            case 'textarea':
-                $this->addTextarea($field, $builder);
-
-                break;
+            $data['choices']  = $choices;
+            $data['expanded'] = true;
         }
     }
 
@@ -163,39 +275,12 @@ class FormbuilderViewType extends AbstractType
             'label'    => $field['label'],
             'required' => isset($field['required']),
         ];
-
-        if (isset($field['className']) && ('textarea' != $field['type'] || ('textarea' == $field['type'] && 'textarea' == $field['subtype']))) {
-            $data['attr']['class'] = $field['className'];
-        }
-
-        if ('date' == $field['type']) {
-            $data['widget'] = 'single_text';
-        }
-
-        if (isset($field['description']) && 'button' != $field['type']) {
-            $data['help'] = $field['description'];
-        }
-
-        if (isset($field['placeholder'])) {
-            $data['placeholder'] = $field['placeholder'];
-        }
-
-        if ('button' == $field['type']) {
-            unset($data['required']);
-        }
-
-        if ('checkbox-group' == $field['type'] || 'radio-group' == $field['type']) {
-            $choices = [];
-            foreach ($field['values'] as $row) {
-                $label           = $row['label'];
-                $value           = $row['value'];
-                $choices[$label] = $value;
-            }
-
-            $data['choices']  = $choices;
-            $data['expanded'] = true;
-        }
-
+        $this->setClass($data, $field);
+        $this->setWidget($data, $field);
+        $this->setHelp($data, $field);
+        $this->setPlaceholder($data, $field);
+        $this->setButton($data, $field);
+        $this->setChoice($data, $field);
         $builder->add($field['name'], $type, $data);
     }
 }
