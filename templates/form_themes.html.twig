@@ -16,22 +16,24 @@
 	} -%}
     {%- if compound is defined and compound -%}
 		{%- set element = 'fieldset' -%}
-		{%- if prototype is defined and allow_add -%}
-			{%- set label_attr = {
-				'allow_add': true
-			} -%}
-			{%- set element_attr = element_attr|merge(
-				{
-					'class': element_attr.class~' FieldCollections',
-					'data-prototype': block('collection_item_widget') | replace({'"': "'", "\n": "", "\t": ""})
-				}	
-			)-%}
-		{%- else -%}
-			{%- set element_attr = element_attr|merge(
-				{
-					'class': element_attr.class~' FieldCollection'
-				}	
-			)-%}
+		{%- if form.vars.block_prefixes[1] == "collection" -%}
+			{%- if prototype is defined and allow_add -%}
+				{%- set label_attr = {
+					'allow_add': true
+				} -%}
+				{%- set element_attr = element_attr|merge(
+					{
+						'class': element_attr.class~' FieldCollections',
+						'data-prototype': block('collection_item_widget') | replace({'"': "'", "\n": "", "\t": ""})
+					}	
+				)-%}
+			{%- else -%}
+				{%- set element_attr = element_attr|merge(
+					{
+						'class': element_attr.class~' FieldCollection'
+					}	
+				)-%}
+			{%- endif -%}
 		{%- endif -%}
 		{%- set element_attr = element_attr|merge(
 			{
