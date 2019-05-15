@@ -44,3 +44,20 @@ label {
     }
   }
 }
+
+legend {
+  &.required {
+    &::after {
+      content: ' *';
+      color: red;
+    }
+  }
+}
+
+.form-check-inline {
+  .required {
+    &::after {
+      content: '';
+    }
+  }
+}
