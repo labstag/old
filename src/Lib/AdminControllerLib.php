@@ -76,20 +76,7 @@ abstract class AdminControllerLib extends ControllerLib
             'api'       => $data['api'],
         ];
 
-        $tabDataCheck = [
-            'url_new',
-            'url_view',
-            'url_delete',
-            'url_edit',
-            'url_enable',
-            'url_custom',
-        ];
-        foreach ($tabDataCheck as $key) {
-            if (isset($data[$key])) {
-                $paramtwig[$key] = $data[$key];
-            }
-        }
-
+        $this->setParamTwig($paramtwig, $data);
         /**
          * @var ServiceEntityRepositoryLib
          */
@@ -391,6 +378,23 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->setMenuAdmin();
         $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function setParamTwig(&$paramtwig, $data)
+    {
+        $tabDataCheck = [
+            'url_new',
+            'url_view',
+            'url_delete',
+            'url_edit',
+            'url_enable',
+            'url_custom',
+        ];
+        foreach ($tabDataCheck as $key) {
+            if (isset($data[$key])) {
+                $paramtwig[$key] = $data[$key];
+            }
+        }
     }
 
     private function setDatatable(&$data)

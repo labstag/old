@@ -142,11 +142,24 @@ class OauthController extends ControllerLib
     {
         $oauthConnects = $user->getOauthConnectUsers();
         $find          = 0;
+        $data          = $userOauth->toArray();
+        $identity      = $this->oauthServices->getIdentity($data, $client);
+        // @var OauthConnectUser
         foreach ($oauthConnects as $oauthConnect) {
-            if ($oauthConnect->getName() == $client) {
+            if ($oauthConnect->getName() == $client && $oauthConnect->getIdentity() == $identity) {
                 $find = 1;
 
                 break;
+            }
+        }
+
+        $manager    = $this->getDoctrine()->getManager();
+        $repository = $manager->getRepository(OauthConnectUser::class);
+        // @var OauthConnectUserRepository $repository
+        if (0 == $find) {
+            $auths = $repository->findOauthNotUser($user, $identity, $client);
+            if (!is_null($auths)) {
+                $find = 1;
             }
         }
 

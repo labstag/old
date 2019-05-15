@@ -15,6 +15,7 @@ class FormbuilderType extends AbstractType
     {
         $builder->add('name');
         $builder->add('formbuilder', HiddenType::class);
+        $builder->add('slug');
         $builder->add('enable');
         $builder->add('submit', SubmitType::class);
         unset($options);
