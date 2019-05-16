@@ -23,7 +23,15 @@ class CrudExtension extends AbstractExtension
     {
         return [
             new TwigFunction('crudExist', [$this, 'crudExist']),
+            new TwigFunction('pagebreak', [$this, 'pagebreak']),
         ];
+    }
+
+    public function pagebreak($content)
+    {
+        $contents = explode("<p><!-- pagebreak --></p>", $content);
+
+        return $contents[0];
     }
 
     public function crudExist($entity, $key)

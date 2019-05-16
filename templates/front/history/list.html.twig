@@ -1,40 +1,44 @@
 {% import "macro.html.twig" as macroSite %}
-{% extends 'front/history/index.html.twig' %}
+{% extends 'site.html.twig' %}
 {% block page_title %}Histoires{% endblock %}
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
             {% for histoire in pagination %}
-                <h2>{{ histoire.name }}</h2>
-                {% if histoire.file %}
-                    <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
-                {% endif %}
-                <ul>
-                    {% if histoire.refuser.id is defined %}
-                        <li>
-                            Créer par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">
-                                {{ macroSite.user(histoire.refuser) }}
-                            </a>
-                        </li>
+                <article>
+                    <header>
+                        <h1>{{ histoire.name }}</h1>
+                    </header>
+                    {% if histoire.file %}
+                        <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
                     {% endif %}
-                    <li>
-                        Créer le: {{ macroSite.timeago(histoire.createdAt) }}
-                    </li>
-                    <li>
-                        Modifier le: {{ macroSite.timeago(histoire.updatedAt) }}
-                    </li>
-                    <li>
-                        Nombre de chapitre: {{ histoire.chapitresenabled|length }}
-                    </li>
-                </ul>
-                <div>
-                    {{ histoire.resume|raw }}
-                </div>
-                {% set lastchapitre = histoire.chapitresenabled|last %}
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>
-                    <li class="list-inline-item"><a href="{{ path('history_show', {'slug': histoire.slug, 'chapitre': lastchapitre.position+1}) }}">Lire le dernier chapitre</a></li>
-                </ul>
+                    <ul>
+                        {% if histoire.refuser.id is defined %}
+                            <li>
+                                Créer par <a href="{{ path('history_user',{'user': histoire.refuser.id}) }}">
+                                    {{ macroSite.user(histoire.refuser) }}
+                                </a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            Créer le: {{ macroSite.timeago(histoire.createdAt) }}
+                        </li>
+                        <li>
+                            Modifier le: {{ macroSite.timeago(histoire.updatedAt) }}
+                        </li>
+                        <li>
+                            Nombre de chapitre: {{ histoire.chapitresenabled|length }}
+                        </li>
+                    </ul>
+                    <div>
+                        {{ histoire.resume|raw }}
+                    </div>
+                    {% set lastchapitre = histoire.chapitresenabled|last %}
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>
+                        <li class="list-inline-item"><a href="{{ path('history_show', {'slug': histoire.slug, 'chapitre': lastchapitre.position+1}) }}">Lire le dernier chapitre</a></li>
+                    </ul>
+                </article>
             {% endfor %}
         </div>
     </div>

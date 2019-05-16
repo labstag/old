@@ -308,6 +308,9 @@
     "league/oauth2-client": {
         "version": "2.4.1"
     },
+    "maglnet/composer-require-checker": {
+        "version": "2.0.0"
+    },
     "markbaker/complex": {
         "version": "1.4.7"
     },
@@ -1060,6 +1063,12 @@
     },
     "webmozart/assert": {
         "version": "1.4.0"
+    },
+    "webmozart/glob": {
+        "version": "4.1.0"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
     },
     "webonyx/graphql-php": {
         "version": "v0.13.0"
