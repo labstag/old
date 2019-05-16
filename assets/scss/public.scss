@@ -2,6 +2,8 @@
 @import "~@fancyapps/fancybox/dist/jquery.fancybox.css";
 
 .PublicPages {
+  background-color: #ddd;
+
   .main {
     width: 99%;
 
@@ -26,6 +28,20 @@
         padding-left: 10px;
         border: 1px solid #000;
         border-radius: 0 5px 5px 0;
+      }
+    }
+
+    article {
+      background-color: #fafafa;
+      margin-bottom: 3.5em;
+
+      header {
+        border-bottom: 1px solid #dbdbdb;
+
+        h1 {
+          front-size: 200%;
+          padding-top: .3em;
+        }
       }
     }
   }

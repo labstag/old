@@ -1,5 +1,5 @@
 {% import "macro.html.twig" as macroSite %}
-{% extends 'front/history/index.html.twig' %}
+{% extends 'site.html.twig' %}
 {% block page_title %}{{ entity.name }}{% endblock %}
 {% block aside %}
     <div>Liste des chapitres</div>
@@ -16,10 +16,13 @@
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
-            <h2>{{ entity.name }}</h2>
-            {% if entity.file %}
-                <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
-            {% endif %}
+            <article>
+                <header>
+                    <h1>{{ entity.name }}</h1>
+                </header>
+                {% if entity.file %}
+                    <img src="{{ asset('file/'~entity.file) }}" title="{{ entity.name|e }}" class="img-fluid" />
+                {% endif %}
                 <ul>
                     {% if entity.refuser.id is defined %}
                         <li>
@@ -38,27 +41,28 @@
                         Nombre de chapitre: {{ entity.chapitresenabled|length }}
                     </li>
                 </ul>
-            <div>
-                {{ entity.resume|raw }}
-            </div>
-            <ul>
-                {% for i, rowChapitre in chapitres %}
-                    <li>
-                        <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
-                            {{ rowChapitre.name }} ({{ rowChapitre.createdAt|ago }})
-                            {% if i+1 == entity.chapitres|length %}
-                                dernier
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+                <div>
+                    {{ entity.resume|raw }}
+                </div>
+                <ul>
+                    {% for i, rowChapitre in chapitres %}
+                        <li>
+                            <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
+                                {{ rowChapitre.name }} ({{ rowChapitre.createdAt|ago }})
+                                {% if i+1 == entity.chapitres|length %}
+                                    dernier
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if chapitre is defined %}
+                <div class="col-md-12">
+                    <h3>{{ chapitre.name }}</h3>
+                    {{ chapitre.content|raw }}
+                </div>
+                {% endif %}
+            </article>
         </div>
-        {% if chapitre is defined %}
-        <div class="col-md-12">
-            <h3>{{ chapitre.name }}</h3>
-            {{ chapitre.content|raw }}
-        </div>
-        {% endif %}
     </div>
 {% endblock %}
