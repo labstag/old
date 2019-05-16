@@ -20,7 +20,13 @@ class FilesFixtures extends Fixture
     {
         $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
-            (is_dir("{$dir}/{$file}")) ? $this->delTree("{$dir}/{$file}") : unlink("{$dir}/{$file}");
+            if (is_dir($dir.'/'.$file)) {
+                $this->delTree($dir.'/'.$file);
+
+                continue;
+            }
+
+            unlink($dir.'/'.$file);
         }
 
         return rmdir($dir);

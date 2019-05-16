@@ -147,7 +147,8 @@ class ExceptionController extends ControllerLib
             $loader->getSourceContext($template)->getCode();
 
             return true;
-        } catch (LoaderError $e) {
+        } catch (LoaderError $error) {
+            return $error->getMessage();
         }
 
         return false;
