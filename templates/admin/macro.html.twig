@@ -21,4 +21,9 @@
             <i class="fas fa-eye"></i>
         </a>
     {% endif %}
+    {% if operation_link['url_duplicate'] is defined %}
+        <a class="OperationLinkView btn btn-warning btn-sm" href="{{ path(operation_link['url_duplicate'], {'id': code}) }}" title="Dupliquer">
+            <i class="far fa-copy"></i>
+        </a>
+    {% endif %}
 {% endmacro %}
