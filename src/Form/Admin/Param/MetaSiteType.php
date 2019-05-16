@@ -21,9 +21,9 @@ class MetaSiteType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        // Configure your form options here
         $resolver->setDefaults(
             [
-                // Configure your form options here
             ]
         );
     }

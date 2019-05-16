@@ -42,10 +42,10 @@ class LoginType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        // Configure your form options here
         $resolver->setDefaults(
             [
                 'csrf_token_id' => 'login',
-                // Configure your form options here
             ]
         );
     }
