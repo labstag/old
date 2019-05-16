@@ -264,7 +264,7 @@ class FormbuilderViewType extends AbstractType
             $data['choices']  = $choices;
             $data['expanded'] = true;
             if (isset($field['inline'])) {
-                $data['attr']['class'] .= "form-check-inline";
+                $data['attr']['class'] .= 'form-check-inline';
             }
 
             $data['placeholder'] = false;

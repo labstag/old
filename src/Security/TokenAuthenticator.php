@@ -16,6 +16,9 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -100,10 +103,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         unset($request, $authException);
 
-        $data = [
-            // you might translate this message
-            'message' => 'Authentication Required',
-        ];
+        // you might translate this message
+        $data = ['message' => 'Authentication Required'];
 
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }

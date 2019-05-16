@@ -96,18 +96,7 @@ abstract class AdminControllerLib extends ControllerLib
             );
         }
 
-        $tabDataCheck                = [
-            'url_delete',
-            'url_edit',
-            'url_view',
-            'url_custom',
-        ];
-        $paramtwig['operation_link'] = [];
-        foreach ($tabDataCheck as $key) {
-            if (isset($paramtwig[$key])) {
-                $paramtwig['operation_link'][$key] = $paramtwig[$key];
-            }
-        }
+        $this->setOperationLink($paramtwig);
 
         return $this->twig('admin/crud/list.html.twig', $paramtwig);
     }
@@ -378,6 +367,23 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->setMenuAdmin();
         $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function setOperationLink(&$paramtwig)
+    {
+        $tabDataCheck                = [
+            'url_delete',
+            'url_edit',
+            'url_view',
+            'url_custom',
+            'url_duplicate',
+        ];
+        $paramtwig['operation_link'] = [];
+        foreach ($tabDataCheck as $key) {
+            if (isset($paramtwig[$key])) {
+                $paramtwig['operation_link'][$key] = $paramtwig[$key];
+            }
+        }
     }
 
     private function setParamTwig(&$paramtwig, $data)
