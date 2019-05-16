@@ -72,6 +72,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "friendsofphp/php-cs-fixer": "^2.14",
         "fzaninotto/faker": "^1.8",
+        "maglnet/composer-require-checker": "^2.0",
         "pdepend/pdepend": "^2.5",
         "phan/phan": "^1.2",
         "phploc/phploc": "^5.0",
