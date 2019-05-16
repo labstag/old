@@ -38,9 +38,7 @@ class DisclaimerType extends AbstractType
     {
         // Configure your form options here
         $resolver->setDefaults(
-            [
-                'csrf_token_id' => 'login',
-            ]
+            ['csrf_token_id' => 'login']
         );
     }
 }

@@ -26,8 +26,7 @@ class DatatableType extends AbstractType
     {
         // Configure your form options here
         $resolver->setDefaults(
-            [
-            ]
+            []
         );
     }
 
