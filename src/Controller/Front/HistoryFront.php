@@ -50,14 +50,25 @@ class HistoryFront extends ControllerLib
             $idChapitre = 1;
         }
 
-        foreach ($chapitres as $chapitre) {
+        foreach ($chapitres as $key => $chapitre) {
             if ($chapitre->getPosition() == ($idChapitre - 1) && $chapitre->isEnable()) {
-                $datatwig['chapitre'] = $chapitre;
-
+                $datatwig['chapitre']         = $chapitre;
+                $datatwig['chapitrenext'] = $key+1;
                 break;
             }
         }
 
-        return $this->twig('front/history/histoire.html.twig', $datatwig);
+        if (!isset($datatwig['chapitre'])) {
+            foreach ($chapitres as $key => $chapitre) {
+                if ($chapitre->isEnable()) {
+                    $datatwig['chapitre']         = $chapitre;
+                    $datatwig['chapitrenext'] = $key+1;
+    
+                    break;
+                }
+            }
+        }
+
+        return $this->twig('front/history/show.html.twig', $datatwig);
     }
 }

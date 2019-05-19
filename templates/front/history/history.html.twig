@@ -1,0 +1,52 @@
+{% import "macro.html.twig" as macroSite %}
+<article>
+    <header>
+        <h1>{{ histoire.name }}</h1>
+        <div class="text-right">
+            <ul class="list-inline">
+                <li class="list-inline-item post-time">
+                    Créer le: {{ macroSite.timeago(histoire.createdAt) }}
+                    Modifier le: {{ macroSite.timeago(histoire.updatedAt) }}
+                </li>
+                <li class="list-inline-item">
+                    Nombre de chapitre: {{ histoire.chapitresenabled|length }}
+                </li>
+                {% if histoire.refuser.id is defined %}
+                    <li class="list-inline-item post-author">
+                        <a href="{{ path('history_user', {'user': histoire.refuser.id}) }}">
+                            {{ macroSite.user(histoire.refuser) }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+    {% if histoire.file %}
+        <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
+    {% endif %}
+    <main>
+        {{ histoire.resume|raw }}
+        {% if chapitre is not defined %}
+            <div>
+                {% set lastchapitre = histoire.chapitresenabled|last %}
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a class="btn btn-secondary" href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>
+                    <li class="list-inline-item"><a class="btn btn-secondary" href="{{ path('history_show', {'slug': histoire.slug, 'chapitre': lastchapitre.position+1}) }}">Lire le dernier chapitre</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <h3>{{ chapitre.name }}</h3>
+            {{ chapitre.content|raw }}
+            {% if chapitres[chapitrenext] is defined %}
+                <div>
+                    <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : chapitres[chapitrenext].position+1}) }}">
+                        {{ chapitres[chapitrenext].name }}
+                    </a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </main>
+    <footer>
+
+    </footer>
+</article>
