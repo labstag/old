@@ -1,56 +1,10 @@
-{% import "macro.html.twig" as macroSite %}
 {% extends 'site.html.twig' %}
 {% block page_title %}Weblog{% endblock %}
 {% block bodySite %}
     <div class="container">
         <div class="col-md-12">
             {% for post in pagination %}
-                <article class="post-info">
-                    <header>
-                        <h1>{{ post.name }}</h1>
-                        <p class="post-time">
-                            Créer le: {{ macroSite.timeago(post.createdAt) }}
-                            Modifier le: {{ macroSite.timeago(post.updatedAt) }}
-                        </p>
-                        <p class="post-author">
-                            <a href="{{ path('posts_user', {'user': post.refuser.id}) }}">
-                                {{ macroSite.user(post.refuser) }}
-                            </a>
-                        </p>
-                    </header>
-                    {% if post.file %}
-                        <img src="{{ asset('file/'~post.file) }}" title="{{ post.name|e }}" class="img-fluid" />
-                    {% endif %}
-                    <ul>
-                        {% if post.tags|length !=0 %}
-                            <li>
-                                <i class="fas fa-tags"></i>
-                                Tags :
-                                <ul class="list-inline">
-                                    {% for tag in post.tags %}
-                                        <li class="list-inline-item">
-                                            <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">
-                                                <i class="fas fa-tag"></i>
-                                                <span>
-                                                    {{ tag.name }}
-                                                </span>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endif %}
-                        <li>
-                            Catégorie: <a href="{{ path('posts_category',{'slug': post.refcategory.slug}) }}">
-                                {{ post.refcategory.name }}
-                            </a>
-                        </li>
-                    </ul>
-                    <div>
-                        {{ pagebreak(post.content)|raw }}
-                    </div>
-                    <a href="{{ path('posts_show',{'slug': post.slug}) }}">Lire la suite</a>
-                </article>
+                {% include "front/posts/post.html.twig" with {'more': true } %}
             {% endfor %}
         </div>
     </div>

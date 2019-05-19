@@ -16,6 +16,13 @@
     main {
       float: right;
       width: 85%;
+
+      div {
+        .pagination {
+          width: 50%;
+          margin: auto;
+        }
+      }
     }
 
     .FieldCollection {
@@ -38,10 +45,32 @@
       header {
         border-bottom: 1px solid #dbdbdb;
 
+        &::after {
+          content: "";
+          display: table;
+        }
+
         h1 {
-          front-size: 200%;
+          border-left: 5px solid #2ca6cb;
+          font-size: 200%;
           padding-top: .3em;
         }
+
+        .list-inline {
+          margin-right: 2%;
+        }
+      }
+
+      main {
+        float: none;
+        width: auto;
+        margin: 2%;
+      }
+
+      footer {
+        border-top: 1px solid #dbdbdb;
+        padding: 1% 4%;
+        margin: 0;
       }
     }
   }
