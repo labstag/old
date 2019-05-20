@@ -30,14 +30,12 @@ class CrudExtension extends AbstractExtension
 
     public function pageDeletebreak($content)
     {
-        $content = str_replace("<p><!-- pagebreak --></p>", "", $content);
-
-        return $content;
+        return str_replace('<p><!-- pagebreak --></p>', '', $content);
     }
 
     public function pagebreak($content)
     {
-        $contents = explode("<p><!-- pagebreak --></p>", $content);
+        $contents = explode('<p><!-- pagebreak --></p>', $content);
 
         return $contents[0];
     }

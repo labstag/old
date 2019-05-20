@@ -22,7 +22,7 @@
         </div>
     </header>
     {% if histoire.file %}
-        <img src="{{ asset('file/'~histoire.file) }}" title="{{ histoire.name|e }}" class="img-fluid" />
+        <div class="picture image-final" style="background-image:url('{{ asset('file/'~histoire.file) }}');"></div>
     {% endif %}
     <main>
         {{ histoire.resume|raw }}
