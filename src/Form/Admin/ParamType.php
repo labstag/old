@@ -8,6 +8,7 @@ use Labstag\Form\Admin\Param\MetaSiteType;
 use Labstag\Form\Admin\Param\MomentType;
 use Labstag\Form\Admin\Param\OauthType;
 use Labstag\Form\Admin\Param\WysiwygType;
+use Labstag\FormType\WysiwygType as SiteWysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -76,6 +77,7 @@ class ParamType extends AbstractType
                 'entry_type'   => DisclaimerType::class,
             ]
         );
+        $builder->add('site_copyright', SiteWysiwygType::class);
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
