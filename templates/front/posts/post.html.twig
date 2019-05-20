@@ -27,6 +27,7 @@
         {% if more is defined %}
             {{ pagebreak(post.content)|raw }}
             <div>
+                <br />
                 <a class="btn btn-secondary" href="{{ path('posts_show',{'slug': post.slug}) }}">Lire la suite</a>
             </div>
         {% else %}

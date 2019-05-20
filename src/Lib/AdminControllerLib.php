@@ -246,7 +246,6 @@ abstract class AdminControllerLib extends ControllerLib
 
         $data          = json_decode($this->request->getContent(), true);
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->getFilters()->disable('softdeleteable');
         $restore       = 0;
         $routeRedirect = $route['url_trash'];
         foreach ($data as $id) {
@@ -299,7 +298,6 @@ abstract class AdminControllerLib extends ControllerLib
         if (0 != substr_count($routeActual, 'trash')) {
             $trash         = 1;
             $routeRedirect = $route['url_trash'];
-            $entityManager->getFilters()->disable('softdeleteable');
         }
 
         $delete = 0;
@@ -384,6 +382,10 @@ abstract class AdminControllerLib extends ControllerLib
                 $paramtwig['operation_link'][$key] = $paramtwig[$key];
             }
         }
+
+        if (isset($paramtwig['url_empty'])) {
+            unset($paramtwig['url_delete']);
+        }
     }
 
     private function setParamTwig(&$paramtwig, $data)
@@ -447,7 +449,7 @@ abstract class AdminControllerLib extends ControllerLib
 
     private function findEntity($trash, $repository, $dataInTrash)
     {
-        if (1 == $trash) {
+        if (0 == $trash) {
             return $repository->find($dataInTrash);
         }
 
