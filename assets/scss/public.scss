@@ -4,41 +4,23 @@
 .PublicPages {
   background-color: #ddd;
 
-  .main {
-    width: 90%;
-    margin: auto;
-    padding-top: 1%;
 
-    aside {
-      float: left;
-      width: 15%;
-      background: #fafafa;
-      padding-left: 2%;
-      padding-right: 2%;
-    }
+  aside {
+    float: left;
+    width: 15%;
+    background: #fafafa;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
 
-    main {
-      float: right;
-      width: 85%;
+  section {
+    float: right;
+    width: 85%;
 
-      div {
-        .pagination {
-          width: 50%;
-          margin: auto;
-        }
-      }
-    }
-
-    .FieldCollection {
-      border: 1px solid #000;
-      padding: 10px;
-      border-radius: 5px;
-
-      legend {
-        width: 20%;
-        padding-left: 10px;
-        border: 1px solid #000;
-        border-radius: 0 5px 5px 0;
+    div {
+      .pagination {
+        width: 50%;
+        margin: auto;
       }
     }
 
@@ -69,7 +51,7 @@
         width: 100%;
         background: no-repeat center center;
         background-size: cover;
-        padding-top: 42%
+        padding-top: 42%;
       }
 
       main {
@@ -80,6 +62,7 @@
 
       footer {
         border-top: 1px solid #dbdbdb;
+        background: #fafafa;
         padding: 1% 4%;
         margin: 0;
       }
@@ -87,8 +70,27 @@
   }
 
   footer {
+    clear: both;
     margin-top: 1em;
     background: #1f1f1f;
+    color: #fff;
     padding: 0 2% 0.5em;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+
+  }
+
+  .FieldCollection {
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+
+    legend {
+      width: 20%;
+      padding-left: 10px;
+      border: 1px solid #000;
+      border-radius: 0 5px 5px 0;
+    }
   }
 }

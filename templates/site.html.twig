@@ -33,22 +33,20 @@
             </div>
         </nav>
     </header>
-    <div class="main">
-        <aside>
-            {% block aside %}
-            {% endblock %}
-        </aside>
-        <main class="container-fluid">
-            {{ macroSite.flashbag(app) }}
+    <aside>
+        {% block aside %}
+        {% endblock %}
+    </aside>
+    <section>
+        {{ macroSite.flashbag(app) }}
     {% block bodySite %}
     {% endblock %}
-            {% if pagination is defined %}
-                <div class="navigation">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
-            {% endif %}
-        </main>
-    </div>
+        {% if pagination is defined %}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% endif %}
+    </section>
     <footer>
         {{ 'now'|date('Y') }}
     </footer>
