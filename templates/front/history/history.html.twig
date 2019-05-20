@@ -28,6 +28,7 @@
         {{ histoire.resume|raw }}
         {% if chapitre is not defined %}
             <div>
+                <br />
                 {% set lastchapitre = histoire.chapitresenabled|last %}
                 <ul class="list-inline">
                     <li class="list-inline-item"><a class="btn btn-secondary" href="{{ path('history_show',{'slug': histoire.slug}) }}">Lire l'histoire</a></li>

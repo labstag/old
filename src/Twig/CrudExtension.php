@@ -48,7 +48,12 @@ class CrudExtension extends AbstractExtension
             if (strtolower($method) == strtolower('get'.$key)) {
                 $return = $entity->{$method}();
                 if (is_object($return) && !($return instanceof DateTime)) {
-                    $return = $return->__toString();
+                    $methods = get_class_methods($return);
+                    if (in_array('__toString', $methods)) {
+                        $return = $return->__toString();
+                    }else{
+                        $return = '';
+                    }
                 }
             }
         }

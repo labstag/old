@@ -6,7 +6,7 @@
             <table id="CrudList" class="table table-border table-hover table-striped table-sm thead-light"{% if url_enable is defined %}{% for key, val in url_enable %} data-enableurl-{{ key }}="{{ path(val) }}"{% endfor %}{% endif %} data-toolbar="#toolbar" data-resizable="true" data-query-params="queryParams" data-page-size="10" data-ajax-options="ajaxOptions" data-moment="{{ config['moment'][0]['format'] }}" data-files="{{ asset('file/') }}" data-toggle="table"{% if api is defined %} data-url="{{ path(api) }}"{% endif %} data-locale="{{ config['datatable'][0]['lang'] }}" data-total-field="count" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-sortable="true" data-sort-class="table-active" data-side-pagination="server" data-sort-stable="true"  data-search="true" data-page-list="{{ config['datatable'][0]['pagelist'] }}" data-show-refresh="true" data-show-toggle="true" data-id-field="id" data-pagination="true" data-show-export="true">
                 <thead>
                     <tr>
-                        {% if select is defined %}
+                        {% if select is defined and dataInTrash is not defined %}
                             <th data-checkbox="true"></th>
                         {% endif %}
                         {% for name, row in datatable %}
@@ -24,9 +24,6 @@
                     <tbody>
                         {% for data in dataInTrash %}
                             <tr>
-                                {% if select is defined %}
-                                    <td></td>
-                                {% endif %}
                                 {% for name, row in datatable %}
                                     <td>
                                         {% set field = row.field %}
@@ -39,7 +36,7 @@
                                 {% endfor %}
                                 {% if operation is defined %}
                                     <td>
-                                        {{ macroAdmin.operation(data.id, operation_link) }}
+                                        {{ data.id }}
                                     </td>
                                 {% endif %}
                             </tr>
