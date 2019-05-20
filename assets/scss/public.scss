@@ -4,18 +4,42 @@
 .PublicPages {
   background-color: #ddd;
 
+  .navigation {
+    padding-bottom: 1%;
+  }
+
+  header {
+    margin-bottom: 1%;
+  }
+
+  footer {
+    clear: both;
+    margin: 0 auto;
+    background: #1f1f1f;
+    color: #fff;
+    padding: 0 2% 0.5em;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
 
   aside {
     float: left;
-    width: 15%;
-    background: #fafafa;
+    width: 20%;
     padding-left: 2%;
     padding-right: 2%;
+
+    nav {
+      width: 100%;
+      background: #fafafa;
+      padding-right: 1%;
+    }
   }
 
   section {
     float: right;
-    width: 85%;
+    width: 80%;
+    padding-right: 2%;
 
     div {
       .pagination {
@@ -40,6 +64,7 @@
           border-left: 5px solid #2ca6cb;
           font-size: 200%;
           padding-top: 0.3em;
+          padding-left: 1%;
         }
 
         .list-inline {
@@ -65,20 +90,10 @@
         background: #fafafa;
         padding: 1% 4%;
         margin: 0;
+        color: #d6d6d6;
+        text-align: left;
       }
     }
-  }
-
-  footer {
-    clear: both;
-    margin-top: 1em;
-    background: #1f1f1f;
-    color: #fff;
-    padding: 0 2% 0.5em;
-    margin: 0 auto;
-    overflow: hidden;
-    position: relative;
-
   }
 
   .FieldCollection {

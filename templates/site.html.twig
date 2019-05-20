@@ -48,6 +48,8 @@
         {% endif %}
     </section>
     <footer>
-        {{ 'now'|date('Y') }}
+        {% if config['site_copyright'] is defined %}
+            {{ config['site_copyright']|raw }}
+        {% endif %}
     </footer>
 {% endblock %}
