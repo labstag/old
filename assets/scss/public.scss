@@ -5,11 +5,15 @@
   background-color: #ddd;
 
   .main {
-    width: 99%;
+    width: 90%;
+    margin: auto;
+    padding-top: 1%;
 
     aside {
       float: left;
       width: 15%;
+      background: #fafafa;
+      padding-left: 2%;
       padding-right: 2%;
     }
 
@@ -61,6 +65,13 @@
         }
       }
 
+      .picture {
+        width: 100%;
+        background: no-repeat center center;
+        background-size: cover;
+        padding-top: 42%
+      }
+
       main {
         float: none;
         width: auto;
@@ -73,5 +84,11 @@
         margin: 0;
       }
     }
+  }
+
+  footer {
+    margin-top: 1em;
+    background: #1f1f1f;
+    padding: 0 2% 0.5em;
   }
 }
