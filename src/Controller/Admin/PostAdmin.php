@@ -153,9 +153,9 @@ class PostAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/tags/empty", name="adminpost_empty")
+     * @Route("/empty", name="adminpost_empty")
      */
-    public function emptyPost(TagsRepository $repository): JsonResponse
+    public function emptyPost(PostRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminpost_list');
     }

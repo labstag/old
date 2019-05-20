@@ -14,9 +14,9 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
+        $builder->add('slug');
         $builder->add('imageFile');
         $builder->add('content', WysiwygType::class);
-        $builder->add('slug');
         $builder->add('enable');
         $builder->add('refuser');
         $builder->add('refcategory');
