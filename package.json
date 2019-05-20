@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/labstag/labstag#readme",
   "scripts": {
-    "stylelint": "stylelint assets/scss/**/*.scss; exit 0",
+    "stylelint": "stylelint assets/scss/**/*.scss",
     "sgc": "sgc",
     "licenses": "license-checker",
     "dev-server": "encore dev-server",
