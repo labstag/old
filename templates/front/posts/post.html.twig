@@ -23,18 +23,16 @@
     {% if post.file %}
         <div class="picture image-final" style="background-image:url('{{ asset('file/'~post.file) }}');"></div>
     {% endif %}
-    {% if more is defined %}
-        <main>
+    <main>
+        {% if more is defined %}
             {{ pagebreak(post.content)|raw }}
             <div>
                 <a class="btn btn-secondary" href="{{ path('posts_show',{'slug': post.slug}) }}">Lire la suite</a>
             </div>
-        </main>
-    {% else %}
-        <main>
+        {% else %}
             {{ pageDeletebreak(post.content)|raw }}
-        </main>
-    {% endif %}
+        {% endif %}
+    </main>
     <footer>
         <ul class="list-inline">
             <li class="list-inline-item">
