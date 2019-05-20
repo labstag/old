@@ -19,9 +19,10 @@ class ConfigurationFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $data  = [
-            'site_title' => 'labstag',
-            'oauth'      => [],
-            'meta'       => [
+            'site_title'     => 'labstag',
+            'site_copyright' => 'Copyright '.date('Y'),
+            'oauth'          => [],
+            'meta'           => [
                 [
                     'viewport'    => 'width=device-width, initial-scale=1, shrink-to-fit=no',
                     'author'      => 'koromerzhin',
@@ -30,7 +31,7 @@ class ConfigurationFixtures extends Fixture
                     'keywords'    => '',
                 ],
             ],
-            'disclaimer' => [
+            'disclaimer'     => [
                 [
                     'activate'     => 0,
                     'message'      => '',
@@ -38,16 +39,16 @@ class ConfigurationFixtures extends Fixture
                     'url-redirect' => 'http://www.google.fr',
                 ],
             ],
-            'moment'     => [
+            'moment'         => [
                 [
                     'format' => 'MMMM Do YYYY, H:mm:ss',
                     'lang'   => 'fr',
                 ],
             ],
-            'wysiwyg'    => [
+            'wysiwyg'        => [
                 ['lang' => 'fr_FR'],
             ],
-            'datatable'  => [
+            'datatable'      => [
                 [
                     'lang'     => 'fr-FR',
                     'pagelist' => '[5, 10, 25, 50, All]',
