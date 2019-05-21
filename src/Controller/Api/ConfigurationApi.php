@@ -32,4 +32,12 @@ class ConfigurationApi extends ApiControllerLib
     {
         return $this->trashAction($request);
     }
+    
+    /**
+     * @Route("/api/configuration/empty", name="api_configurationempty", methods={"POST"})
+     */
+    public function empty(Request $request): JsonResponse
+    {
+        return $this->trashAction($request);
+    }
 }

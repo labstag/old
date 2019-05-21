@@ -26,9 +26,17 @@ class ChapitreApi extends ApiControllerLib
     }
     
     /**
-     * @Route("/api/category/restore", name="api_categoryrestore", methods={"POST"})
+     * @Route("/api/chapitre/restore", name="api_chapitrerestore", methods={"POST"})
      */
     public function restore(Request $request): JsonResponse
+    {
+        return $this->trashAction($request);
+    }
+    
+    /**
+     * @Route("/api/chapitre/empty", name="api_chapitreempty", methods={"POST"})
+     */
+    public function empty(Request $request): JsonResponse
     {
         return $this->trashAction($request);
     }

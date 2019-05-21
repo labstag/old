@@ -32,4 +32,12 @@ class TagsApi extends ApiControllerLib
     {
         return $this->trashAction($request);
     }
+    
+    /**
+     * @Route("/api/tags/empty", name="api_tagsempty", methods={"POST"})
+     */
+    public function empty(Request $request): JsonResponse
+    {
+        return $this->trashAction($request);
+    }
 }
