@@ -14,6 +14,7 @@
         "configFile": ".eslintrc.json"
     },
     "jshint.config": ".jshintrc",
+    "eslint.nodePath": "node_modules",
     "workbench.colorCustomizations": {
         "activityBar.background": "#9f4470",
         "titleBar.activeBackground": "#7b3557",
@@ -21,4 +22,10 @@
         "statusBar.background": "#7b3557",
         "statusBarItem.hoverBackground": "#9f4470"
     },
+    "[scss]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    }
 }

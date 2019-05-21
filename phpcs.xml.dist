@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="pcsg-generated-ruleset">
-    <description>Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/
+    <description>
+        Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/
     </description>
     <!-- Generic -->
     <rule ref="Generic.Arrays.ArrayIndent"/>
@@ -85,13 +86,12 @@
             <property name="allowMultipleArguments" value="false"/>
         </properties>
     </rule>
+    Squiz
     <rule ref="PEAR.Functions.ValidDefaultValue"/>
 
     <rule ref="PEAR.Files.IncludingFile"/>
 
     <rule ref="PEAR.NamingConventions.ValidClassName"/>
-    <rule ref="PEAR.NamingConventions.ValidFunctionName"/>
-    <rule ref="PEAR.NamingConventions.ValidVariableName"/>
 
     <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent">
         <properties>
@@ -135,7 +135,7 @@
 
     <!-- Squiz -->
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
->
+    >
     <rule ref="Squiz.Arrays.ArrayDeclaration">
         <properties>
             <arg name="tab-width" value="0"/>
@@ -171,8 +171,6 @@
     <rule ref="Squiz.Functions.FunctionDuplicateArgument"/>
     <rule ref="Squiz.Functions.GlobalFunction"/>
     <rule ref="Squiz.Functions.LowercaseFunctionKeywords"/>
-
-    <rule ref="Squiz.NamingConventions.ValidFunctionName"/>
 
     <rule ref="Squiz.Operators.IncrementDecrementUsage"/>
     <rule ref="Squiz.Operators.ValidLogicalOperators"/>

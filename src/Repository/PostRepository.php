@@ -70,7 +70,7 @@ class PostRepository extends ServiceEntityRepositoryLib
             ]
         );
 
-        return $dql->getQuery()->getResult();
+        return $dql->getQuery();
     }
 
     public function findAllActive()

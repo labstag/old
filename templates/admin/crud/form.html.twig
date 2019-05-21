@@ -1,12 +1,6 @@
-{% extends 'base.html.twig' %}
-
-{% block content_title %}{{ title }}{% endblock %}
-
-{% block body %}
-    <h1>{{ title }}</h1>
+{% extends 'admin.html.twig' %}
+{% block bodyAdmin %}
     {{ form_start(form) }}
-        {{ form_widget(form) }}
     {{ form_end(form) }}
-    <a href="{{ path(url_back) }}">back to list</a>
 {% endblock %}
 

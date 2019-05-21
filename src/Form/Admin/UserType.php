@@ -14,11 +14,11 @@ class UserType extends AbstractType
     {
         $builder->add('username');
         $builder->add('email');
-        $builder->add('roles');
-        $builder->add('password');
+        $builder->add('plainPassword');
+        $builder->add('enable');
         $builder->add('apiKey');
         $builder->add('enable');
-        $builder->add('avatar');
+        $builder->add('imageFile');
         $builder->add('submit', SubmitType::class);
         unset($options);
     }

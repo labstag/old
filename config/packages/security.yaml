@@ -33,8 +33,9 @@ security:
             guard:
                 authenticators:
                     - Labstag\Security\TokenAuthenticator
-                    - Labstag\Security\LoginFormAuthenticator
-                entry_point: Labstag\Security\LoginFormAuthenticator
+                    - Labstag\Security\OauthAuthenticator
+                    - Labstag\Security\FormAuthenticator
+                entry_point: Labstag\Security\FormAuthenticator
             # activate different ways to authenticate
 
             # http_basic: true
@@ -47,6 +48,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/, roles: ROLE_API }
-        - { path: ^/admin, roles: ROLE_USER }
-        - { path: ^/backend, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

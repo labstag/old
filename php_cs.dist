@@ -12,7 +12,6 @@ return PhpCsFixer\Config::create()
         '@PSR2' => true,
         '@PhpCsFixer' => true,
         '@DoctrineAnnotation' => true,
-        'array_syntax' => ['syntax' => 'short'],
         'backtick_to_shell_exec' => true,
         'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
         'general_phpdoc_annotation_remove' => ['annotations' => ['author']],

@@ -2,31 +2,37 @@
 
 namespace Labstag\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource
+ * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username",                             message="Username déjà pris")
  * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
 {
+    use SoftDeleteableEntity;
     use TimestampableEntity;
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid",             unique=true)
+     * @ORM\Column(type="guid", unique=true)
      */
     private $id;
 
@@ -50,6 +56,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"write"})
      */
     private $password;
 
@@ -57,6 +64,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
+     * @Groups({"write"})
      */
     private $apiKey;
 
@@ -88,11 +96,17 @@ class User implements UserInterface, \Serializable
      */
     private $oauthConnectUsers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
+     */
+    private $histories;
+
     public function __construct()
     {
         $this->enable            = true;
         $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
+        $this->histories         = new ArrayCollection();
     }
 
     public function __toString()
@@ -346,6 +360,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($oauthConnectUser->getRefuser() === $this) {
                 $oauthConnectUser->setRefuser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getRefuser() === $this) {
+                $history->setRefuser(null);
             }
         }
 

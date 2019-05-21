@@ -1,4 +1,15 @@
 parameters:
     git_dir: .
     bin_dir: bin
-    tasks: {  }
+    tasks:
+        composer:
+            file: ./composer.json
+            no_check_all: false
+            no_check_lock: false
+            no_check_publish: false
+            no_local_repository: false
+            with_dependencies: false
+            strict: false
+        file_size:
+            max_size: 10M
+            ignore_patterns: []
