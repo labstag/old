@@ -3,41 +3,40 @@
 namespace Labstag\Controller\Api;
 
 use Labstag\Lib\ApiControllerLib;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 class FormBuilderApi extends ApiControllerLib
 {
     /**
      * @Route("/api/formbuilder/trash", name="api_formbuildertrash")
      */
-    public function trash(Request $request): JsonResponse
+    public function trash(): JsonResponse
     {
-        return $this->trashAction($request);
+        return $this->trashAction();
     }
-    
+
     /**
      * @Route("/api/formbuilder/trash", name="api_formbuildertrashdelete", methods={"DELETE"})
      */
-    public function delete(Request $request): JsonResponse
+    public function delete(): JsonResponse
     {
-        return $this->trashAction($request);
+        return $this->deleteAction();
     }
-    
+
     /**
      * @Route("/api/formbuilder/restore", name="api_formbuilderrestore", methods={"POST"})
      */
-    public function restore(Request $request): JsonResponse
+    public function restore(): JsonResponse
     {
-        return $this->trashAction($request);
+        return $this->restoreAction();
     }
-    
+
     /**
      * @Route("/api/formbuilder/empty", name="api_formbuilderempty", methods={"POST"})
      */
-    public function empty(Request $request): JsonResponse
+    public function empty(): JsonResponse
     {
-        return $this->trashAction($request);
+        return $this->emptyAction();
     }
 }
