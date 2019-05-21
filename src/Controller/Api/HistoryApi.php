@@ -32,4 +32,12 @@ class HistoryApi extends ApiControllerLib
     {
         return $this->trashAction($request);
     }
+    
+    /**
+     * @Route("/api/history/empty", name="api_historyempty", methods={"POST"})
+     */
+    public function empty(Request $request): JsonResponse
+    {
+        return $this->trashAction($request);
+    }
 }

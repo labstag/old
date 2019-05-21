@@ -32,4 +32,12 @@ class FormBuilderApi extends ApiControllerLib
     {
         return $this->trashAction($request);
     }
+    
+    /**
+     * @Route("/api/formbuilder/empty", name="api_formbuilderempty", methods={"POST"})
+     */
+    public function empty(Request $request): JsonResponse
+    {
+        return $this->trashAction($request);
+    }
 }

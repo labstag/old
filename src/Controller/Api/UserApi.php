@@ -32,4 +32,12 @@ class UserApi extends ApiControllerLib
     {
         return $this->trashAction($request);
     }
+    
+    /**
+     * @Route("/api/user/empty", name="api_userempty", methods={"POST"})
+     */
+    public function empty(Request $request): JsonResponse
+    {
+        return $this->trashAction($request);
+    }
 }
