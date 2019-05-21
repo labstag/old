@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -21,7 +22,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiResource
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
- * @UniqueEntity(fields="username",                             message="Username déjà pris")
+ * @UniqueEntity(fields="username", message="Username déjà pris")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
