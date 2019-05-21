@@ -7,18 +7,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class UserApi extends ApiControllerLib
+class ChapitreApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/user/trash", name="api_usertrash")
+     * @Route("/api/chapitre/trash", name="api_chapitretrash")
      */
-    public function check(Request $request): JsonResponse
+    public function trash(Request $request): JsonResponse
     {
         return $this->trashAction($request);
     }
     
     /**
-     * @Route("/api/user/trash", name="api_usertrashdelete", methods={"DELETE"})
+     * @Route("/api/chapitre/trash", name="api_chapitretrashdelete", methods={"DELETE"})
      */
     public function delete(Request $request): JsonResponse
     {
@@ -26,7 +26,7 @@ class UserApi extends ApiControllerLib
     }
     
     /**
-     * @Route("/api/user/restore", name="api_userrestore", methods={"POST"})
+     * @Route("/api/category/restore", name="api_categoryrestore", methods={"POST"})
      */
     public function restore(Request $request): JsonResponse
     {

@@ -1,14 +1,209 @@
 resources:
+  Labstag\Entity\Category:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_categorytrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_categorytrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_categoryrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_categoryempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+  Labstag\Entity\Chapitre:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_chapitretrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_chapitretrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_chapitrerestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_chapitreempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+  Labstag\Entity\Configuration:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_configurationtrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_configurationtrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_configurationrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_configurationempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+  Labstag\Entity\FormBuilder:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_formbuildertrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_formbuildertrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_formbuilderrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_formbuilderempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+  Labstag\Entity\History:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_historytrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_historytrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_historyrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_historyempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+  Labstag\Entity\Post:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_posttrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_posttrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_postrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_postempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+  Labstag\Entity\Tags:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_tagstrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_tagstrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_tagsrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_tagsempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
   Labstag\Entity\User:
     itemOperations:
       get: ~
       put: ~
       delete: ~
-      check:
-        route_name: "api_checkuser"
+      trash:
+        route_name: "api_usertrash"
         swagger_context:
-          summary: "Verifie si l'utilisateur est présent dans la base de données"
+          summary: "Corbeille"
           parameters:
             -
-              name: username
-              in: query
+      trashdelete:
+        route_name: "api_usertrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_userrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_userempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
