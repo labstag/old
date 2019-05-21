@@ -2,80 +2,54 @@
 
 namespace Labstag\Lib;
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 abstract class ApiControllerLib extends ControllerLib
 {
-    protected function trashAction(): JsonResponse
-    {
-        $get        = $this->request->query->all();
-        $post       = $this->request->request->all();
-        $cookies    = $this->request->cookies->all();
-        $attributes = $this->request->attributes->all();
-        $files      = $this->request->files->all();
-        $server     = $this->request->server->all();
-        $headers    = $this->request->headers->all();
 
-        return $this->json(
-            [
-                'files'      => $files,
-                'server'     => $server,
-                'attributes' => $attributes,
-                'headers'    => $headers,
-                'cookies'    => $cookies,
-                'get'        => $get,
-                'post'       => $post,
-            ]
-        );
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct($container);
     }
 
-    protected function restoreAction(): JsonResponse
+    private function setSerializer()
     {
-        $get        = $this->request->query->all();
-        $post       = $this->request->request->all();
-        $cookies    = $this->request->cookies->all();
-        $attributes = $this->request->attributes->all();
-        $files      = $this->request->files->all();
-        $server     = $this->request->server->all();
-        $headers    = $this->request->headers->all();
+        $encoders          = [new XmlEncoder(), new JsonEncoder(), new CsvEncoder()];
+        $normalizers       = new GetSetMethodNormalizer();
 
-        return $this->json(
+        $callback = function ($innerObject, $outerObject, string $attributeName, string $format = null, array $context = []) {
+            return $innerObject instanceof \DateTime ? $innerObject->format(\DateTime::ISO8601) : '';
+        };
+        
+        $normalizers->setCallbacks(
             [
-                'files'      => $files,
-                'server'     => $server,
-                'attributes' => $attributes,
-                'headers'    => $headers,
-                'cookies'    => $cookies,
-                'get'        => $get,
-                'post'       => $post,
+                'createdAt' => $callback,
+                'updatedAt' => $callback,
+                'deletedAt' => $callback,
             ]
         );
+        
+        $this->serializer = new Serializer([$normalizers], $encoders);
     }
 
-    protected function emptyAction(): JsonResponse
+    protected function trashAction($repository, $format)
     {
-        $get        = $this->request->query->all();
-        $post       = $this->request->request->all();
-        $cookies    = $this->request->cookies->all();
-        $attributes = $this->request->attributes->all();
-        $files      = $this->request->files->all();
-        $server     = $this->request->server->all();
-        $headers    = $this->request->headers->all();
+        $dataInTrash = $repository->findDataInTrash();
+        $this->setSerializer();
+        $content     = $this->serializer->serialize($dataInTrash, $format);
 
-        return $this->json(
-            [
-                'files'      => $files,
-                'server'     => $server,
-                'attributes' => $attributes,
-                'headers'    => $headers,
-                'cookies'    => $cookies,
-                'get'        => $get,
-                'post'       => $post,
-            ]
-        );
+        return new Response($content);
     }
 
-    protected function deleteAction(): JsonResponse
+    protected function restoreAction()
     {
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
@@ -85,16 +59,56 @@ abstract class ApiControllerLib extends ControllerLib
         $server     = $this->request->server->all();
         $headers    = $this->request->headers->all();
 
-        return $this->json(
-            [
-                'files'      => $files,
-                'server'     => $server,
-                'attributes' => $attributes,
-                'headers'    => $headers,
-                'cookies'    => $cookies,
-                'get'        => $get,
-                'post'       => $post,
-            ]
-        );
+        return $this->json([
+            'files'      => $files,
+            'server'     => $server,
+            'attributes' => $attributes,
+            'headers'    => $headers,
+            'cookies'    => $cookies,
+            'get'        => $get,
+            'post'       => $post,
+        ]);
+    }
+
+    protected function emptyAction()
+    {
+        $get        = $this->request->query->all();
+        $post       = $this->request->request->all();
+        $cookies    = $this->request->cookies->all();
+        $attributes = $this->request->attributes->all();
+        $files      = $this->request->files->all();
+        $server     = $this->request->server->all();
+        $headers    = $this->request->headers->all();
+
+        return $this->json([
+            'files'      => $files,
+            'server'     => $server,
+            'attributes' => $attributes,
+            'headers'    => $headers,
+            'cookies'    => $cookies,
+            'get'        => $get,
+            'post'       => $post,
+        ]);
+    }
+
+    protected function deleteAction()
+    {
+        $get        = $this->request->query->all();
+        $post       = $this->request->request->all();
+        $cookies    = $this->request->cookies->all();
+        $attributes = $this->request->attributes->all();
+        $files      = $this->request->files->all();
+        $server     = $this->request->server->all();
+        $headers    = $this->request->headers->all();
+
+        return $this->json([
+            'files'      => $files,
+            'server'     => $server,
+            'attributes' => $attributes,
+            'headers'    => $headers,
+            'cookies'    => $cookies,
+            'get'        => $get,
+            'post'       => $post,
+        ]);
     }
 }

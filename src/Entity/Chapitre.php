@@ -17,7 +17,6 @@ use Gedmo\Translatable\Translatable;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ChapitreRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\Loggable
  */
 class Chapitre implements Translatable
 {
@@ -38,7 +37,6 @@ class Chapitre implements Translatable
     private $name;
 
     /**
-     * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */
     private $content;
