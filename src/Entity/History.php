@@ -22,7 +22,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\HistoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\Loggable
  * @Vich\Uploadable
  */
 class History implements Translatable
@@ -84,7 +83,6 @@ class History implements Translatable
     private $end;
 
     /**
-     * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */
     private $resume;

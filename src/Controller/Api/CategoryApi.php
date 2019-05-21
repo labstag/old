@@ -5,38 +5,39 @@ namespace Labstag\Controller\Api;
 use Labstag\Lib\ApiControllerLib;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\CategoryRepository;
 
 class CategoryApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/category/trash", name="api_categorytrash")
+     * @Route("/api/categories/trash.{_format}", name="api_categorytrash")
      */
-    public function trash(): JsonResponse
+    public function trash(CategoryRepository $repository, $_format)
     {
-        return $this->trashAction();
+        return $this->trashAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/category/trash", name="api_categorytrashdelete", methods={"DELETE"})
+     * @Route("/api/categories/trash.{_format}", name="api_categorytrashdelete", methods={"DELETE"})
      */
-    public function delete(): JsonResponse
+    public function delete(CategoryRepository $repository, $_format)
     {
-        return $this->deleteAction();
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/category/restore", name="api_categoryrestore", methods={"POST"})
+     * @Route("/api/categories/restore.{_format}", name="api_categoryrestore", methods={"POST"})
      */
-    public function restore(): JsonResponse
+    public function restore(CategoryRepository $repository, $_format)
     {
-        return $this->restoreAction();
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/category/empty", name="api_categoryempty", methods={"POST"})
+     * @Route("/api/categories/empty.{_format}", name="api_categoryempty", methods={"POST"})
      */
-    public function empty(): JsonResponse
+    public function empty(CategoryRepository $repository, $_format)
     {
-        return $this->emptyAction();
+        return $this->emptyAction($repository, $_format);
     }
 }

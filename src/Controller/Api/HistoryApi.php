@@ -5,38 +5,39 @@ namespace Labstag\Controller\Api;
 use Labstag\Lib\ApiControllerLib;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\HistoryRepository;
 
 class HistoryApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/history/trash", name="api_historytrash")
+     * @Route("/api/histories/trash.{_format}", name="api_historytrash")
      */
-    public function trash(): JsonResponse
+    public function trash(HistoryRepository $repository, $_format)
     {
-        return $this->trashAction();
+        return $this->trashAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/history/trash", name="api_historytrashdelete", methods={"DELETE"})
+     * @Route("/api/histories/trash.{_format}", name="api_historytrashdelete", methods={"DELETE"})
      */
-    public function delete(): JsonResponse
+    public function delete(HistoryRepository $repository, $_format)
     {
-        return $this->deleteAction();
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/history/restore", name="api_historyrestore", methods={"POST"})
+     * @Route("/api/histories/restore.{_format}", name="api_historyrestore", methods={"POST"})
      */
-    public function restore(): JsonResponse
+    public function restore(HistoryRepository $repository, $_format)
     {
-        return $this->restoreAction();
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/history/empty", name="api_historyempty", methods={"POST"})
+     * @Route("/api/histories/empty.{_format}", name="api_historyempty", methods={"POST"})
      */
-    public function empty(): JsonResponse
+    public function empty(HistoryRepository $repository, $_format)
     {
-        return $this->emptyAction();
+        return $this->emptyAction($repository, $_format);
     }
 }
