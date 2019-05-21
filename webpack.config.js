@@ -1,10 +1,16 @@
-const Encore = require('@symfony/webpack-encore');
-
+const Encore            = require('@symfony/webpack-encore');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore.setOutputPath('public/build/');
-Encore.setPublicPath('/build');
-Encore.addEntry('app', './assets/js/app.js');
+if (Encore.isProduction()) {
+    Encore.setPublicPath('/labstag/public/build');
+} else {
+    Encore.setPublicPath('/build');
+}
+// Encore.addEntry('app', './assets/ts/app.ts');
+Encore.addEntry('app', [
+    './assets/js/app.js'
+]);
 Encore.splitEntryChunks();
 Encore.enableSingleRuntimeChunk();
 Encore.cleanupOutputBeforeBuild();
@@ -13,35 +19,50 @@ Encore.enableSourceMaps(!Encore.isProduction());
 Encore.enableVersioning(Encore.isProduction());
 Encore.configureBabel(() => {}, {
     'useBuiltIns': 'usage',
-    'corejs': 3,
-});
-Encore.configureUrlLoader({
-    images: {
-        limit: 4096
+    'corejs'     : 3
+} );
+Encore.configureUrlLoader( {
+    'images': {
+        'limit': 4096
     }
-})
+} )
 Encore.enableSassLoader();
+Encore.enableLessLoader();
 Encore.autoProvidejQuery();
-Encore.autoProvideVariables({
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-});
+Encore.autoProvideVariables( {
+    'jsPDF'        : 'jspdf',
+    '$'            : 'jquery',
+    'jQuery'       : 'jquery',
+    '$.formBuilder': 'formBuilder',
+    'window.jQuery': 'jquery'
+} );
 Encore.configureBabel();
 Encore.addPlugin(new CopyWebpackPlugin([{
         'from': 'node_modules/tinymce/skins',
-        'to': 'skins',
+        'to'  : 'skins'
     },
     {
         'from': 'node_modules/tinymce-i18n/langs',
-        'to': 'langs',
+        'to'  : 'langs'
     },
     {
         'from': 'node_modules/tinymce/plugins',
-        'to': 'plugins',
+        'to'  : 'plugins'
+    },
+    {
+        'from': 'node_modules/formbuilder-languages',
+        'to'  : 'formbuilder-lang'
     }
 ]));
-Encore.enableTypeScriptLoader();
-Encore.enableIntegrityHashes();
+// Encore.enableTypeScriptLoader();
+// Encore.enableForkedTypeScriptTypesChecking();
+if (Encore.isProduction()) {
+    Encore.enableIntegrityHashes();
+}
 
-module.exports = Encore.getWebpackConfig();
+let webpack = Encore.getWebpackConfig();
+
+if (Encore.isProduction()) {
+    webpack.output.jsonpFunction = 'labstag';
+}
+module.exports = webpack;

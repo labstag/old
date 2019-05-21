@@ -1,4 +1,13 @@
 api_platform:
+    collection:
+        order_parameter_name: order
+        pagination:
+            items_per_page: 5
+            maximum_items_per_page: 40
+            client_enabled: true
+            enabled_parameter_name: pagination
+            client_items_per_page: true
+            items_per_page_parameter_name: limit
     swagger:
         api_keys:
            apiKey:

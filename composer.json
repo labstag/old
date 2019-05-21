@@ -20,14 +20,7 @@
         "knplabs/knp-menu-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^3.0",
         "knplabs/knp-time-bundle": "^1.9",
-        "knpuniversity/oauth2-client-bundle": "^1.28",
-        "league/glide-symfony": "^1.0",
-        "league/oauth2-github": "^2.0",
-        "league/oauth2-google": "^3.0",
-        "lexik/jwt-authentication-bundle": "^2.6",
-        "luchianenco/oauth2-amazon": "^1.1",
         "martinssipenko/password-policy": "^1.0",
-        "omines/oauth2-gitlab": "^3.1",
         "phpoffice/phppresentation": "^0.9.0",
         "phpoffice/phpspreadsheet": "^1.6",
         "phpoffice/phpword": "^0.16.0",
@@ -37,7 +30,6 @@
         "sensio/framework-extra-bundle": "^5.1",
         "sentry/sentry-symfony": "^2.3",
         "setasign/fpdi-fpdf": "^2.2",
-        "stevenmaguire/oauth2-bitbucket": "^3.0",
         "stevenmaguire/oauth2-dropbox": "^3.0",
         "stof/doctrine-extensions-bundle": "^1.3",
         "symfony/apache-pack": "^1.0",
@@ -73,7 +65,6 @@
         "twig/extensions": "^1.5",
         "vich/uploader-bundle": "^1.9",
         "webonyx/graphql-php": "^0.13.0",
-        "wohali/oauth2-discord-new": "^1.0",
         "zendframework/zend-soap": "^2.7"
     },
     "require-dev": {
@@ -81,6 +72,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "friendsofphp/php-cs-fixer": "^2.14",
         "fzaninotto/faker": "^1.8",
+        "maglnet/composer-require-checker": "^2.0",
         "pdepend/pdepend": "^2.5",
         "phan/phan": "^1.2",
         "phploc/phploc": "^5.0",
@@ -126,6 +118,13 @@
     },
     "scripts": {
         "phploc": "phploc src",
+        "php-fix": [
+            "composer php-cs-fixer",
+            "composer phpcs",
+            "composer phpmnd",
+            "composer phpmd",
+            "composer phpcbf"
+        ],
         "php-cs-fixer": "php-cs-fixer fix --config=php_cs.dist src -n",
         "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",
         "phpcbf": "phpcbf src tests --ignore=*/src/Migrations/*,src/Kernel.php",

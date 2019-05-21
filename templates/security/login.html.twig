@@ -1,16 +1,29 @@
+{% set classBody = "LoginPage" %}
 {% extends 'base.html.twig' %}
 
 {% block page_title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-offset-md-2 col-md-8">
+    <div id="RowLogin">
+        {{ form_start(formLogin) }}
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            {{ form_start(formLogin) }}
-            {{ form_end(formLogin) }}
-        </div>
+        {{ form_end(formLogin) }}
+        {% if oauths|length != 0 %}
+            Se connecter avec :
+            <div class="row">
+            {% for oauth in oauths %}
+                <div class="col-md-4 itemConnect">
+                    <a href="{{ path('connect_start', {'oauthCode': oauth.name}) }}" title="{{ oauth.name|e }}">
+                        <i class="fab fa-{{ oauth.name }}"></i>
+                        <br />
+                        {{ oauth.name }}
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
