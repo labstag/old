@@ -2,12 +2,12 @@
 
 namespace Labstag\Controller\Api;
 
-use Labstag\Lib\AbstractControllerLib;
+use Labstag\Lib\ControllerLib;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserApi extends AbstractControllerLib
+class UserApi extends ControllerLib
 {
     /**
      * @Route("/api/user/check", name="api_checkuser")

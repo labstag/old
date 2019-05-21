@@ -41,7 +41,8 @@ class FieldsetType extends AbstractType
         FormView $view,
         FormInterface $form,
         array $options
-    ) {
+    )
+    {
         if (false !== $options['legend']) {
             $view->vars['legend'] = $options['legend'];
         }

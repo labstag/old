@@ -13,7 +13,8 @@ class WysiwygType extends AbstractType
         FormView $view,
         FormInterface $form,
         array $options
-    ): void {
+    ): void
+    {
         $attr = $options['attr'];
         if (!isset($attr['class'])) {
             $attr['class'] = '';
@@ -30,8 +31,6 @@ class WysiwygType extends AbstractType
 
     /**
      * {@inheritdoc}
-     *
-     * @return string
      */
     public function getParent(): string
     {

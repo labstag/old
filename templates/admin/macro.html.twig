@@ -1,0 +1,29 @@
+{% macro operation(code, operation_link) %}
+    {% if operation_link['url_delete'] is defined %}
+        <a class="OperationLinkDelete btn btn-danger btn-sm" href="{{ path(operation_link['url_delete']) }}" title="Supprimer" data-id="{{ code }}">
+            <i class="fas fa-trash-alt"></i>
+        </a>
+    {% endif %}
+    {% if operation_link['url_edit'] is defined %}
+        <a class="OperationLinkEdit btn btn-primary btn-sm" href="{{ path(operation_link['url_edit'], {'id': code}) }}" title="Modifier">
+            <i class="fas fa-edit"></i>
+        </a>
+    {% endif %}
+    {% if operation_link['url_custom'] is defined %}
+        {% for customlink in operation_link['url_custom'] %}
+            <a class="OperationLink{{ customlink['id'] }} btn btn-success btn-sm" href="{{ path(customlink['link'], {'id': code}) }}" title="{{ customlink['text'] }}">
+                <i class="{{ customlink['icon'] }}"></i>
+            </a>
+        {% endfor %}
+    {% endif %}
+    {% if operation_link['url_view'] is defined %}
+        <a class="OperationLinkView btn btn-success btn-sm" href="{{ path(operation_link['url_view'], {'id': code}) }}" title="Voir">
+            <i class="fas fa-eye"></i>
+        </a>
+    {% endif %}
+    {% if operation_link['url_duplicate'] is defined %}
+        <a class="OperationLinkView btn btn-warning btn-sm" href="{{ path(operation_link['url_duplicate'], {'id': code}) }}" title="Dupliquer">
+            <i class="far fa-copy"></i>
+        </a>
+    {% endif %}
+{% endmacro %}

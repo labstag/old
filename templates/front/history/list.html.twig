@@ -1,0 +1,8 @@
+{% import "macro.html.twig" as macroSite %}
+{% extends 'site.html.twig' %}
+{% block page_title %}Histoires{% endblock %}
+{% block bodySite %}
+    {% for histoire in pagination %}
+        {% include "front/history/history.html.twig" %}
+    {% endfor %}
+{% endblock %}

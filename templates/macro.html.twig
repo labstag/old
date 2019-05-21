@@ -1,0 +1,21 @@
+{% macro flashbag(app) %}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            <button class="close" data-dismiss="alert">×</button>
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% endmacro %}
+{% macro user(user) %}
+    <i class="fas fa-user"></i>
+    {{ user }}
+{% endmacro %}
+{% macro timeago(temps) %}
+    <i class="fas fa-clock" title="{{ temps|date('d/m/Y \à H:i:s') }}"></i>
+    <time datetime="2015-09-20 00:00:00 +0000" itemprop="datePublished">  {{ temps|date('d/m/Y') }}</time>
+    <span class="timeago">{{ temps|ago }}</span>
+{% endmacro %}

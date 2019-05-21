@@ -1,0 +1,64 @@
+{% import "macro.html.twig" as macroSite %}
+<article class="post-info">
+    <header>
+        <h1>
+            <a href="{{ path('posts_show',{'slug': post.slug}) }}">
+            {{ post.name }}
+            </a>
+        </h1>
+        <div class="text-right">
+            <ul class="list-inline">
+                <li class="list-inline-item post-time">
+                    Créer le: {{ macroSite.timeago(post.createdAt) }}
+                    Modifier le: {{ macroSite.timeago(post.updatedAt) }}
+                </li>
+                <li class="list-inline-item post-author">
+                    <a href="{{ path('posts_user', {'user': post.refuser.id}) }}">
+                        {{ macroSite.user(post.refuser) }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    {% if post.file %}
+        <div class="picture image-final" style="background-image:url('{{ asset('file/'~post.file) }}');"></div>
+    {% endif %}
+    <main>
+        {% if more is defined %}
+            {{ pagebreak(post.content)|raw }}
+            <div>
+                <br />
+                <a class="btn btn-secondary" href="{{ path('posts_show',{'slug': post.slug}) }}">Lire la suite</a>
+            </div>
+        {% else %}
+            {{ pageDeletebreak(post.content)|raw }}
+        {% endif %}
+    </main>
+    <footer>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <i class="fas fa-folder"></i>
+            </li>
+            <li class="list-inline-item">
+                <a href="{{ path('posts_category',{'slug': post.refcategory.slug}) }}">
+                    {{ post.refcategory.name }}
+                </a>
+            </li>
+            {% if post.tags|length != 0 %}
+                <li class="list-inline-item">
+                    <i class="fas fa-tags"></i>
+                </li>
+                {% for tag in post.tags %}
+                    <li class="list-inline-item">
+                        <a href="{{ path('posts_tag',{'slug': tag.slug}) }}">
+                            <i class="fas fa-tag"></i>
+                            <span>
+                                {{ tag.name }}
+                            </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </footer>
+</article>

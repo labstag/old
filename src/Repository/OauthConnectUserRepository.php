@@ -3,6 +3,7 @@
 namespace Labstag\Repository;
 
 use Labstag\Entity\OauthConnectUser;
+use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,38 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, OauthConnectUser::class);
+    }
+
+    public function findOauthNotUser(User $user, $identity, string $client)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->where('p.refuser=:iduser');
+        $dql->andWhere('p.identity=:identity');
+        $dql->andWhere('p.name=:name');
+        $dql->setParameters(
+            [
+                'iduser'   => $user->getId(),
+                'name'     => $client,
+                'identity' => $identity,
+            ]
+        );
+
+        return $dql->getQuery()->getOneOrNullResult();
+    }
+
+    public function findOneOauthByUser(string $oauthCode, User $user)
+    {
+        $dql = $this->createQueryBuilder('p');
+        $dql->where('p.name=:name');
+        $dql->andWhere('p.refuser=:iduser');
+        $dql->setParameters(
+            [
+                'iduser' => $user->getId(),
+                'name'   => $oauthCode,
+            ]
+        );
+
+        return $dql->getQuery()->getOneOrNullResult();
     }
 
     // /**
@@ -47,4 +80,30 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         ;
     }
     */
+
+    public function login($identity, $oauth)
+    {
+        $builder = $this->createQueryBuilder('u');
+        $builder->where(
+            'u.name = :name AND u.identity = :identity'
+        );
+        $builder->setParameters(
+            [
+                'name'     => $oauth,
+                'identity' => $identity,
+            ]
+        );
+
+        return $builder->getQuery()->getOneOrNullResult();
+    }
+
+    public function findDistinctAllOauth()
+    {
+        $builder = $this->createQueryBuilder('u');
+        $builder->select('u.name');
+        $builder->distinct('u.name');
+        $builder->orderBy('u.name', 'ASC');
+
+        return $builder->getQuery()->getResult();
+    }
 }

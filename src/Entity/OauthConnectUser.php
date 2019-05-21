@@ -11,10 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OauthConnectUser
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid",             unique=true)
+     * @ORM\Column(type="guid", unique=true)
      */
     private $id;
 
@@ -35,7 +36,7 @@ class OauthConnectUser
     private $refuser;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $identity;
 

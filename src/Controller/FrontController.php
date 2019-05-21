@@ -2,17 +2,12 @@
 
 namespace Labstag\Controller;
 
-use Labstag\Controller\Front\PostTrait;
-use Labstag\Lib\AbstractControllerLib;
-use League\Glide\Responses\SymfonyResponseFactory;
-use League\Glide\ServerFactory;
+use Labstag\Lib\ControllerLib;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FrontController extends AbstractControllerLib
+class FrontController extends ControllerLib
 {
-    use PostTrait;
-
     /**
      * @Route("/", name="front")
      */
@@ -22,21 +17,5 @@ class FrontController extends AbstractControllerLib
             $this->generateUrl('posts_list'),
             301
         );
-    }
-
-    /**
-     * @Route("/image/{filterName}/{imageName}", name="glide")
-     */
-    public function glide(string $filterName, string $imageName)
-    {
-        $parameters = $this->getParameter('media_filters');
-        $server     = ServerFactory::create(
-            [
-                'response' => new SymfonyResponseFactory(),
-                'source'   => 'file',
-                'cache'    => 'file/tmp',
-            ]
-        );
-        $server->outputImage($imageName, $parameters[$filterName]);
     }
 }
