@@ -77,7 +77,7 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
-  Labstag\Entity\FormBuilder:
+  Labstag\Entity\Formbuilder:
     itemOperations:
       get: ~
       put: ~

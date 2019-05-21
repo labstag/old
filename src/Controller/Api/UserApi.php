@@ -5,38 +5,39 @@ namespace Labstag\Controller\Api;
 use Labstag\Lib\ApiControllerLib;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Labstag\Repository\UserRepository;
 
 class UserApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/user/trash", name="api_usertrash")
+     * @Route("/api/user/trash.{_format}", name="api_usertrash")
      */
-    public function check(): JsonResponse
+    public function trash(UserRepository $repository, $_format)
     {
-        return $this->trashAction();
+        return $this->trashAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/user/trash", name="api_usertrashdelete", methods={"DELETE"})
+     * @Route("/api/user/trash.{_format}", name="api_usertrashdelete", methods={"DELETE"})
      */
-    public function delete(): JsonResponse
+    public function delete(UserRepository $repository, $_format)
     {
-        return $this->deleteAction();
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/user/restore", name="api_userrestore", methods={"POST"})
+     * @Route("/api/user/restore.{_format}", name="api_userrestore", methods={"POST"})
      */
-    public function restore(): JsonResponse
+    public function restore(UserRepository $repository, $_format)
     {
-        return $this->restoreAction();
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/user/empty", name="api_userempty", methods={"POST"})
+     * @Route("/api/user/empty.{_format}", name="api_userempty", methods={"POST"})
      */
-    public function empty(): JsonResponse
+    public function empty(UserRepository $repository, $_format)
     {
-        return $this->emptyAction();
+        return $this->emptyAction($repository, $_format);
     }
 }
