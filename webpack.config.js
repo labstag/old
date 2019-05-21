@@ -3,9 +3,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 Encore.setOutputPath('public/build/');
 if (Encore.isProduction()) {
-    Encore.setPublicPath('/labstag/public/build');
-} else {
     Encore.setPublicPath('/build');
+} else {
+    Encore.setPublicPath('/labstag/public/build');
 }
 // Encore.addEntry('app', './assets/ts/app.ts');
 Encore.addEntry('app', [
