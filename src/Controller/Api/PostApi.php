@@ -3,9 +3,8 @@
 namespace Labstag\Controller\Api;
 
 use Labstag\Lib\ApiControllerLib;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Labstag\Repository\PostRepository;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PostApi extends ApiControllerLib
 {
