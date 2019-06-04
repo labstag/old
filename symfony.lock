@@ -305,8 +305,23 @@
     "knplabs/knp-time-bundle": {
         "version": "1.9.0"
     },
+    "lcobucci/jwt": {
+        "version": "3.3.1"
+    },
     "league/oauth2-client": {
         "version": "2.4.1"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "./config/packages/lexik_jwt_authentication.yaml"
+        ]
     },
     "maglnet/composer-require-checker": {
         "version": "2.0.0"
@@ -331,6 +346,9 @@
     },
     "myclabs/deep-copy": {
         "version": "1.8.1"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
