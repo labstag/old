@@ -25,6 +25,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\Chapitre:
     itemOperations:
       get: ~
@@ -51,6 +53,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\Configuration:
     itemOperations:
       get: ~
@@ -77,6 +81,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\Formbuilder:
     itemOperations:
       get: ~
@@ -103,6 +109,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\History:
     itemOperations:
       get: ~
@@ -129,6 +137,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\Post:
     itemOperations:
       get: ~
@@ -155,6 +165,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\Tags:
     itemOperations:
       get: ~
@@ -181,6 +193,8 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\User:
     itemOperations:
       get: ~
@@ -207,3 +221,5 @@ resources:
         method: post
         swagger_context:
           summary: "Empty"
+          parameters:
+            -
