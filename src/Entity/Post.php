@@ -22,6 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\PostRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
  * @Vich\Uploadable
  */
 class Post implements Translatable
@@ -38,6 +39,7 @@ class Post implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
@@ -56,6 +58,7 @@ class Post implements Translatable
     private $imageFile;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */
     private $content;
