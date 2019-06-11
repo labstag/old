@@ -3,9 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const mode              = String((process.env.NODE_ENV != undefined) ? process.env.NODE_ENV : 'php').trim();
 
 Encore.setOutputPath('public/build/');
-if (Encore.isProduction()) {
-    Encore.setPublicPath('/build');
-} else if (mode === 'php') {
+if (Encore.isProduction() || mode == 'php') {
     Encore.setPublicPath('/build');
 } else {
     Encore.setPublicPath('/labstag/public/build');
