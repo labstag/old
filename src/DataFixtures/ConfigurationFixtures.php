@@ -18,6 +18,11 @@ class ConfigurationFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $this->add($manager);
+    }
+
+    private function add(ObjectManager $manager)
+    {
         $data  = [
             'site_title'     => 'labstag',
             'site_copyright' => 'Copyright '.date('Y'),

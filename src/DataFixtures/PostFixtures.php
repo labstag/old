@@ -25,6 +25,11 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $this->add($manager);
+    }
+
+    private function add(ObjectManager $manager)
+    {
         $users      = $this->userRepository->findAll();
         $categories = $this->categoryRepository->findAll();
         $tags       = $this->tagsRepository->findAll();

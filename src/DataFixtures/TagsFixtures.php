@@ -13,6 +13,11 @@ class TagsFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $this->add($manager);
+    }
+
+    private function add(ObjectManager $manager)
+    {
         $faker = Factory::create('fr_FR');
         for ($i = 0; $i < self::NUMBER; ++$i) {
             $tags = new Tags();
