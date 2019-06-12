@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Gedmo\Loggable\Entity\LogEntry;
 
 abstract class AdminControllerLib extends ControllerLib
 {
@@ -164,6 +165,8 @@ abstract class AdminControllerLib extends ControllerLib
             'url_delete',
             'title',
         ];
+        $entityManager = $this->getDoctrine()->getManager();
+        $repository    = $entityManager->getRepository(LogEntry::class);
         foreach ($tabDataCheck as $key) {
             if (!isset($data[$key])) {
                 throw new HttpException(500, 'Parametre ['.$key.'] manquant');
@@ -207,6 +210,11 @@ abstract class AdminControllerLib extends ControllerLib
 
         if (isset($data['twig'])) {
             $params['twig'] = $data['twig'];
+        }
+
+        if (!is_array($data['entity'])) {
+            $params['logs'] = $repository->getLogEntries($data['entity']);
+            dump($params['logs']);
         }
 
         if (isset($data['url_view'])) {
