@@ -28,7 +28,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     {
         $users = $this->userRepository->findAll();
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
+        for ($index = 0; $index < self::NUMBER; ++$index) {
             $history = new History();
             $history->setName($faker->unique()->safeColorName);
             $history->setResume($faker->unique()->sentence);
@@ -46,6 +46,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             $addImage = rand(0, 1);
             if (1 === $addImage) {
                 $image   = $faker->unique()->imageUrl(1920, 1920);
+                $image = str_replace('lorempixel.com', 'picsum.photos', $image);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
