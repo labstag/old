@@ -27,7 +27,7 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
     {
         $histoires = $this->historyRepository->findAll();
         $faker     = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
+        for ($index = 0; $index < self::NUMBER; ++$index) {
             $chapitre = new Chapitre();
             $chapitre->setName($faker->unique()->sentence);
             $enable = rand(0, 1);
