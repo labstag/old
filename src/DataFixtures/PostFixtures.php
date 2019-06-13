@@ -34,7 +34,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $categories = $this->categoryRepository->findAll();
         $tags       = $this->tagsRepository->findAll();
         $faker      = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
+        for ($index = 0; $index < self::NUMBER; ++$index) {
             $post = new Post();
             $post->setName($faker->unique()->text(rand(5, 50)));
             $post->setContent($faker->unique()->paragraphs(4, true));
@@ -44,6 +44,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $addImage = rand(0, 1);
             if (1 === $addImage) {
                 $image   = $faker->unique()->imageUrl(1920, 1920);
+                $image = str_replace('lorempixel.com', 'picsum.photos', $image);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
@@ -87,8 +88,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $nbr
         );
         if (is_array($tabIndex)) {
-            foreach ($tabIndex as $j) {
-                $post->addTag($tags[$j]);
+            foreach ($tabIndex as $indendexndex) {
+                $post->addTag($tags[$indendexndex]);
             }
 
             return;
