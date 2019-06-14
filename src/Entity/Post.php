@@ -39,6 +39,7 @@ class Post implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
      */
@@ -59,6 +60,7 @@ class Post implements Translatable
 
     /**
      * @Gedmo\Versioned
+     * @Gedmo\Translatable
      * @ORM\Column(type="text")
      */
     private $content;
@@ -81,6 +83,7 @@ class Post implements Translatable
     private $tags;
 
     /**
+     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
      */
@@ -90,6 +93,13 @@ class Post implements Translatable
      * @ORM\Column(type="boolean", options={"default": true}))
      */
     private $enable;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -223,5 +233,10 @@ class Post implements Translatable
         $this->enable = $enable;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

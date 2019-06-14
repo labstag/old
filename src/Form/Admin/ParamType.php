@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 
 class ParamType extends AbstractType
 {
@@ -23,6 +24,14 @@ class ParamType extends AbstractType
     {
         $builder->add('site_title', TextType::class);
         $builder->add('robotstxt', TextareaType::class);
+        $builder->add('languagedefault',LanguageType::class);
+        $builder->add(
+            'language',
+            LanguageType::class,
+            [
+                'multiple' => true,
+            ]
+        );
         $builder->add(
             'oauth',
             CollectionType::class,
