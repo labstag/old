@@ -24,6 +24,14 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         $this->add($manager);
     }
 
+    public function getDependencies()
+    {
+        return [
+            FilesFixtures::class,
+            UserFixtures::class,
+        ];
+    }
+
     private function add(ObjectManager $manager)
     {
         $users = $this->userRepository->findAll();
@@ -46,7 +54,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             $addImage = rand(0, 1);
             if (1 === $addImage) {
                 $image   = $faker->unique()->imageUrl(1920, 1920);
-                $image = str_replace('lorempixel.com', 'picsum.photos', $image);
+                $image   = str_replace('lorempixel.com', 'picsum.photos', $image);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
@@ -66,13 +74,5 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }
-
-    public function getDependencies()
-    {
-        return [
-            FilesFixtures::class,
-            UserFixtures::class,
-        ];
     }
 }

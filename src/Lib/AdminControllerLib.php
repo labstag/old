@@ -2,12 +2,12 @@
 
 namespace Labstag\Lib;
 
+use Gedmo\Loggable\Entity\LogEntry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Gedmo\Loggable\Entity\LogEntry;
 
 abstract class AdminControllerLib extends ControllerLib
 {
@@ -157,7 +157,7 @@ abstract class AdminControllerLib extends ControllerLib
 
     protected function crudEditAction(array $data = [])
     {
-        $tabDataCheck = [
+        $tabDataCheck  = [
             'form',
             'entity',
             'url_list',
