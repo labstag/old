@@ -23,6 +23,13 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
         $this->add($manager);
     }
 
+    public function getDependencies()
+    {
+        return [
+            HistoryFixtures::class,
+        ];
+    }
+
     private function add(ObjectManager $manager)
     {
         $histoires = $this->historyRepository->findAll();
@@ -41,12 +48,5 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($chapitre);
             $manager->flush();
         }
-    }
-
-    public function getDependencies()
-    {
-        return [
-            HistoryFixtures::class,
-        ];
     }
 }
