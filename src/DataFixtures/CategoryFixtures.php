@@ -37,7 +37,7 @@ class CategoryFixtures extends Fixture
 
     private function delete(ObjectManager $manager)
     {
-        $category     = $this->repository->findAll();
+        $category = $this->repository->findAll();
         $tabIndex = array_rand($category, 1);
         $manager->remove($category[$tabIndex]);
         $manager->flush();
