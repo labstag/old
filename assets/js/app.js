@@ -3,6 +3,7 @@ import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui-sortable';
 import 'bootstrap';
+import 'selectize';
 import {
     builderform
 } from './modules/builderform';
@@ -44,6 +45,7 @@ class Site {
         this.datatables   = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
         this.login();
+        $('select').selectize();
     }
 
     login() {

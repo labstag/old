@@ -10,7 +10,6 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\Translatable\Translatable;
 
 /**
  * @ApiResource
@@ -19,7 +18,7 @@ use Gedmo\Translatable\Translatable;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
  */
-class Formbuilder implements Translatable
+class Formbuilder
 {
     use BlameableEntity;
     use SoftDeleteableEntity;
