@@ -42,7 +42,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     {
         $users      = $this->userRepository->findAll();
         $categories = $this->categoryRepository->findAll();
-        $tags       = $this->tagsRepository->findAll();
+        $tags       = $this->tagsRepository->findBy(['type' => 'post']);
         $faker      = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $post = new Post();

@@ -20,6 +20,11 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Entity(repositoryClass="Labstag\Repository\TagsRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
+ * @ORM\Table(
+ *      uniqueConstraints={
+ *          @ORM\UniqueConstraint(name="tags_unique", columns={"name", "type"})
+ *      }
+ * )
  */
 class Tags implements Translatable
 {
@@ -37,7 +42,7 @@ class Tags implements Translatable
     /**
      * @Gedmo\Translatable
      * @Gedmo\Versioned
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
@@ -59,6 +64,11 @@ class Tags implements Translatable
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
 
     public function __construct()
     {
@@ -130,5 +140,17 @@ class Tags implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
     }
 }
