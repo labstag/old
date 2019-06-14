@@ -31,7 +31,7 @@ class TagsFixtures extends Fixture
         for ($i = 0; $i < self::NUMBER; ++$i) {
             $tags = new Tags();
             $tags->setType($type);
-            $tags->setName($faker->unique()->name);
+            $tags->setName($faker->unique()->colorName);
             $manager->persist($tags);
         }
 
