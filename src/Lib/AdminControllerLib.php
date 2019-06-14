@@ -441,13 +441,12 @@ abstract class AdminControllerLib extends ControllerLib
         $route                  = $this->request->attributes->get('_route');
         $paramtwig['url_trash'] = $data['url_trash'];
         $paramtwig['url_list']  = $data['url_list'];
-        $paramtwig['url_edit']  = $data['url_trashedit'];
         if ($route == $data['url_trash']) {
             unset($paramtwig['url_new'], $paramtwig['url_trash']);
-
             $paramtwig['dataInTrash'] = $dataInTrash;
             $paramtwig['url_empty']   = $data['url_empty'];
             $paramtwig['url_delete']  = $data['url_deletetrash'];
+            $paramtwig['url_edit']    = $data['url_trashedit'];
             unset($paramtwig['api']);
             if (isset($data['url_trashview'])) {
                 $paramtwig['url_view'] = $data['url_trashview'];
