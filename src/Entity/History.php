@@ -40,6 +40,7 @@ class History implements Translatable
 
     /**
      * @Gedmo\Versioned
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -55,6 +56,7 @@ class History implements Translatable
     private $enable;
 
     /**
+     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -85,10 +87,18 @@ class History implements Translatable
     private $end;
 
     /**
+     * @Gedmo\Translatable
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */
     private $resume;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -245,5 +255,10 @@ class History implements Translatable
         $this->resume = $resume;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
