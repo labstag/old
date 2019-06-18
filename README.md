@@ -23,6 +23,8 @@
 
 ```sh
 npm install
+composer install
+php bin/console doctrine:fixtures:load
 ```
 
 ## Author
