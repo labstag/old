@@ -46,7 +46,6 @@ class Tags implements Translatable
     private $id;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      */
@@ -58,7 +57,6 @@ class Tags implements Translatable
     private $posts;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
      */

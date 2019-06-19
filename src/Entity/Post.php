@@ -39,7 +39,6 @@ class Post implements Translatable
     private $id;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
      */
@@ -60,7 +59,6 @@ class Post implements Translatable
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(type="text")
      */
     private $content;
@@ -83,7 +81,6 @@ class Post implements Translatable
     private $tags;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
      */

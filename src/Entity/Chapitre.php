@@ -34,14 +34,12 @@ class Chapitre implements Translatable
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(type="text")
      */
     private $content;
