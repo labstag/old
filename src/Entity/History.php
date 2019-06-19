@@ -40,7 +40,6 @@ class History implements Translatable
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -56,7 +55,6 @@ class History implements Translatable
     private $enable;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -87,7 +85,6 @@ class History implements Translatable
     private $end;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */

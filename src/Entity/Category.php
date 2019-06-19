@@ -36,7 +36,6 @@ class Category implements Translatable
 
     /**
      * @Gedmo\Versioned
-     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
@@ -47,7 +46,6 @@ class Category implements Translatable
     private $posts;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
      */
