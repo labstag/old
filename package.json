@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/labstag/labstag#readme",
   "scripts": {
+    "changelog": "generate-changelog",
     "readme": "readme",
     "stylelint": "stylelint assets/scss/**/*.scss",
     "sgc": "sgc",
@@ -66,6 +67,7 @@
     "eslint-plugin-dollar-sign": "^1.0.2",
     "eslint-plugin-varspacing": "^1.2.1",
     "fork-ts-checker-webpack-plugin": "^0.4.15",
+    "generate-changelog": "^1.8.0",
     "jscpd": "^2.0.15",
     "jspdf": "^1.5.3",
     "jszip": "^3.2.2",
