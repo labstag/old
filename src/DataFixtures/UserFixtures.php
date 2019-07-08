@@ -47,7 +47,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setEmail('admin@email.fr');
         $user->addRole('ROLE_ADMIN');
         $image   = $faker->unique()->imageUrl(200, 200);
-        $image   = str_replace('lorempixel.com', 'picsum.photos', $image);
         $content = file_get_contents($image);
         $tmpfile = tmpfile();
         $data    = stream_get_meta_data($tmpfile);
@@ -70,7 +69,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $superadmin->setEmail('superadmin@email.fr');
         $superadmin->addRole('ROLE_SUPER_ADMIN');
         $image   = $faker->unique()->imageUrl(200, 200);
-        $image   = str_replace('lorempixel.com', 'picsum.photos', $image);
         $content = file_get_contents($image);
         $tmpfile = tmpfile();
         $data    = stream_get_meta_data($tmpfile);
