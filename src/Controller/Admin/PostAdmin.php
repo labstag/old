@@ -344,6 +344,9 @@ class PostAdmin extends AdminControllerLib
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
+            'api_param'       => [
+                'type' => 'post'
+            ],
             'url_new'         => 'adminposttags_new',
             'url_delete'      => 'adminposttags_delete',
             'url_deletetrash' => 'adminposttags_deletetrash',

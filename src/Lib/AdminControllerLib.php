@@ -75,7 +75,11 @@ abstract class AdminControllerLib extends ControllerLib
             'operation' => true,
             'select'    => true,
             'api'       => $data['api'],
+            'api_param' => [],
         ];
+        if (isset($data['api_param'])) {
+            $paramtwig['api_param'] = $data['api_param'];
+        }
 
         $this->setParamTwig($paramtwig, $data);
         /**
