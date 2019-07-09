@@ -150,6 +150,7 @@ abstract class AdminControllerLib extends ControllerLib
             'url_list' => $data['url_list'],
             'btnSave'  => true,
             'form'     => $form->createView(),
+            'logs'     => [],
         ];
 
         if (isset($data['twig'])) {
@@ -497,6 +498,19 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'url'   => 'adminworkflow_list',
                 'title' => 'Workflow',
+            ],
+            [
+                'title' => 'Bookmark',
+                'child' => [
+                    [
+                        'url'   => 'adminbookmark_list',
+                        'title' => 'Bookmark',
+                    ],
+                    [
+                        'url'   => 'adminbookmarktags_list',
+                        'title' => 'Tags',
+                    ],
+                ],
             ],
             [
                 'title' => 'Articles',

@@ -2,9 +2,9 @@
 
 namespace Labstag\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Labstag\Entity\Bookmark;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
  * @method null|Bookmark find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Bookmark[]    findAll()
  * @method Bookmark[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BookmarkRepository extends ServiceEntityRepository
+class BookmarkRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(RegistryInterface $registry)
     {

@@ -12,6 +12,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource
@@ -61,6 +62,35 @@ class Bookmark implements Translatable
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @Vich\UploadableField(mapping="upload_file", fileNameProperty="file")
+     * @Assert\File(mimeTypes={"image/*"})
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enable;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="bookmarks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $refuser;
 
     public function __construct()
     {
@@ -137,5 +167,66 @@ class Bookmark implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    public function getRefuser(): ?User
+    {
+        return $this->refuser;
+    }
+
+    public function setRefuser(?User $refuser): self
+    {
+        $this->refuser = $refuser;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getEnable(): ?bool
+    {
+        return $this->enable;
+    }
+
+    public function setEnable(bool $enable): self
+    {
+        $this->enable = $enable;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

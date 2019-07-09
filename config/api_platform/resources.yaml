@@ -1,4 +1,32 @@
 resources:
+  Labstag\Entity\Bookmark:
+    itemOperations:
+      get: ~
+      put: ~
+      delete: ~
+      trash:
+        route_name: "api_bookmarktrash"
+        swagger_context:
+          summary: "Corbeille"
+          parameters:
+            -
+      trashdelete:
+        route_name: "api_bookmarktrashdelete"
+        method: delete
+        swagger_context:
+          summary: "Remove"
+      restore:
+        route_name: "api_bookmarkrestore"
+        method: post
+        swagger_context:
+          summary: "Restore"
+      empty:
+        route_name: "api_bookmarkempty"
+        method: post
+        swagger_context:
+          summary: "Empty"
+          parameters:
+            -
   Labstag\Entity\Category:
     itemOperations:
       get: ~
