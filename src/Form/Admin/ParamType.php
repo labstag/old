@@ -11,12 +11,12 @@ use Labstag\Form\Admin\Param\WysiwygType;
 use Labstag\FormType\WysiwygType as SiteWysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 
 class ParamType extends AbstractType
 {
@@ -24,13 +24,11 @@ class ParamType extends AbstractType
     {
         $builder->add('site_title', TextType::class);
         $builder->add('robotstxt', TextareaType::class);
-        $builder->add('languagedefault',LanguageType::class);
+        $builder->add('languagedefault', LanguageType::class);
         $builder->add(
             'language',
             LanguageType::class,
-            [
-                'multiple' => true,
-            ]
+            ['multiple' => true]
         );
         $builder->add(
             'oauth',
