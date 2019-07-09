@@ -107,12 +107,18 @@ class User implements UserInterface, \Serializable
      */
     private $histories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
+     */
+    private $bookmarks;
+
     public function __construct()
     {
         $this->enable            = true;
         $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
         $this->histories         = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
     }
 
     public function __toString()
@@ -397,6 +403,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($history->getRefuser() === $this) {
                 $history->setRefuser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bookmark[]
+     */
+    public function getBookmarks(): Collection
+    {
+        return $this->bookmarks;
+    }
+
+    public function addBookmark(Bookmark $bookmark): self
+    {
+        if (!$this->bookmarks->contains($bookmark)) {
+            $this->bookmarks[] = $bookmark;
+            $bookmark->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBookmark(Bookmark $bookmark): self
+    {
+        if ($this->bookmarks->contains($bookmark)) {
+            $this->bookmarks->removeElement($bookmark);
+            // set the owning side to null (unless already changed)
+            if ($bookmark->getRefuser() === $this) {
+                $bookmark->setRefuser(null);
             }
         }
 
