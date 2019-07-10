@@ -128,12 +128,14 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="col-md-12">
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
                 {{ macro.flashbag(app) }}
             </div>
         </div>
-    {% block bodyAdmin %}
-    {% endblock %}
+        {% block bodyAdmin %}
+        {% endblock %}
     </main>
     {% if url_delete is defined %}
         {% include "admin/modal/delete.html.twig" %}
