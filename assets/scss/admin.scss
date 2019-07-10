@@ -10,34 +10,25 @@
     display: none;
   }
 
-  .main {
-    width: 99%;
+  .dropdown-menu {
+    background-color: #343a40;
+  }
 
-    aside {
-      float: left;
-      width: 15%;
-      padding-right: 2%;
-
-      .nav-link[data-toggle].collapsed {
-        &::after {
-          float: right;
-          content: "▾";
-        }
-      }
-
-      .nav-link[data-toggle] {
-        &:not(.collapsed) {
-          &::after {
-            float: right;
-            content: "▴";
-          }
-        }
+  aside {
+    .nav-link[data-toggle].collapsed {
+      &::after {
+        float: right;
+        content: "▾";
       }
     }
 
-    main {
-      float: right;
-      width: 85%;
+    .nav-link[data-toggle] {
+      &:not(.collapsed) {
+        &::after {
+          float: right;
+          content: "▴";
+        }
+      }
     }
   }
 
