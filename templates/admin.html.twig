@@ -11,6 +11,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    {% for indexLink, link in menuadmin %}
+                        {% if link.child is defined %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="SousMenu{{ indexLink }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link.title }}</a>
+                                <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labbedby="SousMenu{{ indexLink }}">
+                                    <ul class="nav flex-column">
+                                        {% for child in link.child %}
+                                            <li class="nav-item">
+                                                <a class="nav-link{% if child.current is defined %} active{% endif %}" href="{{ path(child.url) }}">{{ child.title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link{% if link.current is defined %} active{% endif %}" href="{{ path(link.url) }}">{{ link.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ path('front') }}" target="_blank">Site</a>
                     </li>
@@ -20,7 +40,7 @@
                             <span class="hidden-xs">{{ app.user }}</span>
                         </a>
                         <!-- Here's the magic. Add the .animate and .slide-in classes to your .dropdown-menu and you're all set! -->
-                        <div class="dropdown-menu dropdown-menu-right animate slideIn  user user-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-right animate slideIn user user-menu" aria-labelledby="navbarDropdown">
                             <div class="user-header">
                                 <img src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
                                 <p>
@@ -41,112 +61,80 @@
             </div>
         </nav>
     </header>
-    <div class="main">
-        <aside>
-            <ul class="nav nav-pills flex-column">
-                {% for indexLink, link in menuadmin %}
-                <li class="nav-item">
-                    {% if link.child is defined %}
-                        <a class="nav-link" data-toggle="collapse" href="#item-{{ indexLink }}">{{ link.title }}</a>
-                        {% set collapse = "" %}
-                        {% for child in link.child %}
-                            {% if child.current is defined %}
-                                {% set collapse = "show" %}
-                            {% endif %}
-                        {% endfor %}
-                        <div id="item-{{ indexLink }}" class="collapse {{ collapse }}">
-                            <ul class="nav flex-column ml-3">
-                                {% for child in link.child %}
-                                    <li class="nav-item">
-                                        <a class="nav-link{% if child.current is defined %} active{% endif %}" href="{{ path(child.url) }}">{{ child.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link{% if link.current is defined %} active{% endif %}" href="{{ path(link.url) }}">{{ link.title }}</a>
-                        </li>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
-        </aside>
-        <main role="main">
-            <div class="row">
-                <div class="col">
-                    <h1>{{ title }}</h1>
-                </div>
-                <div class="col text-right">
-                    {% if url_view is defined or url_edit is defined or url_empty is defined or url_list is defined or url_trash is defined or url_new is defined or url_delete is defined or btnSave is defined %}
-                        <div class="btn-group BtnActions" role="group" aria-label="Basic example">
-                            {% if url_list is defined %}
-                                <a class="btn btn-secondary BtnActionList" href="{{ path(url_list) }}">
-                                    <i class="fas fa-list"></i>
-                                    <br />
-                                    <span>Liste</span>
-                                </a>
-                            {% endif %}
-                            {% if url_view is defined and entity is defined %}
-                                <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_view, {'id': entity.id}) }}">
-                                    <i class="fas fa-eye"></i>
-                                    <br />
-                                    <span>Voir</span>
-                                </a>
-                            {% endif %}
-                            {% if url_edit is defined and entity is defined %}
-                                <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_edit, {'id': entity.id}) }}">
-                                    <i class="fas fa-edit"></i>
-                                    <br />
-                                    <span>Edit</span>
-                                </a>
-                            {% endif %}
-                            {% if url_empty is defined %}
-                                <a class="btn btn-secondary BtnActionEmpty" href="{{ path(url_empty) }}">
-                                    <i class="fas fa-recycle"></i>
-                                    <br />
-                                    <span>Vider</span>
-                                </a>
-                            {% endif %}
-                            {% if url_trash is defined %}
-                                <a class="btn btn-secondary BtnActionTrash" href="{{ path(url_trash) }}">
-                                    <i class="fas fa-trash"></i>
-                                    <br />
-                                    <span>Corbeille</span>
-                                </a>
-                            {% endif %}
-                            {% if btnSave is defined %}
-                                <a class="btn btn-secondary BtnActionSave" href="#">
-                                    <i class="fas fa-save"></i>
-                                    <br />
-                                    <span>Sauvegarder</span>
-                                </a>
-                            {% endif %}
-                            {% if url_new is defined %}
-                                <a class="btn btn-secondary BtnActionAdd" href="{{ path(url_new) }}">
-                                    <i class="fas fa-plus"></i>
-                                    <br />
-                                    <span>Ajouter</span>
-                                </a>
-                            {% endif %}
-                            {% if url_delete is defined %}
-                                <a class="btn btn-secondary BtnActionDelete" href="{{ path(url_delete) }}">
-                                    <i class="fas fa-trash-alt"></i>
-                                    <br />
-                                    <span>Supprimer</span>
-                                </a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="col-md-12">
-                    {{ macro.flashbag(app) }}
-                </div>
+    <main role="main">
+        <div class="row">
+            <div class="col">
+                <h1>{{ title }}</h1>
             </div>
+            <div class="col text-right">
+                {% if url_view is defined or url_edit is defined or url_empty is defined or url_list is defined or url_trash is defined or url_new is defined or url_delete is defined or btnSave is defined %}
+                    <div class="btn-group BtnActions" role="group" aria-label="Basic example">
+                        {% if url_list is defined %}
+                            <a class="btn btn-secondary BtnActionList" href="{{ path(url_list) }}">
+                                <i class="fas fa-list"></i>
+                                <br />
+                                <span>Liste</span>
+                            </a>
+                        {% endif %}
+                        {% if url_view is defined and entity is defined %}
+                            <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_view, {'id': entity.id}) }}">
+                                <i class="fas fa-eye"></i>
+                                <br />
+                                <span>Voir</span>
+                            </a>
+                        {% endif %}
+                        {% if url_edit is defined and entity is defined %}
+                            <a class="btn btn-secondary BtnActionEdit" href="{{ path(url_edit, {'id': entity.id}) }}">
+                                <i class="fas fa-edit"></i>
+                                <br />
+                                <span>Edit</span>
+                            </a>
+                        {% endif %}
+                        {% if url_empty is defined %}
+                            <a class="btn btn-secondary BtnActionEmpty" href="{{ path(url_empty) }}">
+                                <i class="fas fa-recycle"></i>
+                                <br />
+                                <span>Vider</span>
+                            </a>
+                        {% endif %}
+                        {% if url_trash is defined %}
+                            <a class="btn btn-secondary BtnActionTrash" href="{{ path(url_trash) }}">
+                                <i class="fas fa-trash"></i>
+                                <br />
+                                <span>Corbeille</span>
+                            </a>
+                        {% endif %}
+                        {% if btnSave is defined %}
+                            <a class="btn btn-secondary BtnActionSave" href="#">
+                                <i class="fas fa-save"></i>
+                                <br />
+                                <span>Sauvegarder</span>
+                            </a>
+                        {% endif %}
+                        {% if url_new is defined %}
+                            <a class="btn btn-secondary BtnActionAdd" href="{{ path(url_new) }}">
+                                <i class="fas fa-plus"></i>
+                                <br />
+                                <span>Ajouter</span>
+                            </a>
+                        {% endif %}
+                        {% if url_delete is defined %}
+                            <a class="btn btn-secondary BtnActionDelete" href="{{ path(url_delete) }}">
+                                <i class="fas fa-trash-alt"></i>
+                                <br />
+                                <span>Supprimer</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-12">
+                {{ macro.flashbag(app) }}
+            </div>
+        </div>
     {% block bodyAdmin %}
     {% endblock %}
-        </main>
-    </div>
+    </main>
     {% if url_delete is defined %}
         {% include "admin/modal/delete.html.twig" %}
     {% endif %}
