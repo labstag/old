@@ -218,8 +218,15 @@ abstract class AdminControllerLib extends ControllerLib
         }
 
         if (!is_array($data['entity'])) {
-            $params['logs'] = $repository->getLogEntries($data['entity']);
-            dump($params['logs']);
+            $logs     = $repository->getLogEntries($data['entity']);
+            $dataLogs = [];
+            foreach ($logs as $log) {
+                if (!empty($log->username)) {
+                    array_push($dataLogs, $log);
+                }
+            }
+
+            $params['logs'] = $dataLogs;
         }
 
         if (isset($data['url_view'])) {

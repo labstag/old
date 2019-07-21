@@ -14,7 +14,9 @@
                     {% for indexLink, link in menuadmin %}
                         {% if link.child is defined %}
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="SousMenu{{ indexLink }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link.title }}</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="SousMenu{{ indexLink }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="hidden-xs">{{ link.title }}</span>
+                                </a>
                                 <div class="dropdown-menu animate slideIn" aria-labbedby="SousMenu{{ indexLink }}">
                                     <ul class="nav flex-column">
                                         {% for child in link.child %}
@@ -61,7 +63,7 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
+    <main role="main" class="container-fluid">
         <div class="row">
             <div class="col">
                 <h1>{{ title }}</h1>

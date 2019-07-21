@@ -14,6 +14,7 @@ class BookmarkType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
+        $builder->add('url');
         $builder->add('imageFile');
         $builder->add('content', WysiwygType::class);
         $builder->add('enable');

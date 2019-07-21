@@ -22,7 +22,7 @@ class UserAdmin extends AdminControllerLib
     public function list(UserRepository $repository): Response
     {
         $datatable = [
-            'Username'  => ['field' => 'username'],
+            'Username'  => ['field' => 'username', 'switchable' => false],
             'Email'     => ['field' => 'email'],
             'Roles'     => [
                 'field'     => 'roles',

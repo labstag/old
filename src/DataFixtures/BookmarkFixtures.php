@@ -6,20 +6,18 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use Labstag\Entity\Post;
-use Labstag\Repository\CategoryRepository;
+use Labstag\Entity\Bookmark;
 use Labstag\Repository\TagsRepository;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class PostFixtures extends Fixture implements DependentFixtureInterface
+class BookmarkFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 25;
 
-    public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, TagsRepository $tagsRepository)
+    public function __construct(UserRepository $userRepository, TagsRepository $tagsRepository)
     {
         $this->userRepository     = $userRepository;
-        $this->categoryRepository = $categoryRepository;
         $this->tagsRepository     = $tagsRepository;
     }
 
@@ -33,7 +31,6 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         return [
             FilesFixtures::class,
             TagsFixtures::class,
-            CategoryFixtures::class,
             UserFixtures::class,
         ];
     }
@@ -41,20 +38,19 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     private function add(ObjectManager $manager)
     {
         $users      = $this->userRepository->findAll();
-        $categories = $this->categoryRepository->findAll();
-        $tags       = $this->tagsRepository->findBy(['type' => 'post']);
+        $tags       = $this->tagsRepository->findBy(['type' => 'bookmark']);
         $faker      = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
-            $post = new Post();
-            $post->setName($faker->unique()->text(rand(5, 50)));
-            $post->setContent($faker->unique()->paragraphs(4, true));
+            $bookmark = new Bookmark();
+            $bookmark->setUrl($faker->unique()->url);
+            $bookmark->setName($faker->unique()->text(rand(5, 50)));
+            $bookmark->setContent($faker->unique()->paragraphs(4, true));
             $user = rand(0, 1);
             if ($user) {
                 $tabIndex = array_rand($users);
-                $post->setRefuser($users[$tabIndex]);
+                $bookmark->setRefuser($users[$tabIndex]);
             }
-            $post->setRefcategory($categories[array_rand($categories)]);
-            $this->addTags($post, $tags);
+            $this->addTags($bookmark, $tags);
             $image   = $faker->unique()->imageUrl(1920, 1920);
             $content = file_get_contents($image);
             $tmpfile = tmpfile();
@@ -68,14 +64,14 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                 true
             );
 
-            $post->setImageFile($file);
-            $manager->persist($post);
+            $bookmark->setImageFile($file);
+            $manager->persist($bookmark);
         }
 
         $manager->flush();
     }
 
-    private function addTags($post, $tags)
+    private function addTags($bookmark, $tags)
     {
         $nbr = rand(0, count($tags));
         if (0 == $nbr) {
@@ -88,12 +84,12 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         );
         if (is_array($tabIndex)) {
             foreach ($tabIndex as $indendexndex) {
-                $post->addTag($tags[$indendexndex]);
+                $bookmark->addTag($tags[$indendexndex]);
             }
 
             return;
         }
 
-        $post->addTag($tags[$tabIndex]);
+        $bookmark->addTag($tags[$tabIndex]);
     }
 }

@@ -25,13 +25,9 @@ class BookmarkAdmin extends AdminControllerLib
     public function list(BookmarkRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'User'      => [
                 'field'     => 'refuser',
-                'formatter' => 'dataFormatter',
-            ],
-            'Categorie' => [
-                'field'     => 'refcategory',
                 'formatter' => 'dataFormatter',
             ],
             'File'      => [
@@ -121,7 +117,7 @@ class BookmarkAdmin extends AdminControllerLib
     {
         return $this->crudEditAction(
             [
-                'form'       => BookmarType::class,
+                'form'       => BookmarkType::class,
                 'entity'     => $bookmark,
                 'url_list'   => 'adminbookmark_list',
                 'url_edit'   => 'adminbookmark_edit',
@@ -191,7 +187,7 @@ class BookmarkAdmin extends AdminControllerLib
     public function listTags(TagsRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'Bookmarks'     => [
                 'field'     => 'bookmarks',
                 'formatter' => 'dataTotalFormatter',
