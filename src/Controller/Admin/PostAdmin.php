@@ -28,7 +28,7 @@ class PostAdmin extends AdminControllerLib
     public function list(PostRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'User'      => [
                 'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
@@ -196,7 +196,7 @@ class PostAdmin extends AdminControllerLib
     public function listCategory(CategoryRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',
@@ -325,7 +325,7 @@ class PostAdmin extends AdminControllerLib
     public function listTags(TagsRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',

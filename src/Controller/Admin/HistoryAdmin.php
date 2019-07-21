@@ -26,7 +26,7 @@ class HistoryAdmin extends AdminControllerLib
     public function list(HistoryRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'User'      => [
                 'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
@@ -248,7 +248,7 @@ class HistoryAdmin extends AdminControllerLib
     public function listChapitre(ChapitreRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => ['field' => 'name', 'switchable' => false],
             'Histoire'  => [
                 'field'     => 'refhistory',
                 'formatter' => 'dataFormatter',

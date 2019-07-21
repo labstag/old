@@ -28,7 +28,7 @@
     {% endif %}
 {% endmacro %}
 {% macro logs(logs) %}
-    {% if logs is defined %}
+    {% if logs is defined and logs|length !=0 %}
         <fieldset>
             <legend>Logs</legend>
             <table class="table table-border table-hover table-striped table-sm">
@@ -53,27 +53,25 @@
                 </thead>
                 <tbody>
                     {% for log in logs %}
-                        {% if log.username!= '' %}
-                            {% for key, value in log.data %}
-                                <tr>
-                                    <td>
-                                        {{ log.loggedAt|date('d/m/Y') }}
-                                    </td>
-                                    <td>
-                                        {{ log.action }}
-                                    </td>
-                                    <td>
-                                        {{ log.username }}
-                                    </td>
-                                    <td>
-                                        {{ key }}
-                                    </td>
-                                    <td>
-                                        {{ value }}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
+                        {% for key, value in log.data %}
+                            <tr>
+                                <td>
+                                    {{ log.loggedAt|date('d/m/Y') }}
+                                </td>
+                                <td>
+                                    {{ log.action }}
+                                </td>
+                                <td>
+                                    {{ log.username }}
+                                </td>
+                                <td>
+                                    {{ key }}
+                                </td>
+                                <td>
+                                    {{ value }}
+                                </td>
+                            </tr>
+                        {% endfor %}
                     {% endfor %}
                 </tbody>
             </table>

@@ -60,7 +60,6 @@
         "symfony/validator": "4.2.*",
         "symfony/var-dumper": "4.2.*",
         "symfony/web-link": "4.2.*",
-        "symfony/webpack-encore-bundle": "^1.4",
         "symfony/workflow": "4.2.*",
         "symfony/yaml": "4.2.*",
         "twig/extensions": "^1.5",
@@ -91,7 +90,8 @@
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
         "symfony/thanks": "^1.1",
-        "symfony/web-server-bundle": "4.2.*"
+        "symfony/web-server-bundle": "4.2.*",
+        "symfony/webpack-encore-bundle": "^1.6"
     },
     "config": {
         "bin-dir": "bin",
