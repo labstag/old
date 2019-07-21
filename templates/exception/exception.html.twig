@@ -1,6 +1,6 @@
 <div class="exception-summary {{ exception.message is empty ? 'exception-without-message' }}">
     <div class="exception-metadata">
-        <div class="container">
+        <div class="container-fluid">
             <h2 class="exception-hierarchy">
                 {% for previousException in exception.allPrevious|reverse %}
                     <a href="#trace-box-{{ loop.revindex + 1 }}">{{ previousException.class|abbr_class }}</a>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="exception-message-wrapper">
-        <div class="container">
+        <div class="container-fluid">
             <h1 class="break-long-words exception-message {{ exception.message|length > 180 ? 'long' }}">
                 {{- exception.message|nl2br|format_file_from_text -}}
             </h1>
@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="sf-tabs">
         <div class="tab">
             {% set exception_as_array = exception.toarray %}

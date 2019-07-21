@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -19,6 +20,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="Labstag\Repository\BookmarkRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
+ * @Vich\Uploadable
  */
 class Bookmark implements Translatable
 {
@@ -88,16 +90,16 @@ class Bookmark implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="bookmarks")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $refuser;
 
     public function __construct()
     {
+        $this->enable = true;
         $this->tags = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -193,7 +195,7 @@ class Bookmark implements Translatable
         return $this;
     }
 
-    public function getEnable(): ?bool
+    public function isEnable(): ?bool
     {
         return $this->enable;
     }

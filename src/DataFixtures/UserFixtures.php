@@ -90,6 +90,20 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $disabledUser->setEmail('disable@email.fr');
         $disabledUser->setEnable(false);
         $disabledUser->addRole('ROLE_ADMIN');
+        $image   = $faker->unique()->imageUrl(200, 200);
+        $content = file_get_contents($image);
+        $tmpfile = tmpfile();
+        $data    = stream_get_meta_data($tmpfile);
+        file_put_contents($data['uri'], $content);
+        $file = new UploadedFile(
+            $data['uri'],
+            'image.jpg',
+            filesize($data['uri']),
+            null,
+            true
+        );
+
+        $disabledUser->setImageFile($file);
         $manager->persist($disabledUser);
 
         $manager->flush();

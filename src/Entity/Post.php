@@ -65,7 +65,6 @@ class Post implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $refuser;
 
