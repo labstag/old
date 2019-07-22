@@ -66,7 +66,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user  = new User();
             $user->setUsername($dataUser['username']);
             $user->setPlainPassword($dataUser['username']);
-            if (!isset($dataUser['apikey'])) {
+            if (isset($dataUser['apikey'])) {
                 $user->setApiKey($dataUser['apikey']);
             }
             $user->setEmail($dataUser['email']);
