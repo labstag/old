@@ -65,7 +65,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         foreach ($users as $dataUser) {
             $user  = new User();
             $user->setUsername($dataUser['username']);
-            $user->setPlainPassword($dataUser['username']);
+            $user->setPlainPassword($dataUser['password']);
             if (isset($dataUser['apikey'])) {
                 $user->setApiKey($dataUser['apikey']);
             }
