@@ -11,7 +11,12 @@ use Symfony\Component\Serializer\Serializer;
 
 abstract class ApiControllerLib extends ControllerLib
 {
-    protected function trashAction($repository, $format)
+    /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    protected function trashAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         $dataInTrash = $repository->findDataInTrash();
         $this->setSerializer();
@@ -20,7 +25,7 @@ abstract class ApiControllerLib extends ControllerLib
         return new Response($content);
     }
 
-    protected function restoreAction()
+    protected function restoreAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
@@ -43,7 +48,7 @@ abstract class ApiControllerLib extends ControllerLib
         );
     }
 
-    protected function emptyAction()
+    protected function emptyAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
@@ -66,7 +71,7 @@ abstract class ApiControllerLib extends ControllerLib
         );
     }
 
-    protected function deleteAction()
+    protected function deleteAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();

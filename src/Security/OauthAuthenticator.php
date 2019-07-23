@@ -18,6 +18,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Exception;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class OauthAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -67,6 +69,11 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      * @var string
      */
     private $oauthCode;
+
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
     public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {

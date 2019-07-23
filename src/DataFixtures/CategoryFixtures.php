@@ -12,6 +12,11 @@ class CategoryFixtures extends Fixture
 {
     private const NUMBER = 10;
 
+    /**
+     * @var CategoryRepository
+     */
+    private $repository;
+
     public function __construct(CategoryRepository $repository)
     {
         $this->repository = $repository;

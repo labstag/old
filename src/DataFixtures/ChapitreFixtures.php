@@ -13,6 +13,11 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 50;
 
+    /**
+     * @var HistoryRepository
+     */
+    private $historyRepository;
+
     public function __construct(HistoryRepository $historyRepository)
     {
         $this->historyRepository = $historyRepository;
