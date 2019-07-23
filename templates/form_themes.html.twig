@@ -3,7 +3,7 @@
 {%- block fieldset_widget -%}
     <fieldset {{ block('widget_container_attributes') }}>
         {%- if legend is defined and legend is not empty -%}
-            <legend>{{ legend | trans({}, translation_domain) }}</legend>
+            <legend>{{ legend|trans({}, translation_domain) }}</legend>
 		{%- endif -%}
         {{ form_widget(form) }}
     </fieldset>
@@ -21,29 +21,23 @@
 				{%- set label_attr = {
 					'allow_add': true
 				} -%}
-				{%- set element_attr = element_attr|merge(
-					{
-						'class': element_attr.class~' FieldCollections',
-						'data-prototype': block('collection_item_widget') | replace({'"': "'", "\n": "", "\t": ""})
-					}	
-				)-%}
+				{%- set element_attr = element_attr|merge({
+					'class': element_attr.class ~ ' FieldCollections',
+					'data-prototype': block('collection_item_widget')|replace({'"': "'", "\n": "", "\t": ""})
+				}) -%}
 			{%- else -%}
-				{%- set element_attr = element_attr|merge(
-					{
-						'class': element_attr.class~' FieldCollection'
-					}	
-				)-%}
+				{%- set element_attr = element_attr|merge({
+					'class': element_attr.class ~ ' FieldCollection'
+				}) -%}
 			{%- endif -%}
 		{%- endif -%}
-		{%- set element_attr = element_attr|merge(
-			{
-				'id': random()
-			}	
-		)-%}
+		{%- set element_attr = element_attr|merge({
+			'id': random()
+		}) -%}
     {%- endif -%}
     {%- set widget_attr = {} -%}
     {%- if help is not empty -%}
-        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~ "_help"}} -%}
     {%- endif -%}
     <{{ element|default('div') }}{%- if element_attr -%}{%- with { attr: element_attr } -%}{{ block('attributes') }}{%- endwith -%}{%- endif -%}>
         {{- form_label(form) -}}
@@ -131,7 +125,7 @@
 					{{ form_label(input) }}
 				</th>
 			{%- endfor -%}
-			{%- if allow_delete  -%}
+			{%- if allow_delete -%}
 				<th>
 					<label>Actions</label>
 				</th>

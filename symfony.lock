@@ -245,6 +245,9 @@
             "./config/packages/fos_ckeditor.yaml"
         ]
     },
+    "friendsoftwig/twigcs": {
+        "version": "v3.1.3"
+    },
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
@@ -493,6 +496,9 @@
             "./config/bootstrap.php",
             "./tests/.gitignore"
         ]
+    },
+    "pimple/pimple": {
+        "version": "v3.2.3"
     },
     "povils/phpmnd": {
         "version": "v2.1.0"
