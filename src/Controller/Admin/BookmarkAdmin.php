@@ -165,22 +165,6 @@ class BookmarkAdmin extends AdminControllerLib
     }
 
     /**
-     * @Route("/category/new", name="adminbookmarkcategory_new", methods={"GET", "POST"})
-     */
-    public function newCategory(): Response
-    {
-        return $this->crudNewAction(
-            [
-                'entity'   => new Category(),
-                'form'     => CategoryType::class,
-                'url_edit' => 'adminbookmarkcategory_edit',
-                'url_list' => 'adminbookmarkcategory_list',
-                'title'    => 'Add new categorie',
-            ]
-        );
-    }
-
-    /**
      * @Route("/tags/", name="adminbookmarktags_list", methods={"GET"})
      * @Route("/tags/trash", name="adminbookmarktags_trash", methods={"GET"})
      */

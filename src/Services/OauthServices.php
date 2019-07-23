@@ -5,6 +5,7 @@ namespace Labstag\Services;
 use Labstag\Lib\GenericProviderLib;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 class OauthServices
 {
@@ -13,6 +14,16 @@ class OauthServices
      * @var array
      */
     protected $configProvider;
+
+    /**
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     public function __construct(ContainerInterface $container)
     {
