@@ -68,6 +68,7 @@
         "zendframework/zend-soap": "^2.7"
     },
     "require-dev": {
+        "allocine/twigcs": "^3.1",
         "codeception/codeception": "^2.5",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "friendsofphp/php-cs-fixer": "^2.14",
