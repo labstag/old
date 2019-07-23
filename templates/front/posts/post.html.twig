@@ -23,7 +23,7 @@
         </div>
     </header>
     {% if post.file %}
-        <div class="picture image-final" style="background-image:url('{{ asset('file/'~post.file) }}');"></div>
+        <div class="picture image-final" style="background-image:url('{{ asset('file/' ~ post.file) }}');"></div>
     {% endif %}
     <main>
         {% if more is defined %}

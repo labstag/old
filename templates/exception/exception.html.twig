@@ -46,33 +46,35 @@
                     Exception
                 {% endif %}
             </h3>
-
             <div class="tab-content">
                 {% for i, e in exception_as_array %}
                     {{ include('@Twig/Exception/traces.html.twig', { exception: e, index: loop.index, expand: i in _exceptions_with_user_code or (_exceptions_with_user_code is empty and loop.first) }, with_context = false) }}
                 {% endfor %}
             </div>
         </div>
-
         {% if logger %}
-        <div class="tab {{ logger.logs is empty ? 'disabled' }}">
-            <h3 class="tab-title">
-                Logs
-                {% if logger.counterrors ?? false %}<span class="badge status-error">{{ logger.counterrors }}</span>{% endif %}
-            </h3>
-
-            <div class="tab-content">
-                {% if logger.logs %}
-                    {{ include('@Twig/Exception/logs.html.twig', { logs: logger.logs }, with_context = false)  }}
-                {% else %}
-                    <div class="empty">
-                        <p>No log messages</p>
-                    </div>
-                {% endif %}
+            <div class="tab {{ logger.logs is empty ? 'disabled' }}">
+                <h3 class="tab-title">
+                    Logs
+                    {% if logger.counterrors ?? false %}<span class="badge status-error">{{ logger.counterrors }}</span>{% endif %}
+                </h3>
+                <div class="tab-content">
+                    {% if logger.logs %}
+                        {{ include(
+                            '@Twig/Exception/logs.html.twig',
+                            {
+                                logs: logger.logs
+                            },
+                            with_context = false
+                        ) }}
+                    {% else %}
+                        <div class="empty">
+                            <p>No log messages</p>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
         {% endif %}
-
         <div class="tab">
             <h3 class="tab-title">
                 {% if exception_as_array|length > 1 %}

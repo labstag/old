@@ -1,4 +1,3 @@
-{% import "macro.html.twig" as macroSite %}
 {% extends 'site.html.twig' %}
 {% block page_title %}{{ entity.name }}{% endblock %}
 {% block aside %}
@@ -7,7 +6,7 @@
         <ul class="list-group">
             {% for i, rowChapitre in chapitres %}
                 <li class="list-group-item">
-                    <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre' : rowChapitre.position+1}) }}">
+                    <a href="{{ path('history_show', {'slug': entity.slug, 'chapitre': rowChapitre.position + 1}) }}">
                         {{ rowChapitre.name }}
                     </a>
                 </li>

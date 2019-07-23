@@ -1,4 +1,4 @@
-{% set classBody = "AdminPages" %}
+{% set class_body = "AdminPages" %}
 {% extends 'base.html.twig' %}
 {% import "macro.html.twig" as macro %}
 {% block content_title %}{{ title }}{% endblock %}
@@ -38,13 +38,13 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ asset('file/'~ app.user.avatar) }}" class="user-image" alt="User Image" />
+                            <img src="{{ asset('file/' ~ app.user.avatar) }}" class="user-image" alt="User Image" />
                             <span class="hidden-xs">{{ app.user }}</span>
                         </a>
                         <!-- Here's the magic. Add the .animate and .slide-in classes to your .dropdown-menu and you're all set! -->
                         <div class="dropdown-menu dropdown-menu-right animate slideIn user user-menu" aria-labelledby="navbarDropdown">
                             <div class="user-header">
-                                <img src="{{ asset('file/'~ app.user.avatar) }}" class="img-circle" alt="User Image" />
+                                <img src="{{ asset('file/' ~ app.user.avatar) }}" class="img-circle" alt="User Image" />
                                 <p>
                                     {{ app.user }}
                                 </p>
