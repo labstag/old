@@ -13,6 +13,7 @@ use Labstag\Repository\HistoryRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @Route("/admin/history")

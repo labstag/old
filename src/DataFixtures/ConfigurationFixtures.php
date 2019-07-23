@@ -10,6 +10,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigurationFixtures extends Fixture
 {
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * @var OauthServices
+     */
+    private $oauthServices;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container     = $container;

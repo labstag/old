@@ -12,6 +12,11 @@ class TagsFixtures extends Fixture
 {
     private const NUMBER = 10;
 
+    /**
+     * @var TagsRepository
+     */
+    private $repository;
+
     public function __construct(TagsRepository $repository)
     {
         $this->repository = $repository;

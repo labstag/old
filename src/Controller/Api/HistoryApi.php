@@ -10,6 +10,9 @@ class HistoryApi extends ApiControllerLib
 {
     /**
      * @Route("/api/histories/trash.{_format}", name="api_historytrash")
+     * 
+     * @param HistoryRepository $repository
+     * @param string $_format
      */
     public function trash(HistoryRepository $repository, $_format)
     {
@@ -18,6 +21,9 @@ class HistoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/histories/trash.{_format}", name="api_historytrashdelete", methods={"DELETE"})
+     * 
+     * @param HistoryRepository $repository
+     * @param string $_format
      */
     public function delete(HistoryRepository $repository, $_format)
     {
@@ -26,6 +32,9 @@ class HistoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/histories/restore.{_format}", name="api_historyrestore", methods={"POST"})
+     * 
+     * @param HistoryRepository $repository
+     * @param string $_format
      */
     public function restore(HistoryRepository $repository, $_format)
     {
@@ -34,6 +43,9 @@ class HistoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/histories/empty.{_format}", name="api_historyempty", methods={"POST"})
+     * 
+     * @param HistoryRepository $repository
+     * @param string $_format
      */
     public function empty(HistoryRepository $repository, $_format)
     {

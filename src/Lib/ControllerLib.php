@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Router;
 
 abstract class ControllerLib extends AbstractController
 {
@@ -25,6 +27,9 @@ abstract class ControllerLib extends AbstractController
      */
     protected $paramViews;
 
+    /**
+     * @var ContainerInterface
+     */
     protected $container;
 
     /**
@@ -32,7 +37,15 @@ abstract class ControllerLib extends AbstractController
      */
     private $paginator;
 
+    /**
+     * @var Router
+     */
     private $router;
+
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
     /**
      * Init controller.

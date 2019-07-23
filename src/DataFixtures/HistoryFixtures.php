@@ -14,6 +14,11 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 10;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;

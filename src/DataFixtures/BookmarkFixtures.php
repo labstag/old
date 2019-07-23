@@ -15,6 +15,16 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 25;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var TagsRepository
+     */
+    private $tagsRepository;
+
     public function __construct(UserRepository $userRepository, TagsRepository $tagsRepository)
     {
         $this->userRepository     = $userRepository;

@@ -10,6 +10,9 @@ class CategoryApi extends ApiControllerLib
 {
     /**
      * @Route("/api/categories/trash.{_format}", name="api_categorytrash")
+     * 
+     * @param CategoryRepository $repository
+     * @param string $_format
      */
     public function trash(CategoryRepository $repository, $_format)
     {
@@ -18,6 +21,9 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/trash.{_format}", name="api_categorytrashdelete", methods={"DELETE"})
+     * 
+     * @param CategoryRepository $repository
+     * @param string $_format
      */
     public function delete(CategoryRepository $repository, $_format)
     {
@@ -26,6 +32,9 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/restore.{_format}", name="api_categoryrestore", methods={"POST"})
+     * 
+     * @param CategoryRepository $repository
+     * @param string $_format
      */
     public function restore(CategoryRepository $repository, $_format)
     {
@@ -34,6 +43,9 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/empty.{_format}", name="api_categoryempty", methods={"POST"})
+     * 
+     * @param CategoryRepository $repository
+     * @param string $_format
      */
     public function empty(CategoryRepository $repository, $_format)
     {
