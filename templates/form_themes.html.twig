@@ -18,9 +18,9 @@
 		{%- set element = 'fieldset' -%}
 		{%- if form.vars.block_prefixes[1] == "collection" -%}
 			{%- if prototype is defined and allow_add -%}
-				{%- set label_attr = {
+				{%- set label_attr = label_attr|merge({
 					'allow_add': true
-				} -%}
+				}) -%}
 				{%- set element_attr = element_attr|merge({
 					'class': element_attr.class ~ ' FieldCollections',
 					'data-prototype': block('collection_item_widget')|replace({'"': "'", "\n": "", "\t": ""})

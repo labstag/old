@@ -66,6 +66,7 @@ class ExceptionController extends ControllerLib
         $code = $exception->getStatusCode();
 
         $parameters = [
+            'class_body'     => 'ErrorPage',
             'status_code'    => $code,
             'status_text'    => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : '',
             'exception'      => $exception,

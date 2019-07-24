@@ -39,6 +39,7 @@ class SecurityController extends ControllerLib
         return $this->twig(
             'disclaimer.html.twig',
             [
+                'class_body'  => 'DisclaimerPage',
                 'form'        => $form->createView(),
                 'title'       => $this->paramViews['config']['disclaimer'][0]['title'],
                 'message'     => $this->paramViews['config']['disclaimer'][0]['message'],
@@ -79,6 +80,7 @@ class SecurityController extends ControllerLib
         return $this->twig(
             'security/login.html.twig',
             [
+                'class_body' => 'LoginPage',
                 'disclaimer' => 0,
                 'oauths'     => $oauths,
                 'formLogin'  => $form->createView(),
