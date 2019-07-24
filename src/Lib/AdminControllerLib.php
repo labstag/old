@@ -22,6 +22,7 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->addParamViewsAdmin($parameters);
         $this->paramViews['disclaimer'] = 0;
+        $this->paramViews['class_body'] = 'AdminPages';
 
         return parent::twig($view, $this->paramViews, $response);
     }
