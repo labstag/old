@@ -21,10 +21,10 @@ class ConfigurationFixtures extends Fixture
      */
     private $oauthServices;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, OauthServices $oauthServices)
     {
         $this->container     = $container;
-        $this->oauthServices = $this->container->get(OauthServices::class);
+        $this->oauthServices = $oauthServices;
     }
 
     public function load(ObjectManager $manager)

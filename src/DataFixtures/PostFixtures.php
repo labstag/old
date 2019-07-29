@@ -68,6 +68,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                 $tabIndex = array_rand($users);
                 $post->setRefuser($users[$tabIndex]);
             }
+
             $post->setRefcategory($categories[array_rand($categories)]);
             $this->addTags($post, $tags);
             $image   = $faker->unique()->imageUrl(1920, 1920);

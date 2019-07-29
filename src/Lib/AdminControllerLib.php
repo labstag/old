@@ -172,7 +172,6 @@ abstract class AdminControllerLib extends ControllerLib
             'title',
         ];
         $entityManager = $this->getDoctrine()->getManager();
-        $repository    = $entityManager->getRepository(LogEntry::class);
         foreach ($tabDataCheck as $key) {
             if (!isset($data[$key])) {
                 throw new HttpException(500, 'Parametre ['.$key.'] manquant');
@@ -218,18 +217,7 @@ abstract class AdminControllerLib extends ControllerLib
             $params['twig'] = $data['twig'];
         }
 
-        if (!is_array($data['entity'])) {
-            $logs     = $repository->getLogEntries($data['entity']);
-            $dataLogs = [];
-            foreach ($logs as $log) {
-                if (!empty($log->username)) {
-                    array_push($dataLogs, $log);
-                }
-            }
-
-            $params['logs'] = $dataLogs;
-        }
-
+        $this->generateLogs($params, $data, $entityManager);
         if (isset($data['url_view'])) {
             $params['url_view'] = $data['url_view'];
         }
@@ -386,6 +374,24 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->setMenuAdmin();
         $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function generateLogs(&$params, $data, $entityManager)
+    {
+        $repository = $entityManager->getRepository(LogEntry::class);
+        if (is_array($data['entity'])) {
+            return;
+        }
+
+        $logs     = $repository->getLogEntries($data['entity']);
+        $dataLogs = [];
+        foreach ($logs as $log) {
+            if (!empty($log->username)) {
+                array_push($dataLogs, $log);
+            }
+        }
+
+        $params['logs'] = $dataLogs;
     }
 
     private function setOperationLink(&$paramtwig)

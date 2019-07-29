@@ -25,7 +25,10 @@ class BookmarkAdmin extends AdminControllerLib
     public function list(BookmarkRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'User'      => [
                 'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
@@ -171,8 +174,11 @@ class BookmarkAdmin extends AdminControllerLib
     public function listTags(TagsRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
-            'Bookmarks'     => [
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
+            'Bookmarks' => [
                 'field'     => 'bookmarks',
                 'formatter' => 'dataTotalFormatter',
             ],

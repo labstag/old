@@ -67,7 +67,7 @@ class Tags implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice({"bookmark","post"})
+     * @Assert\Choice({"bookmark", "post"})
      */
     private $type;
 
