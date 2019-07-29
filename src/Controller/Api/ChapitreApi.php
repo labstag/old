@@ -10,8 +10,7 @@ class ChapitreApi extends ApiControllerLib
 {
     /**
      * @Route("/api/chapitres/trash.{_format}", name="api_chapitretrash")
-     * 
-     * @param ChapitreRepository $repository
+     *
      * @param string $_format
      */
     public function trash(ChapitreRepository $repository, $_format)
@@ -21,8 +20,7 @@ class ChapitreApi extends ApiControllerLib
 
     /**
      * @Route("/api/chapitres/trash.{_format}", name="api_chapitretrashdelete", methods={"DELETE"})
-     * 
-     * @param ChapitreRepository $repository
+     *
      * @param string $_format
      */
     public function delete(ChapitreRepository $repository, $_format)
@@ -32,8 +30,7 @@ class ChapitreApi extends ApiControllerLib
 
     /**
      * @Route("/api/chapitres/restore.{_format}", name="api_chapitrerestore", methods={"POST"})
-     * 
-     * @param ChapitreRepository $repository
+     *
      * @param string $_format
      */
     public function restore(ChapitreRepository $repository, $_format)
@@ -43,8 +40,7 @@ class ChapitreApi extends ApiControllerLib
 
     /**
      * @Route("/api/chapitres/empty.{_format}", name="api_chapitreempty", methods={"POST"})
-     * 
-     * @param ChapitreRepository $repository
+     *
      * @param string $_format
      */
     public function empty(ChapitreRepository $repository, $_format)

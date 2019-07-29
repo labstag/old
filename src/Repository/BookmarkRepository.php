@@ -3,8 +3,8 @@
 namespace Labstag\Repository;
 
 use Labstag\Entity\Bookmark;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Labstag\Lib\ServiceEntityRepositoryLib;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method null|Bookmark find($id, $lockMode = null, $lockVersion = null)

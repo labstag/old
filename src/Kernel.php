@@ -25,10 +25,8 @@ class Kernel extends BaseKernel
         }
     }
 
-    protected function configureContainer(
-        ContainerBuilder $container,
-        LoaderInterface $loader
-    ): void {
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
+    {
         $fileResource = $this->getProjectDir().'/config/bundles.php';
         $container->addResource(new FileResource($fileResource));
         $container->setParameter('container.dumper.inline_class_loader', true);

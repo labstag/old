@@ -10,8 +10,7 @@ class PostApi extends ApiControllerLib
 {
     /**
      * @Route("/api/posts/trash.{_format}", name="api_posttrash")
-     * 
-     * @param PostRepository $repository
+     *
      * @param string $_format
      */
     public function trash(PostRepository $repository, $_format)
@@ -21,8 +20,7 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/trash.{_format}", name="api_posttrashdelete", methods={"DELETE"})
-     * 
-     * @param PostRepository $repository
+     *
      * @param string $_format
      */
     public function delete(PostRepository $repository, $_format)
@@ -32,8 +30,7 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/restore.{_format}", name="api_postrestore", methods={"POST"})
-     * 
-     * @param PostRepository $repository
+     *
      * @param string $_format
      */
     public function restore(PostRepository $repository, $_format)
@@ -43,8 +40,7 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/empty.{_format}", name="api_postempty", methods={"POST"})
-     * 
-     * @param PostRepository $repository
+     *
      * @param string $_format
      */
     public function empty(PostRepository $repository, $_format)

@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Serializer;
 
 abstract class ApiControllerLib extends ControllerLib
 {
+
     /**
      * @var Serializer
      */
@@ -27,6 +28,7 @@ abstract class ApiControllerLib extends ControllerLib
 
     protected function restoreAction(ServiceEntityRepositoryLib $repository, string $format)
     {
+        unset($format, $repository);
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
         $cookies    = $this->request->cookies->all();
@@ -50,6 +52,7 @@ abstract class ApiControllerLib extends ControllerLib
 
     protected function emptyAction(ServiceEntityRepositoryLib $repository, string $format)
     {
+        unset($format, $repository);
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
         $cookies    = $this->request->cookies->all();
@@ -73,6 +76,7 @@ abstract class ApiControllerLib extends ControllerLib
 
     protected function deleteAction(ServiceEntityRepositoryLib $repository, string $format)
     {
+        unset($format, $repository);
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
         $cookies    = $this->request->cookies->all();

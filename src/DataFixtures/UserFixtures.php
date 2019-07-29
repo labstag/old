@@ -60,15 +60,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 'password' => 'disable',
                 'email'    => 'disable@email.fr',
                 'role'     => 'ROLE_ADMIN',
-            ]
+            ],
         ];
         foreach ($users as $dataUser) {
-            $user  = new User();
+            $user = new User();
             $user->setUsername($dataUser['username']);
             $user->setPlainPassword($dataUser['password']);
             if (isset($dataUser['apikey'])) {
                 $user->setApiKey($dataUser['apikey']);
             }
+
             $user->setEmail($dataUser['email']);
             $user->addRole($dataUser['role']);
             $image   = $faker->unique()->imageUrl(200, 200);
@@ -83,7 +84,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 null,
                 true
             );
-    
+
             $user->setImageFile($file);
             $manager->persist($user);
         }

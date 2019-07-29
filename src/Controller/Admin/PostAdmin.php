@@ -14,8 +14,8 @@ use Labstag\Repository\PostRepository;
 use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/post")
@@ -29,7 +29,10 @@ class PostAdmin extends AdminControllerLib
     public function list(PostRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'User'      => [
                 'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
@@ -197,7 +200,10 @@ class PostAdmin extends AdminControllerLib
     public function listCategory(CategoryRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',
@@ -326,7 +332,10 @@ class PostAdmin extends AdminControllerLib
     public function listTags(TagsRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',

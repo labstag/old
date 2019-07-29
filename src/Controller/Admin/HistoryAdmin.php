@@ -12,8 +12,8 @@ use Labstag\Repository\ChapitreRepository;
 use Labstag\Repository\HistoryRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/history")
@@ -27,7 +27,10 @@ class HistoryAdmin extends AdminControllerLib
     public function list(HistoryRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'User'      => [
                 'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
@@ -249,7 +252,10 @@ class HistoryAdmin extends AdminControllerLib
     public function listChapitre(ChapitreRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'Histoire'  => [
                 'field'     => 'refhistory',
                 'formatter' => 'dataFormatter',
