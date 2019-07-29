@@ -22,7 +22,10 @@ class ConfigurationAdmin extends AdminControllerLib
     public function list(ConfigurationRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name', 'switchable' => false],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'CreatedAt' => [
                 'field'     => 'createdAt',
                 'formatter' => 'dateFormatter',

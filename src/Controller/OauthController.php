@@ -2,6 +2,8 @@
 
 namespace Labstag\Controller;
 
+use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
@@ -10,10 +12,11 @@ use Labstag\Services\OauthServices;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Security;
-use Exception;
 
 class OauthController extends ControllerLib
 {
@@ -23,10 +26,10 @@ class OauthController extends ControllerLib
      */
     private $oauthServices;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, OauthServices $oauthServices, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
     {
-        parent::__construct($container);
-        $this->oauthServices = $this->container->get(OauthServices::class);
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->oauthServices = $oauthServices;
     }
 
     /**

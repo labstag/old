@@ -27,8 +27,8 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
 
     public function __construct(UserRepository $userRepository, TagsRepository $tagsRepository)
     {
-        $this->userRepository     = $userRepository;
-        $this->tagsRepository     = $tagsRepository;
+        $this->userRepository = $userRepository;
+        $this->tagsRepository = $tagsRepository;
     }
 
     public function load(ObjectManager $manager)
@@ -47,9 +47,9 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
 
     private function add(ObjectManager $manager)
     {
-        $users      = $this->userRepository->findAll();
-        $tags       = $this->tagsRepository->findBy(['type' => 'bookmark']);
-        $faker      = Factory::create('fr_FR');
+        $users = $this->userRepository->findAll();
+        $tags  = $this->tagsRepository->findBy(['type' => 'bookmark']);
+        $faker = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $bookmark = new Bookmark();
             $bookmark->setUrl($faker->unique()->url);
@@ -60,6 +60,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
                 $tabIndex = array_rand($users);
                 $bookmark->setRefuser($users[$tabIndex]);
             }
+
             $this->addTags($bookmark, $tags);
             $image   = $faker->unique()->imageUrl(1920, 1920);
             $content = file_get_contents($image);

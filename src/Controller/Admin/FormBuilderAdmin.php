@@ -25,7 +25,10 @@ class FormBuilderAdmin extends AdminControllerLib
     public function list(FormbuilderRepository $repository): Response
     {
         $datatable = [
-            'Name'             => ['field' => 'name', 'switchable' => false],
+            'Name'             => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'Nombre de champs' => [
                 'field'     => 'formbuilder',
                 'formatter' => 'dataFormBuilderFormatter',

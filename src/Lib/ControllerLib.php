@@ -3,14 +3,16 @@
 namespace Labstag\Lib;
 
 use DateTimeInterface;
+use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 
 abstract class ControllerLib extends AbstractController
 {
@@ -52,13 +54,13 @@ abstract class ControllerLib extends AbstractController
      *
      * @param ContainerInterface $container container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
     {
         $this->paramViews   = [];
         $this->container    = $container;
-        $this->paginator    = $container->get('knp_paginator');
-        $this->requestStack = $container->get('request_stack');
-        $this->router       = $container->get('router');
+        $this->paginator    = $paginator;
+        $this->requestStack = $requestStack;
+        $this->router       = $router;
         $this->request      = $this->requestStack->getCurrentRequest();
     }
 

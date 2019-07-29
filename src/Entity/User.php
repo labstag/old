@@ -48,8 +48,8 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=180, options={"default": true})
      * @Assert\NotBlank
      * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
+     *     message="The email '{{ value }}' is not a valid email.",
+     *     checkMX=true
      * )
      */
     private $email;
@@ -118,7 +118,7 @@ class User implements UserInterface, \Serializable
         $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
         $this->histories         = new ArrayCollection();
-        $this->bookmarks = new ArrayCollection();
+        $this->bookmarks         = new ArrayCollection();
     }
 
     public function __toString()
@@ -410,7 +410,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|Bookmark[]
+     * @return Bookmark[]|Collection
      */
     public function getBookmarks(): Collection
     {

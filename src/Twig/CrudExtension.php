@@ -51,9 +51,11 @@ class CrudExtension extends AbstractExtension
                     $methods = get_class_methods($return);
                     if (in_array('__toString', $methods)) {
                         $return = $return->__toString();
-                    } else {
-                        $return = '';
+
+                        continue;
                     }
+
+                    $return = '';
                 }
             }
         }

@@ -10,8 +10,7 @@ class FormBuilderApi extends ApiControllerLib
 {
     /**
      * @Route("/api/formbuilders/trash.{_format}", name="api_formbuildertrash")
-     * 
-     * @param FormbuilderRepository $repository
+     *
      * @param string $_format
      */
     public function trash(FormbuilderRepository $repository, $_format)
@@ -21,8 +20,7 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/trash.{_format}", name="api_formbuildertrashdelete", methods={"DELETE"})
-     * 
-     * @param FormbuilderRepository $repository
+     *
      * @param string $_format
      */
     public function delete(FormbuilderRepository $repository, $_format)
@@ -32,8 +30,7 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/restore.{_format}", name="api_formbuilderrestore", methods={"POST"})
-     * 
-     * @param FormbuilderRepository $repository
+     *
      * @param string $_format
      */
     public function restore(FormbuilderRepository $repository, $_format)
@@ -43,8 +40,7 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/empty.{_format}", name="api_formbuilderempty", methods={"POST"})
-     * 
-     * @param FormbuilderRepository $repository
+     *
      * @param string $_format
      */
     public function empty(FormbuilderRepository $repository, $_format)
