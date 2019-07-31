@@ -23,9 +23,6 @@ import {
     form
 } from './modules/form';
 import {
-    workflow
-} from './modules/workflow';
-import {
     admin
 } from './modules/admin';
 import 'whatwg-fetch';
@@ -37,7 +34,6 @@ class Site {
      */
     launch() {
         this.admin        = new admin();
-        this.workflow     = new workflow('workflow');
         this.form         = new form();
         this.prismjs      = new prismjs();
         this.builderform  = new builderform('formBuilder');
