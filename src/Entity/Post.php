@@ -210,7 +210,7 @@ class Post implements Translatable
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 

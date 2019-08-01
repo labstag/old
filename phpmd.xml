@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="pcsg-generated-ruleset" 
-	xmlns="http://pmd.sf.net/ruleset/1.0.0" 
+<ruleset name="pcsg-generated-ruleset"
+	xmlns="http://pmd.sf.net/ruleset/1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 	<description>Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/</description>
 	<rule ref="rulesets/cleancode.xml">
@@ -12,9 +12,7 @@
 		<exclude name="ExcessiveClassLength" />
 		<exclude name="ExcessiveClassComplexity" />
 	</rule>
-	<rule ref="rulesets/controversial.xml">
-		<exclude name="Superglobals" />
-	</rule>
+	<rule ref="rulesets/controversial.xml" />
 	<rule ref="rulesets/design.xml">
 		<exclude name="CouplingBetweenObjects" />
 	</rule>
@@ -28,5 +26,5 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/unusedcode.xml"/>
-	<exclude-pattern>src/Migrations</exclude-pattern>
+	<exclude-pattern>src/Migrations/*</exclude-pattern>
 </ruleset>
