@@ -7,23 +7,23 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Labstag\Entity\Configuration;
 use Labstag\Services\OauthServices;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class ConfigurationFixtures extends Fixture
 {
-
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
 
     /**
      * @var OauthServices
      */
     private $oauthServices;
 
-    public function __construct(ContainerInterface $container, OauthServices $oauthServices)
+    /**
+     * @var Request
+     */
+    private $request;
+
+    public function __construct(OauthServices $oauthServices)
     {
-        $this->container     = $container;
         $this->oauthServices = $oauthServices;
     }
 
