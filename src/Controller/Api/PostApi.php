@@ -11,40 +11,40 @@ class PostApi extends ApiControllerLib
     /**
      * @Route("/api/posts/trash.{_format}", name="api_posttrash")
      *
-     * @param string $_format
+     * @param string $format
      */
-    public function trash(PostRepository $repository, $_format)
+    public function trash(PostRepository $repository, $format)
     {
-        return $this->trashAction($repository, $_format);
+        return $this->trashAction($repository, $format);
     }
 
     /**
      * @Route("/api/posts/trash.{_format}", name="api_posttrashdelete", methods={"DELETE"})
      *
-     * @param string $_format
+     * @param string $format
      */
-    public function delete(PostRepository $repository, $_format)
+    public function delete(PostRepository $repository, $format)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->deleteAction($repository, $format);
     }
 
     /**
      * @Route("/api/posts/restore.{_format}", name="api_postrestore", methods={"POST"})
      *
-     * @param string $_format
+     * @param string $format
      */
-    public function restore(PostRepository $repository, $_format)
+    public function restore(PostRepository $repository, $format)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->restoreAction($repository, $format);
     }
 
     /**
      * @Route("/api/posts/empty.{_format}", name="api_postempty", methods={"POST"})
      *
-     * @param string $_format
+     * @param string $format
      */
-    public function empty(PostRepository $repository, $_format)
+    public function vider(PostRepository $repository, $format)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->emptyAction($repository, $format);
     }
 }

@@ -130,7 +130,7 @@ class User implements UserInterface, \Serializable
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 
