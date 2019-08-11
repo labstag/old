@@ -6,8 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Labstag\Entity\Configuration;
 use Labstag\Services\OauthServices;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class ConfigurationFixtures extends Fixture
 {
@@ -16,11 +14,6 @@ class ConfigurationFixtures extends Fixture
      * @var OauthServices
      */
     private $oauthServices;
-
-    /**
-     * @var Request
-     */
-    private $request;
 
     public function __construct(OauthServices $oauthServices)
     {
