@@ -2,12 +2,12 @@
 
 namespace Labstag\Form\Admin;
 
-use Symfony\Component\Form\AbstractType;
+use Labstag\Lib\AbstractTypeLib;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PositionType extends AbstractType
+class PositionType extends AbstractTypeLib
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

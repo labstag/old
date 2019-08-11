@@ -3,13 +3,16 @@
 namespace Labstag\Form\Admin;
 
 use Labstag\Entity\Bookmark;
+use Labstag\Entity\Tags;
 use Labstag\FormType\WysiwygType;
-use Symfony\Component\Form\AbstractType;
+use Labstag\Lib\AbstractTypeLib;
+use Labstag\Repository\TagsRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BookmarkType extends AbstractType
+class BookmarkType extends AbstractTypeLib
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +22,20 @@ class BookmarkType extends AbstractType
         $builder->add('content', WysiwygType::class);
         $builder->add('enable');
         $builder->add('refuser');
-        $builder->add('tags');
+        $builder->add(
+            'tags',
+            EntityType::class,
+            [
+                'class'         => Tags::class,
+                'multiple'      => true,
+                'query_builder' => function (TagsRepository $repository) {
+                    return $repository->findTagsByType('bookmark');
+                },
+                'attr'          => [
+                    'data-url' => $this->router->generate('admin_dashboard'),
+                ],
+            ]
+        );
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
