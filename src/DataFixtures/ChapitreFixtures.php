@@ -49,7 +49,7 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
             $chapitre->setRefhistory($histoire);
             $enable = rand(0, 1);
             $chapitre->setEnable($enable);
-            $chapitre->setContent($faker->unique()->paragraphs(4, true));
+            $chapitre->setContent($faker->unique()->paragraphs(10, true));
             $manager->persist($chapitre);
             $manager->flush();
         }
