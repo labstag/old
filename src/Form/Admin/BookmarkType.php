@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookmarkType extends AbstractTypeLib
 {
@@ -18,7 +19,7 @@ class BookmarkType extends AbstractTypeLib
     {
         $builder->add('name');
         $builder->add('url');
-        $builder->add('imageFile');
+        $builder->add('imageFile', VichImageType::class);
         $builder->add('content', WysiwygType::class);
         $builder->add('enable');
         $builder->add('refuser');

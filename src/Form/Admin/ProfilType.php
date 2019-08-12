@@ -7,6 +7,7 @@ use Labstag\Lib\AbstractTypeLib;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfilType extends AbstractTypeLib
 {
@@ -17,7 +18,7 @@ class ProfilType extends AbstractTypeLib
         $builder->add('plainPassword');
         $builder->add('apiKey');
         $builder->add('enable');
-        $builder->add('imageFile');
+        $builder->add('imageFile', VichImageType::class);
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
