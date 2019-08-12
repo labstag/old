@@ -8,6 +8,7 @@ use Labstag\Lib\AbstractTypeLib;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class HistoryType extends AbstractTypeLib
 {
@@ -18,6 +19,7 @@ class HistoryType extends AbstractTypeLib
         $builder->add('enable');
         $builder->add('end');
         $builder->add('refuser');
+        $builder->add('imageFile', VichImageType::class);
         $builder->add('resume', WysiwygType::class);
         $builder->add('submit', SubmitType::class);
         unset($options);
