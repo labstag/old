@@ -5,6 +5,7 @@ namespace Labstag\Repository;
 use Labstag\Entity\Tags;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method null|Tags find($id, $lockMode = null, $lockVersion = null)
@@ -19,7 +20,7 @@ class TagsRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Tags::class);
     }
 
-    public function findTagsByType(string $type)
+    public function findTagsByType(string $type): QueryBuilder
     {
         $params = ['type' => $type];
 

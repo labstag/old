@@ -26,6 +26,8 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	wget -nc $(PHPDOCUMENTORURL)
 	php phpDocumentor.phar
 	rm -rf output
+watch-localhost:
+	export NODE_ENV=localhost && npm run watch
 phpcsfixer:
 	composer php-cs-fixer
 phpcbf:
