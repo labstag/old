@@ -35,7 +35,7 @@ class PostType extends AbstractTypeLib
                     return $repository->findForForm();
                 },
                 'attr'          => [
-                    'data-url' => $this->router->generate('adminpost_addcategory'),
+                    'data-url' => $this->router->generate('admintemporary_category'),
                 ],
             ]
         );
@@ -50,7 +50,7 @@ class PostType extends AbstractTypeLib
                     return $repository->findTagsByType('post');
                 },
                 'attr'          => [
-                    'data-url' => $this->router->generate('adminpost_addtags'),
+                    'data-url' => $this->router->generate('admintemporary_tags', ['type' => 'post']),
                 ],
             ]
         );
