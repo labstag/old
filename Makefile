@@ -40,6 +40,8 @@ phpcpd:
 	composer phpcpd
 phpmnd:
 	composer phpmnd
+twigcs:
+	composer twigcs
 audit: ## 
 	$(MAKE) phpcsfixer -i
 	$(MAKE) phpcbf -i
@@ -48,3 +50,4 @@ audit: ##
 	$(MAKE) phpstan -i
 	$(MAKE) phpcpd -i
 	$(MAKE) phpmnd -i
+	$(MAKE) twigcs -i
