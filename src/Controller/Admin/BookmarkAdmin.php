@@ -2,6 +2,7 @@
 
 namespace Labstag\Controller\Admin;
 
+use DateTime;
 use Labstag\Entity\Bookmark;
 use Labstag\Entity\Tags;
 use Labstag\Form\Admin\BookmarkType;
@@ -119,6 +120,7 @@ class BookmarkAdmin extends AdminControllerLib
      */
     public function edit(Bookmark $bookmark): Response
     {
+        $bookmark->setUpdatedAt(new DateTime());
         return $this->crudEditAction(
             [
                 'form'       => BookmarkType::class,
@@ -197,7 +199,7 @@ class BookmarkAdmin extends AdminControllerLib
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
-            'api_param'       => ['type' => 'bookmark'],
+            'api_param'       => ['type' => 'bookmark', 'temporary' => false],
             'url_new'         => 'adminbookmarktags_new',
             'url_delete'      => 'adminbookmarktags_delete',
             'url_deletetrash' => 'adminbookmarktags_deletetrash',

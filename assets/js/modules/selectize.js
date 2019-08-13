@@ -17,12 +17,13 @@ export class selectize {
             return options;
         }
         options = {
-            'valueField' : 'url',
+            'valueField' : 'value',
             'labelField' : 'name',
             'searchField': 'name',
+            'create'     : true,
             'render'     : {
                 'options': function (item, escape) {
-                    return 'aa';
+                    return item.name
                 }
             },
             'load': function (query, callback) {
@@ -39,7 +40,7 @@ export class selectize {
                         callback();
                     },
                     'success': function (res) {
-                        callback(res);
+                        callback(res.data);
                     }
                 } );
             }
