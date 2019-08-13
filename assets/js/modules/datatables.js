@@ -54,7 +54,9 @@ export class datatables {
 
     postheaderTime() {
         for (let url in window.urlData) {
-            this.launchData(url);
+            if (url != 'null') {
+                this.launchData(url);
+            }
         }
         window.urlData = [];
     }
