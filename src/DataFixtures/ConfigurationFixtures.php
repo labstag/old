@@ -6,23 +6,37 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Labstag\Entity\Configuration;
 use Labstag\Services\OauthServices;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigurationFixtures extends Fixture
 {
-    public function __construct(ContainerInterface $container)
+
+    /**
+     * @var OauthServices
+     */
+    private $oauthServices;
+
+    public function __construct(OauthServices $oauthServices)
     {
-        $this->container     = $container;
-        $this->oauthServices = $this->container->get(OauthServices::class);
+        $this->oauthServices = $oauthServices;
     }
 
     public function load(ObjectManager $manager)
     {
+        $this->add($manager);
+    }
+
+    private function add(ObjectManager $manager)
+    {
         $data  = [
-            'site_title'     => 'labstag',
-            'site_copyright' => 'Copyright '.date('Y'),
-            'oauth'          => [],
-            'meta'           => [
+            'languagedefault' => 'fr',
+            'language'        => [
+                'en',
+                'fr',
+            ],
+            'site_title'      => 'labstag',
+            'site_copyright'  => 'Copyright '.date('Y'),
+            'oauth'           => [],
+            'meta'            => [
                 [
                     'viewport'    => 'width=device-width, initial-scale=1, shrink-to-fit=no',
                     'author'      => 'koromerzhin',
@@ -31,7 +45,7 @@ class ConfigurationFixtures extends Fixture
                     'keywords'    => '',
                 ],
             ],
-            'disclaimer'     => [
+            'disclaimer'      => [
                 [
                     'activate'     => 0,
                     'message'      => '',
@@ -39,16 +53,16 @@ class ConfigurationFixtures extends Fixture
                     'url-redirect' => 'http://www.google.fr',
                 ],
             ],
-            'moment'         => [
+            'moment'          => [
                 [
                     'format' => 'MMMM Do YYYY, H:mm:ss',
                     'lang'   => 'fr',
                 ],
             ],
-            'wysiwyg'        => [
+            'wysiwyg'         => [
                 ['lang' => 'fr_FR'],
             ],
-            'datatable'      => [
+            'datatable'       => [
                 [
                     'lang'     => 'fr-FR',
                     'pagelist' => '[5, 10, 25, 50, All]',

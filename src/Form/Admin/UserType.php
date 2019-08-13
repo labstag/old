@@ -3,12 +3,13 @@
 namespace Labstag\Form\Admin;
 
 use Labstag\Entity\User;
-use Symfony\Component\Form\AbstractType;
+use Labstag\Lib\AbstractTypeLib;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class UserType extends AbstractType
+class UserType extends AbstractTypeLib
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,7 +19,7 @@ class UserType extends AbstractType
         $builder->add('enable');
         $builder->add('apiKey');
         $builder->add('enable');
-        $builder->add('imageFile');
+        $builder->add('imageFile', VichImageType::class);
         $builder->add('submit', SubmitType::class);
         unset($options);
     }

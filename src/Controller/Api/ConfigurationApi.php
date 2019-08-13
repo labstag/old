@@ -3,41 +3,48 @@
 namespace Labstag\Controller\Api;
 
 use Labstag\Lib\ApiControllerLib;
-use Symfony\Component\HttpFoundation\Request;
+use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConfigurationApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/configuration/trash", name="api_configurationtrash")
+     * @Route("/api/configurations/trash.{_format}", name="api_configurationtrash")
+     *
+     * @param string $format
      */
-    public function trash(Request $request): JsonResponse
+    public function trash(ConfigurationRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->trashAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/configuration/trash", name="api_configurationtrashdelete", methods={"DELETE"})
+     * @Route("/api/configurations/trash.{_format}", name="api_configurationtrashdelete", methods={"DELETE"})
+     *
+     * @param string $format
      */
-    public function delete(Request $request): JsonResponse
+    public function delete(ConfigurationRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->deleteAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/configuration/restore", name="api_configurationrestore", methods={"POST"})
+     * @Route("/api/configurations/restore.{_format}", name="api_configurationrestore", methods={"POST"})
+     *
+     * @param string $format
      */
-    public function restore(Request $request): JsonResponse
+    public function restore(ConfigurationRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->restoreAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/configuration/empty", name="api_configurationempty", methods={"POST"})
+     * @Route("/api/configurations/empty.{_format}", name="api_configurationempty", methods={"POST"})
+     *
+     * @param string $format
      */
-    public function empty(Request $request): JsonResponse
+    public function vider(ConfigurationRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->emptyAction($repository, $format);
     }
 }

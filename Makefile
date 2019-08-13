@@ -26,3 +26,25 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	wget -nc $(PHPDOCUMENTORURL)
 	php phpDocumentor.phar
 	rm -rf output
+phpcsfixer:
+	composer php-cs-fixer
+phpcbf:
+	composer phpcbf
+phpmd:
+	composer phpmd
+phpcs:
+	composer phpcs
+phpstan:
+	composer phpstan
+phpcpd:
+	composer phpcpd
+phpmnd:
+	composer phpmnd
+audit: ## 
+	$(MAKE) phpcsfixer -i
+	$(MAKE) phpcbf -i
+	$(MAKE) phpmd -i
+	$(MAKE) phpcs -i
+	$(MAKE) phpstan -i
+	$(MAKE) phpcpd -i
+	$(MAKE) phpmnd -i

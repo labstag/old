@@ -15,13 +15,7 @@
     },
     "jshint.config": ".jshintrc",
     "eslint.nodePath": "node_modules",
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#9f4470",
-        "titleBar.activeBackground": "#7b3557",
-        "titleBar.inactiveBackground": "#7b355799",
-        "statusBar.background": "#7b3557",
-        "statusBarItem.hoverBackground": "#9f4470"
-    },
+    "workbench.colorCustomizations": {},
     "[scss]": {
         "editor.tabSize": 2
     },

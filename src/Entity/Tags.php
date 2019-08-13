@@ -5,6 +5,7 @@ namespace Labstag\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,12 +14,24 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
- * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
+ * @ApiFilter(
+ *     OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"}
+ * )
+ * @ApiFilter(
+ *     SearchFilter::class, properties={"type"}
+ * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\TagsRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
+ * @ORM\Table(
+ *     uniqueConstraints={
+ * @ORM\UniqueConstraint(name="tags_unique", columns={"name", "type"})
+ *     }
+ * )
  */
 class Tags implements Translatable
 {
@@ -34,14 +47,10 @@ class Tags implements Translatable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Versioned
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Post", mappedBy="tags")
-     */
-    private $posts;
 
     /**
      * @Gedmo\Slug(fields={"name"})
@@ -49,9 +58,33 @@ class Tags implements Translatable
      */
     private $slug;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Choice({"bookmark", "post"})
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Post", mappedBy="tags")
+     */
+    private $posts;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="tags")
+     */
+    private $bookmarks;
+
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
+        $this->posts     = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
     }
 
     public function __toString(): ?string
@@ -112,6 +145,51 @@ class Tags implements Translatable
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Bookmark[]|Collection
+     */
+    public function getBookmarks(): Collection
+    {
+        return $this->bookmarks;
+    }
+
+    public function addBookmark(Bookmark $bookmark): self
+    {
+        if (!$this->bookmarks->contains($bookmark)) {
+            $this->bookmarks[] = $bookmark;
+            $bookmark->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBookmark(Bookmark $bookmark): self
+    {
+        if ($this->bookmarks->contains($bookmark)) {
+            $this->bookmarks->removeElement($bookmark);
+            $bookmark->removeTag($this);
+        }
 
         return $this;
     }

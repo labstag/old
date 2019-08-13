@@ -14,6 +14,7 @@ use Labstag\Repository\PostRepository;
 use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -28,7 +29,10 @@ class PostAdmin extends AdminControllerLib
     public function list(PostRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'User'      => [
                 'field'     => 'refuser',
                 'formatter' => 'dataFormatter',
@@ -196,7 +200,10 @@ class PostAdmin extends AdminControllerLib
     public function listCategory(CategoryRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',
@@ -325,7 +332,10 @@ class PostAdmin extends AdminControllerLib
     public function listTags(TagsRepository $repository): Response
     {
         $datatable = [
-            'Name'      => ['field' => 'name'],
+            'Name'      => [
+                'field'      => 'name',
+                'switchable' => false,
+            ],
             'Posts'     => [
                 'field'     => 'posts',
                 'formatter' => 'dataTotalFormatter',
@@ -344,6 +354,7 @@ class PostAdmin extends AdminControllerLib
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
+            'api_param'       => ['type' => 'post'],
             'url_new'         => 'adminposttags_new',
             'url_delete'      => 'adminposttags_delete',
             'url_deletetrash' => 'adminposttags_deletetrash',

@@ -2,12 +2,12 @@
 
 namespace Labstag\Form\Admin\Param;
 
-use Symfony\Component\Form\AbstractType;
+use Labstag\Lib\AbstractTypeLib;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WysiwygType extends AbstractType
+class WysiwygType extends AbstractTypeLib
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

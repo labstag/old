@@ -10,15 +10,15 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\Translatable\Translatable;
 
 /**
  * @ApiResource
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\FormbuilderRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
  */
-class Formbuilder implements Translatable
+class Formbuilder
 {
     use BlameableEntity;
     use SoftDeleteableEntity;
@@ -32,11 +32,13 @@ class Formbuilder implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="text")
      */
     private $formbuilder;

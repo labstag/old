@@ -14,6 +14,11 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 10;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -21,9 +26,22 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $this->add($manager);
+    }
+
+    public function getDependencies()
+    {
+        return [
+            FilesFixtures::class,
+            UserFixtures::class,
+        ];
+    }
+
+    private function add(ObjectManager $manager)
+    {
         $users = $this->userRepository->findAll();
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
+        for ($index = 0; $index < self::NUMBER; ++$index) {
             $history = new History();
             $history->setName($faker->unique()->safeColorName);
             $history->setResume($faker->unique()->sentence);
@@ -37,36 +55,23 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
             $end = rand(0, 1);
             $history->setEnd($end);
+            $image   = $faker->unique()->imageUrl(1920, 1920);
+            $content = file_get_contents($image);
+            $tmpfile = tmpfile();
+            $data    = stream_get_meta_data($tmpfile);
+            file_put_contents($data['uri'], $content);
+            $file = new UploadedFile(
+                $data['uri'],
+                'image.jpg',
+                filesize($data['uri']),
+                null,
+                true
+            );
 
-            $addImage = rand(0, 1);
-            if (1 === $addImage) {
-                $image   = $faker->unique()->imageUrl(1920, 1920);
-                $content = file_get_contents($image);
-                $tmpfile = tmpfile();
-                $data    = stream_get_meta_data($tmpfile);
-                file_put_contents($data['uri'], $content);
-                $file = new UploadedFile(
-                    $data['uri'],
-                    'image.jpg',
-                    filesize($data['uri']),
-                    null,
-                    true
-                );
-
-                $history->setImageFile($file);
-            }
-
+            $history->setImageFile($file);
             $manager->persist($history);
         }
 
         $manager->flush();
-    }
-
-    public function getDependencies()
-    {
-        return [
-            FilesFixtures::class,
-            UserFixtures::class,
-        ];
     }
 }

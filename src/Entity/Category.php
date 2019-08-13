@@ -35,6 +35,7 @@ class Category implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
@@ -49,6 +50,13 @@ class Category implements Translatable
      * @ORM\Column(type="string",   length=255, nullable=true)
      */
     private $slug;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -118,5 +126,10 @@ class Category implements Translatable
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

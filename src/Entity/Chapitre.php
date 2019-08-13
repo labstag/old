@@ -33,6 +33,7 @@ class Chapitre implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -64,6 +65,13 @@ class Chapitre implements Translatable
      * @ORM\Column(type="string", length=255)
      */
     private $status;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -146,5 +154,10 @@ class Chapitre implements Translatable
         $this->status = $status;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
