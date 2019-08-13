@@ -27,60 +27,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('fr_FR');
-        $user  = new User();
-        $user->setUsername('admin');
-        $user->setPlainPassword('password');
-        $user->setApiKey('api_admin');
-        $user->setEmail('admin@email.fr');
-        $user->addRole('ROLE_ADMIN');
-        $image   = $faker->unique()->imageUrl(200, 200);
-        $content = file_get_contents($image);
-        $tmpfile = tmpfile();
-        $data    = stream_get_meta_data($tmpfile);
-        file_put_contents($data['uri'], $content);
-        $file = new UploadedFile(
-            $data['uri'],
-            'image.jpg',
-            filesize($data['uri']),
-            null,
-            true
-        );
-
-        $user->setImageFile($file);
-        $manager->persist($user);
-
-        $superadmin = new User();
-        $superadmin->setUsername('superadmin');
-        $superadmin->setPlainPassword('password');
-        $superadmin->setApiKey('api_superadmin');
-        $superadmin->setEmail('superadmin@email.fr');
-        $superadmin->addRole('ROLE_SUPER_ADMIN');
-        $image   = $faker->unique()->imageUrl(200, 200);
-        $content = file_get_contents($image);
-        $tmpfile = tmpfile();
-        $data    = stream_get_meta_data($tmpfile);
-        file_put_contents($data['uri'], $content);
-        $file = new UploadedFile(
-            $data['uri'],
-            'image.jpg',
-            filesize($data['uri']),
-            null,
-            true
-        );
-
-        $superadmin->setImageFile($file);
-        $manager->persist($superadmin);
-
-        $disabledUser = new User();
-        $disabledUser->setUsername('disable');
-        $disabledUser->setPlainPassword('disable');
-        $disabledUser->setEmail('disable@email.fr');
-        $disabledUser->setEnable(false);
-        $disabledUser->addRole('ROLE_ADMIN');
-        $manager->persist($disabledUser);
-
-        $manager->flush();
+        $this->add($manager);
     }
 
     public function getDependencies()
@@ -88,5 +35,60 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         return [
             FilesFixtures::class,
         ];
+    }
+
+    private function add(ObjectManager $manager)
+    {
+        $faker = Factory::create('fr_FR');
+        $users = [
+            [
+                'username' => 'admin',
+                'password' => 'password',
+                'apikey'   => 'api_admin',
+                'email'    => 'admin@email.fr',
+                'role'     => 'ROLE_ADMIN',
+            ],
+            [
+                'username' => 'superadmin',
+                'password' => 'password',
+                'apikey'   => 'api_superadmin',
+                'email'    => 'superadmin@email.fr',
+                'role'     => 'ROLE_SUPER_ADMIN',
+            ],
+            [
+                'username' => 'disable',
+                'password' => 'disable',
+                'email'    => 'disable@email.fr',
+                'role'     => 'ROLE_ADMIN',
+            ],
+        ];
+        foreach ($users as $dataUser) {
+            $user = new User();
+            $user->setUsername($dataUser['username']);
+            $user->setPlainPassword($dataUser['password']);
+            if (isset($dataUser['apikey'])) {
+                $user->setApiKey($dataUser['apikey']);
+            }
+
+            $user->setEmail($dataUser['email']);
+            $user->addRole($dataUser['role']);
+            $image   = $faker->unique()->imageUrl(200, 200);
+            $content = file_get_contents($image);
+            $tmpfile = tmpfile();
+            $data    = stream_get_meta_data($tmpfile);
+            file_put_contents($data['uri'], $content);
+            $file = new UploadedFile(
+                $data['uri'],
+                'image.jpg',
+                filesize($data['uri']),
+                null,
+                true
+            );
+
+            $user->setImageFile($file);
+            $manager->persist($user);
+        }
+
+        $manager->flush();
     }
 }

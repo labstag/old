@@ -10,12 +10,15 @@
 
 namespace Labstag\Controller;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Lib\ControllerLib;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Loader\ExistsLoaderInterface;
@@ -40,9 +43,9 @@ class ExceptionController extends ControllerLib
     /**
      * @param bool $debug Show error (false) or exception (true) pages by default
      */
-    public function __construct(Environment $twig, ContainerInterface $container, bool $debug)
+    public function __construct(Environment $twig, ContainerInterface $container, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router, bool $debug)
     {
-        parent::__construct($container);
+        parent::__construct($container, $paginator, $requestStack, $router);
         $this->twig  = $twig;
         $this->debug = $debug;
     }
@@ -66,6 +69,7 @@ class ExceptionController extends ControllerLib
         $code = $exception->getStatusCode();
 
         $parameters = [
+            'class_body'     => 'ErrorPage',
             'status_code'    => $code,
             'status_text'    => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : '',
             'exception'      => $exception,

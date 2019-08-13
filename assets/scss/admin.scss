@@ -2,38 +2,36 @@
 @import "~@fancyapps/fancybox/dist/jquery.fancybox.css";
 
 .AdminPages {
+
   main {
     padding-top: 5px;
   }
 
-  .main {
-    width: 99%;
+  .access-wrap {
+    display: none;
+  }
 
-    aside {
-      float: left;
-      width: 15%;
-      padding-right: 2%;
+  header {
+    .dropdown-menu {
+      background-color: #343a40;
+    }
+  }
 
-      .nav-link[data-toggle].collapsed {
-        &::after {
-          float: right;
-          content: "▾";
-        }
-      }
-
-      .nav-link[data-toggle] {
-        &:not(.collapsed) {
-          &::after {
-            float: right;
-            content: "▴";
-          }
-        }
+  aside {
+    .nav-link[data-toggle].collapsed {
+      &::after {
+        float: right;
+        content: "▾";
       }
     }
 
-    main {
-      float: right;
-      width: 85%;
+    .nav-link[data-toggle] {
+      &:not(.collapsed) {
+        &::after {
+          float: right;
+          content: "▴";
+        }
+      }
     }
   }
 

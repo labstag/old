@@ -5,6 +5,7 @@ namespace Labstag\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,6 +40,7 @@ class Post implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
@@ -64,7 +66,6 @@ class Post implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $refuser;
 
@@ -89,6 +90,13 @@ class Post implements Translatable
      * @ORM\Column(type="boolean", options={"default": true}))
      */
     private $enable;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -203,7 +211,7 @@ class Post implements Translatable
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 
@@ -222,5 +230,10 @@ class Post implements Translatable
         $this->enable = $enable;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

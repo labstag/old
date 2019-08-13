@@ -3,13 +3,17 @@
 namespace Labstag\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Services\OauthServices;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
@@ -68,16 +72,27 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $oauthCode;
 
-    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
+     * @var TokenStorage
+     */
+    private $tokenStorage;
+
+    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, OauthServices $oauthServices, RequestStack $requestStack, TokenStorageInterface $tokenStorage)
     {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder  = $passwordEncoder;
-        $this->requestStack     = $container->get('request_stack');
+        $this->requestStack     = $requestStack;
         $this->request          = $this->requestStack->getCurrentRequest();
-        $this->oauthServices    = $this->container->get(OauthServices::class);
+        $this->oauthServices    = $oauthServices;
+        $this->tokenStorage     = $tokenStorage;
         $this->oauthCode        = $this->request->attributes->get('oauthCode');
     }
 
@@ -85,7 +100,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     {
         $route       = $request->attributes->get('_route');
         $this->route = $route;
-        $user        = $this->container->get('security.token_storage')->getToken();
+        $user        = $this->tokenStorage->getToken();
 
         return 'connect_check' === $route && (is_null($user) || !($user->getUser() instanceof User));
     }

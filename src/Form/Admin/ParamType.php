@@ -9,20 +9,27 @@ use Labstag\Form\Admin\Param\MomentType;
 use Labstag\Form\Admin\Param\OauthType;
 use Labstag\Form\Admin\Param\WysiwygType;
 use Labstag\FormType\WysiwygType as SiteWysiwygType;
-use Symfony\Component\Form\AbstractType;
+use Labstag\Lib\AbstractTypeLib;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParamType extends AbstractType
+class ParamType extends AbstractTypeLib
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('site_title', TextType::class);
         $builder->add('robotstxt', TextareaType::class);
+        $builder->add('languagedefault', LanguageType::class);
+        $builder->add(
+            'language',
+            LanguageType::class,
+            ['multiple' => true]
+        );
         $builder->add(
             'oauth',
             CollectionType::class,

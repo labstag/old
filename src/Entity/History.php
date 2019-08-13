@@ -5,6 +5,7 @@ namespace Labstag\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,6 +40,7 @@ class History implements Translatable
     private $id;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -89,6 +91,13 @@ class History implements Translatable
      */
     private $resume;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+
     public function __construct()
     {
         $this->end       = false;
@@ -127,7 +136,7 @@ class History implements Translatable
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 
@@ -244,5 +253,10 @@ class History implements Translatable
         $this->resume = $resume;
 
         return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

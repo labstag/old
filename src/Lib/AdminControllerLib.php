@@ -2,6 +2,7 @@
 
 namespace Labstag\Lib;
 
+use Gedmo\Loggable\Entity\LogEntry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,7 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->addParamViewsAdmin($parameters);
         $this->paramViews['disclaimer'] = 0;
+        $this->paramViews['class_body'] = 'AdminPages';
 
         return parent::twig($view, $this->paramViews, $response);
     }
@@ -74,7 +76,11 @@ abstract class AdminControllerLib extends ControllerLib
             'operation' => true,
             'select'    => true,
             'api'       => $data['api'],
+            'api_param' => [],
         ];
+        if (isset($data['api_param'])) {
+            $paramtwig['api_param'] = $data['api_param'];
+        }
 
         $this->setParamTwig($paramtwig, $data);
         /**
@@ -145,6 +151,7 @@ abstract class AdminControllerLib extends ControllerLib
             'url_list' => $data['url_list'],
             'btnSave'  => true,
             'form'     => $form->createView(),
+            'logs'     => [],
         ];
 
         if (isset($data['twig'])) {
@@ -156,7 +163,7 @@ abstract class AdminControllerLib extends ControllerLib
 
     protected function crudEditAction(array $data = [])
     {
-        $tabDataCheck = [
+        $tabDataCheck  = [
             'form',
             'entity',
             'url_list',
@@ -164,6 +171,7 @@ abstract class AdminControllerLib extends ControllerLib
             'url_delete',
             'title',
         ];
+        $entityManager = $this->getDoctrine()->getManager();
         foreach ($tabDataCheck as $key) {
             if (!isset($data[$key])) {
                 throw new HttpException(500, 'Parametre ['.$key.'] manquant');
@@ -209,6 +217,7 @@ abstract class AdminControllerLib extends ControllerLib
             $params['twig'] = $data['twig'];
         }
 
+        $this->generateLogs($params, $data, $entityManager);
         if (isset($data['url_view'])) {
             $params['url_view'] = $data['url_view'];
         }
@@ -367,6 +376,24 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
+    private function generateLogs(&$params, $data, $entityManager)
+    {
+        $repository = $entityManager->getRepository(LogEntry::class);
+        if (is_array($data['entity'])) {
+            return;
+        }
+
+        $logs     = $repository->getLogEntries($data['entity']);
+        $dataLogs = [];
+        foreach ($logs as $log) {
+            if (!empty($log->username)) {
+                array_push($dataLogs, $log);
+            }
+        }
+
+        $params['logs'] = $dataLogs;
+    }
+
     private function setOperationLink(&$paramtwig)
     {
         $tabDataCheck                = [
@@ -433,13 +460,12 @@ abstract class AdminControllerLib extends ControllerLib
         $route                  = $this->request->attributes->get('_route');
         $paramtwig['url_trash'] = $data['url_trash'];
         $paramtwig['url_list']  = $data['url_list'];
-        $paramtwig['url_edit']  = $data['url_trashedit'];
         if ($route == $data['url_trash']) {
             unset($paramtwig['url_new'], $paramtwig['url_trash']);
-
             $paramtwig['dataInTrash'] = $dataInTrash;
             $paramtwig['url_empty']   = $data['url_empty'];
             $paramtwig['url_delete']  = $data['url_deletetrash'];
+            $paramtwig['url_edit']    = $data['url_trashedit'];
             unset($paramtwig['api']);
             if (isset($data['url_trashview'])) {
                 $paramtwig['url_view'] = $data['url_trashview'];
@@ -486,6 +512,19 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'url'   => 'adminworkflow_list',
                 'title' => 'Workflow',
+            ],
+            [
+                'title' => 'Bookmark',
+                'child' => [
+                    [
+                        'url'   => 'adminbookmark_list',
+                        'title' => 'Bookmark',
+                    ],
+                    [
+                        'url'   => 'adminbookmarktags_list',
+                        'title' => 'Tags',
+                    ],
+                ],
             ],
             [
                 'title' => 'Articles',

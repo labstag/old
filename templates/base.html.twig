@@ -25,7 +25,7 @@
 			{% endif %}
 		{% endif %}
     </head>
-    <body{% if classBody is defined %} class="{{ classBody }}"{% endif %} data-momentlang="{{ config.moment[0]['lang'] }}" data-wysiwyglang="{{ config.wysiwyg[0]['lang'] }}">
+    <body{% if class_body is defined %} class="{{ class_body }}"{% endif %} data-momentlang="{{ config.moment[0]['lang'] }}" data-wysiwyglang="{{ config.wysiwyg[0]['lang'] }}">
         {% block body %}{% endblock %}
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
