@@ -19,6 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookmarkAdmin extends AdminControllerLib
 {
     /**
+     * @Route("/add/tags", name="adminbookmark_tags")
+     *
+     * @return Response
+     */
+    public function addTags(): Response
+    {
+
+    }
+    
+    /**
      * @Route("/", name="adminbookmark_list", methods={"GET"})
      * @Route("/trash", name="adminbookmark_trash", methods={"GET"})
      */

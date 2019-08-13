@@ -33,7 +33,7 @@ class BookmarkType extends AbstractTypeLib
                     return $repository->findTagsByType('bookmark');
                 },
                 'attr'          => [
-                    'data-url' => $this->router->generate('admin_dashboard'),
+                    'data-url' => $this->router->generate('adminbookmark_addtags'),
                 ],
             ]
         );
