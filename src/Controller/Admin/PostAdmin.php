@@ -22,25 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PostAdmin extends AdminControllerLib
 {
-    /**
-     * @Route("/add/tags", name="adminpost_addtags")
-     *
-     * @return Response
-     */
-    public function addTags(): Response
-    {
-
-    }
-
-    /**
-     * @Route("/add/category", name="adminpost_addcategory")
-     *
-     * @return Response
-     */
-    public function addCategory(): Response
-    {
-
-    }
 
     /**
      * @Route("/", name="adminpost_list", methods={"GET"})
