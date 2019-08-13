@@ -13,6 +13,11 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 50;
 
+    /**
+     * @var HistoryRepository
+     */
+    private $historyRepository;
+
     public function __construct(HistoryRepository $historyRepository)
     {
         $this->historyRepository = $historyRepository;
@@ -20,9 +25,21 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $this->add($manager);
+    }
+
+    public function getDependencies()
+    {
+        return [
+            HistoryFixtures::class,
+        ];
+    }
+
+    private function add(ObjectManager $manager)
+    {
         $histoires = $this->historyRepository->findAll();
         $faker     = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
+        for ($index = 0; $index < self::NUMBER; ++$index) {
             $chapitre = new Chapitre();
             $chapitre->setName($faker->unique()->sentence);
             $enable = rand(0, 1);
@@ -32,16 +49,9 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
             $chapitre->setRefhistory($histoire);
             $enable = rand(0, 1);
             $chapitre->setEnable($enable);
-            $chapitre->setContent($faker->unique()->paragraphs(4, true));
+            $chapitre->setContent($faker->unique()->paragraphs(10, true));
             $manager->persist($chapitre);
             $manager->flush();
         }
-    }
-
-    public function getDependencies()
-    {
-        return [
-            HistoryFixtures::class,
-        ];
     }
 }

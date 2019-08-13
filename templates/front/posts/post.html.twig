@@ -12,16 +12,18 @@
                     Créer le: {{ macroSite.timeago(post.createdAt) }}
                     Modifier le: {{ macroSite.timeago(post.updatedAt) }}
                 </li>
-                <li class="list-inline-item post-author">
-                    <a href="{{ path('posts_user', {'user': post.refuser.id}) }}">
-                        {{ macroSite.user(post.refuser) }}
-                    </a>
-                </li>
+                {% if post.refuser.id is defined %}
+                    <li class="list-inline-item post-author">
+                        <a href="{{ path('posts_user', {'user': post.refuser.id}) }}">
+                            {{ macroSite.user(post.refuser) }}
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </header>
     {% if post.file %}
-        <div class="picture image-final" style="background-image:url('{{ asset('file/'~post.file) }}');"></div>
+        <div class="picture image-final" style="background-image:url('{{ asset('file/' ~ post.file) }}');"></div>
     {% endif %}
     <main>
         {% if more is defined %}

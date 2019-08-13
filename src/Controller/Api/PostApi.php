@@ -3,41 +3,48 @@
 namespace Labstag\Controller\Api;
 
 use Labstag\Lib\ApiControllerLib;
-use Symfony\Component\HttpFoundation\Request;
+use Labstag\Repository\PostRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PostApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/post/trash", name="api_posttrash")
+     * @Route("/api/posts/trash.{_format}", name="api_posttrash")
+     *
+     * @param string $format
      */
-    public function trash(Request $request): JsonResponse
+    public function trash(PostRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->trashAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/post/trash", name="api_posttrashdelete", methods={"DELETE"})
+     * @Route("/api/posts/trash.{_format}", name="api_posttrashdelete", methods={"DELETE"})
+     *
+     * @param string $format
      */
-    public function delete(Request $request): JsonResponse
+    public function delete(PostRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->deleteAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/post/restore", name="api_postrestore", methods={"POST"})
+     * @Route("/api/posts/restore.{_format}", name="api_postrestore", methods={"POST"})
+     *
+     * @param string $format
      */
-    public function restore(Request $request): JsonResponse
+    public function restore(PostRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->restoreAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/post/empty", name="api_postempty", methods={"POST"})
+     * @Route("/api/posts/empty.{_format}", name="api_postempty", methods={"POST"})
+     *
+     * @param string $format
      */
-    public function empty(Request $request): JsonResponse
+    public function vider(PostRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->emptyAction($repository, $format);
     }
 }

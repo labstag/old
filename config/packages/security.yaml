@@ -1,8 +1,7 @@
 security:
     encoders:
         Labstag\Entity\User:
-            algorithm: bcrypt
-            cost: 12
+            algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     

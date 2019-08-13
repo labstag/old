@@ -16,6 +16,21 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 {
     private const NUMBER = 25;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+
+    /**
+     * @var TagsRepository
+     */
+    private $tagsRepository;
+
     public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, TagsRepository $tagsRepository)
     {
         $this->userRepository     = $userRepository;
@@ -25,39 +40,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $users      = $this->userRepository->findAll();
-        $categories = $this->categoryRepository->findAll();
-        $tags       = $this->tagsRepository->findAll();
-        $faker      = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
-            $post = new Post();
-            $post->setName($faker->unique()->text(rand(5, 50)));
-            $post->setContent($faker->unique()->paragraphs(4, true));
-            $post->setRefuser($users[array_rand($users)]);
-            $post->setRefcategory($categories[array_rand($categories)]);
-            $this->addTags($post, $tags);
-            $addImage = rand(0, 1);
-            if (1 === $addImage) {
-                $image   = $faker->unique()->imageUrl(1920, 1920);
-                $content = file_get_contents($image);
-                $tmpfile = tmpfile();
-                $data    = stream_get_meta_data($tmpfile);
-                file_put_contents($data['uri'], $content);
-                $file = new UploadedFile(
-                    $data['uri'],
-                    'image.jpg',
-                    filesize($data['uri']),
-                    null,
-                    true
-                );
-
-                $post->setImageFile($file);
-            }
-
-            $manager->persist($post);
-        }
-
-        $manager->flush();
+        $this->add($manager);
     }
 
     public function getDependencies()
@@ -68,6 +51,44 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             CategoryFixtures::class,
             UserFixtures::class,
         ];
+    }
+
+    private function add(ObjectManager $manager)
+    {
+        $users      = $this->userRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
+        $tags       = $this->tagsRepository->findBy(['type' => 'post']);
+        $faker      = Factory::create('fr_FR');
+        for ($index = 0; $index < self::NUMBER; ++$index) {
+            $post = new Post();
+            $post->setName($faker->unique()->text(rand(5, 50)));
+            $post->setContent($faker->unique()->paragraphs(4, true));
+            $user = rand(0, 1);
+            if ($user) {
+                $tabIndex = array_rand($users);
+                $post->setRefuser($users[$tabIndex]);
+            }
+
+            $post->setRefcategory($categories[array_rand($categories)]);
+            $this->addTags($post, $tags);
+            $image   = $faker->unique()->imageUrl(1920, 1920);
+            $content = file_get_contents($image);
+            $tmpfile = tmpfile();
+            $data    = stream_get_meta_data($tmpfile);
+            file_put_contents($data['uri'], $content);
+            $file = new UploadedFile(
+                $data['uri'],
+                'image.jpg',
+                filesize($data['uri']),
+                null,
+                true
+            );
+
+            $post->setImageFile($file);
+            $manager->persist($post);
+        }
+
+        $manager->flush();
     }
 
     private function addTags($post, $tags)
@@ -82,8 +103,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $nbr
         );
         if (is_array($tabIndex)) {
-            foreach ($tabIndex as $j) {
-                $post->addTag($tags[$j]);
+            foreach ($tabIndex as $indendexndex) {
+                $post->addTag($tags[$indendexndex]);
             }
 
             return;

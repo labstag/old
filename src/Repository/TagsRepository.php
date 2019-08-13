@@ -19,6 +19,13 @@ class TagsRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Tags::class);
     }
 
+    public function findTagsByType(string $type)
+    {
+        $params = ['type' => $type];
+
+        return $this->createQueryBuilder('g')->where('g.type=:type')->setParameters($params)->orderBy('g.name', 'ASC');
+    }
+
     // /**
     //  * @return Tags[] Returns an array of Tags objects
     //  */

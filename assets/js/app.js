@@ -3,6 +3,7 @@ import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui-sortable';
 import 'bootstrap';
+import 'selectize';
 import {
     builderform
 } from './modules/builderform';
@@ -22,9 +23,6 @@ import {
     form
 } from './modules/form';
 import {
-    workflow
-} from './modules/workflow';
-import {
     admin
 } from './modules/admin';
 import 'whatwg-fetch';
@@ -36,7 +34,6 @@ class Site {
      */
     launch() {
         this.admin        = new admin();
-        this.workflow     = new workflow('workflow');
         this.form         = new form();
         this.prismjs      = new prismjs();
         this.builderform  = new builderform('formBuilder');
@@ -44,6 +41,7 @@ class Site {
         this.datatables   = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
         this.login();
+        $('select').selectize();
     }
 
     login() {

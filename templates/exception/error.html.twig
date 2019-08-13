@@ -1,8 +1,7 @@
-{% set classBody = "ErrorPage" %}
 {% extends 'site.html.twig' %}
 {% block content_title %}An Error Occurred: {{ status_text }}{% endblock %}
 {% block bodySite %}
-    <div class="container">
+    <div class="container-fluid">
         <h1>Oops! An Error Occurred</h1>
         <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
 

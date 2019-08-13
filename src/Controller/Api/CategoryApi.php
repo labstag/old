@@ -3,41 +3,48 @@
 namespace Labstag\Controller\Api;
 
 use Labstag\Lib\ApiControllerLib;
-use Symfony\Component\HttpFoundation\Request;
+use Labstag\Repository\CategoryRepository;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CategoryApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/category/trash", name="api_categorytrash")
+     * @Route("/api/categories/trash.{_format}", name="api_categorytrash")
+     *
+     * @param string $format
      */
-    public function trash(Request $request): JsonResponse
+    public function trash(CategoryRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->trashAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/category/trash", name="api_categorytrashdelete", methods={"DELETE"})
+     * @Route("/api/categories/trash.{_format}", name="api_categorytrashdelete", methods={"DELETE"})
+     *
+     * @param string $format
      */
-    public function delete(Request $request): JsonResponse
+    public function delete(CategoryRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->deleteAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/category/restore", name="api_categoryrestore", methods={"POST"})
+     * @Route("/api/categories/restore.{_format}", name="api_categoryrestore", methods={"POST"})
+     *
+     * @param string $format
      */
-    public function restore(Request $request): JsonResponse
+    public function restore(CategoryRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->restoreAction($repository, $format);
     }
-    
+
     /**
-     * @Route("/api/category/empty", name="api_categoryempty", methods={"POST"})
+     * @Route("/api/categories/empty.{_format}", name="api_categoryempty", methods={"POST"})
+     *
+     * @param string $format
      */
-    public function empty(Request $request): JsonResponse
+    public function vider(CategoryRepository $repository, $format)
     {
-        return $this->trashAction($request);
+        return $this->emptyAction($repository, $format);
     }
 }

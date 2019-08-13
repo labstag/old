@@ -1,8 +1,13 @@
+import {
+    workflow
+} from './workflow';
 export class admin {
     constructor() {
         this.userList();
         this.btndelete();
         this.sortable();
+        this.workflow = new workflow();
+        this.workflow.init();
     }
 
     sortable() {
