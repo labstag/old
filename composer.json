@@ -53,7 +53,7 @@
         "symfony/security": "4.3.*",
         "symfony/security-bundle": "4.3.*",
         "symfony/serializer-pack": "*",
-        "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/swiftmailer-bundle": "^3.2",
         "symfony/templating": "4.3.*",
         "symfony/translation": "4.3.*",
         "symfony/twig-bundle": "4.3.*",
@@ -121,6 +121,7 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "twigcs": "twigcs templates",
         "phploc": "phploc src",
         "php-cs-fixer": "php-cs-fixer fix --config=php_cs.dist src -n",
         "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",

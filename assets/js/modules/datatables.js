@@ -97,8 +97,10 @@ export class datatables {
     }
 
     dataFormatter(value, row) {
-        window.urlData[value] = 1;
-        let span              = document.createElement('span');
+        if (value != null) {
+            window.urlData[value] = 1;
+        }
+        let span = document.createElement('span');
 
         span.setAttribute('data-id', value);
         span.setAttribute('class', 'DataSpan');

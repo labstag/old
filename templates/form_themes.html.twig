@@ -160,3 +160,50 @@
 		</div>
 	{%- endif -%}
 {%- endblock -%}
+
+{%- block vich_file_row -%}
+    {{- block('form_row') -}}
+{%- endblock -%}
+
+{%- block vich_file_widget -%}
+    <div class="vich-file">
+        {{- form_widget(form.file) -}}
+        {%- if form.delete is defined -%}
+            {{- form_row(form.delete) -}}
+        {%- endif -%}
+
+        {%- if download_uri -%}
+            <a href="{{ download_uri }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+        {%- endif -%}
+    </div>
+{%- endblock -%}
+
+{%- block vich_image_row -%}
+    {{- block('form_row') -}}
+{%- endblock -%}
+
+{%- block vich_image_widget -%}
+    <div class="vich-image">
+        {{- form_widget(form.file) -}}
+		<div class="row">
+			<div class="col-md-2 offset-md-5">
+				{%- if form.delete is defined -%}
+					{{- form_row(form.delete) -}}
+				{%- endif -%}
+				{%- if image_uri -%}
+					<a href="{{ image_uri }}" data-fancybox="true">
+						<img src="{{ image_uri }}" class="img-thumbnail" />
+					</a>
+				{%- endif -%}
+				{%- if download_uri -%}
+					<a href="{{ download_uri }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+				{%- endif -%}
+			</div>
+		</div>
+    </div>
+{%- endblock -%}
+
+{%- block vich_file_label -%}
+    {%- set label = label|trans|default(label) -%}
+    {{- block('form_label') -}}
+{%- endblock -%}

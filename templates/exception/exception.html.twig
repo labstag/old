@@ -63,7 +63,7 @@
 
             <div class="tab-content">
                 {% if logger.logs %}
-                    {{ include('@Twig/Exception/logs.html.twig', { logs: logger.logs }, with_context = false)  }}
+                    {{ include('@Twig/Exception/logs.html.twig', { logs: logger.logs }, with_context = false) }}
                 {% else %}
                     <div class="empty">
                         <p>No log messages</p>

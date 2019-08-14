@@ -72,6 +72,11 @@ class Tags implements Translatable
     private $type;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $temporary;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Labstag\Entity\Post", mappedBy="tags")
      */
     private $posts;
@@ -83,6 +88,7 @@ class Tags implements Translatable
 
     public function __construct()
     {
+        $this->temporary = false;
         $this->posts     = new ArrayCollection();
         $this->bookmarks = new ArrayCollection();
     }
@@ -190,6 +196,18 @@ class Tags implements Translatable
             $this->bookmarks->removeElement($bookmark);
             $bookmark->removeTag($this);
         }
+
+        return $this;
+    }
+
+    public function isTemporary(): ?bool
+    {
+        return $this->temporary;
+    }
+
+    public function setTemporary(bool $temporary): self
+    {
+        $this->temporary = $temporary;
 
         return $this;
     }

@@ -30,10 +30,10 @@ class BookmarkType extends AbstractTypeLib
                 'class'         => Tags::class,
                 'multiple'      => true,
                 'query_builder' => function (TagsRepository $repository) {
-                    return $repository->findTagsByType('bookmark');
+                    return $repository->findTagsByTypeNotTemporary('bookmark');
                 },
                 'attr'          => [
-                    'data-url' => $this->router->generate('admin_dashboard'),
+                    'data-url' => $this->router->generate('admintemporary_tags', ['type' => 'bookmark']),
                 ],
             ]
         );

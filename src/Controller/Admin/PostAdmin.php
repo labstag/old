@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PostAdmin extends AdminControllerLib
 {
+
     /**
      * @Route("/", name="adminpost_list", methods={"GET"})
      * @Route("/trash", name="adminpost_trash", methods={"GET"})
@@ -354,7 +355,7 @@ class PostAdmin extends AdminControllerLib
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
-            'api_param'       => ['type' => 'post'],
+            'api_param'       => ['type' => 'post', 'temporary' => false],
             'url_new'         => 'adminposttags_new',
             'url_delete'      => 'adminposttags_delete',
             'url_deletetrash' => 'adminposttags_deletetrash',
