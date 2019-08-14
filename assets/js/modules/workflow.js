@@ -351,5 +351,4 @@ export class workflow {
             svgWindow.print();
         }, 1);
     }
-    constructor() {}
 }
