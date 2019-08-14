@@ -54,9 +54,7 @@ export class datatables {
 
     postheaderTime() {
         for (let url in window.urlData) {
-            if (url != 'null') {
-                this.launchData(url);
-            }
+            this.launchData(url);
         }
         window.urlData = [];
     }
@@ -99,8 +97,10 @@ export class datatables {
     }
 
     dataFormatter(value, row) {
-        window.urlData[value] = 1;
-        let span              = document.createElement('span');
+        if (value != null) {
+            window.urlData[value] = 1;
+        }
+        let span = document.createElement('span');
 
         span.setAttribute('data-id', value);
         span.setAttribute('class', 'DataSpan');
