@@ -41,7 +41,7 @@
     "chart.js": "^2.8.0",
     "detect-mobile-browser": "^5.0.0",
     "formBuilder": "^3.2.5",
-    "formbuilder-languages": "^0.1.0",
+    "formbuilder-languages": "^1.0.0",
     "fullcalendar": "^3.10.1",
     "gitmoji-changelog": "^1.1.0",
     "gojs": "^2.0.15",
