@@ -41,6 +41,11 @@ class Category implements Translatable
     private $name;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $temporary;
+
+    /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refcategory")
      */
     private $posts;
@@ -60,7 +65,8 @@ class Category implements Translatable
 
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
+        $this->temporary = false;
+        $this->posts     = new ArrayCollection();
     }
 
     public function __toString(): ?string
@@ -131,5 +137,17 @@ class Category implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    public function isTemporary(): ?bool
+    {
+        return $this->temporary;
+    }
+
+    public function setTemporary(bool $temporary): self
+    {
+        $this->temporary = $temporary;
+
+        return $this;
     }
 }

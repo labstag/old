@@ -1,12 +1,14 @@
 import {
     workflow
 } from './workflow';
+import './ajax';
 export class admin {
     constructor() {
         this.userList();
         this.btndelete();
         this.sortable();
         this.workflow = new workflow();
+        this.ajax     = new this.ajax();
         this.workflow.init();
     }
 
@@ -47,20 +49,7 @@ export class admin {
         let id   = $('.BtnDeleteModalConfirm').attr('data-id');
 
         data.push(id);
-        window.fetch(
-            url, {
-                'method': 'DELETE',
-                'body'  : JSON.stringify(data)
-            }
-        ).then((response) => {
-            return response.text();
-        } ).then((text) => {
-            return JSON.parse(text);
-        } ).then((json) => {
-            if (json.redirect != undefined) {
-                window.location.replace(json.redirect);
-            }
-        } );
+        this.ajax.delete(url, data);
     }
 
     userList() {

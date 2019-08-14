@@ -25,6 +25,9 @@ import {
 import {
     admin
 } from './modules/admin';
+import {
+    selectize
+} from './modules/selectize';
 import 'whatwg-fetch';
 global.$      = $;
 global.Jquery = $;
@@ -34,6 +37,7 @@ class Site {
      */
     launch() {
         this.admin        = new admin();
+        this.selectize    = new selectize();
         this.form         = new form();
         this.prismjs      = new prismjs();
         this.builderform  = new builderform('formBuilder');
@@ -41,7 +45,6 @@ class Site {
         this.datatables   = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
         this.login();
-        $('select').selectize();
     }
 
     login() {

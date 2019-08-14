@@ -157,7 +157,7 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function isEnable()
+    public function isEnable(): ?bool
     {
         return $this->enable;
     }

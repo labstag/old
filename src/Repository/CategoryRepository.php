@@ -19,6 +19,11 @@ class CategoryRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Category::class);
     }
 
+    public function findForForm()
+    {
+        return $this->createQueryBuilder('g')->orderBy('g.name', 'ASC');
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */
