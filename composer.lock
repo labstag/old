@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eae6756c4846aaab272ee81129c00b39",
+    "content-hash": "1abc3489c5543be1237a47ccf943a4ca",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -15080,22 +15080,23 @@
         },
         {
             "name": "symfony/panther",
-            "version": "v0.3.0",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/panther.git",
-                "reference": "5e41bc856eded5f546c71173a1e8e260c5e3a07a"
+                "reference": "6581f7bc0498f0328fe955a2894ffc40070d2bcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/panther/zipball/5e41bc856eded5f546c71173a1e8e260c5e3a07a",
-                "reference": "5e41bc856eded5f546c71173a1e8e260c5e3a07a",
+                "url": "https://api.github.com/repos/symfony/panther/zipball/6581f7bc0498f0328fe955a2894ffc40070d2bcb",
+                "reference": "6581f7bc0498f0328fe955a2894ffc40070d2bcb",
                 "shasum": ""
             },
             "require": {
                 "facebook/webdriver": "^1.5",
                 "php": ">=7.1",
                 "symfony/browser-kit": "^4.0",
+                "symfony/http-client": "^4.3",
                 "symfony/polyfill-php72": "^1.9",
                 "symfony/process": "^3.4 || ^4.0"
             },
@@ -15145,7 +15146,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2019-02-27T12:48:28+00:00"
+            "time": "2019-06-11T14:14:33+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
