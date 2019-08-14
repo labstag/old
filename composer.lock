@@ -2945,33 +2945,33 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "v3.0.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "06100a8f3a1e878d3d2d5d06a61c4e648f94aed7"
+                "reference": "865781b323739c688daaec540f9905704cec51ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/06100a8f3a1e878d3d2d5d06a61c4e648f94aed7",
-                "reference": "06100a8f3a1e878d3d2d5d06a61c4e648f94aed7",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/865781b323739c688daaec540f9905704cec51ef",
+                "reference": "865781b323739c688daaec540f9905704cec51ef",
                 "shasum": ""
             },
             "require": {
-                "knplabs/knp-components": "~1.2",
-                "php": ">=5.6.0",
-                "symfony/framework-bundle": "~2.7|~3.0|~4.0",
-                "symfony/translation": "~2.7|~3.0|~4.0",
-                "twig/twig": "~1.12|~2"
+                "knplabs/knp-components": "^1.3 || ^2.0",
+                "php": "^7.1",
+                "symfony/framework-bundle": "^3.4 || ^4.0",
+                "symfony/translation": "^3.4 || ^4.0",
+                "twig/twig": "^2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8.35|~5.4.3|~6.4",
-                "symfony/expression-language": "~2.7|~3.0|~4.0"
+                "phpunit/phpunit": "^6.4 || ^8.0",
+                "symfony/expression-language": "^3.4 || ^4.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "4.1.x-dev"
                 }
             },
             "autoload": {
@@ -3004,7 +3004,7 @@
                 "paginator",
                 "symfony"
             ],
-            "time": "2019-02-28T13:51:20+00:00"
+            "time": "2019-06-27T07:23:50+00:00"
         },
         {
             "name": "knplabs/knp-time-bundle",
@@ -12006,16 +12006,16 @@
         },
         {
             "name": "microsoft/tolerant-php-parser",
-            "version": "v0.0.17",
+            "version": "v0.0.18",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Microsoft/tolerant-php-parser.git",
-                "reference": "89386de8dec9c004c8ea832692e236c92f34b542"
+                "url": "https://github.com/microsoft/tolerant-php-parser.git",
+                "reference": "e255aa978b45729094da2a1a6f9954044a244ff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Microsoft/tolerant-php-parser/zipball/89386de8dec9c004c8ea832692e236c92f34b542",
-                "reference": "89386de8dec9c004c8ea832692e236c92f34b542",
+                "url": "https://api.github.com/repos/microsoft/tolerant-php-parser/zipball/e255aa978b45729094da2a1a6f9954044a244ff2",
+                "reference": "e255aa978b45729094da2a1a6f9954044a244ff2",
                 "shasum": ""
             },
             "require": {
@@ -12043,7 +12043,7 @@
                 }
             ],
             "description": "Tolerant PHP-to-AST parser designed for IDE usage scenarios",
-            "time": "2019-03-09T19:24:59+00:00"
+            "time": "2019-07-01T02:21:00+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -12751,16 +12751,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "1.3.5",
+            "version": "2.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "f872949b366d84bd9ce79d8b0ea991edbe258377"
+                "reference": "a19dc65091abb4c87374a998912fcc9ae7de41d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/f872949b366d84bd9ce79d8b0ea991edbe258377",
-                "reference": "f872949b366d84bd9ce79d8b0ea991edbe258377",
+                "url": "https://api.github.com/repos/phan/phan/zipball/a19dc65091abb4c87374a998912fcc9ae7de41d0",
+                "reference": "a19dc65091abb4c87374a998912fcc9ae7de41d0",
                 "shasum": ""
             },
             "require": {
@@ -12769,18 +12769,18 @@
                 "ext-filter": "*",
                 "ext-json": "*",
                 "felixfbecker/advanced-json-rpc": "^3.0.3",
-                "microsoft/tolerant-php-parser": "0.0.17",
-                "php": "^7.0.0",
+                "microsoft/tolerant-php-parser": "0.0.18",
+                "php": "^7.1.0",
                 "sabre/event": "^5.0",
                 "symfony/console": "^2.3|^3.0|~4.0",
                 "symfony/polyfill-mbstring": "^1.11.0"
             },
             "require-dev": {
-                "brianium/paratest": "^1.1",
-                "phpunit/phpunit": "^6.3.0"
+                "brianium/paratest": "^2.2.0",
+                "phpunit/phpunit": "^7.5.0"
             },
             "suggest": {
-                "ext-ast": "Needed for parsing ASTs (unless --use-fallback-parser is used). 1.0.1+ is recommended, php-ast ^0.1.5|^1.0.0 is needed.",
+                "ext-ast": "Needed for parsing ASTs (unless --use-fallback-parser is used). 1.0.1+ is needed.",
                 "ext-igbinary": "Improves performance of polyfill when ext-ast is unavailable",
                 "ext-tokenizer": "Needed for non-AST support and file/line-based suppressions."
             },
@@ -12801,13 +12801,13 @@
             ],
             "authors": [
                 {
+                    "name": "Tyson Andre"
+                },
+                {
                     "name": "Rasmus Lerdorf"
                 },
                 {
                     "name": "Andrew S. Morrison"
-                },
-                {
-                    "name": "Tyson Andre"
                 }
             ],
             "description": "A static analyzer for PHP",
@@ -12816,7 +12816,7 @@
                 "php",
                 "static"
             ],
-            "time": "2019-05-23T00:25:02+00:00"
+            "time": "2019-08-12T23:40:39+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -14698,22 +14698,24 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v5.0.3",
+            "version": "v6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "46be3f58adac13084497961e10eed9a7fb4d44d1"
+                "reference": "ce8d0552dcb8d3677ab9adb6d19a5837949bfec4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/46be3f58adac13084497961e10eed9a7fb4d44d1",
-                "reference": "46be3f58adac13084497961e10eed9a7fb4d44d1",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/ce8d0552dcb8d3677ab9adb6d19a5837949bfec4",
+                "reference": "ce8d0552dcb8d3677ab9adb6d19a5837949bfec4",
                 "shasum": ""
             },
             "require": {
-                "composer/ca-bundle": "^1.0",
-                "php": ">=5.5.9",
-                "symfony/console": "~2.7|~3.0|~4.0"
+                "php": ">=7.1.3",
+                "symfony/console": "^2.8|^3.4|^4.2",
+                "symfony/http-client": "^4.3",
+                "symfony/mime": "^4.3",
+                "symfony/polyfill-ctype": "^1.11"
             },
             "bin": [
                 "security-checker"
@@ -14721,7 +14723,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0-dev"
+                    "dev-master": "6.0-dev"
                 }
             },
             "autoload": {
@@ -14740,7 +14742,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2018-12-19T17:14:59+00:00"
+            "time": "2019-06-08T06:46:26+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
