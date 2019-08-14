@@ -30,7 +30,6 @@
         "ramsey/uuid-console": "^1.1",
         "ramsey/uuid-doctrine": "^1.5",
         "sensio/framework-extra-bundle": "^5.1",
-        "sentry/sentry-symfony": "^3.1",
         "setasign/fpdi-fpdf": "^2.2",
         "stevenmaguire/oauth2-dropbox": "^3.0",
         "stof/doctrine-extensions-bundle": "^1.3",
