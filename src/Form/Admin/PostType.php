@@ -47,7 +47,7 @@ class PostType extends AbstractTypeLib
                 'class'         => Tags::class,
                 'multiple'      => true,
                 'query_builder' => function (TagsRepository $repository) {
-                    return $repository->findTagsByType('post');
+                    return $repository->findTagsByTypeNotTemporary('post');
                 },
                 'attr'          => [
                     'data-url' => $this->router->generate('admintemporary_tags', ['type' => 'post']),
