@@ -37,7 +37,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-datepicker": "^1.8.0",
     "bootstrap-select": "^1.13.10",
-    "bootstrap-table": "^1.15.3",
+    "bootstrap-table": "^1.15.4",
     "chart.js": "^2.8.0",
     "detect-mobile-browser": "^5.0.0",
     "formBuilder": "^3.2.5",
