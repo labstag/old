@@ -26,6 +26,8 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	wget -nc $(PHPDOCUMENTORURL)
 	php phpDocumentor.phar
 	rm -rf output
+watch-localhost:
+	export NODE_ENV=localhost && npm run watch
 phpcsfixer:
 	composer php-cs-fixer
 phpcbf:
@@ -40,6 +42,8 @@ phpcpd:
 	composer phpcpd
 phpmnd:
 	composer phpmnd
+twigcs:
+	composer twigcs
 audit: ## 
 	$(MAKE) phpcsfixer -i
 	$(MAKE) phpcbf -i
@@ -48,3 +52,4 @@ audit: ##
 	$(MAKE) phpstan -i
 	$(MAKE) phpcpd -i
 	$(MAKE) phpmnd -i
+	$(MAKE) twigcs -i

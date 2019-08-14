@@ -3,6 +3,7 @@
 namespace Labstag\Lib;
 
 use Gedmo\Loggable\Entity\LogEntry;
+use Labstag\Entity\Tags;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

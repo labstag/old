@@ -1,6 +1,8 @@
 import 'whatwg-fetch';
+import './ajax';
 export class form {
     constructor() {
+        this.ajax = new ajax();
         this.add();
         this.delete();
         this.session();
@@ -51,20 +53,7 @@ export class form {
             );
         }
 
-        window.fetch(
-            url, {
-                'method': 'DELETE',
-                'body'  : JSON.stringify(data)
-            }
-        ).then((response) => {
-            return response.text();
-        } ).then((text) => {
-            return JSON.parse(text);
-        } ).then((json) => {
-            if (json.redirect != undefined) {
-                window.location.replace(json.redirect);
-            }
-        } );
+        this.ajax.delete(url, data);
     }
 
     btndeleteOnClick(event) {
