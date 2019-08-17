@@ -2,10 +2,10 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Tags;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method null|Tags find($id, $lockMode = null, $lockVersion = null)
@@ -22,9 +22,12 @@ class TagsRepository extends ServiceEntityRepositoryLib
 
     public function findTagsByTypeNotTemporary(string $type): QueryBuilder
     {
-        $params = ['type' => $type];
+        $params = [
+            'type'      => $type,
+            'temporary' => true,
+        ];
 
-        return $this->createQueryBuilder('g')->where('g.type=:type')->where('g.temporary=0')->setParameters($params)->orderBy('g.name', 'ASC');
+        return $this->createQueryBuilder('g')->where('g.type=:type AND g.temporary=:temporary')->setParameters($params)->orderBy('g.name', 'ASC');
     }
 
     public function findTagsByType(string $type): QueryBuilder
