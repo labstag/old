@@ -2,13 +2,13 @@
 
 namespace Labstag\Form\Admin\Param;
 
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibAdminParam;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MetaSiteType extends AbstractTypeLib
+class MetaSiteType extends AbstractTypeLibAdminParam
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
