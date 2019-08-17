@@ -5,7 +5,7 @@ namespace Labstag\Form\Admin;
 use Labstag\Entity\Bookmark;
 use Labstag\Entity\Tags;
 use Labstag\FormType\WysiwygType;
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibAdmin;
 use Labstag\Repository\TagsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class BookmarkType extends AbstractTypeLib
+class BookmarkType extends AbstractTypeLibAdmin
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
