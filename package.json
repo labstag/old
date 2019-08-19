@@ -65,7 +65,7 @@
     "babel-loader": "8.0.6",
     "copy-webpack-plugin": "5.0.4",
     "core-js": "3.2.1",
-    "eslint": "6.1.0",
+    "eslint": "6.2.0",
     "eslint-plugin-dollar-sign": "1.0.2",
     "eslint-plugin-varspacing": "1.2.1",
     "fork-ts-checker-webpack-plugin": "1.5.0",
