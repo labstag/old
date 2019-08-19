@@ -54,7 +54,7 @@
     "selectize": "^0.12.6",
     "selectize.js": "^0.12.12",
     "tableexport.jquery.plugin": "^1.10.5",
-    "tinymce": "^5.0.13",
+    "tinymce": "^5.0.14",
     "tinymce-i18n": "^19.4.15",
     "whatwg-fetch": "^3.0.0"
   },
