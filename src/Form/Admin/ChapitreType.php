@@ -4,12 +4,12 @@ namespace Labstag\Form\Admin;
 
 use Labstag\Entity\Chapitre;
 use Labstag\FormType\WysiwygType;
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibAdmin;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ChapitreType extends AbstractTypeLib
+class ChapitreType extends AbstractTypeLibAdmin
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

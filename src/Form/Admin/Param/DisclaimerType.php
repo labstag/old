@@ -3,14 +3,14 @@
 namespace Labstag\Form\Admin\Param;
 
 use Labstag\FormType\WysiwygType;
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibAdminParam;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DisclaimerType extends AbstractTypeLib
+class DisclaimerType extends AbstractTypeLibAdminParam
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -5,7 +5,7 @@ namespace Labstag\Lib;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class AbstractTypeLib extends AbstractType
+abstract class AbstractTypeLib extends AbstractType
 {
 
     /**
