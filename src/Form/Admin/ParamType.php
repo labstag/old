@@ -9,7 +9,7 @@ use Labstag\Form\Admin\Param\MomentType;
 use Labstag\Form\Admin\Param\OauthType;
 use Labstag\Form\Admin\Param\WysiwygType;
 use Labstag\FormType\WysiwygType as SiteWysiwygType;
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibAdmin;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParamType extends AbstractTypeLib
+class ParamType extends AbstractTypeLibAdmin
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
