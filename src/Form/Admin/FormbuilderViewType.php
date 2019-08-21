@@ -3,6 +3,7 @@
 namespace Labstag\Form\Admin;
 
 use Labstag\FormType\WysiwygType;
+use Labstag\Lib\AbstractTypeLibAdmin;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -20,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FormbuilderViewType extends AbstractTypeLib
+class FormbuilderViewType extends AbstractTypeLibAdmin
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
