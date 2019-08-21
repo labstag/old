@@ -8,7 +8,6 @@ use Labstag\Form\Admin\FormbuilderViewType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\ConfigurationRepository;
 use Labstag\Repository\FormbuilderRepository;
-use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,7 +75,7 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/enable", name="adminformbuilder_enable")
      */
-    public function enable(UserRepository $repository): JsonResponse
+    public function enable(FormBuilderRepository $repository): JsonResponse
     {
         return $this->crudEnableAction($repository, 'setEnable');
     }
@@ -142,7 +141,7 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/empty", name="adminformbuilder_empty")
      */
-    public function emptyFormBuilder(UserRepository $repository): JsonResponse
+    public function emptyFormBuilder(FormBuilderRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminformbuilder_list');
     }
@@ -151,7 +150,7 @@ class FormBuilderAdmin extends AdminControllerLib
      * @Route("/", name="adminformbuilder_delete", methods={"DELETE"})
      * @Route("/trash", name="adminformbuilder_deletetrash", methods={"DELETE"})
      */
-    public function delete(UserRepository $repository): JsonResponse
+    public function delete(FormBuilderRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
             $repository,
@@ -165,7 +164,7 @@ class FormBuilderAdmin extends AdminControllerLib
     /**
      * @Route("/restore", name="adminformbuilder_restore")
      */
-    public function restore(UserRepository $repository): JsonResponse
+    public function restore(FormBuilderRepository $repository): JsonResponse
     {
         return $this->crudRestoreAction(
             $repository,

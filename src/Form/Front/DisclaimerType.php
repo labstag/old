@@ -2,14 +2,14 @@
 
 namespace Labstag\Form\Front;
 
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibFront;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DisclaimerType extends AbstractTypeLib
+class DisclaimerType extends AbstractTypeLibFront
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
