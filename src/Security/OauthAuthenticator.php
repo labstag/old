@@ -179,14 +179,8 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
             $request->getSession(),
             $providerKey
         );
-        if ($targetPath = $getTargetPath) {
-            return new RedirectResponse($targetPath);
-        }
 
-        // For example :
-        return new RedirectResponse(
-            $this->urlGenerator->generate('front')
-        );
+        return new RedirectResponse($getTargetPath);
     }
 
     protected function getLoginUrl()

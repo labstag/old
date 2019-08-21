@@ -104,7 +104,7 @@ export class datatables {
 
         span.setAttribute('data-id', value);
         span.setAttribute('class', 'DataSpan');
-        span.innerHTML = value;
+        span.innerHTML = '';
 
         return span.outerHTML;
     }
@@ -112,7 +112,6 @@ export class datatables {
     changeEnable(event) {
         let element = $(event.currentTarget);
         let enable  = $(element).attr('data-enable');
-
         let state   = $(element).is(':checked');
         let table   = $(element).closest('table');
         let idTable = $(table).attr('id');
