@@ -19,7 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BookmarkAdmin extends AdminControllerLib
 {
-    
     /**
      * @Route("/", name="adminbookmark_list", methods={"GET"})
      * @Route("/trash", name="adminbookmark_trash", methods={"GET"})
@@ -121,6 +120,7 @@ class BookmarkAdmin extends AdminControllerLib
     public function edit(Bookmark $bookmark): Response
     {
         $bookmark->setUpdatedAt(new DateTime());
+
         return $this->crudEditAction(
             [
                 'form'       => BookmarkType::class,
@@ -199,7 +199,10 @@ class BookmarkAdmin extends AdminControllerLib
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
-            'api_param'       => ['type' => 'bookmark', 'temporary' => false],
+            'api_param'       => [
+                'type'      => 'bookmark',
+                'temporary' => false,
+            ],
             'url_new'         => 'adminbookmarktags_new',
             'url_delete'      => 'adminbookmarktags_delete',
             'url_deletetrash' => 'adminbookmarktags_deletetrash',
