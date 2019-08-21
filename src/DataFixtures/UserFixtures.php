@@ -8,23 +8,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Labstag\Entity\User;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
-
-    /**
-     * password Encoder.
-     *
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
-
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $this->passwordEncoder = $passwordEncoder;
-    }
-
     public function load(ObjectManager $manager)
     {
         $this->add($manager);

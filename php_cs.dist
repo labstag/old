@@ -23,7 +23,12 @@ return PhpCsFixer\Config::create()
     ])
     ->setFinder(PhpCsFixer\Finder::create()
         ->exclude('vendor')
-        ->exclude('src/Kernel.php')
+        ->exclude(
+            [
+                'src/Migrations',
+                'src/Kernel.php'
+            ]
+        )
         ->in(__DIR__)
     )
 ;
