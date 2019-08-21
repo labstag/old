@@ -6,7 +6,7 @@ use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\FormType\WysiwygType;
-use Labstag\Lib\AbstractTypeLib;
+use Labstag\Lib\AbstractTypeLibAdmin;
 use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\TagsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class PostType extends AbstractTypeLib
+class PostType extends AbstractTypeLibAdmin
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
