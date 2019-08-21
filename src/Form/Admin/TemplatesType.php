@@ -2,21 +2,20 @@
 
 namespace Labstag\Form\Admin;
 
-use Labstag\Entity\Formbuilder;
+use Labstag\Entity\Templates;
+use Labstag\FormType\WysiwygType;
 use Labstag\Lib\AbstractTypeLibAdmin;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FormbuilderType extends AbstractTypeLibAdmin
+class TemplatesType extends AbstractTypeLibAdmin
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('formbuilder', HiddenType::class);
-        $builder->add('slug');
-        $builder->add('enable');
+        $builder->add('code');
+        $builder->add('content', WysiwygType::class);
         $builder->add('submit', SubmitType::class);
         unset($options);
     }
@@ -25,7 +24,7 @@ class FormbuilderType extends AbstractTypeLibAdmin
     {
         $resolver->setDefaults(
             [
-                'data_class' => Formbuilder::class,
+                'data_class' => Templates::class,
             ]
         );
     }

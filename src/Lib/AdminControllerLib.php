@@ -3,7 +3,6 @@
 namespace Labstag\Lib;
 
 use Gedmo\Loggable\Entity\LogEntry;
-use Labstag\Entity\Tags;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -513,6 +512,10 @@ abstract class AdminControllerLib extends ControllerLib
             [
                 'url'   => 'adminworkflow_list',
                 'title' => 'Workflow',
+            ],
+            [
+                'url'   => 'admintemplates_list',
+                'title' => 'Templates',
             ],
             [
                 'title' => 'Bookmark',
