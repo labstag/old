@@ -1,14 +1,16 @@
 import {
     workflow
 } from './workflow';
-import './ajax';
+import {
+    ajax
+} from './ajax';
 export class admin {
     constructor() {
         this.userList();
         this.btndelete();
         this.sortable();
         this.workflow = new workflow();
-        this.ajax     = new this.ajax();
+        this.ajax     = new ajax();
         this.workflow.init();
     }
 
