@@ -2,17 +2,12 @@
 
 namespace Labstag\Controller\Admin;
 
-use Labstag\Entity\Bookmark;
 use Labstag\Entity\Tags;
-use Labstag\Form\Admin\BookmarkType;
-use Labstag\Form\Admin\TagsType;
 use Labstag\Lib\AdminControllerLib;
-use Labstag\Repository\BookmarkRepository;
 use Labstag\Repository\TagsRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Labstag\Repository\CategoryRepository;
 
 /**
  * @Route("/admin/temporary")
@@ -27,13 +22,13 @@ class TemporaryAdmin extends AdminControllerLib
     public function tags(TagsRepository $repository, string $type): JsonResponse
     {
         $tabs = [
-            'data' => []
+            'data' => [],
         ];
         $post = $this->request->request->all();
         if (isset($post['req'])) {
             $search = [
                 'type' => $type,
-                'name' => $post['req']
+                'name' => $post['req'],
             ];
             $tag    = $repository->findOneBy($search);
             if (!$tag) {
@@ -53,7 +48,8 @@ class TemporaryAdmin extends AdminControllerLib
                 'value' => $row->getId(),
                 'name'  => $row->getName(),
             ];
-        };
+        }
+
         return new JsonResponse($tabs);
     }
 
@@ -62,10 +58,10 @@ class TemporaryAdmin extends AdminControllerLib
      *
      * @return Response
      */
-    public function category(CategoryRepository $repository): JsonResponse
+    public function category(): JsonResponse
     {
-        // $repository->find
         $data = [];
+
         return new JsonResponse($data);
     }
 }

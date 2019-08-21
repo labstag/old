@@ -33,6 +33,8 @@ class ConfigurationFixtures extends Fixture
                 'en',
                 'fr',
             ],
+            'site_email'      => 'letoullec.martial@gmail.com',
+            'site_no-reply'   => 'no-reply@labstag.fr',
             'site_title'      => 'labstag',
             'site_copyright'  => 'Copyright '.date('Y'),
             'oauth'           => [],
