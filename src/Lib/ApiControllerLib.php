@@ -29,54 +29,26 @@ abstract class ApiControllerLib extends ControllerLib
     protected function restoreAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         unset($format, $repository);
-        $get        = $this->request->query->all();
-        $post       = $this->request->request->all();
-        $cookies    = $this->request->cookies->all();
-        $attributes = $this->request->attributes->all();
-        $files      = $this->request->files->all();
-        $server     = $this->request->server->all();
-        $headers    = $this->request->headers->all();
 
-        return $this->json(
-            [
-                'files'      => $files,
-                'server'     => $server,
-                'attributes' => $attributes,
-                'headers'    => $headers,
-                'cookies'    => $cookies,
-                'get'        => $get,
-                'post'       => $post,
-            ]
-        );
+        return $this->setJson();
     }
 
     protected function emptyAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         unset($format, $repository);
-        $get        = $this->request->query->all();
-        $post       = $this->request->request->all();
-        $cookies    = $this->request->cookies->all();
-        $attributes = $this->request->attributes->all();
-        $files      = $this->request->files->all();
-        $server     = $this->request->server->all();
-        $headers    = $this->request->headers->all();
 
-        return $this->json(
-            [
-                'files'      => $files,
-                'server'     => $server,
-                'attributes' => $attributes,
-                'headers'    => $headers,
-                'cookies'    => $cookies,
-                'get'        => $get,
-                'post'       => $post,
-            ]
-        );
+        return $this->setJson();
     }
 
     protected function deleteAction(ServiceEntityRepositoryLib $repository, string $format)
     {
         unset($format, $repository);
+
+        return $this->setJson();
+    }
+
+    private function setJson()
+    {
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
         $cookies    = $this->request->cookies->all();
