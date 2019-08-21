@@ -1,5 +1,7 @@
 import 'whatwg-fetch';
-import './ajax';
+import {
+    ajax
+} from './ajax';
 export class form {
     constructor() {
         this.ajax = new ajax();
