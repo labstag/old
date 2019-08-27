@@ -61,7 +61,7 @@
   "devDependencies": {
     "@babel/preset-env": "7.5.5",
     "@symfony/webpack-encore": "0.28.0",
-    "@types/tinymce": "4.5.22",
+    "@types/tinymce": "4.5.23",
     "babel-loader": "8.0.6",
     "copy-webpack-plugin": "5.0.4",
     "core-js": "3.2.1",
