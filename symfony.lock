@@ -575,6 +575,9 @@
     "sabre/event": {
         "version": "5.0.3"
     },
+    "scienta/doctrine-json-functions": {
+        "version": "4.0.2"
+    },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
     },
