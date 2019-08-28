@@ -46,9 +46,9 @@ class AdminController extends AdminControllerLib
         }
 
         $this->setConfigurationParam();
-        $otherOauth = $this->paramViews['oauth_activated'];
-
-        foreach ($user->getOauthConnectUsers() as $oauth) {
+        $otherOauth        = $this->paramViews['oauth_activated'];
+        $oauthConnectUsers = $user->getOauthConnectUsers();
+        foreach ($oauthConnectUsers as $oauth) {
             $type = $oauth->getName();
             unset($otherOauth[$type]);
         }

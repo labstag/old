@@ -24,12 +24,12 @@ class PostListener implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $args)
     {
-        $manager = $args->getEntityManager();
-        $uow     = $manager->getUnitOfWork();
-
-        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+        $manager       = $args->getEntityManager();
+        $uow           = $manager->getUnitOfWork();
+        $entityUpdates = $uow->getScheduledEntityUpdates();
+        foreach ($entityUpdates as $entity) {
             if (!$entity instanceof Post) {
-                return;
+                continue;
             }
 
             $tags = $entity->getTags();

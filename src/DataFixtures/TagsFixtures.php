@@ -33,7 +33,7 @@ class TagsFixtures extends Fixture
     private function add(ObjectManager $manager, string $type, &$faker)
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < self::NUMBER; ++$i) {
+        for ($index = 0; $index < self::NUMBER; ++$index) {
             $tags = new Tags();
             $tags->setType($type);
             $tags->setName($faker->unique()->colorName);
