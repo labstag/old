@@ -34,18 +34,24 @@ class OauthServices
 
     public function getIdentity($data, $oauth)
     {
+        $entity = '';
         switch ($oauth) {
             case 'gitlab':
             case 'github':
             case 'discord':
-                return $data['id'];
+                $entity = $data['id'];
+                break;
             case 'google':
-                return $data['sub'];
+                $entity = $data['sub'];
+                break;
             case 'bitbucket':
-                return $data['uuid'];
+                $entity = $data['uuid'];
+                break;
             default:
-                return '';
+                break;
         }
+
+        return $entity;
     }
 
     public function setProvider($clientName)
