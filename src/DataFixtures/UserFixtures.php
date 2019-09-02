@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Labstag\Entity\Email;
+use Labstag\Entity\Phone;
 use Labstag\Entity\User;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -59,11 +60,21 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
             foreach ($dataUser['email'] as $index => $adresse) {
                 $email = new Email();
+                $email->setRefuser($user);
                 $email->setAdresse($adresse);
                 $principal = (0 == $index) ? true : false;
                 $email->setPrincipal($principal);
-                $email->setRefuser($user);
                 $manager->persist($email);
+            }
+
+            $phones = rand(0, 2);
+            for ($index = 1; $index <= $phones; ++$index) {
+                $number = $faker->unique()->e164PhoneNumber();
+                $phone  = new Phone();
+                $phone->setRefuser($user);
+                $phone->setNumero($number);
+                $phone->setType($faker->unique()->word());
+                $manager->persist($phone);
             }
 
             $user->setEmail($dataUser['email'][0]);
