@@ -40,7 +40,8 @@ class TemplatesFixtures extends Fixture
         $templates = new Templates();
         $templates->setName('Contact %site%');
         $templates->setCode('contact');
-        $templates->setContent($this->twig->render('templates/email.html.twig'));
+        $templates->setHtml($this->twig->render('templates/email.html.twig'));
+        $templates->setText($this->twig->render('templates/email.txt.twig'));
         $manager->persist($templates);
         $manager->flush();
     }
@@ -52,7 +53,9 @@ class TemplatesFixtures extends Fixture
             $templates = new Templates();
             $templates->setName($faker->unique()->colorName);
             $templates->setCode($faker->unique()->word);
-            $templates->setContent($faker->unique()->paragraphs(10, true));
+            $html = $faker->unique()->paragraphs(10, true);
+            $templates->setHtml($html);
+            $templates->setText($html);
             $manager->persist($templates);
         }
 
