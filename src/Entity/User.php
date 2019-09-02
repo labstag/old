@@ -119,9 +119,9 @@ class User implements UserInterface, \Serializable
     private $emails;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Telephone", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser")
      */
-    private $telephones;
+    private $phones;
 
     public function __construct()
     {
@@ -131,7 +131,7 @@ class User implements UserInterface, \Serializable
         $this->histories         = new ArrayCollection();
         $this->bookmarks         = new ArrayCollection();
         $this->emails = new ArrayCollection();
-        $this->telephones = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     public function __toString()
@@ -485,14 +485,14 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|Telephone[]
+     * @return Collection|Phone[]
      */
-    public function getTelephones(): Collection
+    public function getPhones(): Collection
     {
         return $this->telephones;
     }
 
-    public function addTelephone(Telephone $telephone): self
+    public function addPhone(Phone $telephone): self
     {
         if (!$this->telephones->contains($telephone)) {
             $this->telephones[] = $telephone;
@@ -502,7 +502,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function removeTelephone(Telephone $telephone): self
+    public function removePhone(Phone $telephone): self
     {
         if ($this->telephones->contains($telephone)) {
             $this->telephones->removeElement($telephone);
