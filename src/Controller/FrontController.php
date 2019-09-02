@@ -47,27 +47,25 @@ class FrontController extends ControllerLib
         $form->handleRequest($this->request);
         if ($form->isSubmitted() && $form->isValid()) {
             $contact = $this->request->request->get('contact');
-            $content = $templates->getContent();
+            $html    = $templates->getHtml();
+            $text    = $templates->getText();
             $this->setConfigurationParam();
-            $content = str_replace(
-                [
-                    '%sujet%',
-                    '%site%',
-                    '%name%',
-                    '%email%',
-                    '%message%',
-                ],
-                [
-                    $contact['sujet'],
-                    $this->paramViews['config']['site_title'],
-                    $contact['name'],
-                    $contact['email'],
-                    $contact['content'],
-                ],
-                $content
-            );
-            dump($this->paramViews['config']);
-            dump($content);
+            $before  = [
+                '%sujet%',
+                '%site%',
+                '%name%',
+                '%email%',
+                '%message%',
+            ];
+            $after   = [
+                $contact['sujet'],
+                $this->paramViews['config']['site_title'],
+                $contact['name'],
+                $contact['email'],
+                $contact['content'],
+            ];
+            $html    = str_replace($before, $after, $html);
+            $text    = str_replace($before, $after, $text);
             $message = new Swift_Message();
             $sujet   = $templates->getname();
             $sujet   = str_replace(
@@ -78,8 +76,8 @@ class FrontController extends ControllerLib
             $message->setSubject($sujet);
             $message->setFrom($this->paramViews['config']['site_email']);
             $message->setTo($this->paramViews['config']['site_no-reply']);
-            $message->setBody($content, 'text/html');
-            $message->addPart(strip_tags($content), 'text/plain');
+            $message->setBody($html, 'text/html');
+            $message->addPart($text, 'text/plain');
             $mailer->send($message);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Message envoyé');
