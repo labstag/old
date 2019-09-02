@@ -1,0 +1,76 @@
+<?php
+
+namespace Labstag\Entity;
+
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass="Labstag\Repository\EmailRepository")
+ */
+class Email
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="guid", unique=true)
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="emails")
+     */
+    private $refuser;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $principal;
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getRefuser(): ?User
+    {
+        return $this->refuser;
+    }
+
+    public function setRefuser(?User $refuser): self
+    {
+        $this->refuser = $refuser;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getPrincipal(): ?bool
+    {
+        return $this->principal;
+    }
+
+    public function setPrincipal(bool $principal): self
+    {
+        $this->principal = $principal;
+
+        return $this;
+    }
+}
