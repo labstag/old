@@ -34,14 +34,19 @@ class Templates
     private $name;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $code;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $html;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $text;
 
     public function getId(): ?int
     {
@@ -60,18 +65,6 @@ class Templates
         return $this;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function getCode(): ?string
     {
         return $this->code;
@@ -80,6 +73,30 @@ class Templates
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getHtml(): ?string
+    {
+        return $this->html;
+    }
+
+    public function setHtml(string $html): self
+    {
+        $this->html = $html;
+
+        return $this;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(string $text): self
+    {
+        $this->text = $text;
 
         return $this;
     }
