@@ -130,8 +130,8 @@ class User implements UserInterface, \Serializable
         $this->oauthConnectUsers = new ArrayCollection();
         $this->histories         = new ArrayCollection();
         $this->bookmarks         = new ArrayCollection();
-        $this->emails = new ArrayCollection();
-        $this->phones = new ArrayCollection();
+        $this->emails            = new ArrayCollection();
+        $this->phones            = new ArrayCollection();
     }
 
     public function __toString()

@@ -2,13 +2,13 @@
 
 namespace Labstag\Repository;
 
-use Labstag\Entity\Phone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Labstag\Entity\Phone;
 
 /**
- * @method Phone|null find($id, $lockMode = null, $lockVersion = null)
- * @method Phone|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|Phone find($id, $lockMode = null, $lockVersion = null)
+ * @method null|Phone findOneBy(array $criteria, array $orderBy = null)
  * @method Phone[]    findAll()
  * @method Phone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
