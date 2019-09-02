@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="Labstag\Repository\TelephoneRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
  */
-class Telephone
+class Phone
 {
     /**
      * @ORM\Id
@@ -19,7 +19,7 @@ class Telephone
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="telephones")
+     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="phones")
      */
     private $refuser;
 
