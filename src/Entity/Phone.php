@@ -8,9 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
+ * @ORM\Table(
+ *  uniqueConstraints={
+ * @ORM\UniqueConstraint(name="user_phone", columns={"refuser_id", "numero"})
+ *  }
+ * )
  */
 class Phone
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
