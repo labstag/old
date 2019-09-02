@@ -2,25 +2,25 @@
 
 namespace Labstag\Repository;
 
-use Labstag\Entity\Telephone;
+use Labstag\Entity\Phone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Telephone|null find($id, $lockMode = null, $lockVersion = null)
- * @method Telephone|null findOneBy(array $criteria, array $orderBy = null)
- * @method Telephone[]    findAll()
- * @method Telephone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Phone|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Phone|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Phone[]    findAll()
+ * @method Phone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TelephoneRepository extends ServiceEntityRepository
+class PhoneRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Telephone::class);
+        parent::__construct($registry, Phone::class);
     }
 
     // /**
-    //  * @return Telephone[] Returns an array of Telephone objects
+    //  * @return Phone[] Returns an array of Phone objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TelephoneRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Telephone
+    public function findOneBySomeField($value): ?Phone
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')
