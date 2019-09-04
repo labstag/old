@@ -95,6 +95,8 @@ class UserAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminuser_trashedit", methods={"GET", "POST"})
+     *
+     * @param mixed $id
      */
     public function trashEdit(UserRepository $repository, $id): Response
     {

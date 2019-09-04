@@ -40,12 +40,15 @@ class OauthServices
             case 'github':
             case 'discord':
                 $entity = $data['id'];
+
                 break;
             case 'google':
                 $entity = $data['sub'];
+
                 break;
             case 'bitbucket':
                 $entity = $data['uuid'];
+
                 break;
             default:
                 break;
