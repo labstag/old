@@ -113,6 +113,16 @@ class User implements UserInterface, \Serializable
      */
     private $bookmarks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser")
+     */
+    private $emails;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser")
+     */
+    private $phones;
+
     public function __construct()
     {
         $this->enable            = true;
@@ -120,6 +130,8 @@ class User implements UserInterface, \Serializable
         $this->oauthConnectUsers = new ArrayCollection();
         $this->histories         = new ArrayCollection();
         $this->bookmarks         = new ArrayCollection();
+        $this->emails            = new ArrayCollection();
+        $this->phones            = new ArrayCollection();
     }
 
     public function __toString()
@@ -435,6 +447,68 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($bookmark->getRefuser() === $this) {
                 $bookmark->setRefuser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Email[]
+     */
+    public function getEmails(): Collection
+    {
+        return $this->emails;
+    }
+
+    public function addEmail(Email $email): self
+    {
+        if (!$this->emails->contains($email)) {
+            $this->emails[] = $email;
+            $email->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmail(Email $email): self
+    {
+        if ($this->emails->contains($email)) {
+            $this->emails->removeElement($email);
+            // set the owning side to null (unless already changed)
+            if ($email->getRefuser() === $this) {
+                $email->setRefuser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Phone[]
+     */
+    public function getPhones(): Collection
+    {
+        return $this->telephones;
+    }
+
+    public function addPhone(Phone $telephone): self
+    {
+        if (!$this->telephones->contains($telephone)) {
+            $this->telephones[] = $telephone;
+            $telephone->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhone(Phone $telephone): self
+    {
+        if ($this->telephones->contains($telephone)) {
+            $this->telephones->removeElement($telephone);
+            // set the owning side to null (unless already changed)
+            if ($telephone->getRefuser() === $this) {
+                $telephone->setRefuser(null);
             }
         }
 
