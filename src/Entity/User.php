@@ -489,26 +489,26 @@ class User implements UserInterface, \Serializable
      */
     public function getPhones(): Collection
     {
-        return $this->telephones;
+        return $this->phones;
     }
 
-    public function addPhone(Phone $telephone): self
+    public function addPhone(Phone $phone): self
     {
-        if (!$this->telephones->contains($telephone)) {
-            $this->telephones[] = $telephone;
-            $telephone->setRefuser($this);
+        if (!$this->phones->contains($phone)) {
+            $this->phones[] = $phone;
+            $phone->setRefuser($this);
         }
 
         return $this;
     }
 
-    public function removePhone(Phone $telephone): self
+    public function removePhone(Phone $phone): self
     {
-        if ($this->telephones->contains($telephone)) {
-            $this->telephones->removeElement($telephone);
+        if ($this->phones->contains($phone)) {
+            $this->phones->removeElement($phone);
             // set the owning side to null (unless already changed)
-            if ($telephone->getRefuser() === $this) {
-                $telephone->setRefuser(null);
+            if ($phone->getRefuser() === $this) {
+                $phone->setRefuser(null);
             }
         }
 
