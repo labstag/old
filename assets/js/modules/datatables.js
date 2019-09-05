@@ -9,7 +9,6 @@ import 'bootstrap-table/dist/extensions/export/bootstrap-table-export';
 import 'bootstrap-table/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.min';
 import 'bootstrap-table/dist/extensions/multiple-sort/bootstrap-table-multiple-sort';
 import 'bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile';
-import 'bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control';
 import 'bootstrap-table/dist/extensions/cookie/bootstrap-table-cookie';
 import '@fancyapps/fancybox';
 let moment = require('moment');
