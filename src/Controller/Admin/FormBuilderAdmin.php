@@ -82,8 +82,6 @@ class FormBuilderAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashview/{id}", name="adminformbuilder_trashview")
-     *
-     * @param mixed $id
      */
     public function trashView(ConfigurationRepository $repository, $id): Response
     {
@@ -102,8 +100,6 @@ class FormBuilderAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEdit(ConfigurationRepository $repository, $id): Response
     {

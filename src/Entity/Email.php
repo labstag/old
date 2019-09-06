@@ -6,12 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource
  * @ORM\Entity(repositoryClass="Labstag\Repository\EmailRepository")
  * @ORM\Table(
- *  uniqueConstraints={
+ *     uniqueConstraints={
  * @ORM\UniqueConstraint(name="user_email", columns={"refuser_id", "adresse"})
- *  }
+ *     }
  * )
  */
 class Email
@@ -46,7 +46,8 @@ class Email
 
     public function __construct()
     {
-        $this->checked = false;
+        $this->checked   = false;
+        $this->principal = false;
     }
 
     public function __toString(): ?string

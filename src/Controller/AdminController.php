@@ -31,9 +31,8 @@ class AdminController extends AdminControllerLib
     public function profil(Request $request, Security $security): Response
     {
         $manager = $this->getDoctrine()->getManager();
-        dump(get_class_methods($manager));
-        $user = $security->getUser();
-        $form = $this->createForm(
+        $user    = $security->getUser();
+        $form    = $this->createForm(
             ProfilType::class,
             $user
         );

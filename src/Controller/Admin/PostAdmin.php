@@ -117,8 +117,6 @@ class PostAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminpost_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEdit(PostRepository $repository, $id): Response
     {
@@ -256,8 +254,6 @@ class PostAdmin extends AdminControllerLib
 
     /**
      * @Route("/category/trashedit/{id}", name="adminpostcategory_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEditCategory(CategoryRepository $repository, $id): Response
     {
@@ -394,8 +390,6 @@ class PostAdmin extends AdminControllerLib
 
     /**
      * @Route("/tags/trashedit/{id}", name="adminposttags_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEditTags(TagsRepository $repository, $id): Response
     {

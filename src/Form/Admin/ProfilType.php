@@ -22,9 +22,9 @@ class ProfilType extends AbstractTypeLibAdmin
             'emails',
             CollectionType::class,
             [
-                'allow_add' => true,
+                'allow_add'    => true,
                 'allow_delete' => true,
-                'entry_type' => EmailType::class,
+                'entry_type'   => EmailType::class,
                 'by_reference' => false,
             ]
         );
@@ -32,9 +32,9 @@ class ProfilType extends AbstractTypeLibAdmin
             'phones',
             CollectionType::class,
             [
-                'allow_add' => true,
+                'allow_add'    => true,
                 'allow_delete' => true,
-                'entry_type' => PhoneType::class,
+                'entry_type'   => PhoneType::class,
                 'by_reference' => false,
             ]
         );
