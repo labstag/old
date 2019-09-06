@@ -17,7 +17,13 @@ class TemplatesType extends AbstractTypeLibAdmin
         $builder->add('name');
         $builder->add('code');
         $builder->add('html', WysiwygType::class);
-        $builder->add('text', TextareaType::class);
+        $builder->add(
+            'text',
+            TextareaType::class,
+            [
+                'attr' => ['rows' => '20'],
+            ]
+        );
         $builder->add('submit', SubmitType::class);
         unset($options);
     }

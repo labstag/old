@@ -39,6 +39,11 @@ class Email
      */
     private $principal;
 
+    public function __toString(): ?string
+    {
+        return $this->getAdresse();
+    }
+
     public function getId(): ?string
     {
         return $this->id;
