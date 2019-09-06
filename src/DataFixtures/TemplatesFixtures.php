@@ -32,16 +32,27 @@ class TemplatesFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $this->add($manager);
-        $this->addEmail($manager);
+        $this->addContactEmail($manager);
     }
 
-    private function addEmail(ObjectManager $manager)
+    private function addCheckedEmail(ObjectManager $manager)
+    {
+        $templates = new Templates();
+        $templates->setName('Validation de mail %site%');
+        $templates->setCode('checked-mail');
+        $templates->setHtml($this->twig->render('templates/checked-email.html.twig'));
+        $templates->setText($this->twig->render('templates/checked-email.txt.twig'));
+        $manager->persist($templates);
+        $manager->flush();
+    }
+
+    private function addContactEmail(ObjectManager $manager)
     {
         $templates = new Templates();
         $templates->setName('Contact %site%');
         $templates->setCode('contact');
-        $templates->setHtml($this->twig->render('templates/email.html.twig'));
-        $templates->setText($this->twig->render('templates/email.txt.twig'));
+        $templates->setHtml($this->twig->render('templates/contact-email.html.twig'));
+        $templates->setText($this->twig->render('templates/contact-email.txt.twig'));
         $manager->persist($templates);
         $manager->flush();
     }
