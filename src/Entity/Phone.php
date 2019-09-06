@@ -39,6 +39,11 @@ class Phone
      */
     private $type;
 
+    public function __toString(): ?string
+    {
+        return $this->getNumero();
+    }
+
     public function getId(): ?string
     {
         return $this->id;

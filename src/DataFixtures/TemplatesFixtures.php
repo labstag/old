@@ -53,9 +53,9 @@ class TemplatesFixtures extends Fixture
             $templates = new Templates();
             $templates->setName($faker->unique()->colorName);
             $templates->setCode($faker->unique()->word);
-            $html = $faker->unique()->paragraphs(10, true);
-            $templates->setHtml($html);
-            $templates->setText(strip_tags($html));
+            $content = $faker->unique()->paragraphs(10, true);
+            $templates->setHtml($content);
+            $templates->setText($content);
             $manager->persist($templates);
         }
 
