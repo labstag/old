@@ -114,12 +114,12 @@ class User implements UserInterface, \Serializable
     private $bookmarks;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
      */
     private $emails;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
      */
     private $phones;
 
@@ -464,8 +464,8 @@ class User implements UserInterface, \Serializable
     public function addEmail(Email $email): self
     {
         if (!$this->emails->contains($email)) {
-            $this->emails[] = $email;
             $email->setRefuser($this);
+            $this->emails[] = $email;
         }
 
         return $this;
@@ -495,8 +495,8 @@ class User implements UserInterface, \Serializable
     public function addPhone(Phone $phone): self
     {
         if (!$this->phones->contains($phone)) {
-            $this->phones[] = $phone;
             $phone->setRefuser($this);
+            $this->phones[] = $phone;
         }
 
         return $this;

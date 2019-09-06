@@ -25,6 +25,7 @@ class ProfilType extends AbstractTypeLibAdmin
                 'allow_add' => true,
                 'allow_delete' => true,
                 'entry_type' => EmailType::class,
+                'by_reference' => false,
             ]
         );
         $builder->add(
@@ -34,6 +35,7 @@ class ProfilType extends AbstractTypeLibAdmin
                 'allow_add' => true,
                 'allow_delete' => true,
                 'entry_type' => PhoneType::class,
+                'by_reference' => false,
             ]
         );
         $builder->add('imageFile', VichImageType::class);
