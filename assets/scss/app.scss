@@ -24,6 +24,10 @@
   cursor: pointer;
 }
 
+textarea {
+  resize: none;
+}
+
 #sortable {
   list-style-type: none;
 
