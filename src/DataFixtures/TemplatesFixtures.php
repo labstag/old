@@ -33,6 +33,7 @@ class TemplatesFixtures extends Fixture
     {
         $this->add($manager);
         $this->addContactEmail($manager);
+        $this->addCheckedEmail($manager);
     }
 
     private function addCheckedEmail(ObjectManager $manager)
