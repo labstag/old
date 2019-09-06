@@ -2,10 +2,13 @@
 
 namespace Labstag\Form\Admin;
 
+use Labstag\Entity\Email;
 use Labstag\Entity\User;
 use Labstag\Form\Admin\User\EmailType;
 use Labstag\Form\Admin\User\PhoneType;
 use Labstag\Lib\AbstractTypeLibAdmin;
+use Labstag\Repository\EmailRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +29,16 @@ class ProfilType extends AbstractTypeLibAdmin
                 'allow_delete' => true,
                 'entry_type'   => EmailType::class,
                 'by_reference' => false,
+            ]
+        );
+        $builder->add(
+            'email',
+            EntityType::class,
+            [
+                'class'         => Email::class,
+                'query_builder' => function(EmailRepository $repository) use ($options) {
+                    return $repository->findEmailByUser($options['data']);
+                },
             ]
         );
         $builder->add(
