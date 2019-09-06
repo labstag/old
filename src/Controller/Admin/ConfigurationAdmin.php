@@ -72,8 +72,6 @@ class ConfigurationAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminconfiguration_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEdit(ConfigurationRepository $repository, $id): Response
     {

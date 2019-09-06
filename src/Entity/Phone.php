@@ -6,12 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource
  * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
  * @ORM\Table(
- *  uniqueConstraints={
+ *     uniqueConstraints={
  * @ORM\UniqueConstraint(name="user_phone", columns={"refuser_id", "numero"})
- *  }
+ *     }
  * )
  */
 class Phone

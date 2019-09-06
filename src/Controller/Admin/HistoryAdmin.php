@@ -126,8 +126,6 @@ class HistoryAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminhistory_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEdit(HistoryRepository $repository, $id): Response
     {
@@ -335,8 +333,6 @@ class HistoryAdmin extends AdminControllerLib
 
     /**
      * @Route("/chapitre/trashedit/{id}", name="adminhistorychapitre_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEditChapitre(ChapitreRepository $repository, $id): Response
     {

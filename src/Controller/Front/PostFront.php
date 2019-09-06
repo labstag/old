@@ -33,7 +33,6 @@ class PostFront extends ControllerLib
      */
     public function postCategory(Category $category, PostRepository $repository): Response
     {
-        dump($category);
         $posts = $repository->findAllActiveByCategory($category);
         $this->paginator($posts);
 
