@@ -39,6 +39,16 @@ class Email
      */
     private $principal;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked;
+
+    public function __construct()
+    {
+        $this->checked = false;
+    }
+
     public function __toString(): ?string
     {
         return $this->getAdresse();
@@ -81,6 +91,18 @@ class Email
     public function setPrincipal(bool $principal): self
     {
         $this->principal = $principal;
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }
