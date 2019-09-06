@@ -64,6 +64,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $email->setAdresse($adresse);
                 $principal = (0 == $index) ? true : false;
                 $email->setPrincipal($principal);
+                $email->setChecked(true);
                 $manager->persist($email);
             }
 
