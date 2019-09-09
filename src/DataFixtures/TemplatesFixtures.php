@@ -34,6 +34,18 @@ class TemplatesFixtures extends Fixture
         $this->add($manager);
         $this->addContactEmail($manager);
         $this->addCheckedEmail($manager);
+        $this->addCheckedPhone($manager);
+    }
+
+    private function addCheckedPhone(ObjectManager $manager)
+    {
+        $templates = new Templates();
+        $templates->setName('Validation du téléphone %site%');
+        $templates->setCode('checked-phone');
+        $templates->setHtml($this->twig->render('templates/checked-phone.html.twig'));
+        $templates->setText($this->twig->render('templates/checked-phone.txt.twig'));
+        $manager->persist($templates);
+        $manager->flush();
     }
 
     private function addCheckedEmail(ObjectManager $manager)

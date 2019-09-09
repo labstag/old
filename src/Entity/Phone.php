@@ -39,6 +39,16 @@ class Phone
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked;
+
+    public function __construct()
+    {
+        $this->checked = false;
+    }
+
     public function __toString(): ?string
     {
         return $this->getNumero();
@@ -81,6 +91,18 @@ class Phone
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }
