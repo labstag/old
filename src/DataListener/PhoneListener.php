@@ -76,7 +76,7 @@ class PhoneListener implements EventSubscriber
 
     private function checkPhone(Phone $entity, $args)
     {
-        $check = $entity->getChecked();
+        $check = $entity->isChecked();
         if (true === $check) {
             return;
         }

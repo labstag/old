@@ -95,7 +95,7 @@ class Phone
         return $this;
     }
 
-    public function getChecked(): ?bool
+    public function isChecked(): ?bool
     {
         return $this->checked;
     }
