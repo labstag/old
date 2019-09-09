@@ -3,6 +3,7 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use DateTimeImmutable;
@@ -20,6 +21,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "username": "partial",
+ *  "email": "partial",
+ *  "enable": "exact"
+ * })
  * @ApiResource
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")

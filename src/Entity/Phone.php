@@ -3,10 +3,20 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "numero": "partial",
+ *  "type": "partial",
+ *  "checked": "exact"
+ * })
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
  * @ORM\Table(
  *     uniqueConstraints={
