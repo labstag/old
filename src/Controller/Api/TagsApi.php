@@ -11,40 +11,40 @@ class TagsApi extends ApiControllerLib
     /**
      * @Route("/api/tags/trash.{_format}", name="api_tagstrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(TagsRepository $repository, $format)
+    public function trash(TagsRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
      * @Route("/api/tags/trash.{_format}", name="api_tagstrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(TagsRepository $repository, $format)
+    public function delete(TagsRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
      * @Route("/api/tags/restore.{_format}", name="api_tagsrestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(TagsRepository $repository, $format)
+    public function restore(TagsRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
      * @Route("/api/tags/empty.{_format}", name="api_tagsempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(TagsRepository $repository, $format)
+    public function vider(TagsRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }

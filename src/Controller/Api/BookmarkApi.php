@@ -11,40 +11,40 @@ class BookmarkApi extends ApiControllerLib
     /**
      * @Route("/api/bookmarks/trash.{_format}", name="api_bookmarktrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(BookmarkRepository $repository, $format)
+    public function trash(BookmarkRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
      * @Route("/api/bookmarks/trash.{_format}", name="api_bookmarktrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(BookmarkRepository $repository, $format)
+    public function delete(BookmarkRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
      * @Route("/api/bookmarks/restore.{_format}", name="api_bookmarkrestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(BookmarkRepository $repository, $format)
+    public function restore(BookmarkRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
      * @Route("/api/bookmarks/empty.{_format}", name="api_bookmarkempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(BookmarkRepository $repository, $format)
+    public function vider(BookmarkRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }
