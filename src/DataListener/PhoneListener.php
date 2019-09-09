@@ -6,7 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Configuration;
-use Labstag\Entity\Email;
+use Labstag\Entity\Phone;
 use Labstag\Entity\Templates;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class EmailListener implements EventSubscriber
+class PhoneListener implements EventSubscriber
 {
 
     /**
@@ -48,11 +48,11 @@ class EmailListener implements EventSubscriber
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if (!$entity instanceof Email) {
+        if (!$entity instanceof Phone) {
             return;
         }
 
-        $this->checkEmail($entity, $args);
+        $this->checkPhone($entity, $args);
     }
 
     private function setConfigurationParam($args)
@@ -74,14 +74,14 @@ class EmailListener implements EventSubscriber
         $this->configParams = $config;
     }
 
-    private function checkEmail(Email $entity, $args)
+    private function checkPhone(Phone $entity, $args)
     {
         $check = $entity->getChecked();
         if (true === $check) {
             return;
         }
 
-        $search     = ['code' => 'checked-mail'];
+        $search     = ['code' => 'checked-phone'];
         $manager    = $args->getEntityManager();
         $repository = $manager->getRepository(Templates::class);
         $templates  = $repository->findOneBy($search);
@@ -92,16 +92,16 @@ class EmailListener implements EventSubscriber
         $before = [
             '%site%',
             '%username%',
-            '%email%',
+            '%phone%',
             '%url%',
         ];
         dump(get_class_methods($this->router));
         $after   = [
             $this->configParams['site_title'],
             $user->getUsername(),
-            $entity->getAdresse(),
+            $entity->getNumero(),
             $this->router->generate(
-                'check-email',
+                'check-phone',
                 [
                     'id' => $entity->getID(),
                 ],

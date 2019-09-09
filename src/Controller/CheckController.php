@@ -3,6 +3,7 @@
 namespace Labstag\Controller;
 
 use Labstag\Entity\Email;
+use Labstag\Entity\Phone;
 use Labstag\Lib\ControllerLib;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,6 +20,25 @@ class CheckController extends ControllerLib
             $manager->persist($email);
             $manager->flush();
             $this->addFlash('success', 'Courriel activé');
+        }
+
+        return $this->redirect(
+            $this->generateUrl('front'),
+            301
+        );
+    }
+
+    /**
+     * @Route("/check/phone/{id}", name="check-phone")
+     */
+    public function phone(Phone $phone)
+    {
+        if (false == $phone->getChecked()) {
+            $manager = $this->getDoctrine()->getManager();
+            $phone->setChecked(true);
+            $manager->persist($phone);
+            $manager->flush();
+            $this->addFlash('success', 'Téléphone activé');
         }
 
         return $this->redirect(
