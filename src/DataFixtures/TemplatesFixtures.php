@@ -35,6 +35,18 @@ class TemplatesFixtures extends Fixture
         $this->addContactEmail($manager);
         $this->addCheckedEmail($manager);
         $this->addCheckedPhone($manager);
+        $this->addLostPassword($manager);
+    }
+
+    private function addLostPassword(ObjectManager $manager)
+    {
+        $templates = new Templates();
+        $templates->setName('Changement de password %site%');
+        $templates->setCode('lost-password');
+        $templates->setHtml($this->twig->render('templates/lost-password.html.twig'));
+        $templates->setText($this->twig->render('templates/lost-password.txt.twig'));
+        $manager->persist($templates);
+        $manager->flush();
     }
 
     private function addCheckedPhone(ObjectManager $manager)

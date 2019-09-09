@@ -10,19 +10,19 @@ api_platform:
             items_per_page_parameter_name: limit
     swagger:
         api_keys:
-           apiKey:
-              name: X-AUTH-TOKEN
-              type: header
+            apiKey:
+                name: X-AUTH-TOKEN
+                type: header
     mapping:
-        paths: 
-            - '%kernel.project_dir%/src/Entity'
-            - '%kernel.project_dir%/config/api_platform'
+        paths:
+            - "%kernel.project_dir%/src/Entity"
+            - "%kernel.project_dir%/config/api_platform"
     formats:
-        jsonld: ['application/ld+json']
-        jsonhal: ['application/hal+json']
-        jsonapi: ['application/vnd.api+json']
-        json: ['application/json']
-        xml: ['application/xml', 'text/xml']
-        yaml: ['application/x-yaml']
-        csv: ['text/csv']
-        html: ['text/html']
+        jsonld: ["application/ld+json"]
+        jsonhal: ["application/hal+json"]
+        jsonapi: ["application/vnd.api+json"]
+        json: ["application/json"]
+        xml: ["application/xml", "text/xml"]
+        yaml: ["application/x-yaml"]
+        csv: ["text/csv"]
+        html: ["text/html"]
