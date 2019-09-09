@@ -74,6 +74,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $phone  = new Phone();
                 $phone->setRefuser($user);
                 $phone->setNumero($number);
+                $phone->setChecked(true);
                 $phone->setType($faker->unique()->word());
                 $manager->persist($phone);
             }

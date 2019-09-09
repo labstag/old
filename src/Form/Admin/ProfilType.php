@@ -36,7 +36,7 @@ class ProfilType extends AbstractTypeLibAdmin
             EntityType::class,
             [
                 'class'         => Email::class,
-                'query_builder' => function(EmailRepository $repository) use ($options) {
+                'query_builder' => function (EmailRepository $repository) use ($options) {
                     return $repository->findEmailByUser($options['data']);
                 },
             ]
