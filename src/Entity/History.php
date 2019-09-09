@@ -231,7 +231,7 @@ class History implements Translatable
         return $this;
     }
 
-    public function getEnd(): ?bool
+    public function isEnd(): ?bool
     {
         return $this->end;
     }

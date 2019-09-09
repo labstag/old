@@ -14,7 +14,7 @@ class CheckController extends ControllerLib
      */
     public function email(Email $email)
     {
-        if (false == $email->getChecked()) {
+        if (false == $email->isChecked()) {
             $manager = $this->getDoctrine()->getManager();
             $email->setChecked(true);
             $manager->persist($email);
@@ -33,7 +33,7 @@ class CheckController extends ControllerLib
      */
     public function phone(Phone $phone)
     {
-        if (false == $phone->getChecked()) {
+        if (false == $phone->isChecked()) {
             $manager = $this->getDoctrine()->getManager();
             $phone->setChecked(true);
             $manager->persist($phone);

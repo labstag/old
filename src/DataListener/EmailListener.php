@@ -76,7 +76,7 @@ class EmailListener implements EventSubscriber
 
     private function checkEmail(Email $entity, $args)
     {
-        $check = $entity->getChecked();
+        $check = $entity->isChecked();
         if (true === $check) {
             return;
         }

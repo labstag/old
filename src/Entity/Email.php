@@ -84,7 +84,7 @@ class Email
         return $this;
     }
 
-    public function getPrincipal(): ?bool
+    public function isPrincipal(): ?bool
     {
         return $this->principal;
     }
@@ -96,7 +96,7 @@ class Email
         return $this;
     }
 
-    public function getChecked(): ?bool
+    public function isChecked(): ?bool
     {
         return $this->checked;
     }
