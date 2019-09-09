@@ -10,6 +10,7 @@
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
         {{ form_end(formLogin) }}
+        <a href="{{ path("app_lost") }}">J'ai perdu mon mot de passe</a>
         {% if oauths|length != 0 %}
             Se connecter avec :
             <div class="row">

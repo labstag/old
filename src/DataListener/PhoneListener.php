@@ -95,7 +95,6 @@ class PhoneListener implements EventSubscriber
             '%phone%',
             '%url%',
         ];
-        dump(get_class_methods($this->router));
         $after   = [
             $this->configParams['site_title'],
             $user->getUsername(),
@@ -103,7 +102,7 @@ class PhoneListener implements EventSubscriber
             $this->router->generate(
                 'check-phone',
                 [
-                    'id' => $entity->getID(),
+                    'id' => $entity->getId(),
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
