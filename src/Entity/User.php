@@ -27,7 +27,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *  "email": "partial",
  *  "enable": "exact"
  * })
- * @ApiResource
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ * )
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Username déjà pris")
