@@ -3,6 +3,8 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,7 +12,16 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "name": "partial",
+ *  "code": "partial",
+ *  "html": "partial",
+ *  "text": "partial"
+ * })
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\TemplatesRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable

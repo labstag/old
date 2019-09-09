@@ -4,6 +4,7 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
@@ -14,6 +15,14 @@ use Gedmo\Translatable\Translatable;
 
 /**
  * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "name": "partial",
+ *  "content": "partial",
+ *  "position": "exact",
+ *  "enable": "exact",
+ *  "status": "exact"
+ * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ChapitreRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

@@ -15,9 +15,19 @@ use Labstag\Entity\Traits\Tags;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "name": "partial",
+ *  "slug": "partial",
+ *  "url": "partial",
+ *  "enable": "exact",
+ *  "content": "partial"
+ * })
  * @ORM\Entity(repositoryClass="Labstag\Repository\BookmarkRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable

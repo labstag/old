@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/user/trash.{_format}", name="api_usertrash")
+     * @Route("/api/users/trash.{_format}", name="api_usertrash")
      *
      * @param string $format
      */
@@ -19,7 +19,7 @@ class UserApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/user/trash.{_format}", name="api_usertrashdelete", methods={"DELETE"})
+     * @Route("/api/users/trash.{_format}", name="api_usertrashdelete", methods={"DELETE"})
      *
      * @param string $format
      */
@@ -29,7 +29,7 @@ class UserApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/user/restore.{_format}", name="api_userrestore", methods={"POST"})
+     * @Route("/api/users/restore.{_format}", name="api_userrestore", methods={"POST"})
      *
      * @param string $format
      */
@@ -39,7 +39,7 @@ class UserApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/user/empty.{_format}", name="api_userempty", methods={"POST"})
+     * @Route("/api/users/empty.{_format}", name="api_userempty", methods={"POST"})
      *
      * @param string $format
      */

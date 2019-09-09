@@ -17,7 +17,16 @@ use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "name": "partial",
+ *  "slug": "partial",
+ *  "type": "partial",
+ *  "temporary": "exact"
+ * })
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ * )
  * @ApiFilter(
  *     OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"}
  * )
