@@ -13,9 +13,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "name": "partial",
+ *  "temporary": "exact",
+ *  "slug": "partial"
+ * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\CategoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

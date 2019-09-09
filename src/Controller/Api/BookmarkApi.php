@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookmarkApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/bookmark/trash.{_format}", name="api_bookmarktrash")
+     * @Route("/api/bookmarks/trash.{_format}", name="api_bookmarktrash")
      *
      * @param string $format
      */
@@ -19,7 +19,7 @@ class BookmarkApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/bookmark/trash.{_format}", name="api_bookmarktrashdelete", methods={"DELETE"})
+     * @Route("/api/bookmarks/trash.{_format}", name="api_bookmarktrashdelete", methods={"DELETE"})
      *
      * @param string $format
      */
@@ -29,7 +29,7 @@ class BookmarkApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/bookmark/restore.{_format}", name="api_bookmarkrestore", methods={"POST"})
+     * @Route("/api/bookmarks/restore.{_format}", name="api_bookmarkrestore", methods={"POST"})
      *
      * @param string $format
      */
@@ -39,7 +39,7 @@ class BookmarkApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/bookmark/empty.{_format}", name="api_bookmarkempty", methods={"POST"})
+     * @Route("/api/bookmarks/empty.{_format}", name="api_bookmarkempty", methods={"POST"})
      *
      * @param string $format
      */
