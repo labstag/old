@@ -55,25 +55,6 @@ class PhoneListener extends EventSubscriberLib
         $this->checkPhone($entity, $args);
     }
 
-    private function setConfigurationParam($args)
-    {
-        if (isset($this->configParams)) {
-            return;
-        }
-
-        $manager    = $args->getEntityManager();
-        $repository = $manager->getRepository(Configuration::class);
-        $data       = $repository->findAll();
-        $config     = [];
-        foreach ($data as $row) {
-            $key          = $row->getName();
-            $value        = $row->getValue();
-            $config[$key] = $value;
-        }
-
-        $this->configParams = $config;
-    }
-
     private function checkPhone(Phone $entity, $args)
     {
         $check = $entity->isChecked();
