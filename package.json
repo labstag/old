@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labstag/labstag.git"
+    "url": "git+https://github.com/labstag/core.git"
   },
   "author": "",
   "bugs": {
-    "url": "https://github.com/labstag/labstag/issues"
+    "url": "https://github.com/labstag/core/issues"
   },
-  "homepage": "https://github.com/labstag/labstag#readme",
+  "homepage": "https://github.com/labstag/core#readme",
   "scripts": {
     "changelog": "gitmoji-changelog",
     "readme": "readme",
