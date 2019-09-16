@@ -67,7 +67,8 @@ class SecurityController extends ControllerLib
         $manager = $this->getDoctrine()->getManager();
 
         $repository = $manager->getRepository(User::class);
-        $user       = $repository->findOneBy(
+        /** @var User $user */
+        $user = $repository->findOneBy(
             [
                 $field => $value
             ]
@@ -76,45 +77,9 @@ class SecurityController extends ControllerLib
             return;
         }
 
-        $repository = $manager->getRepository(Templates::class);
-        $search     = ['code' => 'lost-password'];
-        $templates  = $repository->findOneBy($search);
-        $html       = $templates->getHtml();
-        $text       = $templates->getText();
-        $this->setConfigurationParam();
-        $before = [
-            '%site%',
-            '%username%',
-            '%phone%',
-            '%url%',
-        ];
-        $after   = [
-            $this->paramViews['config']['site_title'],
-            $user->getUsername(),
-            $entity->getNumero(),
-            $this->router->generate(
-                'change-password',
-                [
-                    'id' => $entity->getId(),
-                ],
-                UrlGeneratorInterface::ABSOLUTE_URL
-            ),
-        ];
-        $html    = str_replace($before, $after, $html);
-        $text    = str_replace($before, $after, $text);
-        // $message = new Swift_Message();
-        // $sujet   = str_replace(
-        //     '%site%',
-        //     $this->paramViews['config']['site_title'],
-        //     $templates->getname()
-        // );
-        // $message->setSubject($sujet);
-        // $message->setFrom($user->getEmail());
-        // $message->setTo($this->paramViews['config']['site_no-reply']);
-        // $message->setBody($html, 'text/html');
-        // $message->addPart($text, 'text/plain');
-        // $mailer = $this->container->get('swiftmailer.mailer.default');
-        // $mailer->send($message);
+        $user->setLost(true);
+        $this->persistAndFlush($user);
+        $this->addFlash('danger', 'Demande de nouveau mot de passe envoyé');
     }
 
     /**

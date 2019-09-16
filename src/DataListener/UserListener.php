@@ -2,13 +2,15 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
+use Labstag\Lib\EventSubscriberLib;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\User;
+use Swift_Message;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserListener implements EventSubscriber
+class UserListener extends EventSubscriberLib
 {
 
     /**
@@ -43,6 +45,8 @@ class UserListener implements EventSubscriber
             return;
         }
 
+
+        $this->lost($entity);
         $this->plainPassword($entity);
         // $manager  = $args->getEntityManager();
         // $meta = $manager->getClassMetadata(get_class($entity));
@@ -56,10 +60,56 @@ class UserListener implements EventSubscriber
             return;
         }
 
+        $this->lost($entity);
         $this->plainPassword($entity);
         $manager = $args->getEntityManager();
         $meta    = $manager->getClassMetadata(get_class($entity));
         $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
+    }
+
+    private function lost(User $entity)
+    {
+        return;
+        $manager    = $args->getEntityManager();
+        $repository = $manager->getRepository(Templates::class);
+        $search     = ['code' => 'lost-password'];
+        $templates  = $repository->findOneBy($search);
+        $html       = $templates->getHtml();
+        $text       = $templates->getText();
+        $this->setConfigurationParam($args);
+        $before = [
+            '%site%',
+            '%username%',
+            '%phone%',
+            '%url%',
+        ];
+        $after   = [
+            $this->configParams['site_title'],
+            $user->getUsername(),
+            $entity->getNumero(),
+            $this->router->generate(
+                'change-password',
+                [
+                    'id' => $entity->getId(),
+                ],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+        ];
+        $html    = str_replace($before, $after, $html);
+        $text    = str_replace($before, $after, $text);
+        $message = new Swift_Message()();
+        $sujet   = str_replace(
+            '%site%',
+            $this->configParams['site_title'],
+            $templates->getname()
+        );
+        $message->setSubject($sujet);
+        $message->setFrom($user->getEmail());
+        $message->setTo($this->configParams['site_no-reply']);
+        $message->setBody($html, 'text/html');
+        $message->addPart($text, 'text/plain');
+        $mailer = $this->container->get('swiftmailer.mailer.default');
+        $mailer->send($message);
     }
 
     private function plainPassword(User $entity)

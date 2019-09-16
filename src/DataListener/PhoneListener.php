@@ -2,19 +2,19 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Configuration;
 use Labstag\Entity\Phone;
 use Labstag\Entity\Templates;
+use Labstag\Lib\EventSubscriberLib;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class PhoneListener implements EventSubscriber
+class PhoneListener extends EventSubscriberLib
 {
 
     /**
