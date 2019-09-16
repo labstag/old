@@ -1,4 +1,4 @@
-export class ajax {
+export class xhr {
     constructor() {
 
     }

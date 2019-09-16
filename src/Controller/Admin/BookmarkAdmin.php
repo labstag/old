@@ -97,8 +97,6 @@ class BookmarkAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminbookmark_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEdit(BookmarkRepository $repository, $id): Response
     {
@@ -237,8 +235,6 @@ class BookmarkAdmin extends AdminControllerLib
 
     /**
      * @Route("/tags/trashedit/{id}", name="adminbookmarktags_trashedit", methods={"GET", "POST"})
-     *
-     * @param mixed $id
      */
     public function trashEditTags(TagsRepository $repository, $id): Response
     {

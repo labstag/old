@@ -2,16 +2,24 @@
 
 namespace Labstag\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "adresse": "partial"
+ * })
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\EmailRepository")
  * @ORM\Table(
- *  uniqueConstraints={
+ *     uniqueConstraints={
  * @ORM\UniqueConstraint(name="user_email", columns={"refuser_id", "adresse"})
- *  }
+ *     }
  * )
  */
 class Email
@@ -38,6 +46,22 @@ class Email
      * @ORM\Column(type="boolean")
      */
     private $principal;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked;
+
+    public function __construct()
+    {
+        $this->checked   = false;
+        $this->principal = false;
+    }
+
+    public function __toString(): ?string
+    {
+        return $this->getAdresse();
+    }
 
     public function getId(): ?string
     {
@@ -68,7 +92,7 @@ class Email
         return $this;
     }
 
-    public function getPrincipal(): ?bool
+    public function isPrincipal(): ?bool
     {
         return $this->principal;
     }
@@ -76,6 +100,18 @@ class Email
     public function setPrincipal(bool $principal): self
     {
         $this->principal = $principal;
+
+        return $this;
+    }
+
+    public function isChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }

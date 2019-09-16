@@ -11,40 +11,40 @@ class ChapitreApi extends ApiControllerLib
     /**
      * @Route("/api/chapitres/trash.{_format}", name="api_chapitretrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(ChapitreRepository $repository, $format)
+    public function trash(ChapitreRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
      * @Route("/api/chapitres/trash.{_format}", name="api_chapitretrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(ChapitreRepository $repository, $format)
+    public function delete(ChapitreRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
      * @Route("/api/chapitres/restore.{_format}", name="api_chapitrerestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(ChapitreRepository $repository, $format)
+    public function restore(ChapitreRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
      * @Route("/api/chapitres/empty.{_format}", name="api_chapitreempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(ChapitreRepository $repository, $format)
+    public function vider(ChapitreRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }

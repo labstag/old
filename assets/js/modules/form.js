@@ -1,10 +1,10 @@
 import 'whatwg-fetch';
 import {
-    ajax
-} from './ajax';
+    xhr
+} from './xhr';
 export class form {
     constructor() {
-        this.ajax = new ajax();
+        this.xhr = new xhr();
         this.add();
         this.delete();
         this.session();
@@ -55,7 +55,7 @@ export class form {
             );
         }
 
-        this.ajax.delete(url, data);
+        this.xhr.delete(url, data);
     }
 
     btndeleteOnClick(event) {
