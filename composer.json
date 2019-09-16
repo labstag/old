@@ -1,7 +1,7 @@
 {
-    "name": "labstag/labstag",
+    "name": "labstag/core",
     "description": "Un site Internet sous Symfony",
-    "type": "labstag/labstag",
+    "type": "labstag/core",
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
