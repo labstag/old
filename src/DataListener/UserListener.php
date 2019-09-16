@@ -7,7 +7,10 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\User;
 use Swift_Message;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserListener extends EventSubscriberLib
@@ -20,8 +23,20 @@ class UserListener extends EventSubscriberLib
      */
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    /**
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function __construct(ContainerInterface $container, RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $this->container       = $container;
+        $this->router          = $router;
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -69,7 +84,6 @@ class UserListener extends EventSubscriberLib
 
     private function lost(User $entity)
     {
-        return;
         $manager    = $args->getEntityManager();
         $repository = $manager->getRepository(Templates::class);
         $search     = ['code' => 'lost-password'];
@@ -97,7 +111,7 @@ class UserListener extends EventSubscriberLib
         ];
         $html    = str_replace($before, $after, $html);
         $text    = str_replace($before, $after, $text);
-        $message = new Swift_Message()();
+        $message = new Swift_Message();
         $sujet   = str_replace(
             '%site%',
             $this->configParams['site_title'],
