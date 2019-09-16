@@ -2,13 +2,13 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
+use Labstag\Lib\EventSubscriberLib;
 
-class PostListener implements EventSubscriber
+class PostListener extends EventSubscriberLib
 {
     /**
      * Sur quoi écouter.
