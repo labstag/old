@@ -28,7 +28,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *  "enable": "exact"
  * })
  * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ *     attributes={
+ *      "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *       "normalization_context"={"groups"={"get"}},
+ *       "denormalization_context"={"groups"={"get"}},
+ *      },
  * )
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
@@ -45,12 +49,14 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * @Groups({"get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
+     * @Groups({"get"})
      */
     private $username;
 
@@ -61,11 +67,13 @@ class User implements UserInterface, \Serializable
      *     message="The email '{{ value }}' is not a valid email.",
      *     checkMX=true
      * )
+     * @Groups({"get"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"get"})
      */
     private $roles = [];
 
@@ -86,11 +94,13 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="boolean", options={"default": true})
+     * @Groups({"get"})
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"get"})
      */
     private $avatar;
 
@@ -104,31 +114,37 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
+     * @Groups({"get"})
      */
     private $posts;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
+     * @Groups({"get"})
      */
     private $oauthConnectUsers;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
+     * @Groups({"get"})
      */
     private $histories;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
+     * @Groups({"get"})
      */
     private $bookmarks;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
+     * @Groups({"get"})
      */
     private $emails;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
+     * @Groups({"get"})
      */
     private $phones;
 
