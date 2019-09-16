@@ -5,6 +5,7 @@ namespace Labstag\Controller;
 use Labstag\Entity\Templates;
 use Labstag\Entity\User;
 use Labstag\Form\Front\DisclaimerType;
+use Labstag\Form\Security\ChangePasswordType;
 use Labstag\Form\Security\LoginType;
 use Labstag\Form\Security\LostPasswordType;
 use Labstag\Lib\ControllerLib;
@@ -87,7 +88,29 @@ class SecurityController extends ControllerLib
      */
     public function changePassword(User $user): Response
     {
-        return $this->json([$user]);
+        if ($user->isLost()) {
+            $this->addFlash('danger', 'Demande de mot de passe non envoyé');
+
+            return $this->redirect($this->generateUrl('front'), 302);
+        }
+
+        $user->setLost(false);
+
+        
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($this->request);
+        if ($form->isSubmitted()) {
+            $post = $this->request->request->get($form->getName());
+        }
+
+        return $this->twig(
+            'security/change-password.html.twig',
+            [
+                'class_body'         => 'LoginPage',
+                'formChangePassword' => $form->createView(),
+                'disclaimer'          => 0,
+            ]
+        );
     }
 
     /**

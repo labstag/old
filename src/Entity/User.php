@@ -149,6 +149,7 @@ class User implements UserInterface, \Serializable
     private $phones;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\Column(type="boolean")
      */
     private $lost;
