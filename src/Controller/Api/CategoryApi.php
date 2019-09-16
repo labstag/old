@@ -11,40 +11,40 @@ class CategoryApi extends ApiControllerLib
     /**
      * @Route("/api/categories/trash.{_format}", name="api_categorytrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(CategoryRepository $repository, $format)
+    public function trash(CategoryRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
      * @Route("/api/categories/trash.{_format}", name="api_categorytrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(CategoryRepository $repository, $format)
+    public function delete(CategoryRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
      * @Route("/api/categories/restore.{_format}", name="api_categoryrestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(CategoryRepository $repository, $format)
+    public function restore(CategoryRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
      * @Route("/api/categories/empty.{_format}", name="api_categoryempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(CategoryRepository $repository, $format)
+    public function vider(CategoryRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }

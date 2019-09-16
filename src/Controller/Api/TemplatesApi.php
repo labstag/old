@@ -11,40 +11,40 @@ class TemplatesApi extends ApiControllerLib
     /**
      * @Route("/api/templates/trash.{_format}", name="api_templatestrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(TemplatesRepository $repository, $format)
+    public function trash(TemplatesRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
      * @Route("/api/templates/trash.{_format}", name="api_templatestrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(TemplatesRepository $repository, $format)
+    public function delete(TemplatesRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
      * @Route("/api/templates/restore.{_format}", name="api_templatesrestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(TemplatesRepository $repository, $format)
+    public function restore(TemplatesRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
      * @Route("/api/templates/empty.{_format}", name="api_templatesempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(TemplatesRepository $repository, $format)
+    public function vider(TemplatesRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }

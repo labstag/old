@@ -11,40 +11,40 @@ class ConfigurationApi extends ApiControllerLib
     /**
      * @Route("/api/configurations/trash.{_format}", name="api_configurationtrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(ConfigurationRepository $repository, $format)
+    public function trash(ConfigurationRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
      * @Route("/api/configurations/trash.{_format}", name="api_configurationtrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(ConfigurationRepository $repository, $format)
+    public function delete(ConfigurationRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
      * @Route("/api/configurations/restore.{_format}", name="api_configurationrestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(ConfigurationRepository $repository, $format)
+    public function restore(ConfigurationRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
      * @Route("/api/configurations/empty.{_format}", name="api_configurationempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(ConfigurationRepository $repository, $format)
+    public function vider(ConfigurationRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }

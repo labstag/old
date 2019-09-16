@@ -235,7 +235,7 @@ abstract class AdminControllerLib extends ControllerLib
 
         $entityManager->flush();
         $json = [
-            'redirect' => $this->generateUrl($route, [], UrlGeneratorInterface::ABSOLUTE_PATH),
+            'redirect' => $this->generateUrl($route, [], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
 
         return $this->json($json);
@@ -280,7 +280,7 @@ abstract class AdminControllerLib extends ControllerLib
             'redirect' => $this->generateUrl(
                 $routeRedirect,
                 [],
-                UrlGeneratorInterface::ABSOLUTE_PATH
+                UrlGeneratorInterface::ABSOLUTE_URL
             ),
         ];
 
@@ -325,7 +325,11 @@ abstract class AdminControllerLib extends ControllerLib
         $entityManager->flush();
 
         $json = [
-            'redirect' => $this->generateUrl($routeRedirect, [], UrlGeneratorInterface::ABSOLUTE_PATH),
+            'redirect' => $this->generateUrl(
+                $routeRedirect,
+                [],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
         ];
 
         return $this->json($json);
