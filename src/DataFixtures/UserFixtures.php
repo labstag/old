@@ -64,6 +64,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $email->setAdresse($adresse);
                 $principal = (0 == $index) ? true : false;
                 $email->setPrincipal($principal);
+                $email->setChecked(true);
                 $manager->persist($email);
             }
 
@@ -73,6 +74,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $phone  = new Phone();
                 $phone->setRefuser($user);
                 $phone->setNumero($number);
+                $phone->setChecked(true);
                 $phone->setType($faker->unique()->word());
                 $manager->persist($phone);
             }

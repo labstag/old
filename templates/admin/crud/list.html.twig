@@ -26,6 +26,10 @@
                 data-side-pagination="server"
                 data-sort-stable="true"
                 data-search="true"
+                data-advanced-search="true"
+                data-id-table="advancedTable"
+                data-show-jump-to="true"
+                data-mobile-responsive="true"
                 data-page-list="{{ config['datatable'][0]['pagelist'] }}"
                 data-show-refresh="true"
                 data-show-toggle="true"
@@ -33,6 +37,8 @@
                 data-pagination="true"
                 data-show-export="true"
                 data-show-columns-toggle-all="true"
+                data-cookie="true"
+                data-cookie-id-table="saveId"
             >
                 <thead>
                     <tr>
@@ -42,8 +48,7 @@
                         {% for name, row in datatable %}
                             <th{% for key, val in row %}
                                 data-{{ key }}="{% if val == 'true' %}true{% elseif val == 'false' %}false{% else %}{{ val|e }}{% endif %}"
-                            {% endfor %} data-sortable="true">
-                            {{ name }}</th>
+                            {% endfor %} data-sortable="true">{{ name }}</th>
                         {% endfor %}
                         {% if operation is defined %}
                             <th
@@ -52,9 +57,8 @@
                                 data-sortable="true"
                                 data-valign="top"
                                 data-switchable="false"
-                            >
-                                Opérations
-                            </th>
+                                data-searchable="false"
+                            >Opérations</th>
                         {% endif %}
                     </tr>
                 </thead>

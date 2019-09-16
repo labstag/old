@@ -32,16 +32,52 @@ class TemplatesFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $this->add($manager);
-        $this->addEmail($manager);
+        $this->addContactEmail($manager);
+        $this->addCheckedEmail($manager);
+        $this->addCheckedPhone($manager);
+        $this->addLostPassword($manager);
     }
 
-    private function addEmail(ObjectManager $manager)
+    private function addLostPassword(ObjectManager $manager)
+    {
+        $templates = new Templates();
+        $templates->setName('Changement de password %site%');
+        $templates->setCode('lost-password');
+        $templates->setHtml($this->twig->render('templates/lost-password.html.twig'));
+        $templates->setText($this->twig->render('templates/lost-password.txt.twig'));
+        $manager->persist($templates);
+        $manager->flush();
+    }
+
+    private function addCheckedPhone(ObjectManager $manager)
+    {
+        $templates = new Templates();
+        $templates->setName('Validation du téléphone %site%');
+        $templates->setCode('checked-phone');
+        $templates->setHtml($this->twig->render('templates/checked-phone.html.twig'));
+        $templates->setText($this->twig->render('templates/checked-phone.txt.twig'));
+        $manager->persist($templates);
+        $manager->flush();
+    }
+
+    private function addCheckedEmail(ObjectManager $manager)
+    {
+        $templates = new Templates();
+        $templates->setName('Validation de mail %site%');
+        $templates->setCode('checked-mail');
+        $templates->setHtml($this->twig->render('templates/checked-email.html.twig'));
+        $templates->setText($this->twig->render('templates/checked-email.txt.twig'));
+        $manager->persist($templates);
+        $manager->flush();
+    }
+
+    private function addContactEmail(ObjectManager $manager)
     {
         $templates = new Templates();
         $templates->setName('Contact %site%');
         $templates->setCode('contact');
-        $templates->setHtml($this->twig->render('templates/email.html.twig'));
-        $templates->setText($this->twig->render('templates/email.txt.twig'));
+        $templates->setHtml($this->twig->render('templates/contact-email.html.twig'));
+        $templates->setText($this->twig->render('templates/contact-email.txt.twig'));
         $manager->persist($templates);
         $manager->flush();
     }
@@ -53,9 +89,9 @@ class TemplatesFixtures extends Fixture
             $templates = new Templates();
             $templates->setName($faker->unique()->colorName);
             $templates->setCode($faker->unique()->word);
-            $html = $faker->unique()->paragraphs(10, true);
-            $templates->setHtml($html);
-            $templates->setText($html);
+            $content = $faker->unique()->paragraphs(10, true);
+            $templates->setHtml($content);
+            $templates->setText($content);
             $manager->persist($templates);
         }
 

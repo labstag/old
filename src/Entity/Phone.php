@@ -3,15 +3,25 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={
+ *  "id": "exact",
+ *  "numero": "partial",
+ *  "type": "partial",
+ *  "checked": "exact"
+ * })
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
  * @ORM\Table(
- *  uniqueConstraints={
+ *     uniqueConstraints={
  * @ORM\UniqueConstraint(name="user_phone", columns={"refuser_id", "numero"})
- *  }
+ *     }
  * )
  */
 class Phone
@@ -38,6 +48,21 @@ class Phone
      * @ORM\Column(type="string", length=255)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked;
+
+    public function __construct()
+    {
+        $this->checked = false;
+    }
+
+    public function __toString(): ?string
+    {
+        return $this->getNumero();
+    }
 
     public function getId(): ?string
     {
@@ -76,6 +101,18 @@ class Phone
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function isChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }

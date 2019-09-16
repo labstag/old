@@ -9,42 +9,42 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserApi extends ApiControllerLib
 {
     /**
-     * @Route("/api/user/trash.{_format}", name="api_usertrash")
+     * @Route("/api/users/trash.{_format}", name="api_usertrash")
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function trash(UserRepository $repository, $format)
+    public function trash(UserRepository $repository, $_format)
     {
-        return $this->trashAction($repository, $format);
+        return $this->trashAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/user/trash.{_format}", name="api_usertrashdelete", methods={"DELETE"})
+     * @Route("/api/users/trash.{_format}", name="api_usertrashdelete", methods={"DELETE"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function delete(UserRepository $repository, $format)
+    public function delete(UserRepository $repository, $_format)
     {
-        return $this->deleteAction($repository, $format);
+        return $this->deleteAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/user/restore.{_format}", name="api_userrestore", methods={"POST"})
+     * @Route("/api/users/restore.{_format}", name="api_userrestore", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function restore(UserRepository $repository, $format)
+    public function restore(UserRepository $repository, $_format)
     {
-        return $this->restoreAction($repository, $format);
+        return $this->restoreAction($repository, $_format);
     }
 
     /**
-     * @Route("/api/user/empty.{_format}", name="api_userempty", methods={"POST"})
+     * @Route("/api/users/empty.{_format}", name="api_userempty", methods={"POST"})
      *
-     * @param string $format
+     * @param string $_format
      */
-    public function vider(UserRepository $repository, $format)
+    public function vider(UserRepository $repository, $_format)
     {
-        return $this->emptyAction($repository, $format);
+        return $this->emptyAction($repository, $_format);
     }
 }

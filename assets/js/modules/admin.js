@@ -2,16 +2,15 @@ import {
     workflow
 } from './workflow';
 import {
-    ajax
-} from './ajax';
+    xhr
+} from './xhr';
 export class admin {
     constructor() {
         this.userList();
         this.btndelete();
         this.sortable();
         this.workflow = new workflow();
-        this.ajax     = new ajax();
-        this.workflow.init();
+        this.xhr      = new xhr();
     }
 
     sortable() {
@@ -51,7 +50,7 @@ export class admin {
         let id   = $('.BtnDeleteModalConfirm').attr('data-id');
 
         data.push(id);
-        this.ajax.delete(url, data);
+        this.xhr.delete(url, data);
     }
 
     userList() {
