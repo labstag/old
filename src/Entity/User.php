@@ -148,9 +148,15 @@ class User implements UserInterface, \Serializable
      */
     private $phones;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $lost;
+
     public function __construct()
     {
         $this->enable            = true;
+        $this->lost              = false;
         $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
         $this->histories         = new ArrayCollection();
@@ -536,6 +542,18 @@ class User implements UserInterface, \Serializable
                 $phone->setRefuser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isLost(): ?bool
+    {
+        return $this->lost;
+    }
+
+    public function setLost(bool $lost): self
+    {
+        $this->lost = $lost;
 
         return $this;
     }

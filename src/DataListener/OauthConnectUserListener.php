@@ -2,14 +2,14 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\OauthConnectUser;
+use Labstag\Lib\EventSubscriberLib;
 use Labstag\Services\OauthServices;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class OauthConnectUserListener implements EventSubscriber
+class OauthConnectUserListener extends EventSubscriberLib
 {
 
     /**
