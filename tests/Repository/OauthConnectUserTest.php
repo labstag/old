@@ -26,26 +26,33 @@ class OauthConnectUserTest extends RepositoryTestLib
         );
     }
 
-    public function findOauthNotUser()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testfindOauthNotUser()
     {
         $empty = $this->repository->findOauthNotUser(null, '', '');
         $oauth = $this->repository->findOauthNotUser('', '', '');
     }
 
-    public function findOneOauthByUser()
+    public function testfindOneOauthByUser()
     {
         $empty = $this->repository->findOneOauthByUser('', null);
         $user = $this->repository->findOneOauthByUser('', '');
     }
 
-    public function login()
+    public function testlogin()
     {
         $empty = $this->repository->login(null, null);
         $oauth = $this->repository->login('','');
     }
 
-    public function findDistinctAllOauth()
+    public function testfindDistinctAllOauth()
     {
         $oauths = $this->repository->findDistinctAllOauth();
+        $this->assertTrue(is_array($oauths));
     }
 }
