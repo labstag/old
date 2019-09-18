@@ -69,7 +69,7 @@ class EmailListener extends EventSubscriberLib
         $text       = $templates->getText();
         $user       = $entity->getRefuser();
         $this->setConfigurationParam($args);
-        $before = [
+        $before  = [
             '%site%',
             '%username%',
             '%email%',
