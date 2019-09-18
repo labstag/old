@@ -22,7 +22,7 @@ class EmailTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        $this->repository     = $this->entityManager->getRepository(
             Email::class
         );
         $this->userRepository = $this->entityManager->getRepository(
@@ -41,7 +41,7 @@ class EmailTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-			$this->assertTrue($random instanceof Email);
+            $this->assertTrue($random instanceof Email);
         }
     }
 
