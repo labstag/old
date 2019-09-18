@@ -25,4 +25,9 @@ class ConfigurationTest extends RepositoryTestLib
             Configuration::class
         );
     }
+
+    public function getDataArray()
+    {
+        $entities = $this->repository->getDataArray();
+    }
 }

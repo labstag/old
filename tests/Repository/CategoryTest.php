@@ -25,4 +25,9 @@ class CategoryTest extends RepositoryTestLib
             Category::class
         );
     }
+    
+    public function findForForm()
+    {
+        $entities = $this->repository->findForForm();
+    }
 }

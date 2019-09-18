@@ -25,4 +25,16 @@ class HistoryTest extends RepositoryTestLib
             History::class
         );
     }
+
+    public function findAllActiveByUser()
+    {
+        $empty = $this->repository->findAllActiveByUser(null);
+        $histories = $this->repository->findAllActiveByUser('');
+
+    }
+
+    public function findAllActive()
+    {
+        $histories = $this->repository->findAllActive();
+    }
 }
