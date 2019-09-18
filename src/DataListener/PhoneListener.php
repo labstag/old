@@ -4,7 +4,6 @@ namespace Labstag\DataListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Labstag\Entity\Configuration;
 use Labstag\Entity\Phone;
 use Labstag\Entity\Templates;
 use Labstag\Lib\EventSubscriberLib;
@@ -70,7 +69,7 @@ class PhoneListener extends EventSubscriberLib
         $text       = $templates->getText();
         $user       = $entity->getRefuser();
         $this->setConfigurationParam($args);
-        $before = [
+        $before  = [
             '%site%',
             '%username%',
             '%phone%',
