@@ -32,6 +32,15 @@ class HistoryTest extends RepositoryTestLib
         $this->assertTrue(is_array($all));
     }
 
+    public function testfindOneRandom()
+    {
+        $all = $this->repository->findAll();
+        if (0 != count($all)) {
+            $random = $this->repository->findOneRandom();
+			$this->assertTrue($random instanceof History);
+        }
+    }
+
     public function testfindAllActiveByUser()
     {
         $empty = $this->repository->findAllActiveByUser(null);

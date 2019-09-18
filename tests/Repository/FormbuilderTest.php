@@ -2,9 +2,9 @@
 
 namespace Labstag\Tests\Repository;
 
+use Labstag\Entity\Formbuilder;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\FormbuilderRepository;
-use Symfony\Component\Form\FormBuilder;
 
 /**
  * @internal
@@ -22,7 +22,7 @@ class FormbuilderTest extends RepositoryTestLib
     {
         parent::setUp();
         $this->repository = $this->entityManager->getRepository(
-            FormBuilder::class
+            Formbuilder::class
         );
     }
 
@@ -30,5 +30,14 @@ class FormbuilderTest extends RepositoryTestLib
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
+    }
+
+    public function testfindOneRandom()
+    {
+        $all = $this->repository->findAll();
+        if (0 != count($all)) {
+            $random = $this->repository->findOneRandom();
+			$this->assertTrue($random instanceof Formbuilder);
+        }
     }
 }

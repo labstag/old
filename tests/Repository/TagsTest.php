@@ -32,6 +32,15 @@ class TagsTest extends RepositoryTestLib
         $this->assertTrue(is_array($all));
     }
 
+    public function testfindOneRandom()
+    {
+        $all = $this->repository->findAll();
+        if (0 != count($all)) {
+            $random = $this->repository->findOneRandom();
+			$this->assertTrue($random instanceof Tags);
+        }
+    }
+
     public function testfindTagsByTypeNotTemporary()
     {
         $empty = $this->repository->findTagsByTypeNotTemporary(null);

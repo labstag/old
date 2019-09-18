@@ -2,7 +2,7 @@
 
 namespace Labstag\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Email;
@@ -14,14 +14,14 @@ use Labstag\Entity\User;
  * @method Email[]    findAll()
  * @method Email[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmailRepository extends ServiceEntityRepository
+class EmailRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Email::class);
     }
 
-    public function findEmailByUser(User $user): QueryBuilder
+    public function findEmailByUser(?User $user): QueryBuilder
     {
         $params = [
             'refuser' => $user,

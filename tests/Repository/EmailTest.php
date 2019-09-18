@@ -3,6 +3,7 @@
 namespace Labstag\Tests\Repository;
 
 use Labstag\Entity\Email;
+use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\EmailRepository;
 
@@ -24,12 +25,24 @@ class EmailTest extends RepositoryTestLib
         $this->repository = $this->entityManager->getRepository(
             Email::class
         );
+        $this->userRepository = $this->entityManager->getRepository(
+            User::class
+        );
     }
 
     public function testFindAll()
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
+    }
+
+    public function testfindOneRandom()
+    {
+        $all = $this->repository->findAll();
+        if (0 != count($all)) {
+            $random = $this->repository->findOneRandom();
+			$this->assertTrue($random instanceof Email);
+        }
     }
 
     public function testfindEmailByUser()
