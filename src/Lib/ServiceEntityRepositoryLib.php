@@ -34,14 +34,13 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
     public function findOneRandom()
     {
         $entityManager = $this->getEntityManager();
-        $dql = $entityManager->createQueryBuilder();
+        $dql           = $entityManager->createQueryBuilder();
         $dql->select('e');
-		$dql->addSelect('RAND() as HIDDEN rand');
+        $dql->addSelect('RAND() as HIDDEN rand');
         $dql->from($this->_entityName, 'e');
-		$dql->orderBy('rand');
-		$dql->setMaxResults(1);
-		
-		
+        $dql->orderBy('rand');
+        $dql->setMaxResults(1);
+
         return $dql->getQuery()->getOneOrNullResult();
     }
 }

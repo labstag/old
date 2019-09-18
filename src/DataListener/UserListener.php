@@ -4,8 +4,8 @@ namespace Labstag\DataListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Labstag\Entity\User;
 use Labstag\Entity\Templates;
+use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
 use Swift_Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -99,7 +99,7 @@ class UserListener extends EventSubscriberLib
             '%site%',
             '%username%',
             '%url%',
-            '%date%'
+            '%date%',
         ];
         $after   = [
             $this->configParams['site_title'],
@@ -111,7 +111,7 @@ class UserListener extends EventSubscriberLib
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
-            date('d/m/Y')
+            date('d/m/Y'),
         ];
         $html    = str_replace($before, $after, $html);
         $text    = str_replace($before, $after, $text);

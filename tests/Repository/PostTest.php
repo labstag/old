@@ -37,7 +37,7 @@ class PostTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-			$this->assertTrue($random instanceof Post);
+            $this->assertTrue($random instanceof Post);
         }
     }
 

@@ -16,7 +16,6 @@ class UserTest extends RepositoryTestLib
     /**
      * @var UserRepository
      */
-
     private $repository;
 
     public function setUp(): void
@@ -38,19 +37,19 @@ class UserTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-			$this->assertTrue($random instanceof User);
+            $this->assertTrue($random instanceof User);
         }
     }
 
     public function testloginToken()
     {
         $empty = $this->repository->loginToken(null);
-        $user = $this->repository->loginToken('');
+        $user  = $this->repository->loginToken('');
     }
 
     public function testlogin()
     {
         $empty = $this->repository->login(null);
-        $user = $this->repository->login('');
+        $user  = $this->repository->login('');
     }
 }
