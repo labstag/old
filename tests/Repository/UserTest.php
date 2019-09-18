@@ -16,6 +16,7 @@ class UserTest extends RepositoryTestLib
     /**
      * @var UserRepository
      */
+
     private $repository;
 
     public function setUp(): void
@@ -24,5 +25,17 @@ class UserTest extends RepositoryTestLib
         $this->repository = $this->entityManager->getRepository(
             User::class
         );
+    }
+
+    public function loginToken()
+    {
+        $empty = $this->repository->loginToken(null);
+        $user = $this->repository->loginToken('');
+    }
+
+    public function login()
+    {
+        $empty = $this->repository->login(null);
+        $user = $this->repository->login('');
     }
 }

@@ -25,4 +25,11 @@ class EmailTest extends RepositoryTestLib
             Email::class
         );
     }
+
+    public function findEmailByUser()
+    {
+        $empty = $this->repository->findEmailByUser(null);
+
+        $user = $this->repository->findEmailByUser('');
+    }
 }

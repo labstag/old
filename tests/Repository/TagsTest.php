@@ -25,4 +25,16 @@ class TagsTest extends RepositoryTestLib
             Tags::class
         );
     }
+
+    public function findTagsByTypeNotTemporary()
+    {
+        $empty = $this->repository->findTagsByTypeNotTemporary(null);
+        $tags = $this->repository->findTagsByTypeNotTemporary('');
+    }
+
+    public function findTagsByType()
+    {
+        $empty = $this->repository->findTagsByType(null);
+        $tags = $this->repository->findTagsByType('');
+    }
 }
