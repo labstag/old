@@ -7,7 +7,6 @@ use Labstag\Entity\Configuration;
 
 abstract class EventSubscriberLib implements EventSubscriber
 {
-
     protected function setConfigurationParam($args)
     {
         if (isset($this->configParams)) {

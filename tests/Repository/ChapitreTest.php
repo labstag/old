@@ -2,7 +2,27 @@
 
 namespace Labstag\Tests\Repository;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-class ChapitreTest extends WebTestCase
+use Labstag\Entity\Chapitre;
+use Labstag\Lib\RepositoryTestLib;
+use Labstag\Repository\ChapitreRepository;
+
+/**
+ * @internal
+ * @coversNothing
+ */
+class ChapitreTest extends RepositoryTestLib
 {
+
+    /**
+     * @var ChapitreRepository
+     */
+    private $repository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->repository = $this->entityManager->getRepository(
+            Chapitre::class
+        );
+    }
 }

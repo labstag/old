@@ -3,9 +3,9 @@
 namespace Labstag\Form\Security;
 
 use Labstag\Lib\AbstractTypeLibSecurity;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,12 +19,8 @@ class ChangePasswordType extends AbstractTypeLibSecurity
             [
                 'type'           => PasswordType::class,
                 'label'          => 'password',
-                'first_options'  => [
-                    'label' => 'Password',
-                ],
-                'second_options' => [
-                    'label' => 'Repeat Password',
-                ],
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
             ]
         );
         $builder->add(
@@ -39,9 +35,7 @@ class ChangePasswordType extends AbstractTypeLibSecurity
     {
         // Configure your form options here
         $resolver->setDefaults(
-            [
-                'csrf_token_id' => 'changepassword',
-            ]
+            ['csrf_token_id' => 'changepassword']
         );
     }
 }

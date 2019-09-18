@@ -9,11 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "adresse": "partial"
+ *     "id": "exact",
+ *     "adresse": "partial"
  * })
  * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ *     attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"},
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\EmailRepository")
  * @ORM\Table(

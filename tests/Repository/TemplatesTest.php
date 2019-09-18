@@ -2,7 +2,27 @@
 
 namespace Labstag\Tests\Repository;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-class TemplatesTest extends WebTestCase
+use Labstag\Entity\Templates;
+use Labstag\Lib\RepositoryTestLib;
+use Labstag\Repository\TemplatesRepository;
+
+/**
+ * @internal
+ * @coversNothing
+ */
+class TemplatesTest extends RepositoryTestLib
 {
+
+    /**
+     * @var TemplatesRepository
+     */
+    private $repository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->repository = $this->entityManager->getRepository(
+            Templates::class
+        );
+    }
 }

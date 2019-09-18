@@ -7,7 +7,6 @@ use Labstag\Lib\ControllerLib;
 use Labstag\Repository\TemplatesRepository;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;

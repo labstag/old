@@ -3,9 +3,9 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -22,17 +22,17 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "username": "partial",
- *  "email": "partial",
- *  "enable": "exact"
+ *     "id": "exact",
+ *     "username": "partial",
+ *     "email": "partial",
+ *     "enable": "exact"
  * })
  * @ApiResource(
  *     attributes={
- *      "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *       "normalization_context"={"groups"={"get"}},
- *       "denormalization_context"={"groups"={"get"}},
- *      },
+ *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *         "normalization_context": {"groups": {"get"}},
+ *         "denormalization_context": {"groups": {"get"}},
+ *     },
  * )
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")

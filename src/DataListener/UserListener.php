@@ -2,10 +2,10 @@
 
 namespace Labstag\DataListener;
 
-use Labstag\Lib\EventSubscriberLib;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\User;
+use Labstag\Lib\EventSubscriberLib;
 use Swift_Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -17,16 +17,16 @@ class UserListener extends EventSubscriberLib
 {
 
     /**
+     * @var Router
+     */
+    protected $router;
+
+    /**
      * password Encoder.
      *
      * @var UserPasswordEncoderInterface
      */
     private $passwordEncoder;
-
-    /**
-     * @var Router
-     */
-    protected $router;
 
     /**
      * @var ContainerInterface
@@ -60,7 +60,6 @@ class UserListener extends EventSubscriberLib
             return;
         }
 
-
         $this->lost($entity);
         $this->plainPassword($entity);
         // $manager  = $args->getEntityManager();
@@ -91,7 +90,7 @@ class UserListener extends EventSubscriberLib
         $html       = $templates->getHtml();
         $text       = $templates->getText();
         $this->setConfigurationParam($args);
-        $before = [
+        $before  = [
             '%site%',
             '%username%',
             '%phone%',
