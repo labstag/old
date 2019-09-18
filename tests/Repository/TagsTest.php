@@ -26,15 +26,23 @@ class TagsTest extends RepositoryTestLib
         );
     }
 
-    public function findTagsByTypeNotTemporary()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testfindTagsByTypeNotTemporary()
     {
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $tags = $this->repository->findTagsByTypeNotTemporary('');
+        $this->assertTrue(is_array($tags));
     }
 
-    public function findTagsByType()
+    public function testfindTagsByType()
     {
         $empty = $this->repository->findTagsByType(null);
         $tags = $this->repository->findTagsByType('');
+        $this->assertTrue(is_array($tags));
     }
 }

@@ -26,8 +26,15 @@ class ConfigurationTest extends RepositoryTestLib
         );
     }
 
-    public function getDataArray()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testgetDataArray()
     {
         $entities = $this->repository->getDataArray();
+        $this->assertTrue(is_array($entities));
     }
 }

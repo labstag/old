@@ -26,15 +26,23 @@ class HistoryTest extends RepositoryTestLib
         );
     }
 
-    public function findAllActiveByUser()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testfindAllActiveByUser()
     {
         $empty = $this->repository->findAllActiveByUser(null);
         $histories = $this->repository->findAllActiveByUser('');
+        $this->assertTrue(is_array($histories));
 
     }
 
-    public function findAllActive()
+    public function testfindAllActive()
     {
         $histories = $this->repository->findAllActive();
+        $this->assertTrue(is_array($histories));
     }
 }

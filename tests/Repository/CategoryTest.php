@@ -25,9 +25,16 @@ class CategoryTest extends RepositoryTestLib
             Category::class
         );
     }
+
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
     
-    public function findForForm()
+    public function testfindForForm()
     {
         $entities = $this->repository->findForForm();
+        $this->assertTrue(is_array($entities));
     }
 }

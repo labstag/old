@@ -25,4 +25,10 @@ class BookmarkTest extends RepositoryTestLib
             Bookmark::class
         );
     }
+
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
 }

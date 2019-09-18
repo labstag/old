@@ -26,7 +26,13 @@ class EmailTest extends RepositoryTestLib
         );
     }
 
-    public function findEmailByUser()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testfindEmailByUser()
     {
         $empty = $this->repository->findEmailByUser(null);
 

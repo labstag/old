@@ -11,7 +11,7 @@ abstract class RepositoryTestLib extends KernelTestCase
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    protected $entityManager;
 
     /**
      * {@inheritdoc}
@@ -20,8 +20,13 @@ abstract class RepositoryTestLib extends KernelTestCase
     {
         $kernel = self::bootKernel();
 
-        $container           = $kernel->getContainer();
-        $this->container     = $container;
-        $this->entityManager = $container->get('doctrine')->getManager();
+        $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+        $this->entityManager->close();
+        $this->entityManager = null;
     }
 }
