@@ -22,7 +22,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Post::class);
     }
 
-    public function findAllActiveByUser(User $user)
+    public function findAllActiveByUser(?User $user)
     {
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refuser', 'u');
@@ -39,7 +39,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActiveByTag(Tags $tag)
+    public function findAllActiveByTag(?Tags $tag)
     {
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.tags', 't');
@@ -56,7 +56,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActiveByCategory(Category $category)
+    public function findAllActiveByCategory(?Category $category)
     {
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refcategory', 'c');

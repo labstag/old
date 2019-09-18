@@ -5,6 +5,7 @@ namespace Labstag\DataListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\User;
+use Labstag\Entity\Templates;
 use Labstag\Lib\EventSubscriberLib;
 use Swift_Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -60,7 +61,7 @@ class UserListener extends EventSubscriberLib
             return;
         }
 
-        $this->lost($entity);
+        $this->lost($entity, $args);
         $this->plainPassword($entity);
         // $manager  = $args->getEntityManager();
         // $meta = $manager->getClassMetadata(get_class($entity));
@@ -74,17 +75,21 @@ class UserListener extends EventSubscriberLib
             return;
         }
 
-        $this->lost($entity);
+        $this->lost($entity, $args);
         $this->plainPassword($entity);
         $manager = $args->getEntityManager();
         $meta    = $manager->getClassMetadata(get_class($entity));
         $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    private function lost(User $entity)
+    private function lost(User $entity, $args)
     {
+        if (!$entity->isLost()) {
+            return;
+        }
+
         $manager    = $args->getEntityManager();
-        $repository = $manager->getRepository(Templates::class);
+        $repository = $manager->getRepository(templates::class);
         $search     = ['code' => 'lost-password'];
         $templates  = $repository->findOneBy($search);
         $html       = $templates->getHtml();
@@ -93,13 +98,12 @@ class UserListener extends EventSubscriberLib
         $before  = [
             '%site%',
             '%username%',
-            '%phone%',
             '%url%',
+            '%date%'
         ];
         $after   = [
             $this->configParams['site_title'],
-            $user->getUsername(),
-            $entity->getNumero(),
+            $entity->getUsername(),
             $this->router->generate(
                 'change-password',
                 [
@@ -107,6 +111,7 @@ class UserListener extends EventSubscriberLib
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
+            date('d/m/Y')
         ];
         $html    = str_replace($before, $after, $html);
         $text    = str_replace($before, $after, $text);

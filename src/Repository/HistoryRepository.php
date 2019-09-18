@@ -20,7 +20,7 @@ class HistoryRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, History::class);
     }
 
-    public function findAllActiveByUser(User $user)
+    public function findAllActiveByUser(?User $user)
     {
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refuser', 'u');
