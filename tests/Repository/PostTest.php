@@ -25,4 +25,27 @@ class PostTest extends RepositoryTestLib
             Post::class
         );
     }
+
+    public function findAllActiveByUser()
+    {
+        $empty = $this->repository->findAllActiveByUser(null);
+        $posts = $this->repository->findAllActiveByUser('');
+    }
+
+    public function findAllActiveByTag()
+    {
+        $empty = $this->repository->findAllActiveByTag(null);
+        $posts = $this->repository->findAllActiveByTag('');
+    }
+
+    public function findAllActiveByCategory()
+    {
+        $empty = $this->repository->findAllActiveByCategory(null);
+        $posts = $this->repository->findAllActiveByCategory('');
+    }
+
+    public function findAllActive()
+    {
+        $posts = $this->repository->findAllActive();
+    }
 }
