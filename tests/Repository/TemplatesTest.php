@@ -25,4 +25,10 @@ class TemplatesTest extends RepositoryTestLib
             Templates::class
         );
     }
+
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
 }

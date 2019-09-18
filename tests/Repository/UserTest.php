@@ -27,13 +27,19 @@ class UserTest extends RepositoryTestLib
         );
     }
 
-    public function loginToken()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testloginToken()
     {
         $empty = $this->repository->loginToken(null);
         $user = $this->repository->loginToken('');
     }
 
-    public function login()
+    public function testlogin()
     {
         $empty = $this->repository->login(null);
         $user = $this->repository->login('');

@@ -26,26 +26,36 @@ class PostTest extends RepositoryTestLib
         );
     }
 
-    public function findAllActiveByUser()
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
+
+    public function testfindAllActiveByUser()
     {
         $empty = $this->repository->findAllActiveByUser(null);
         $posts = $this->repository->findAllActiveByUser('');
+        $this->assertTrue(is_array($posts));
     }
 
-    public function findAllActiveByTag()
+    public function testfindAllActiveByTag()
     {
         $empty = $this->repository->findAllActiveByTag(null);
         $posts = $this->repository->findAllActiveByTag('');
+        $this->assertTrue(is_array($posts));
     }
 
-    public function findAllActiveByCategory()
+    public function testfindAllActiveByCategory()
     {
         $empty = $this->repository->findAllActiveByCategory(null);
         $posts = $this->repository->findAllActiveByCategory('');
+        $this->assertTrue(is_array($posts));
     }
 
-    public function findAllActive()
+    public function testfindAllActive()
     {
         $posts = $this->repository->findAllActive();
+        $this->assertTrue(is_array($posts));
     }
 }

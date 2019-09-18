@@ -25,4 +25,10 @@ class FormbuilderTest extends RepositoryTestLib
             FormBuilder::class
         );
     }
+
+    public function testFindAll()
+    {
+        $all = $this->repository->findAll();
+        $this->assertTrue(is_array($all));
+    }
 }
