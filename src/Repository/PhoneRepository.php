@@ -2,9 +2,9 @@
 
 namespace Labstag\Repository;
 
-use Labstag\Lib\ServiceEntityRepositoryLib;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\Phone;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
  * @method null|Phone find($id, $lockMode = null, $lockVersion = null)
