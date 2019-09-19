@@ -2,49 +2,64 @@
 
 namespace Labstag\Controller\Api;
 
+use Labstag\Entity\Category;
 use Labstag\Lib\ApiControllerLib;
+use Labstag\Handler\CategoryPublishingHandler;
 use Labstag\Repository\CategoryRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryApi extends ApiControllerLib
 {
-    /**
-     * @Route("/api/categories/trash.{_format}", name="api_categorytrash")
-     *
-     * @param string $_format
-     */
-    public function trash(CategoryRepository $repository, $_format)
+
+    public function __construct(CategoryPublishingHandler $categoryPublishingHandler)
     {
-        return $this->trashAction($repository, $_format);
+        $this->categoryPublishingHandler = $categoryPublishingHandler;
+    }
+
+    public function __invoke(Category $data): Category
+    {
+        $this->categoryPublishingHandler->handle($data);
+
+        return $data;
     }
 
     /**
-     * @Route("/api/categories/trash.{_format}", name="api_categorytrashdelete", methods={"DELETE"})
+     * @Route("/api/categories/trash", name="api_categorytrash")
      *
      * @param string $_format
      */
-    public function delete(CategoryRepository $repository, $_format)
+    public function trash(CategoryRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/categories/restore.{_format}", name="api_categoryrestore", methods={"POST"})
+     * @Route("/api/categories/trash", name="api_categorytrashdelete", methods={"DELETE"})
      *
      * @param string $_format
      */
-    public function restore(CategoryRepository $repository, $_format)
+    public function delete(CategoryRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/categories/empty.{_format}", name="api_categoryempty", methods={"POST"})
+     * @Route("/api/categories/restore", name="api_categoryrestore", methods={"POST"})
      *
      * @param string $_format
      */
-    public function vider(CategoryRepository $repository, $_format)
+    public function restore(CategoryRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->restoreAction($repository);
+    }
+
+    /**
+     * @Route("/api/categories/empty", name="api_categoryempty", methods={"POST"})
+     *
+     * @param string $_format
+     */
+    public function vider(CategoryRepository $repository)
+    {
+        return $this->emptyAction($repository);
     }
 }

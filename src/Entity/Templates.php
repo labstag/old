@@ -10,6 +10,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Labstag\Controller\Api\TemplatesApi;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
@@ -20,7 +21,60 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  *     "text": "partial"
  * })
  * @ApiResource(
- *     attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"},
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_templatestrash"={
+ *             "method"="GET",
+ *             "path"="/templates/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=TemplatesApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Corbeille",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_templatestrashdelete"={
+ *             "method"="DELETE",
+ *             "path"="/templates/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=TemplatesApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Remove",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_templatesrestore"={
+ *             "method"="POST",
+ *             "path"="/templates/restore",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=TemplatesApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Restore",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_templatesempty"={
+ *             "method"="POST",
+ *             "path"="/templates/empty",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=TemplatesApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Empty",
+ *                  "parameters"={}
+ *              }
+ *         }
+ *     },
+ *     attributes={
+ *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *         "normalization_context": {"groups": {"get"}},
+ *         "denormalization_context": {"groups": {"get"}},
+ *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\TemplatesRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
