@@ -2,9 +2,12 @@
 
 namespace Labstag\Tests\Repository;
 
+use Doctrine\ORM\Query;
 use Labstag\Entity\History;
+use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\HistoryRepository;
+use Labstag\Repository\UserRepository;
 
 /**
  * @internal
@@ -18,11 +21,19 @@ class HistoryTest extends RepositoryTestLib
      */
     private $repository;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        $this->repository     = $this->entityManager->getRepository(
             History::class
+        );
+        $this->userRepository = $this->entityManager->getRepository(
+            User::class
         );
     }
 
@@ -43,14 +54,18 @@ class HistoryTest extends RepositoryTestLib
 
     public function testfindAllActiveByUser()
     {
-        $empty     = $this->repository->findAllActiveByUser(null);
-        $histories = $this->repository->findAllActiveByUser('');
-        $this->assertTrue(is_array($histories));
+        $empty = $this->repository->findAllActiveByUser(null);
+        $this->assertTrue(is_null($empty));
+        $user  = $this->userRepository->findOneRandom();
+        if ($user instanceof User) {
+            $histories = $this->repository->findAllActiveByUser($user);
+            $this->assertTrue($histories instanceof Query);
+        }
     }
 
     public function testfindAllActive()
     {
         $histories = $this->repository->findAllActive();
-        $this->assertTrue(is_array($histories));
+        $this->assertTrue($histories instanceof Query);
     }
 }

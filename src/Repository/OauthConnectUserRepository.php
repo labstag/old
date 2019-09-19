@@ -20,8 +20,12 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, OauthConnectUser::class);
     }
 
-    public function findOauthNotUser(?User $user, $identity, string $client)
+    public function findOauthNotUser(?User $user, ?string $identity, ?string $client)
     {
+        if (is_null($identity) || is_null($user) || is_null($client)) {
+            return;
+        }
+
         $dql = $this->createQueryBuilder('p');
         $dql->where('p.refuser=:iduser');
         $dql->andWhere('p.identity=:identity');
@@ -37,8 +41,12 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery()->getOneOrNullResult();
     }
 
-    public function findOneOauthByUser(string $oauthCode, ?User $user)
+    public function findOneOauthByUser(?string $oauthCode, ?User $user)
     {
+        if (is_null($oauthCode) || is_null($user)) {
+            return;
+        }
+
         $dql = $this->createQueryBuilder('p');
         $dql->where('p.name=:name');
         $dql->andWhere('p.refuser=:iduser');
@@ -81,8 +89,12 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
     }
     */
 
-    public function login($identity, $oauth)
+    public function login(?string $identity, ?string $oauth)
     {
+        if (is_null($identity) || is_null($oauth)) {
+            return;
+        }
+
         $builder = $this->createQueryBuilder('u');
         $builder->where(
             'u.name = :name AND u.identity = :identity'

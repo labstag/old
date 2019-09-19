@@ -2,6 +2,7 @@
 
 namespace Labstag\Tests\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Category;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\CategoryRepository;
@@ -44,6 +45,6 @@ class CategoryTest extends RepositoryTestLib
     public function testfindForForm()
     {
         $entities = $this->repository->findForForm();
-        $this->assertTrue(is_array($entities));
+        $this->assertTrue($entities instanceof QueryBuilder);
     }
 }

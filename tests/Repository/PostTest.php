@@ -2,9 +2,16 @@
 
 namespace Labstag\Tests\Repository;
 
+use Doctrine\ORM\Query;
+use Labstag\Entity\Category;
 use Labstag\Entity\Post;
+use Labstag\Entity\Tags;
+use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
+use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\PostRepository;
+use Labstag\Repository\TagsRepository;
+use Labstag\Repository\UserRepository;
 
 /**
  * @internal
@@ -18,11 +25,35 @@ class PostTest extends RepositoryTestLib
      */
     private $repository;
 
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+
+    /**
+     * @var TagsRepository
+     */
+    private $tagsRepository;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        $this->repository         = $this->entityManager->getRepository(
             Post::class
+        );
+        $this->categoryRepository = $this->entityManager->getRepository(
+            Category::class
+        );
+        $this->tagsRepository     = $this->entityManager->getRepository(
+            Tags::class
+        );
+        $this->userRepository     = $this->entityManager->getRepository(
+            User::class
         );
     }
 
@@ -44,27 +75,39 @@ class PostTest extends RepositoryTestLib
     public function testfindAllActiveByUser()
     {
         $empty = $this->repository->findAllActiveByUser(null);
-        $posts = $this->repository->findAllActiveByUser('');
-        $this->assertTrue(is_array($posts));
+        $this->assertTrue(is_null($empty));
+        $user  = $this->tagsRepository->findOneRandom();
+        if ($user instanceof User) {
+            $posts = $this->repository->findAllActiveByUser($user);
+            $this->assertTrue($posts instanceof Query);
+        }
     }
 
     public function testfindAllActiveByTag()
     {
         $empty = $this->repository->findAllActiveByTag(null);
-        $posts = $this->repository->findAllActiveByTag('');
-        $this->assertTrue(is_array($posts));
+        $this->assertTrue(is_null($empty));
+        $tags  = $this->tagsRepository->findOneRandom();
+        if ($tags instanceof Tags) {
+            $posts = $this->repository->findAllActiveByTag($tags);
+            $this->assertTrue($posts instanceof Query);
+        }
     }
 
     public function testfindAllActiveByCategory()
     {
-        $empty = $this->repository->findAllActiveByCategory(null);
-        $posts = $this->repository->findAllActiveByCategory('');
-        $this->assertTrue(is_array($posts));
+        $empty    = $this->repository->findAllActiveByCategory(null);
+        $this->assertTrue(is_null($empty));
+        $category = $this->categoryRepository->findOneRandom();
+        if ($category instanceof Category) {
+            $posts = $this->repository->findAllActiveByCategory($category);
+            $this->assertTrue($posts instanceof Query);
+        }
     }
 
     public function testfindAllActive()
     {
         $posts = $this->repository->findAllActive();
-        $this->assertTrue(is_array($posts));
+        $this->assertTrue($posts instanceof Query);
     }
 }
