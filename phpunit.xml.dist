@@ -19,9 +19,6 @@
         <testsuite name="Repository">
             <directory>tests/Repository</directory>
         </testsuite>
-        <testsuite name="Services">
-            <directory>tests/Services</directory>
-        </testsuite>
     </testsuites>
 
     <filter>

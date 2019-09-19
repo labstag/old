@@ -2,6 +2,7 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Category;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,7 +20,7 @@ class CategoryRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Category::class);
     }
 
-    public function findForForm()
+    public function findForForm(): QueryBuilder
     {
         return $this->createQueryBuilder('g')->orderBy('g.name', 'ASC');
     }

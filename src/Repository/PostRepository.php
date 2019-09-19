@@ -2,6 +2,7 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\ORM\Query;
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
@@ -22,8 +23,12 @@ class PostRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Post::class);
     }
 
-    public function findAllActiveByUser(?User $user)
+    public function findAllActiveByUser(?User $user): ?Query
     {
+        if (is_null($user)) {
+            return null;
+        }
+
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refuser', 'u');
         $dql->where('p.enable=:enable');
@@ -39,8 +44,12 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActiveByTag(?Tags $tag)
+    public function findAllActiveByTag(?Tags $tag): ?Query
     {
+        if (is_null($tag)) {
+            return null;
+        }
+
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.tags', 't');
         $dql->where('p.enable=:enable');
@@ -56,8 +65,12 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActiveByCategory(?Category $category)
+    public function findAllActiveByCategory(?Category $category): ?Query
     {
+        if (is_null($category)) {
+            return null;
+        }
+
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refcategory', 'c');
         $dql->where('p.enable=:enable');
@@ -73,7 +86,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActive()
+    public function findAllActive(): Query
     {
         $dql = $this->createQueryBuilder('p');
         $dql->where('p.enable=:enable');

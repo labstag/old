@@ -20,21 +20,39 @@ class TagsRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Tags::class);
     }
 
-    public function findTagsByTypeNotTemporary(string $type): QueryBuilder
+    public function findTagsByTypeNotTemporary(?string $type): ?QueryBuilder
     {
+        if (is_null($type)) {
+            return null;
+        }
+
         $params = [
             'type'      => $type,
             'temporary' => true,
         ];
 
-        return $this->createQueryBuilder('g')->where('g.type=:type AND g.temporary=:temporary')->setParameters($params)->orderBy('g.name', 'ASC');
+        $query = $this->createQueryBuilder('g');
+        $query->where('g.type=:type AND g.temporary=:temporary');
+        $query->setParameters($params);
+        $query->orderBy('g.name', 'ASC');
+
+        return $query;
     }
 
-    public function findTagsByType(string $type): QueryBuilder
+    public function findTagsByType(?string $type): ?QueryBuilder
     {
+        if (is_null($type)) {
+            return null;
+        }
+
         $params = ['type' => $type];
 
-        return $this->createQueryBuilder('g')->where('g.type=:type')->setParameters($params)->orderBy('g.name', 'ASC');
+        $query = $this->createQueryBuilder('g');
+        $query->where('g.type=:type');
+        $query->setParameters($params);
+        $query->orderBy('g.name', 'ASC');
+
+        return $query;
     }
 
     // /**
