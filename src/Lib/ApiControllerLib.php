@@ -17,30 +17,27 @@ abstract class ApiControllerLib extends ControllerLib
      */
     private $serializer;
 
-    protected function trashAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function trashAction(ServiceEntityRepositoryLib $repository)
     {
         $dataInTrash = $repository->findDataInTrash();
-        $this->setSerializer();
-        $content = $this->serializer->serialize($dataInTrash, $format);
-
-        return new Response($content);
+        return $this->json($dataInTrash);
     }
 
-    protected function restoreAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function restoreAction(ServiceEntityRepositoryLib $repository)
     {
         unset($format, $repository);
 
         return $this->setJson();
     }
 
-    protected function emptyAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function emptyAction(ServiceEntityRepositoryLib $repository)
     {
         unset($format, $repository);
 
         return $this->setJson();
     }
 
-    protected function deleteAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function deleteAction(ServiceEntityRepositoryLib $repository)
     {
         unset($format, $repository);
 
