@@ -2,49 +2,63 @@
 
 namespace Labstag\Controller\Api;
 
+use Labstag\Entity\Templates;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\TemplatesRepository;
+use Labstag\Handler\TemplatesPublishingHandler;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TemplatesApi extends ApiControllerLib
 {
+
+    public function __construct(TemplatesPublishingHandler $templatesPublishingHandler)
+    {
+        $this->templatesPublishingHandler = $templatesPublishingHandler;
+    }
+
+    public function __invoke(Templates $data): Templates
+    {
+        $this->templatesPublishingHandler->handle($data);
+
+        return $data;
+    }
     /**
-     * @Route("/api/templates/trash.{_format}", name="api_templatestrash")
+     * @Route("/api/templates/trash", name="api_templatestrash")
      *
      * @param string $_format
      */
-    public function trash(TemplatesRepository $repository, $_format)
+    public function trash(TemplatesRepository $repository)
     {
-        return $this->trashAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/templates/trash.{_format}", name="api_templatestrashdelete", methods={"DELETE"})
+     * @Route("/api/templates/trash", name="api_templatestrashdelete", methods={"DELETE"})
      *
      * @param string $_format
      */
-    public function delete(TemplatesRepository $repository, $_format)
+    public function delete(TemplatesRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/templates/restore.{_format}", name="api_templatesrestore", methods={"POST"})
+     * @Route("/api/templates/restore", name="api_templatesrestore", methods={"POST"})
      *
      * @param string $_format
      */
-    public function restore(TemplatesRepository $repository, $_format)
+    public function restore(TemplatesRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->restoreAction($repository);
     }
 
     /**
-     * @Route("/api/templates/empty.{_format}", name="api_templatesempty", methods={"POST"})
+     * @Route("/api/templates/empty", name="api_templatesempty", methods={"POST"})
      *
      * @param string $_format
      */
-    public function vider(TemplatesRepository $repository, $_format)
+    public function vider(TemplatesRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->emptyAction($repository);
     }
 }

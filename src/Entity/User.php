@@ -3,6 +3,7 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -19,6 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Labstag\Controller\Api\UserApi;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
@@ -28,11 +30,60 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "enable": "exact"
  * })
  * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_usertrash"={
+ *             "method"="GET",
+ *             "path"="/users/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=UserApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Corbeille",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_usertrashdelete"={
+ *             "method"="DELETE",
+ *             "path"="/users/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=UserApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Remove",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_userrestore"={
+ *             "method"="POST",
+ *             "path"="/users/restore",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=UserApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Restore",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_userempty"={
+ *             "method"="POST",
+ *             "path"="/users/empty",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=UserApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Empty",
+ *                  "parameters"={}
+ *              }
+ *         }
+ *     },
  *     attributes={
  *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *         "normalization_context": {"groups": {"get"}},
  *         "denormalization_context": {"groups": {"get"}},
- *     },
+ *     }
  * )
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
@@ -115,36 +166,42 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $posts;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $oauthConnectUsers;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $histories;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $bookmarks;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $emails;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $phones;

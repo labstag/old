@@ -18,9 +18,60 @@ use Labstag\Entity\Traits\Tags;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Labstag\Controller\Api\PostApi;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_posttrash"={
+ *             "method"="GET",
+ *             "path"="/posts/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=PostApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Corbeille",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_posttrashdelete"={
+ *             "method"="DELETE",
+ *             "path"="/posts/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=PostApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Remove",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_postrestore"={
+ *             "method"="POST",
+ *             "path"="/posts/restore",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=PostApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Restore",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_postempty"={
+ *             "method"="POST",
+ *             "path"="/posts/empty",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=PostApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Empty",
+ *                  "parameters"={}
+ *              }
+ *         }
+ *     }
+ * )
  * @ApiFilter(SearchFilter::class, properties={
  *     "id": "exact",
  *     "name": "partial",

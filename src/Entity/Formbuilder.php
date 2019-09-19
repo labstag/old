@@ -11,9 +11,60 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Labstag\Controller\Api\FormBuilderApi;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_formbuildertrash"={
+ *             "method"="GET",
+ *             "path"="/formbuilders/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=FormBuilderApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Corbeille",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_formbuildertrashdelete"={
+ *             "method"="DELETE",
+ *             "path"="/formbuilders/trash",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=FormBuilderApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Remove",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_formbuilderrestore"={
+ *             "method"="POST",
+ *             "path"="/formbuilders/restore",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=FormBuilderApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Restore",
+ *                  "parameters"={}
+ *              }
+ *         },
+ *         "api_formbuilderempty"={
+ *             "method"="POST",
+ *             "path"="/formbuilders/empty",
+ *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller"=FormBuilderApi::class,
+ *             "read"=false,
+ *             "swagger_context"={
+ *                  "summary"="Empty",
+ *                  "parameters"={}
+ *              }
+ *         }
+ *     }
+ * )
  * @ApiFilter(SearchFilter::class, properties={
  *     "id": "exact",
  *     "name": "partial",

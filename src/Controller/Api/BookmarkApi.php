@@ -2,49 +2,57 @@
 
 namespace Labstag\Controller\Api;
 
+use Labstag\Entity\Bookmark;
+use Labstag\Handler\BookmarkPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\BookmarkRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BookmarkApi extends ApiControllerLib
 {
-    /**
-     * @Route("/api/bookmarks/trash.{_format}", name="api_bookmarktrash")
-     *
-     * @param string $_format
-     */
-    public function trash(BookmarkRepository $repository, $_format)
+
+    public function __construct(BookmarkPublishingHandler $bookmarkPublishingHandler)
     {
-        return $this->trashAction($repository, $_format);
+        $this->bookmarkPublishingHandler = $bookmarkPublishingHandler;
+    }
+
+    public function __invoke(Bookmark $data): Bookmark
+    {
+        $this->bookmarkPublishingHandler->handle($data);
+
+        return $data;
     }
 
     /**
-     * @Route("/api/bookmarks/trash.{_format}", name="api_bookmarktrashdelete", methods={"DELETE"})
+     * @Route("/api/bookmarks/trash", name="api_bookmarktrash")
      *
-     * @param string $_format
      */
-    public function delete(BookmarkRepository $repository, $_format)
+    public function trashBookmark(BookmarkRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/bookmarks/restore.{_format}", name="api_bookmarkrestore", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/bookmarks/trash", name="api_bookmarktrashdelete", methods={"DELETE"})
      */
-    public function restore(BookmarkRepository $repository, $_format)
+    public function deleteBookmark(BookmarkRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/bookmarks/empty.{_format}", name="api_bookmarkempty", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/bookmarks/restore", name="api_bookmarkrestore", methods={"POST"})
      */
-    public function vider(BookmarkRepository $repository, $_format)
+    public function restoreBookmark(BookmarkRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->restoreAction($repository);
+    }
+
+    /**
+     * @Route("/api/bookmarks/empty", name="api_bookmarkempty", methods={"POST"})
+     */
+    public function viderBookmark(BookmarkRepository $repository)
+    {
+        return $this->emptyAction($repository);
     }
 }
