@@ -3,9 +3,11 @@
 namespace Labstag\Tests\Repository;
 
 use Labstag\Entity\Email;
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\EmailRepository;
+use Labstag\Repository\UserRepository;
 
 /**
  * @internal
@@ -18,6 +20,11 @@ class EmailTest extends RepositoryTestLib
      * @var EmailRepository
      */
     private $repository;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     public function setUp(): void
     {
@@ -48,7 +55,11 @@ class EmailTest extends RepositoryTestLib
     public function testfindEmailByUser()
     {
         $empty = $this->repository->findEmailByUser(null);
-
-        $user = $this->repository->findEmailByUser('');
+        $this->assertTrue(is_null($empty));
+        $user  = $this->userRepository->findOneRandom();
+        if ($user instanceof User) {
+            $emails = $this->repository->findEmailByUser($user);
+            $this->assertTrue($emails instanceof QueryBuilder);
+        }
     }
 }

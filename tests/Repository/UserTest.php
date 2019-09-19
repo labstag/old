@@ -44,12 +44,28 @@ class UserTest extends RepositoryTestLib
     public function testloginToken()
     {
         $empty = $this->repository->loginToken(null);
-        $user  = $this->repository->loginToken('');
+        $this->assertTrue(is_null($empty));
+        $user = $this->repository->findOneRandom();
+        if ($user instanceof User) {
+            $user = $this->repository->loginToken($user->getApiKey());
+            $this->assertTrue($user instanceof User || is_null($user));
+        }
     }
 
     public function testlogin()
     {
         $empty = $this->repository->login(null);
-        $user  = $this->repository->login('');
+        $this->assertTrue(is_null($empty));
+        $user = $this->repository->findOneRandom();
+        if ($user instanceof User) {
+            $user = $this->repository->login(
+                $user->getUsername()
+            );
+            $this->assertTrue($user instanceof User);
+            $user = $this->repository->login(
+                $user->getEmail()
+            );
+            $this->assertTrue($user instanceof User);
+        }
     }
 }

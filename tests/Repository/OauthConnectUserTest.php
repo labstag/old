@@ -3,8 +3,10 @@
 namespace Labstag\Tests\Repository;
 
 use Labstag\Entity\OauthConnectUser;
+use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\OauthConnectUserRepository;
+use Labstag\Repository\UserRepository;
 
 /**
  * @internal
@@ -18,11 +20,19 @@ class OauthConnectUserTest extends RepositoryTestLib
      */
     private $repository;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        $this->repository     = $this->entityManager->getRepository(
             OauthConnectUser::class
+        );
+        $this->userRepository = $this->entityManager->getRepository(
+            User::class
         );
     }
 
@@ -43,19 +53,37 @@ class OauthConnectUserTest extends RepositoryTestLib
 
     public function testfindOauthNotUser()
     {
-        $empty = $this->repository->findOauthNotUser(null, '', '');
-        $oauth = $this->repository->findOauthNotUser('', '', '');
+        $empty  = $this->repository->findOauthNotUser(null, null, null);
+        $this->assertTrue(is_null($empty));
+        $random = $this->repository->findOneRandom();
+        $user   = $this->userRepository->findOneRandom();
+        if ($random instanceof OauthConnectUser && $user instanceof User) {
+            $oauth = $this->repository->findOauthNotUser(
+                $user,
+                $random->getIdentity(),
+                $random->getName()
+            );
+        }
     }
 
     public function testfindOneOauthByUser()
     {
-        $empty = $this->repository->findOneOauthByUser('', null);
-        $user  = $this->repository->findOneOauthByUser('', '');
+        $empty  = $this->repository->findOneOauthByUser(null, null);
+        $this->assertTrue(is_null($empty));
+        $random = $this->repository->findOneRandom();
+        $user   = $this->userRepository->findOneRandom();
+        if ($user instanceof User && $random instanceof OauthConnectUser) {
+            $user = $this->repository->findOneOauthByUser(
+                $random->getName(),
+                $user
+            );
+        }
     }
 
     public function testlogin()
     {
         $empty = $this->repository->login(null, null);
+        $this->assertTrue(is_null($empty));
         $oauth = $this->repository->login('', '');
     }
 

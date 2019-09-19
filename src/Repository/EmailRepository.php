@@ -21,14 +21,23 @@ class EmailRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Email::class);
     }
 
-    public function findEmailByUser(?User $user): QueryBuilder
+    public function findEmailByUser(?User $user): ?QueryBuilder
     {
+        if (is_null($user)) {
+            return null;
+        }
+
         $params = [
             'refuser' => $user,
             'checked' => true,
         ];
 
-        return $this->createQueryBuilder('g')->where('g.refuser=:refuser AND g.checked=:checked')->setParameters($params)->orderBy('g.adresse', 'ASC');
+        $query = $this->createQueryBuilder('g');
+        $query->where('g.refuser=:refuser AND g.checked=:checked');
+        $query->setParameters($params);
+        $query->orderBy('g.adresse', 'ASC');
+
+        return $query;
     }
 
     // /**

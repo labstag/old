@@ -3,6 +3,7 @@
 namespace Labstag\Tests\Repository;
 
 use Labstag\Entity\Tags;
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\TagsRepository;
 
@@ -44,14 +45,24 @@ class TagsTest extends RepositoryTestLib
     public function testfindTagsByTypeNotTemporary()
     {
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
+        $this->assertTrue(is_null($empty));
         $tags  = $this->repository->findTagsByTypeNotTemporary('');
-        $this->assertTrue(is_array($tags));
+        $this->assertTrue($tags instanceof QueryBuilder);
+        $random = $this->repository->findOneRandom();
+        $tags  = $this->repository->findTagsByTypeNotTemporary(
+            $random->getType()
+        );
+        $this->assertTrue($tags instanceof QueryBuilder);
     }
 
     public function testfindTagsByType()
     {
         $empty = $this->repository->findTagsByType(null);
-        $tags  = $this->repository->findTagsByType('');
-        $this->assertTrue(is_array($tags));
+        $this->assertTrue(is_null($empty));
+        $tags = $this->repository->findTagsByType('');
+        $this->assertTrue($tags instanceof QueryBuilder);
+        $random = $this->repository->findOneRandom();
+        $tags = $this->repository->findTagsByType($random->getType());
+        $this->assertTrue($tags instanceof QueryBuilder);
     }
 }
