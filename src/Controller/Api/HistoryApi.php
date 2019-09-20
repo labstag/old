@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\History;
+use Labstag\Handler\HistoryPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\HistoryRepository;
-use Labstag\Handler\HistoryPublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class HistoryApi extends ApiControllerLib
 {
-
-    public function __construct(HistoryPublishingHandler $historyPublishingHandler)
+    public function __construct(
+        HistoryPublishingHandler $historyPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->historyPublishingHandler = $historyPublishingHandler;
     }
@@ -22,10 +31,9 @@ class HistoryApi extends ApiControllerLib
 
         return $data;
     }
+
     /**
      * @Route("/api/histories/trash", name="api_historytrash")
-     *
-     * @param string $_format
      */
     public function trash(HistoryRepository $repository)
     {
@@ -34,8 +42,6 @@ class HistoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/histories/trash", name="api_historytrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(HistoryRepository $repository)
     {
@@ -44,8 +50,6 @@ class HistoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/histories/restore", name="api_historyrestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(HistoryRepository $repository)
     {
@@ -54,8 +58,6 @@ class HistoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/histories/empty", name="api_historyempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(HistoryRepository $repository)
     {

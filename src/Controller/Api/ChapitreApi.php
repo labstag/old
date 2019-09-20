@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Chapitre;
+use Labstag\Handler\ChapitrePublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\ChapitreRepository;
-use Labstag\Handler\ChapitrePublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class ChapitreApi extends ApiControllerLib
 {
-
-    public function __construct(ChapitrePublishingHandler $chapitrePublishingHandler)
+    public function __construct(
+        ChapitrePublishingHandler $chapitrePublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->chapitrePublishingHandler = $chapitrePublishingHandler;
     }
@@ -22,11 +31,9 @@ class ChapitreApi extends ApiControllerLib
 
         return $data;
     }
-    
+
     /**
      * @Route("/api/chapitres/trash", name="api_chapitretrash")
-     *
-     * @param string $_format
      */
     public function trash(ChapitreRepository $repository)
     {
@@ -35,8 +42,6 @@ class ChapitreApi extends ApiControllerLib
 
     /**
      * @Route("/api/chapitres/trash", name="api_chapitretrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(ChapitreRepository $repository)
     {
@@ -45,8 +50,6 @@ class ChapitreApi extends ApiControllerLib
 
     /**
      * @Route("/api/chapitres/restore", name="api_chapitrerestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(ChapitreRepository $repository)
     {
@@ -55,8 +58,6 @@ class ChapitreApi extends ApiControllerLib
 
     /**
      * @Route("/api/chapitres/empty", name="api_chapitreempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(ChapitreRepository $repository)
     {

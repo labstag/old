@@ -20,26 +20,27 @@ abstract class ApiControllerLib extends ControllerLib
     protected function trashAction(ServiceEntityRepositoryLib $repository)
     {
         $dataInTrash = $repository->findDataInTrash();
-        return $this->json($dataInTrash);
+
+        return new Response($this->serializerData($dataInTrash));
     }
 
     protected function restoreAction(ServiceEntityRepositoryLib $repository)
     {
-        unset($format, $repository);
+        unset($repository);
 
         return $this->setJson();
     }
 
     protected function emptyAction(ServiceEntityRepositoryLib $repository)
     {
-        unset($format, $repository);
+        unset($repository);
 
         return $this->setJson();
     }
 
     protected function deleteAction(ServiceEntityRepositoryLib $repository)
     {
-        unset($format, $repository);
+        unset($repository);
 
         return $this->setJson();
     }
@@ -65,6 +66,26 @@ abstract class ApiControllerLib extends ControllerLib
                 'post'       => $post,
             ]
         );
+    }
+
+    private function serializerData($data)
+    {
+        $this->setSerializer();
+        $accept = $this->request->server->get('HTTP_ACCEPT');
+        switch ($accept) {
+            case 'text/csv':
+                $serialize = 'csv';
+
+                break;
+            case 'text/xml':
+                $serialize = 'xml';
+
+                break;
+            default:
+                $serialize = 'json';
+        }
+
+        return $this->serializer->serialize($data, $serialize);
     }
 
     private function setSerializer()

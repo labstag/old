@@ -2,8 +2,8 @@
 
 namespace Labstag\Tests\Repository;
 
-use Labstag\Entity\Email;
 use Doctrine\ORM\QueryBuilder;
+use Labstag\Entity\Email;
 use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\EmailRepository;
@@ -56,7 +56,7 @@ class EmailTest extends RepositoryTestLib
     {
         $empty = $this->repository->findEmailByUser(null);
         $this->assertTrue(is_null($empty));
-        $user  = $this->userRepository->findOneRandom();
+        $user = $this->userRepository->findOneRandom();
         if ($user instanceof User) {
             $emails = $this->repository->findEmailByUser($user);
             $this->assertTrue($emails instanceof QueryBuilder);

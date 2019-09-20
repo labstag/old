@@ -18,49 +18,49 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "get",
  *         "put",
  *         "delete",
- *         "api_configurationtrash"={
- *             "method"="GET",
- *             "path"="/configurations/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ConfigurationApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Corbeille",
- *                  "parameters"={}
- *              }
+ *         "api_configurationtrash": {
+ *             "method": "GET",
+ *             "path": "/configurations/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_configurationtrashdelete"={
- *             "method"="DELETE",
- *             "path"="/configurations/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ConfigurationApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Remove",
- *                  "parameters"={}
- *              }
+ *         "api_configurationtrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/configurations/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_configurationrestore"={
- *             "method"="POST",
- *             "path"="/configurations/restore",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ConfigurationApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Restore",
- *                  "parameters"={}
- *              }
+ *         "api_configurationrestore": {
+ *             "method": "POST",
+ *             "path": "/configurations/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_configurationempty"={
- *             "method"="POST",
- *             "path"="/configurations/empty",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ConfigurationApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Empty",
- *                  "parameters"={}
- *              }
+ *         "api_configurationempty": {
+ *             "method": "POST",
+ *             "path": "/configurations/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
  *         }
  *     }
  * )

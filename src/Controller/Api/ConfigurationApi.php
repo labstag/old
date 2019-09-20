@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Configuration;
+use Labstag\Handler\ConfigurationPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\ConfigurationRepository;
-use Labstag\Handler\ConfigurationPublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class ConfigurationApi extends ApiControllerLib
 {
-
-    public function __construct(ConfigurationPublishingHandler $configurationPublishingHandler)
+    public function __construct(
+        ConfigurationPublishingHandler $configurationPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->configurationPublishingHandler = $configurationPublishingHandler;
     }
@@ -22,12 +31,9 @@ class ConfigurationApi extends ApiControllerLib
 
         return $data;
     }
-    
-    
+
     /**
      * @Route("/api/configurations/trash", name="api_configurationtrash")
-     *
-     * @param string $_format
      */
     public function trash(ConfigurationRepository $repository)
     {
@@ -36,8 +42,6 @@ class ConfigurationApi extends ApiControllerLib
 
     /**
      * @Route("/api/configurations/trash", name="api_configurationtrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(ConfigurationRepository $repository)
     {
@@ -46,8 +50,6 @@ class ConfigurationApi extends ApiControllerLib
 
     /**
      * @Route("/api/configurations/restore", name="api_configurationrestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(ConfigurationRepository $repository)
     {
@@ -56,8 +58,6 @@ class ConfigurationApi extends ApiControllerLib
 
     /**
      * @Route("/api/configurations/empty", name="api_configurationempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(ConfigurationRepository $repository)
     {

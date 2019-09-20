@@ -3,8 +3,8 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
@@ -14,13 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Labstag\Controller\Api\UserApi;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Labstag\Controller\Api\UserApi;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
@@ -34,49 +34,49 @@ use Labstag\Controller\Api\UserApi;
  *         "get",
  *         "put",
  *         "delete",
- *         "api_usertrash"={
- *             "method"="GET",
- *             "path"="/users/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=UserApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Corbeille",
- *                  "parameters"={}
- *              }
+ *         "api_usertrash": {
+ *             "method": "GET",
+ *             "path": "/users/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_usertrashdelete"={
- *             "method"="DELETE",
- *             "path"="/users/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=UserApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Remove",
- *                  "parameters"={}
- *              }
+ *         "api_usertrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/users/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_userrestore"={
- *             "method"="POST",
- *             "path"="/users/restore",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=UserApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Restore",
- *                  "parameters"={}
- *              }
+ *         "api_userrestore": {
+ *             "method": "POST",
+ *             "path": "/users/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_userempty"={
- *             "method"="POST",
- *             "path"="/users/empty",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=UserApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Empty",
- *                  "parameters"={}
- *              }
+ *         "api_userempty": {
+ *             "method": "POST",
+ *             "path": "/users/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
  *         }
  *     },
  *     attributes={

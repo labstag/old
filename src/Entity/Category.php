@@ -3,8 +3,8 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,49 +23,49 @@ use Labstag\Controller\Api\CategoryApi;
  *         "get",
  *         "put",
  *         "delete",
- *         "api_categorytrash"={
- *             "method"="GET",
- *             "path"="/categories/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=CategoryApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Corbeille",
- *                  "parameters"={}
- *              }
+ *         "api_categorytrash": {
+ *             "method": "GET",
+ *             "path": "/categories/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_categorytrashdelete"={
- *             "method"="DELETE",
- *             "path"="/categories/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=CategoryApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Remove",
- *                  "parameters"={}
- *              }
+ *         "api_categorytrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/categories/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_categoryrestore"={
- *             "method"="POST",
- *             "path"="/categories/restore",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=CategoryApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Restore",
- *                  "parameters"={}
- *              }
+ *         "api_categoryrestore": {
+ *             "method": "POST",
+ *             "path": "/categories/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_categoryempty"={
- *             "method"="POST",
- *             "path"="/categories/empty",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=CategoryApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Empty",
- *                  "parameters"={}
- *              }
+ *         "api_categoryempty": {
+ *             "method": "POST",
+ *             "path": "/categories/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
  *         }
  *     }
  * )

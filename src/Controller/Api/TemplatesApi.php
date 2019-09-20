@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Templates;
+use Labstag\Handler\TemplatesPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\TemplatesRepository;
-use Labstag\Handler\TemplatesPublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class TemplatesApi extends ApiControllerLib
 {
-
-    public function __construct(TemplatesPublishingHandler $templatesPublishingHandler)
+    public function __construct(
+        TemplatesPublishingHandler $templatesPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->templatesPublishingHandler = $templatesPublishingHandler;
     }
@@ -22,10 +31,9 @@ class TemplatesApi extends ApiControllerLib
 
         return $data;
     }
+
     /**
      * @Route("/api/templates/trash", name="api_templatestrash")
-     *
-     * @param string $_format
      */
     public function trash(TemplatesRepository $repository)
     {
@@ -34,8 +42,6 @@ class TemplatesApi extends ApiControllerLib
 
     /**
      * @Route("/api/templates/trash", name="api_templatestrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(TemplatesRepository $repository)
     {
@@ -44,8 +50,6 @@ class TemplatesApi extends ApiControllerLib
 
     /**
      * @Route("/api/templates/restore", name="api_templatesrestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(TemplatesRepository $repository)
     {
@@ -54,8 +58,6 @@ class TemplatesApi extends ApiControllerLib
 
     /**
      * @Route("/api/templates/empty", name="api_templatesempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(TemplatesRepository $repository)
     {
