@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Category;
-use Labstag\Lib\ApiControllerLib;
 use Labstag\Handler\CategoryPublishingHandler;
+use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\CategoryRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class CategoryApi extends ApiControllerLib
 {
-
-    public function __construct(CategoryPublishingHandler $categoryPublishingHandler)
+    public function __construct(
+        CategoryPublishingHandler $categoryPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->categoryPublishingHandler = $categoryPublishingHandler;
     }
@@ -25,8 +34,6 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/trash", name="api_categorytrash")
-     *
-     * @param string $_format
      */
     public function trash(CategoryRepository $repository)
     {
@@ -35,8 +42,6 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/trash", name="api_categorytrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(CategoryRepository $repository)
     {
@@ -45,8 +50,6 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/restore", name="api_categoryrestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(CategoryRepository $repository)
     {
@@ -55,8 +58,6 @@ class CategoryApi extends ApiControllerLib
 
     /**
      * @Route("/api/categories/empty", name="api_categoryempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(CategoryRepository $repository)
     {

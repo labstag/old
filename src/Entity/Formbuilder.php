@@ -19,49 +19,49 @@ use Labstag\Controller\Api\FormBuilderApi;
  *         "get",
  *         "put",
  *         "delete",
- *         "api_formbuildertrash"={
- *             "method"="GET",
- *             "path"="/formbuilders/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=FormBuilderApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Corbeille",
- *                  "parameters"={}
- *              }
+ *         "api_formbuildertrash": {
+ *             "method": "GET",
+ *             "path": "/formbuilders/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": FormBuilderApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_formbuildertrashdelete"={
- *             "method"="DELETE",
- *             "path"="/formbuilders/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=FormBuilderApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Remove",
- *                  "parameters"={}
- *              }
+ *         "api_formbuildertrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/formbuilders/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": FormBuilderApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_formbuilderrestore"={
- *             "method"="POST",
- *             "path"="/formbuilders/restore",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=FormBuilderApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Restore",
- *                  "parameters"={}
- *              }
+ *         "api_formbuilderrestore": {
+ *             "method": "POST",
+ *             "path": "/formbuilders/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": FormBuilderApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_formbuilderempty"={
- *             "method"="POST",
- *             "path"="/formbuilders/empty",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=FormBuilderApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Empty",
- *                  "parameters"={}
- *              }
+ *         "api_formbuilderempty": {
+ *             "method": "POST",
+ *             "path": "/formbuilders/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": FormBuilderApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
  *         }
  *     }
  * )

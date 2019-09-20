@@ -20,49 +20,49 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "get",
  *         "put",
  *         "delete",
- *         "api_chapitretrash"={
- *             "method"="GET",
- *             "path"="/chapitres/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ChapitreApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Corbeille",
- *                  "parameters"={}
- *              }
+ *         "api_chapitretrash": {
+ *             "method": "GET",
+ *             "path": "/chapitres/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ChapitreApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_chapitretrashdelete"={
- *             "method"="DELETE",
- *             "path"="/chapitres/trash",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ChapitreApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Remove",
- *                  "parameters"={}
- *              }
+ *         "api_chapitretrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/chapitres/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ChapitreApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_chapitrerestore"={
- *             "method"="POST",
- *             "path"="/chapitres/restore",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ChapitreApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Restore",
- *                  "parameters"={}
- *              }
+ *         "api_chapitrerestore": {
+ *             "method": "POST",
+ *             "path": "/chapitres/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ChapitreApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
  *         },
- *         "api_chapitreempty"={
- *             "method"="POST",
- *             "path"="/chapitres/empty",
- *             "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *             "controller"=ChapitreApi::class,
- *             "read"=false,
- *             "swagger_context"={
- *                  "summary"="Empty",
- *                  "parameters"={}
- *              }
+ *         "api_chapitreempty": {
+ *             "method": "POST",
+ *             "path": "/chapitres/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ChapitreApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
  *         }
  *     }
  * )

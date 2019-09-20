@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Formbuilder;
+use Labstag\Handler\FormBuilderPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\FormbuilderRepository;
-use Labstag\Handler\FormBuilderPublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class FormBuilderApi extends ApiControllerLib
 {
-
-    public function __construct(FormBuilderPublishingHandler $formbuilderPublishingHandler)
+    public function __construct(
+        FormBuilderPublishingHandler $formbuilderPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->formbuilderPublishingHandler = $formbuilderPublishingHandler;
     }
@@ -25,8 +34,6 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/trash", name="api_formbuildertrash")
-     *
-     * @param string $_format
      */
     public function trash(FormbuilderRepository $repository)
     {
@@ -35,8 +42,6 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/trash", name="api_formbuildertrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(FormbuilderRepository $repository)
     {
@@ -45,8 +50,6 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/restore", name="api_formbuilderrestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(FormbuilderRepository $repository)
     {
@@ -55,8 +58,6 @@ class FormBuilderApi extends ApiControllerLib
 
     /**
      * @Route("/api/formbuilders/empty", name="api_formbuilderempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(FormbuilderRepository $repository)
     {

@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Tags;
+use Labstag\Handler\TagsPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\TagsRepository;
-use Labstag\Handler\TagsPublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class TagsApi extends ApiControllerLib
 {
-
-    public function __construct(TagsPublishingHandler $tagsPublishingHandler)
+    public function __construct(
+        TagsPublishingHandler $tagsPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->tagsPublishingHandler = $tagsPublishingHandler;
     }
@@ -22,10 +31,9 @@ class TagsApi extends ApiControllerLib
 
         return $data;
     }
+
     /**
      * @Route("/api/tags/trash", name="api_tagstrash")
-     *
-     * @param string $_format
      */
     public function trash(TagsRepository $repository)
     {
@@ -34,8 +42,6 @@ class TagsApi extends ApiControllerLib
 
     /**
      * @Route("/api/tags/trash", name="api_tagstrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(TagsRepository $repository)
     {
@@ -44,8 +50,6 @@ class TagsApi extends ApiControllerLib
 
     /**
      * @Route("/api/tags/restore", name="api_tagsrestore", methods={"Tags"})
-     *
-     * @param string $_format
      */
     public function restore(TagsRepository $repository)
     {
@@ -54,8 +58,6 @@ class TagsApi extends ApiControllerLib
 
     /**
      * @Route("/api/tags/empty", name="api_tagsempty", methods={"Tags"})
-     *
-     * @param string $_format
      */
     public function vider(TagsRepository $repository)
     {

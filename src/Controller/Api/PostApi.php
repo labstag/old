@@ -2,16 +2,25 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Post;
+use Labstag\Handler\PostPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\PostRepository;
-use Labstag\Handler\PostPublishingHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class PostApi extends ApiControllerLib
 {
-
-    public function __construct(PostPublishingHandler $postPublishingHandler)
+    public function __construct(
+        PostPublishingHandler $postPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->postPublishingHandler = $postPublishingHandler;
     }
@@ -25,8 +34,6 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/trash", name="api_posttrash")
-     *
-     * @param string $_format
      */
     public function trash(PostRepository $repository)
     {
@@ -35,8 +42,6 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/trash", name="api_posttrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
      */
     public function delete(PostRepository $repository)
     {
@@ -45,8 +50,6 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/restore", name="api_postrestore", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function restore(PostRepository $repository)
     {
@@ -55,8 +58,6 @@ class PostApi extends ApiControllerLib
 
     /**
      * @Route("/api/posts/empty", name="api_postempty", methods={"POST"})
-     *
-     * @param string $_format
      */
     public function vider(PostRepository $repository)
     {

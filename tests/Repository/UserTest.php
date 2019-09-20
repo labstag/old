@@ -45,10 +45,15 @@ class UserTest extends RepositoryTestLib
     {
         $empty = $this->repository->loginToken(null);
         $this->assertTrue(is_null($empty));
-        $user = $this->repository->findOneRandom();
+        $user = $this->repository->findOneRandom(
+            'e.apiKey IS NOT NULL AND e.apiKey!=:apikey',
+            [
+                'apikey' => ''
+            ]
+        );
         if ($user instanceof User) {
             $user = $this->repository->loginToken($user->getApiKey());
-            $this->assertTrue($user instanceof User || is_null($user));
+            $this->assertTrue($user instanceof User);
         }
     }
 
