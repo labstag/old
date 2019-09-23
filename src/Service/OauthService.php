@@ -1,6 +1,6 @@
 <?php
 
-namespace Labstag\Services;
+namespace Labstag\Service;
 
 use Labstag\Lib\GenericProviderLib;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class OauthServices
+class OauthService
 {
 
     /**
@@ -32,7 +32,7 @@ class OauthServices
         $this->setConfigProvider();
     }
 
-    public function getIdentity($data, $oauth)
+    public function getIdentity(?array $data, ?string $oauth): ?string
     {
         $entity = '';
         switch ($oauth) {
@@ -66,7 +66,7 @@ class OauthServices
 
     public function getActivedProvider($clientName)
     {
-        return isset($this->configProvider[$clientName]);
+        return array_key_exists($clientName, $this->configProvider);
     }
 
     protected function setConfigProvider()

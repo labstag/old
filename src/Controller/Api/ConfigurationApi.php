@@ -2,49 +2,65 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\Configuration;
+use Labstag\Handler\ConfigurationPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\ConfigurationRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class ConfigurationApi extends ApiControllerLib
 {
-    /**
-     * @Route("/api/configurations/trash.{_format}", name="api_configurationtrash")
-     *
-     * @param string $_format
-     */
-    public function trash(ConfigurationRepository $repository, $_format)
+    public function __construct(
+        ConfigurationPublishingHandler $configurationPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
-        return $this->trashAction($repository, $_format);
+        $this->configurationPublishingHandler = $configurationPublishingHandler;
+    }
+
+    public function __invoke(Configuration $data): Configuration
+    {
+        $this->configurationPublishingHandler->handle($data);
+
+        return $data;
     }
 
     /**
-     * @Route("/api/configurations/trash.{_format}", name="api_configurationtrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
+     * @Route("/api/configurations/trash", name="api_configurationtrash")
      */
-    public function delete(ConfigurationRepository $repository, $_format)
+    public function trash(ConfigurationRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/configurations/restore.{_format}", name="api_configurationrestore", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/configurations/trash", name="api_configurationtrashdelete", methods={"DELETE"})
      */
-    public function restore(ConfigurationRepository $repository, $_format)
+    public function delete(ConfigurationRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/configurations/empty.{_format}", name="api_configurationempty", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/configurations/restore", name="api_configurationrestore", methods={"POST"})
      */
-    public function vider(ConfigurationRepository $repository, $_format)
+    public function restore(ConfigurationRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->restoreAction($repository);
+    }
+
+    /**
+     * @Route("/api/configurations/empty", name="api_configurationempty", methods={"POST"})
+     */
+    public function vider(ConfigurationRepository $repository)
+    {
+        return $this->emptyAction($repository);
     }
 }

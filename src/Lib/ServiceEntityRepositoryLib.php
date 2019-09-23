@@ -14,13 +14,16 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         $dql->select('e');
         $dql->from($this->_entityName, 'e');
         $dql->where('e.deletedAt IS NOT NULL');
-        $query = $dql->getQuery();
 
-        return $query->getResult();
+        return $dql->getQuery()->getResult();
     }
 
-    public function findOneDateInTrash($guid)
+    public function findOneDateInTrash(?string $guid)
     {
+        if (is_null($guid)) {
+            return null;
+        }
+
         $entityManager = $this->getEntityManager();
         $entityManager->getFilters()->disable('softdeleteable');
         $dql = $entityManager->createQueryBuilder();
@@ -28,8 +31,25 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         $dql->from($this->_entityName, 'e');
         $dql->where('e.deletedAt IS NOT NULL AND e.id=:id');
         $dql->setParameter('id', $guid);
-        $query = $dql->getQuery();
 
-        return $query->getOneOrNullResult();
+        return $dql->getQuery()->getOneOrNullResult();
+    }
+
+    public function findOneRandom(string $where = '', array $params = [])
+    {
+        $entityManager = $this->getEntityManager();
+        $dql           = $entityManager->createQueryBuilder();
+        $dql->select('e');
+        $dql->addSelect('RAND() as HIDDEN rand');
+        $dql->from($this->_entityName, 'e');
+        if ('' != $where) {
+            $dql->where($where);
+            $dql->setParameters($params);
+        }
+
+        $dql->orderBy('rand');
+        $dql->setMaxResults(1);
+
+        return $dql->getQuery()->getOneOrNullResult();
     }
 }

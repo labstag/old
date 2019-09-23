@@ -2,19 +2,18 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Labstag\Entity\Configuration;
 use Labstag\Entity\Phone;
 use Labstag\Entity\Templates;
+use Labstag\Lib\EventSubscriberLib;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class PhoneListener implements EventSubscriber
+class PhoneListener extends EventSubscriberLib
 {
 
     /**
@@ -55,25 +54,6 @@ class PhoneListener implements EventSubscriber
         $this->checkPhone($entity, $args);
     }
 
-    private function setConfigurationParam($args)
-    {
-        if (isset($this->configParams)) {
-            return;
-        }
-
-        $manager    = $args->getEntityManager();
-        $repository = $manager->getRepository(Configuration::class);
-        $data       = $repository->findAll();
-        $config     = [];
-        foreach ($data as $row) {
-            $key          = $row->getName();
-            $value        = $row->getValue();
-            $config[$key] = $value;
-        }
-
-        $this->configParams = $config;
-    }
-
     private function checkPhone(Phone $entity, $args)
     {
         $check = $entity->isChecked();
@@ -89,7 +69,7 @@ class PhoneListener implements EventSubscriber
         $text       = $templates->getText();
         $user       = $entity->getRefuser();
         $this->setConfigurationParam($args);
-        $before = [
+        $before  = [
             '%site%',
             '%username%',
             '%phone%',

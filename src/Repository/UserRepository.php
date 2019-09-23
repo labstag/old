@@ -36,8 +36,12 @@ class UserRepository extends ServiceEntityRepositoryLib
     }
     */
 
-    public function loginToken($token)
+    public function loginToken(?string $token)
     {
+        if (is_null($token)) {
+            return;
+        }
+
         $builder = $this->createQueryBuilder('u');
         $builder->where(
             'u.enable = :enable AND u.apiKey = :apiKey'
@@ -52,8 +56,12 @@ class UserRepository extends ServiceEntityRepositoryLib
         return $builder->getQuery()->getOneOrNullResult();
     }
 
-    public function login($login)
+    public function login(?string $login)
     {
+        if (is_null($login)) {
+            return;
+        }
+
         $builder = $this->createQueryBuilder('u');
         $builder->where(
             'u.username = :username OR u.email = :email'

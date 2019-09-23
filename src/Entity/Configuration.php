@@ -4,19 +4,70 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Labstag\Controller\Api\ConfigurationApi;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_configurationtrash": {
+ *             "method": "GET",
+ *             "path": "/configurations/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_configurationtrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/configurations/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_configurationrestore": {
+ *             "method": "POST",
+ *             "path": "/configurations/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_configurationempty": {
+ *             "method": "POST",
+ *             "path": "/configurations/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": ConfigurationApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
+ *         }
+ *     }
+ * )
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "name": "partial",
- *  "value": "partial"
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "value": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ConfigurationRepository")

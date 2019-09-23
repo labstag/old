@@ -2,9 +2,9 @@
 
 namespace Labstag\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\Phone;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
  * @method null|Phone find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +12,7 @@ use Labstag\Entity\Phone;
  * @method Phone[]    findAll()
  * @method Phone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PhoneRepository extends ServiceEntityRepository
+class PhoneRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(ManagerRegistry $registry)
     {

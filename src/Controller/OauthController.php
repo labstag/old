@@ -8,7 +8,7 @@ use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\OauthConnectUserRepository;
-use Labstag\Services\OauthServices;
+use Labstag\Service\OauthService;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,14 +22,14 @@ class OauthController extends ControllerLib
 {
 
     /**
-     * @var OauthServices
+     * @var OauthService
      */
-    private $oauthServices;
+    private $OauthService;
 
-    public function __construct(ContainerInterface $container, OauthServices $oauthServices, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
+    public function __construct(ContainerInterface $container, OauthService $OauthService, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->oauthServices = $oauthServices;
+        $this->OauthService = $OauthService;
     }
 
     /**
@@ -66,7 +66,7 @@ class OauthController extends ControllerLib
      */
     public function connectAction(Request $request, string $oauthCode)
     {
-        $provider = $this->oauthServices->setProvider($oauthCode);
+        $provider = $this->OauthService->setProvider($oauthCode);
         $session  = $request->getSession();
         $referer  = $request->headers->get('referer');
         $session->set('referer', $referer);
@@ -99,7 +99,7 @@ class OauthController extends ControllerLib
      */
     public function connectCheckAction(Request $request, string $oauthCode)
     {
-        $provider    = $this->oauthServices->setProvider($oauthCode);
+        $provider    = $this->OauthService->setProvider($oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
         $referer     = $session->get('referer');
@@ -147,7 +147,7 @@ class OauthController extends ControllerLib
         $oauthConnects = $user->getOauthConnectUsers();
         $find          = 0;
         $data          = $userOauth->toArray();
-        $identity      = $this->oauthServices->getIdentity($data, $client);
+        $identity      = $this->OauthService->getIdentity($data, $client);
         // @var OauthConnectUser
         foreach ($oauthConnects as $oauthConnect) {
             if ($oauthConnect->getName() == $client && $oauthConnect->getIdentity() == $identity) {

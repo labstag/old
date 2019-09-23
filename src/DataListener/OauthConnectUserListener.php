@@ -2,30 +2,30 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\OauthConnectUser;
-use Labstag\Services\OauthServices;
+use Labstag\Lib\EventSubscriberLib;
+use Labstag\Service\OauthService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class OauthConnectUserListener implements EventSubscriber
+class OauthConnectUserListener extends EventSubscriberLib
 {
 
     /**
-     * @var OauthServices
+     * @var OauthService
      */
-    private $oauthServices;
+    private $OauthService;
 
     /**
      * @var ContainerInterface
      */
     private $container;
 
-    public function __construct(ContainerInterface $container, OauthServices $oauthServices)
+    public function __construct(ContainerInterface $container, OauthService $OauthService)
     {
         $this->container     = $container;
-        $this->oauthServices = $oauthServices;
+        $this->OauthService = $OauthService;
     }
 
     /**
@@ -71,7 +71,7 @@ class OauthConnectUserListener implements EventSubscriber
     {
         $name     = $entity->getName();
         $data     = $entity->getData();
-        $identity = $this->oauthServices->getIdentity($data, $name);
+        $identity = $this->OauthService->getIdentity($data, $name);
         $entity->setIdentity($identity);
     }
 }

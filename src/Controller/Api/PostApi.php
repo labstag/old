@@ -2,49 +2,65 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\Post;
+use Labstag\Handler\PostPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\PostRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class PostApi extends ApiControllerLib
 {
-    /**
-     * @Route("/api/posts/trash.{_format}", name="api_posttrash")
-     *
-     * @param string $_format
-     */
-    public function trash(PostRepository $repository, $_format)
+    public function __construct(
+        PostPublishingHandler $postPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
-        return $this->trashAction($repository, $_format);
+        $this->postPublishingHandler = $postPublishingHandler;
+    }
+
+    public function __invoke(Post $data): Post
+    {
+        $this->postPublishingHandler->handle($data);
+
+        return $data;
     }
 
     /**
-     * @Route("/api/posts/trash.{_format}", name="api_posttrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
+     * @Route("/api/posts/trash", name="api_posttrash")
      */
-    public function delete(PostRepository $repository, $_format)
+    public function trash(PostRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/posts/restore.{_format}", name="api_postrestore", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/posts/trash", name="api_posttrashdelete", methods={"DELETE"})
      */
-    public function restore(PostRepository $repository, $_format)
+    public function delete(PostRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/posts/empty.{_format}", name="api_postempty", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/posts/restore", name="api_postrestore", methods={"POST"})
      */
-    public function vider(PostRepository $repository, $_format)
+    public function restore(PostRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->restoreAction($repository);
+    }
+
+    /**
+     * @Route("/api/posts/empty", name="api_postempty", methods={"POST"})
+     */
+    public function vider(PostRepository $repository)
+    {
+        return $this->emptyAction($repository);
     }
 }

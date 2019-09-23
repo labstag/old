@@ -2,49 +2,65 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\Templates;
+use Labstag\Handler\TemplatesPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\TemplatesRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class TemplatesApi extends ApiControllerLib
 {
-    /**
-     * @Route("/api/templates/trash.{_format}", name="api_templatestrash")
-     *
-     * @param string $_format
-     */
-    public function trash(TemplatesRepository $repository, $_format)
+    public function __construct(
+        TemplatesPublishingHandler $templatesPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
-        return $this->trashAction($repository, $_format);
+        $this->templatesPublishingHandler = $templatesPublishingHandler;
+    }
+
+    public function __invoke(Templates $data): Templates
+    {
+        $this->templatesPublishingHandler->handle($data);
+
+        return $data;
     }
 
     /**
-     * @Route("/api/templates/trash.{_format}", name="api_templatestrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
+     * @Route("/api/templates/trash", name="api_templatestrash")
      */
-    public function delete(TemplatesRepository $repository, $_format)
+    public function trash(TemplatesRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/templates/restore.{_format}", name="api_templatesrestore", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/templates/trash", name="api_templatestrashdelete", methods={"DELETE"})
      */
-    public function restore(TemplatesRepository $repository, $_format)
+    public function delete(TemplatesRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/templates/empty.{_format}", name="api_templatesempty", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/templates/restore", name="api_templatesrestore", methods={"POST"})
      */
-    public function vider(TemplatesRepository $repository, $_format)
+    public function restore(TemplatesRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->restoreAction($repository);
+    }
+
+    /**
+     * @Route("/api/templates/empty", name="api_templatesempty", methods={"POST"})
+     */
+    public function vider(TemplatesRepository $repository)
+    {
+        return $this->emptyAction($repository);
     }
 }
