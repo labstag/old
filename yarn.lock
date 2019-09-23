@@ -4828,7 +4828,7 @@ gitignore-to-glob@^0.3.0:
   resolved "https://registry.yarnpkg.com/gitignore-to-glob/-/gitignore-to-glob-0.3.0.tgz#59f32ab3d9b66ce50299c3ed24cb0ef42a094ceb"
   integrity sha1-WfMqs9m2bOUCmcPtJMsO9CoJTOs=
 
-gitmoji-changelog@^1.1.0:
+gitmoji-changelog@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/gitmoji-changelog/-/gitmoji-changelog-1.1.0.tgz#1b722f993e0e9c37eaf3a752759a34450891aa17"
   integrity sha512-V7egzHq5w0KgxSiGKunlU/FjN/bV18K0KpZRxEuSbgrnXeKLLbBB4gwP54sP1ESPdFloz7MT/G4d0JXgsngf6w==
