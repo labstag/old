@@ -23,10 +23,7 @@ class OauthTest extends ServiceTestLib
     {
         parent::setUp();
         $this->service    = self::$container->get(OauthService::class);
-        $kernel           = self::bootKernel();
-        $doctrine         = $kernel->getContainer()->get('doctrine');
-        $entityManager    = $doctrine->getManager();
-        $this->repository = $entityManager->getRepository(
+        $this->repository = $this->entityManager->getRepository(
             OauthConnectUser::class
         );
     }
@@ -60,6 +57,6 @@ class OauthTest extends ServiceTestLib
         $empty   = $service->setProvider(null);
         $this->AssertNull($empty);
         $gitlab = $service->setProvider('gitlab');
-        $this->assertTrue($gitlab instanceof GenericProviderLib);
+        $this->assertSame(get_class($gitlab), GenericProviderLib::class);
     }
 }

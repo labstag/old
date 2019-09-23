@@ -38,8 +38,12 @@ class TagsTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Tags);
+            $this->assertSame(get_class($random), Tags::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
     public function testfindTagsByTypeNotTemporary()
@@ -47,12 +51,12 @@ class TagsTest extends RepositoryTestLib
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $this->AssertNull($empty);
         $tags = $this->repository->findTagsByTypeNotTemporary('');
-        $this->assertTrue($tags instanceof QueryBuilder);
+        $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
         $tags   = $this->repository->findTagsByTypeNotTemporary(
             $random->getType()
         );
-        $this->assertTrue($tags instanceof QueryBuilder);
+        $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 
     public function testfindTagsByType()
@@ -60,9 +64,9 @@ class TagsTest extends RepositoryTestLib
         $empty = $this->repository->findTagsByType(null);
         $this->AssertNull($empty);
         $tags = $this->repository->findTagsByType('');
-        $this->assertTrue($tags instanceof QueryBuilder);
+        $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
         $tags   = $this->repository->findTagsByType($random->getType());
-        $this->assertTrue($tags instanceof QueryBuilder);
+        $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 }

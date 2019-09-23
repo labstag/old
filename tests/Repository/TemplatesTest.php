@@ -37,7 +37,11 @@ class TemplatesTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Templates);
+            $this->assertSame(get_class($random), Templates::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }

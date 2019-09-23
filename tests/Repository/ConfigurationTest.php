@@ -37,8 +37,12 @@ class ConfigurationTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Configuration);
+            $this->assertSame(get_class($random), Configuration::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
     public function testgetDataArray()

@@ -37,8 +37,12 @@ class UserTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof User);
+            $this->assertSame(get_class($random), User::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
     public function testloginToken()
@@ -51,7 +55,7 @@ class UserTest extends RepositoryTestLib
         );
         if ($user instanceof User) {
             $user = $this->repository->loginToken($user->getApiKey());
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
         }
     }
 
@@ -64,11 +68,11 @@ class UserTest extends RepositoryTestLib
             $user = $this->repository->login(
                 $user->getUsername()
             );
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
             $user = $this->repository->login(
                 $user->getEmail()
             );
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
         }
     }
 }

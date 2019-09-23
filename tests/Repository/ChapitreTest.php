@@ -37,7 +37,11 @@ class ChapitreTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Chapitre);
+            $this->assertSame(get_class($random), Chapitre::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }

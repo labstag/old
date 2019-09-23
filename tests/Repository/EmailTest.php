@@ -48,8 +48,12 @@ class EmailTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Email);
+            $this->assertSame(get_class($random), Email::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
     public function testfindEmailByUser()
@@ -59,7 +63,7 @@ class EmailTest extends RepositoryTestLib
         $user = $this->userRepository->findOneRandom();
         if ($user instanceof User) {
             $emails = $this->repository->findEmailByUser($user);
-            $this->assertTrue($emails instanceof QueryBuilder);
+            $this->assertSame(get_class($emails), QueryBuilder::class);
         }
     }
 }

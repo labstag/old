@@ -13,3 +13,8 @@ parameters:
         file_size:
             max_size: 10M
             ignore_patterns: []
+        phpunit:
+            config_file: ~
+            testsuite: ~
+            group: []
+            always_execute: false
