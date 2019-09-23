@@ -2,49 +2,65 @@
 
 namespace Labstag\Controller\Api;
 
+use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\Tags;
+use Labstag\Handler\TagsPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\TagsRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class TagsApi extends ApiControllerLib
 {
-    /**
-     * @Route("/api/tags/trash.{_format}", name="api_tagstrash")
-     *
-     * @param string $_format
-     */
-    public function trash(TagsRepository $repository, $_format)
+    public function __construct(
+        TagsPublishingHandler $tagsPublishingHandler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
-        return $this->trashAction($repository, $_format);
+        $this->tagsPublishingHandler = $tagsPublishingHandler;
+    }
+
+    public function __invoke(Tags $data): Tags
+    {
+        $this->tagsPublishingHandler->handle($data);
+
+        return $data;
     }
 
     /**
-     * @Route("/api/tags/trash.{_format}", name="api_tagstrashdelete", methods={"DELETE"})
-     *
-     * @param string $_format
+     * @Route("/api/tags/trash", name="api_tagstrash")
      */
-    public function delete(TagsRepository $repository, $_format)
+    public function trash(TagsRepository $repository)
     {
-        return $this->deleteAction($repository, $_format);
+        return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/tags/restore.{_format}", name="api_tagsrestore", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/tags/trash", name="api_tagstrashdelete", methods={"DELETE"})
      */
-    public function restore(TagsRepository $repository, $_format)
+    public function delete(TagsRepository $repository)
     {
-        return $this->restoreAction($repository, $_format);
+        return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/tags/empty.{_format}", name="api_tagsempty", methods={"POST"})
-     *
-     * @param string $_format
+     * @Route("/api/tags/restore", name="api_tagsrestore", methods={"Tags"})
      */
-    public function vider(TagsRepository $repository, $_format)
+    public function restore(TagsRepository $repository)
     {
-        return $this->emptyAction($repository, $_format);
+        return $this->restoreAction($repository);
+    }
+
+    /**
+     * @Route("/api/tags/empty", name="api_tagsempty", methods={"Tags"})
+     */
+    public function vider(TagsRepository $repository)
+    {
+        return $this->emptyAction($repository);
     }
 }

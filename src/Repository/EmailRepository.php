@@ -2,11 +2,11 @@
 
 namespace Labstag\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Email;
 use Labstag\Entity\User;
+use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
  * @method null|Email find($id, $lockMode = null, $lockVersion = null)
@@ -14,21 +14,30 @@ use Labstag\Entity\User;
  * @method Email[]    findAll()
  * @method Email[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmailRepository extends ServiceEntityRepository
+class EmailRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Email::class);
     }
 
-    public function findEmailByUser(User $user): QueryBuilder
+    public function findEmailByUser(?User $user): ?QueryBuilder
     {
+        if (is_null($user)) {
+            return null;
+        }
+
         $params = [
             'refuser' => $user,
             'checked' => true,
         ];
 
-        return $this->createQueryBuilder('g')->where('g.refuser=:refuser AND g.checked=:checked')->setParameters($params)->orderBy('g.adresse', 'ASC');
+        $query = $this->createQueryBuilder('g');
+        $query->where('g.refuser=:refuser AND g.checked=:checked');
+        $query->setParameters($params);
+        $query->orderBy('g.adresse', 'ASC');
+
+        return $query;
     }
 
     // /**

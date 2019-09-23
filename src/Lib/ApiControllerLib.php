@@ -17,32 +17,30 @@ abstract class ApiControllerLib extends ControllerLib
      */
     private $serializer;
 
-    protected function trashAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function trashAction(ServiceEntityRepositoryLib $repository)
     {
         $dataInTrash = $repository->findDataInTrash();
-        $this->setSerializer();
-        $content = $this->serializer->serialize($dataInTrash, $format);
 
-        return new Response($content);
+        return new Response($this->serializerData($dataInTrash));
     }
 
-    protected function restoreAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function restoreAction(ServiceEntityRepositoryLib $repository)
     {
-        unset($format, $repository);
+        unset($repository);
 
         return $this->setJson();
     }
 
-    protected function emptyAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function emptyAction(ServiceEntityRepositoryLib $repository)
     {
-        unset($format, $repository);
+        unset($repository);
 
         return $this->setJson();
     }
 
-    protected function deleteAction(ServiceEntityRepositoryLib $repository, string $format)
+    protected function deleteAction(ServiceEntityRepositoryLib $repository)
     {
-        unset($format, $repository);
+        unset($repository);
 
         return $this->setJson();
     }
@@ -68,6 +66,26 @@ abstract class ApiControllerLib extends ControllerLib
                 'post'       => $post,
             ]
         );
+    }
+
+    private function serializerData($data)
+    {
+        $this->setSerializer();
+        $accept = $this->request->server->get('HTTP_ACCEPT');
+        switch ($accept) {
+            case 'text/csv':
+                $serialize = 'csv';
+
+                break;
+            case 'text/xml':
+                $serialize = 'xml';
+
+                break;
+            default:
+                $serialize = 'json';
+        }
+
+        return $this->serializer->serialize($data, $serialize);
     }
 
     private function setSerializer()

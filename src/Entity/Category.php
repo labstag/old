@@ -4,7 +4,9 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,15 +15,65 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Labstag\Controller\Api\CategoryApi;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_categorytrash": {
+ *             "method": "GET",
+ *             "path": "/categories/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_categorytrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/categories/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_categoryrestore": {
+ *             "method": "POST",
+ *             "path": "/categories/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_categoryempty": {
+ *             "method": "POST",
+ *             "path": "/categories/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": CategoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
+ *         }
+ *     }
+ * )
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "name": "partial",
- *  "temporary": "exact",
- *  "slug": "partial"
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "temporary": "exact",
+ *     "slug": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\CategoryRepository")
@@ -54,6 +106,7 @@ class Category implements Translatable
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refcategory")
+     * @ApiSubresource
      */
     private $posts;
 

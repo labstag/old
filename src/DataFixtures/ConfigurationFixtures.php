@@ -5,19 +5,19 @@ namespace Labstag\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Labstag\Entity\Configuration;
-use Labstag\Services\OauthServices;
+use Labstag\Service\OauthService;
 
 class ConfigurationFixtures extends Fixture
 {
 
     /**
-     * @var OauthServices
+     * @var OauthService
      */
-    private $oauthServices;
+    private $OauthService;
 
-    public function __construct(OauthServices $oauthServices)
+    public function __construct(OauthService $OauthService)
     {
-        $this->oauthServices = $oauthServices;
+        $this->OauthService = $OauthService;
     }
 
     public function load(ObjectManager $manager)
@@ -83,7 +83,7 @@ class ConfigurationFixtures extends Fixture
                 ]     = explode('_', $code);
                 if (!isset($oauth[$type])) {
                     $oauth[$type] = [
-                        'activate' => $this->oauthServices->getActivedProvider($type),
+                        'activate' => $this->OauthService->getActivedProvider($type),
                         'type'     => $type,
                     ];
                 }

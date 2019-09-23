@@ -23,6 +23,11 @@ services:
         resource: "../src/Controller"
         tags: ["controller.service_arguments"]
 
+    Labstag\Service\:
+        resource: "../src/Service"
+        autowire: true
+        public: true
+
     Labstag\DataListener\:
         resource: "../src/DataListener"
         autowire: true
@@ -32,7 +37,7 @@ services:
     Labstag\Controller\ExceptionController:
         public: true
         arguments:
-            $debug: '%kernel.debug%'
+            $debug: "%kernel.debug%"
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

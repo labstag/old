@@ -4,8 +4,9 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,19 +16,70 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
+use Labstag\Controller\Api\HistoryApi;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_historytrash": {
+ *             "method": "GET",
+ *             "path": "/histories/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": HistoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_historytrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/histories/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": HistoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_historyrestore": {
+ *             "method": "POST",
+ *             "path": "/histories/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": HistoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_historyempty": {
+ *             "method": "POST",
+ *             "path": "/histories/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": HistoryApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
+ *         }
+ *     }
+ * )
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "name": "partial",
- *  "enable": "exact",
- *  "slug": "partial",
- *  "end": "exact",
- *  "resume": "partial"
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "enable": "exact",
+ *     "slug": "partial",
+ *     "end": "exact",
+ *     "resume": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\HistoryRepository")
@@ -85,6 +137,7 @@ class History implements Translatable
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Chapitre", mappedBy="refhistory")
+     * @ApiSubresource
      * @ORM\OrderBy({"position": "ASC"})
      */
     private $chapitres;

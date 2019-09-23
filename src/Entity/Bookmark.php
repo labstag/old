@@ -2,7 +2,9 @@
 
 namespace Labstag\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,22 +13,71 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
+use Labstag\Controller\Api\BookmarkApi;
 use Labstag\Entity\Traits\Tags;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_bookmarktrash": {
+ *             "method": "GET",
+ *             "path": "/bookmarks/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": BookmarkApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_bookmarktrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/bookmarks/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": BookmarkApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_bookmarkrestore": {
+ *             "method": "POST",
+ *             "path": "/bookmarks/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": BookmarkApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_bookmarkempty": {
+ *             "method": "POST",
+ *             "path": "/bookmarks/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": BookmarkApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
+ *         }
+ *     }
+ * )
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "name": "partial",
- *  "slug": "partial",
- *  "url": "partial",
- *  "enable": "exact",
- *  "content": "partial"
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "slug": "partial",
+ *     "url": "partial",
+ *     "enable": "exact",
+ *     "content": "partial"
  * })
  * @ORM\Entity(repositoryClass="Labstag\Repository\BookmarkRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

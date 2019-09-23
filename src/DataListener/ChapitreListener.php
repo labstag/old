@@ -2,13 +2,13 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Chapitre;
 use Labstag\Entity\History;
+use Labstag\Lib\EventSubscriberLib;
 
-class ChapitreListener implements EventSubscriber
+class ChapitreListener extends EventSubscriberLib
 {
     /**
      * Sur quoi écouter.
