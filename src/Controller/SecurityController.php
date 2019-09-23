@@ -69,6 +69,7 @@ class SecurityController extends ControllerLib
         $form->handleRequest($this->request);
         if ($form->isSubmitted()) {
             $post = $this->request->request->get($form->getName());
+            unset($post);
         }
 
         return $this->twig(

@@ -24,12 +24,12 @@ class OauthController extends ControllerLib
     /**
      * @var OauthService
      */
-    private $OauthService;
+    private $oauthService;
 
-    public function __construct(ContainerInterface $container, OauthService $OauthService, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
+    public function __construct(ContainerInterface $container, OauthService $oauthService, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->OauthService = $OauthService;
+        $this->oauthService = $oauthService;
     }
 
     /**
@@ -66,7 +66,7 @@ class OauthController extends ControllerLib
      */
     public function connectAction(Request $request, string $oauthCode)
     {
-        $provider = $this->OauthService->setProvider($oauthCode);
+        $provider = $this->oauthService->setProvider($oauthCode);
         $session  = $request->getSession();
         $referer  = $request->headers->get('referer');
         $session->set('referer', $referer);
@@ -99,7 +99,7 @@ class OauthController extends ControllerLib
      */
     public function connectCheckAction(Request $request, string $oauthCode)
     {
-        $provider    = $this->OauthService->setProvider($oauthCode);
+        $provider    = $this->oauthService->setProvider($oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
         $referer     = $session->get('referer');
@@ -147,7 +147,7 @@ class OauthController extends ControllerLib
         $oauthConnects = $user->getOauthConnectUsers();
         $find          = 0;
         $data          = $userOauth->toArray();
-        $identity      = $this->OauthService->getIdentity($data, $client);
+        $identity      = $this->oauthService->getIdentity($data, $client);
         // @var OauthConnectUser
         foreach ($oauthConnects as $oauthConnect) {
             if ($oauthConnect->getName() == $client && $oauthConnect->getIdentity() == $identity) {

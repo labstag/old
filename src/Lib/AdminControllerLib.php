@@ -335,13 +335,6 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->json($json);
     }
 
-    protected function persistAndFlush(&$entity): void
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($entity);
-        $entityManager->flush();
-    }
-
     protected function crudRedirectForm(array $data = []): RedirectResponse
     {
         if (!isset($data['url'])) {

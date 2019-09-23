@@ -65,7 +65,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @var OauthService
      */
-    private $OauthService;
+    private $oauthService;
 
     /**
      * @var string
@@ -82,7 +82,16 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $tokenStorage;
 
-    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, OauthService $OauthService, RequestStack $requestStack, TokenStorageInterface $tokenStorage)
+    public function __construct(
+        ContainerInterface $container,
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        OauthService $oauthService,
+        RequestStack $requestStack,
+        TokenStorageInterface $tokenStorage
+    )
     {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
@@ -91,7 +100,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder  = $passwordEncoder;
         $this->requestStack     = $requestStack;
         $this->request          = $this->requestStack->getCurrentRequest();
-        $this->OauthService    = $OauthService;
+        $this->oauthService     = $oauthService;
         $this->tokenStorage     = $tokenStorage;
         $this->oauthCode        = $this->request->attributes->get('oauthCode');
     }
@@ -107,7 +116,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getCredentials(Request $request)
     {
-        $provider    = $this->OauthService->setProvider($this->oauthCode);
+        $provider    = $this->oauthService->setProvider($this->oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
         $oauth2state = $session->get('oauth2state');
@@ -143,7 +152,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
         $enm = $this->entityManager->getRepository(OauthConnectUser::class);
 
-        $identity         = $this->OauthService->getIdentity(
+        $identity         = $this->oauthService->getIdentity(
             $credentials['user']->toArray(),
             $this->oauthCode
         );

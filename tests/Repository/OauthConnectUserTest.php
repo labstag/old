@@ -54,7 +54,7 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function testfindOauthNotUser()
     {
         $empty = $this->repository->findOauthNotUser(null, null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         $user   = $this->userRepository->findOneRandom();
         if ($random instanceof OauthConnectUser && $user instanceof User) {
@@ -63,13 +63,14 @@ class OauthConnectUserTest extends RepositoryTestLib
                 $random->getIdentity(),
                 $random->getName()
             );
+            $this->AssertNull($oauth);
         }
     }
 
     public function testfindOneOauthByUser()
     {
         $empty = $this->repository->findOneOauthByUser(null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         $user   = $this->userRepository->findOneRandom();
         if ($user instanceof User && $random instanceof OauthConnectUser) {
@@ -83,13 +84,14 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function testlogin()
     {
         $empty = $this->repository->login(null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         if ($random instanceof OauthConnectUser) {
             $oauth = $this->repository->login(
                 $random->getName(),
                 $random->getIdentity()
             );
+            $this->AssertNull($oauth);
         }
     }
 

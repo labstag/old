@@ -7,6 +7,7 @@ use libphonenumber\PhoneNumberUtil;
 
 class PhoneService
 {
+
     /**
      * @var PhoneNumberUtil
      */
@@ -22,31 +23,30 @@ class PhoneService
      *
      * @param string $numero Numéro de téléphone
      * @param string $locale code du pays
-     *
-     * @return array
      */
     public function verif(string $numero, string $locale): array
     {
-        $numero      = str_replace([' ', '-', '.'], '', $numero);
+        $numero = str_replace([' ', '-', '.'], '', $numero);
+
         try {
             $numberProto = $this->phoneUtil->parseAndKeepRawInput(
                 $numero,
                 strtoupper($locale)
             );
 
-            $CountryCodeSource = $numberProto->getCountryCodeSource();
+            $countryCodeSource = $numberProto->getCountryCodeSource();
             $nationalNumber    = $numberProto->getNationalNumber();
-            $json              = [
+            $data              = [
                 'country'       => $this->phoneUtil->getRegionCodeForNumber(
                     $numberProto
                 ),
-                'international' => '+' . $numberProto->getNationalNumber(),
-                'num'           => $CountryCodeSource . $nationalNumber,
+                'international' => '+'.$numberProto->getNationalNumber(),
+                'num'           => $countryCodeSource.$nationalNumber,
             ];
         } catch (NumberParseException $e) {
-            $json['error'] = $e->__toString();
+            $data['error'] = $e->__toString();
         }
 
-        return $json;
+        return $data;
     }
 }

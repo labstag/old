@@ -14,20 +14,27 @@ use Symfony\Component\Routing\RouterInterface;
 
 class UserApi extends ApiControllerLib
 {
+
+    /**
+     * @var UserPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
-        UserPublishingHandler $userPublishingHandler,
+        UserPublishingHandler $publishingHandler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->userPublishingHandler = $userPublishingHandler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $publishingHandler;
     }
 
     public function __invoke(User $data): User
     {
-        $this->userPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

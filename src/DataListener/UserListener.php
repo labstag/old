@@ -122,7 +122,7 @@ class UserListener extends EventSubscriberLib
             $templates->getname()
         );
         $message->setSubject($sujet);
-        $message->setFrom($user->getEmail());
+        $message->setFrom($entity->getEmail());
         $message->setTo($this->configParams['site_no-reply']);
         $message->setBody($html, 'text/html');
         $message->addPart($text, 'text/plain');

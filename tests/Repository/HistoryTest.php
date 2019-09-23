@@ -55,7 +55,7 @@ class HistoryTest extends RepositoryTestLib
     public function testfindAllActiveByUser()
     {
         $empty = $this->repository->findAllActiveByUser(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $user = $this->userRepository->findOneRandom();
         if ($user instanceof User) {
             $histories = $this->repository->findAllActiveByUser($user);

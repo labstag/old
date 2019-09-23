@@ -145,6 +145,13 @@ abstract class ControllerLib extends AbstractController
         $this->paramViews['config'] = $config;
     }
 
+    protected function persistAndFlush(&$entity): void
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($entity);
+        $entityManager->flush();
+    }
+
     private function disclaimerActivate($parameters)
     {
         $session = $this->request->getSession();

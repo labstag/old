@@ -14,20 +14,27 @@ use Symfony\Component\Routing\RouterInterface;
 
 class ConfigurationApi extends ApiControllerLib
 {
+
+    /**
+     * @var ConfigurationPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
-        ConfigurationPublishingHandler $configurationPublishingHandler,
+        ConfigurationPublishingHandler $publishingHandler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->configurationPublishingHandler = $configurationPublishingHandler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $publishingHandler;
     }
 
     public function __invoke(Configuration $data): Configuration
     {
-        $this->configurationPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

@@ -55,7 +55,7 @@ class EmailTest extends RepositoryTestLib
     public function testfindEmailByUser()
     {
         $empty = $this->repository->findEmailByUser(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $user = $this->userRepository->findOneRandom();
         if ($user instanceof User) {
             $emails = $this->repository->findEmailByUser($user);
