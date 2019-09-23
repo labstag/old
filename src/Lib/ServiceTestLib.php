@@ -5,7 +5,7 @@ namespace Labstag\Lib;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-abstract class RepositoryTestLib extends KernelTestCase
+abstract class ServiceTestLib extends KernelTestCase
 {
 
     /**
