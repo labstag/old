@@ -14,18 +14,67 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
+use Labstag\Controller\Api\TagsApi;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "name": "partial",
- *  "slug": "partial",
- *  "type": "partial",
- *  "temporary": "exact"
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "slug": "partial",
+ *     "type": "partial",
+ *     "temporary": "exact"
  * })
  * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_SUPER_ADMIN')"},
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_usertrash": {
+ *             "method": "GET",
+ *             "path": "/tags/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": TagsApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_usertrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/tags/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": TagsApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_userrestore": {
+ *             "method": "POST",
+ *             "path": "/tags/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": TagsApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_userempty": {
+ *             "method": "POST",
+ *             "path": "/tags/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": TagsApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
+ *         }
+ *     }
  * )
  * @ApiFilter(
  *     OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"}

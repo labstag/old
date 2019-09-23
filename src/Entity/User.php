@@ -3,9 +3,10 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Labstag\Controller\Api\UserApi;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,22 +24,72 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
- *  "id": "exact",
- *  "username": "partial",
- *  "email": "partial",
- *  "enable": "exact"
+ *     "id": "exact",
+ *     "username": "partial",
+ *     "email": "partial",
+ *     "enable": "exact"
  * })
  * @ApiResource(
+ *     itemOperations={
+ *         "get",
+ *         "put",
+ *         "delete",
+ *         "api_usertrash": {
+ *             "method": "GET",
+ *             "path": "/users/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Corbeille",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_usertrashdelete": {
+ *             "method": "DELETE",
+ *             "path": "/users/trash",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Remove",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_userrestore": {
+ *             "method": "POST",
+ *             "path": "/users/restore",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Restore",
+ *                 "parameters": {}
+ *             }
+ *         },
+ *         "api_userempty": {
+ *             "method": "POST",
+ *             "path": "/users/empty",
+ *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "controller": UserApi::class,
+ *             "read": false,
+ *             "swagger_context": {
+ *                 "summary": "Empty",
+ *                 "parameters": {}
+ *             }
+ *         }
+ *     },
  *     attributes={
- *      "access_control"="is_granted('ROLE_SUPER_ADMIN')",
- *       "normalization_context"={"groups"={"get"}},
- *       "denormalization_context"={"groups"={"get"}},
- *      },
+ *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *         "normalization_context": {"groups": {"get"}},
+ *         "denormalization_context": {"groups": {"get"}},
+ *     }
  * )
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Username déjà pris")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\Loggable
  * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
@@ -114,43 +166,56 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $posts;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $oauthConnectUsers;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $histories;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $bookmarks;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $emails;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
+     * @ApiSubresource
      * @Groups({"get"})
      */
     private $phones;
 
+    /**
+     * @Gedmo\Versioned
+     * @ORM\Column(type="boolean")
+     */
+    private $lost;
+
     public function __construct()
     {
         $this->enable            = true;
+        $this->lost              = false;
         $this->posts             = new ArrayCollection();
         $this->oauthConnectUsers = new ArrayCollection();
         $this->histories         = new ArrayCollection();
@@ -536,6 +601,18 @@ class User implements UserInterface, \Serializable
                 $phone->setRefuser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isLost(): ?bool
+    {
+        return $this->lost;
+    }
+
+    public function setLost(bool $lost): self
+    {
+        $this->lost = $lost;
 
         return $this;
     }

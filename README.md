@@ -17,7 +17,7 @@
 
 > Un site Internet sous Symfony
 
-### 🏠 [Homepage](https://github.com/labstag/labstag#readme)
+### 🏠 [Homepage](https://github.com/labstag/core#readme)
 
 ## Install
 
@@ -36,7 +36,7 @@ php bin/console doctrine:fixtures:load
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/labstag/labstag/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/labstag/core/issues).
 
 ## Show your support
 
@@ -45,7 +45,7 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2019 [koromerzhin](https://github.com/koromerzhin).<br />
-This project is [MIT](https://github.com/labstag/labstag/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/labstag/core/blob/master/LICENSE) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

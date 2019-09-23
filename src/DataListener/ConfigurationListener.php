@@ -2,12 +2,12 @@
 
 namespace Labstag\DataListener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Configuration;
+use Labstag\Lib\EventSubscriberLib;
 
-class ConfigurationListener implements EventSubscriber
+class ConfigurationListener extends EventSubscriberLib
 {
     /**
      * Sur quoi écouter.
