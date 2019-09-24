@@ -13,15 +13,28 @@ parameters:
         file_size:
             max_size: 10M
             ignore_patterns: []
+        phpcs:
+            ignore_patterns:
+                - "var"
+                - "public"
+                - "config"
+                - "src/Kernel.php"
+                - "src/Migrations/*"
+        phpmd:
+            exclude:
+                - "var"
+                - "src/Migrations"
+            ruleset:
+                - "phpmd.xml"
+        phpmnd:
+            exclude:
+                - "var"
+                - "node_modules"
+        phpstan:
+            ignore_patterns:
+                - "src/Migrations"
         phpunit:
-            config_file: ~
-            testsuite: ~
-            group: []
-            always_execute: false
+        phpversion:
+            project: "7.1"
+        securitychecker:
         yamllint:
-            whitelist_patterns: []
-            ignore_patterns: []
-            object_support: false
-            exception_on_invalid_type: false
-            parse_constant: false
-            parse_custom_tags: false

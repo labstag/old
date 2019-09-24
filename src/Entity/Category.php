@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -16,6 +15,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\CategoryApi;
+use Labstag\Entity\Traits\Post;
 
 /**
  * @ApiResource(
@@ -85,6 +85,7 @@ class Category implements Translatable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
+    use Post;
 
     /**
      * @ORM\Id
@@ -147,37 +148,6 @@ class Category implements Translatable
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setRefcategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getRefcategory() === $this) {
-                $post->setRefcategory(null);
-            }
-        }
 
         return $this;
     }

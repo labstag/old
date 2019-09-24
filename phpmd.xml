@@ -9,6 +9,7 @@
 	<rule ref="rulesets/codesize.xml">
 		<exclude name="TooManyPublicMethods" />
 		<exclude name="TooManyMethods" />
+		<exclude name="TooManyFields" />
 		<exclude name="ExcessiveClassLength" />
 		<exclude name="ExcessiveClassComplexity" />
 	</rule>
@@ -26,5 +27,5 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/unusedcode.xml"/>
-	<exclude-pattern>src/Migrations/*</exclude-pattern>
+	<exclude-pattern>Version*.php</exclude-pattern>
 </ruleset>

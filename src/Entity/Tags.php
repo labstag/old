@@ -7,7 +7,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -15,6 +14,8 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\TagsApi;
+use Labstag\Entity\Traits\Bookmark;
+use Labstag\Entity\Traits\Post;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -96,6 +97,8 @@ class Tags implements Translatable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
+    use Bookmark;
+    use Post;
 
     /**
      * @ORM\Id
@@ -173,34 +176,6 @@ class Tags implements Translatable
         return $this;
     }
 
-    /**
-     * @return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            $post->removeTag($this);
-        }
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -226,34 +201,6 @@ class Tags implements Translatable
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * @return Bookmark[]|Collection
-     */
-    public function getBookmarks(): Collection
-    {
-        return $this->bookmarks;
-    }
-
-    public function addBookmark(Bookmark $bookmark): self
-    {
-        if (!$this->bookmarks->contains($bookmark)) {
-            $this->bookmarks[] = $bookmark;
-            $bookmark->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBookmark(Bookmark $bookmark): self
-    {
-        if ($this->bookmarks->contains($bookmark)) {
-            $this->bookmarks->removeElement($bookmark);
-            $bookmark->removeTag($this);
-        }
 
         return $this;
     }

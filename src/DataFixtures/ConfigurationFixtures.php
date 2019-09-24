@@ -27,6 +27,8 @@ class ConfigurationFixtures extends Fixture
 
     private function add(ObjectManager $manager)
     {
+        $viewport = 'width=device-width, initial-scale=1, shrink-to-fit=no';
+
         $data  = [
             'languagedefault' => 'fr',
             'language'        => [
@@ -40,7 +42,7 @@ class ConfigurationFixtures extends Fixture
             'oauth'           => [],
             'meta'            => [
                 [
-                    'viewport'    => 'width=device-width, initial-scale=1, shrink-to-fit=no',
+                    'viewport'    => $viewport,
                     'author'      => 'koromerzhin',
                     'theme-color' => '#ff0000',
                     'description' => '',
@@ -71,9 +73,9 @@ class ConfigurationFixtures extends Fixture
                 ],
             ],
         ];
-        $param = $_SERVER;
+        $env   = getenv();
         $oauth = [];
-        foreach ($param as $key => $val) {
+        foreach ($env as $key => $val) {
             if (0 != substr_count($key, 'OAUTH_')) {
                 $code = str_replace('OAUTH_', '', $key);
                 $code = strtolower($code);

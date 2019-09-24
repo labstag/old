@@ -4,9 +4,9 @@ namespace Labstag\Service;
 
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
-use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberToCarrierMapper;
 use libphonenumber\PhoneNumberToTimeZonesMapper;
+use libphonenumber\PhoneNumberUtil;
 
 class PhoneService
 {
@@ -33,6 +33,7 @@ class PhoneService
         $data           = [];
         $timeZoneMapper = PhoneNumberToTimeZonesMapper::getInstance();
         $carrier        = PhoneNumberToCarrierMapper::getInstance();
+
         try {
             $parse = $this->phoneUtil->parse(
                 $numero,
@@ -54,7 +55,7 @@ class PhoneService
                 'international' => $this->phoneUtil->format(
                     $parse,
                     PhoneNumberFormat::INTERNATIONAL
-                )
+                ),
             ];
             $data['timezones'] = $timeZoneMapper->getTimeZonesForNumber($parse);
             $data['carrier']   = $carrier->getNameForNumber(
@@ -62,16 +63,6 @@ class PhoneService
                 strtoupper($locale)
             );
             $data['parse']     = $parse;
-            
-            // $countryCodeSource = $numberProto->getCountryCodeSource();
-            // $nationalNumber    = $numberProto->getNationalNumber();
-            // $data              = [
-            //     'country'       => $this->phoneUtil->getRegionCodeForNumber(
-            //         $numberProto
-            //     ),
-            //     'international' => '+'.$numberProto->getNationalNumber(),
-            //     'num'           => $countryCodeSource.$nationalNumber,
-            // ];
         } catch (NumberParseException $e) {
             $data['error'] = $e->__toString();
         }

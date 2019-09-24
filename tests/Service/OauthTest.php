@@ -5,6 +5,7 @@ namespace Labstag\Tests\Service;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Lib\GenericProviderLib;
 use Labstag\Lib\ServiceTestLib;
+use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
 
 /**
@@ -18,6 +19,11 @@ class OauthTest extends ServiceTestLib
      * @var OauthService
      */
     private $service;
+
+    /**
+     * @var OauthConnectUserRepository
+     */
+    private $repository;
 
     public function setUp(): void
     {

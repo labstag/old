@@ -51,7 +51,7 @@ class OauthConnectUserTest extends RepositoryTestLib
 
             return;
         }
-        
+
         $this->assertTrue(true);
     }
 

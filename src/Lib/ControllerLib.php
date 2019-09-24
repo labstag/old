@@ -54,7 +54,12 @@ abstract class ControllerLib extends AbstractController
      *
      * @param ContainerInterface $container container
      */
-    public function __construct(ContainerInterface $container, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
+    public function __construct(
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->paramViews   = [];
         $this->container    = $container;

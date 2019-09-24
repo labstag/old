@@ -9,7 +9,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -17,6 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\HistoryApi;
+use Labstag\Entity\Traits\Chapitre;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -92,6 +92,7 @@ class History implements Translatable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
+    use Chapitre;
 
     /**
      * @ORM\Id
@@ -246,49 +247,6 @@ class History implements Translatable
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return Chapitre[]|Collection
-     */
-    public function getChapitres(): Collection
-    {
-        return $this->chapitres;
-    }
-
-    public function getChapitresEnabled()
-    {
-        $chapitres = [];
-        foreach ($this->chapitres as $chapitre) {
-            if ($chapitre->isEnable()) {
-                array_push($chapitres, $chapitre);
-            }
-        }
-
-        return $chapitres;
-    }
-
-    public function addChapitre(Chapitre $chapitre): self
-    {
-        if (!$this->chapitres->contains($chapitre)) {
-            $this->chapitres[] = $chapitre;
-            $chapitre->setRefhistory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChapitre(Chapitre $chapitre): self
-    {
-        if ($this->chapitres->contains($chapitre)) {
-            $this->chapitres->removeElement($chapitre);
-            // set the owning side to null (unless already changed)
-            if ($chapitre->getRefhistory() === $this) {
-                $chapitre->setRefhistory(null);
-            }
-        }
 
         return $this;
     }
