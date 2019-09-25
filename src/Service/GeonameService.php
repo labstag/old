@@ -470,18 +470,54 @@ class GeonameService
             return null;
         }
 
-        $url = $this->setUrl($path, $format, $params);
-        unset($url);
-        return [];
+        $url       = $this->setUrl($path, $format, $params);
+        $content   = $this->getContents($url);
+        $traitment = $this->traitmentContents($content, $format);
+        return $traitment;
     }
 
-    public function setUrl(?string $path, ?string $format, ?array $params = [])
+    public function getContents(?string $url): string
     {
-        if (is_null($params)) {
-            $params = [];
+        if (is_null($url)) {
+            return '';
         }
 
-        $url = 'http://api.geonames.org/'.$path;
+        $content = file_get_contents($url);
+
+        return $content;
+    }
+
+    public function traitmentContents(?string $content, ?string $format): array
+    {
+        if (is_null($content)) {
+            return [];
+        }
+
+        switch ($format) {
+            case 'json':
+                $data = json_decode($content, true);
+                break;
+            case 'rss':
+            case 'xml':
+                $xml  = simplexml_load_string(
+                    $content,
+                    'SimpleXMLElement',
+                    LIBXML_NOCDATA
+                );
+                $json = json_encode($xml);
+                $data = json_decode($json, true);
+                break;
+            default:
+                $data = [];
+                break;
+        }
+
+        return $data;
+    }
+
+
+    private function setParamUrl($format, &$url)
+    {
         switch ($format) {
             case 'json':
                 $url .= 'JSON';
@@ -503,13 +539,24 @@ class GeonameService
                 $params['type'] = 'kml';
 
                 break;
+            default:
+                break;
+        }
+    }
+
+    public function setUrl(?string $path, ?string $format, ?array $params = [])
+    {
+        $params = is_null($params) ? [] : $params;
+
+        if (is_null($path) || is_null($format)) {
+            return '';
         }
 
+        $url = 'http://api.geonames.org/'.$path;
+        $this->setParamUrl($format, $url);
         ksort($params);
         $query = http_build_query($params);
-        if ('' != $query) {
-            $url .= '?'.$query;
-        }
+        $url   = ('' != $query) ? $url.'?'.$query : $url;
 
         return $url;
     }
