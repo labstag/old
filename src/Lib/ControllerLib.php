@@ -175,8 +175,14 @@ abstract class ControllerLib extends AbstractController
         if (isset($parameters['setMeta'])) {
             $entity = $parameters['setMeta'];
 
-            $this->paramViews['config']['meta'][0]['article:published_time'] = $entity->getCreatedAt()->format(DateTimeInterface::ATOM);
-            $this->paramViews['config']['meta'][0]['article:modified_time']  = $entity->getUpdatedAt()->format(DateTimeInterface::ATOM);
+            $this->paramViews['config']['meta'][0] = [
+                'article:published_time' => $entity->getCreatedAt()->format(
+                    DateTimeInterface::ATOM
+                ),
+                'article:modified_time'  => $entity->getUpdatedAt()->format(
+                    DateTimeInterface::ATOM
+                ),
+            ];
         }
     }
 }

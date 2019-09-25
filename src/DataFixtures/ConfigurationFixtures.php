@@ -28,8 +28,7 @@ class ConfigurationFixtures extends Fixture
     private function add(ObjectManager $manager)
     {
         $viewport = 'width=device-width, initial-scale=1, shrink-to-fit=no';
-
-        $data  = [
+        $data     = [
             'languagedefault' => 'fr',
             'language'        => [
                 'en',
@@ -39,6 +38,8 @@ class ConfigurationFixtures extends Fixture
             'site_no-reply'   => 'no-reply@labstag.fr',
             'site_title'      => 'labstag',
             'site_copyright'  => 'Copyright '.date('Y'),
+            'geonames_id'     => [],
+            'geonames_count'  => [],
             'oauth'           => [],
             'meta'            => [
                 [
@@ -73,7 +74,18 @@ class ConfigurationFixtures extends Fixture
                 ],
             ],
         ];
-        $env   = getenv();
+
+        $names = explode(',', getenv('SYMFONY_DOTENV_VARS'));
+        $env   = [];
+        foreach ($names as $name) {
+            $env[$name] = getenv($name);
+        }
+
+        ksort($env);
+        if (array_key_exists('GEONAMES_ID', $env)) {
+            $data['geonames_id'] = explode(',', $env['GEONAMES_ID']);
+        }
+
         $oauth = [];
         foreach ($env as $key => $val) {
             if (0 != substr_count($key, 'OAUTH_')) {
