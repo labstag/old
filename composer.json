@@ -15,7 +15,7 @@
         "csa/guzzle-bundle": "3.1.1",
         "dompdf/dompdf": "0.8.3",
         "friendsofsymfony/ckeditor-bundle": "2.1.0",
-        "giggsey/libphonenumber-for-php": "8.10.19",
+        "giggsey/libphonenumber-for-php": "8.10.20",
         "imagine/imagine": "1.2.2",
         "knplabs/knp-components": "2.2.0",
         "knplabs/knp-menu-bundle": "2.3.0",
