@@ -81,7 +81,7 @@
         "povils/phpmnd": "2.1.0",
         "sebastian/phpcpd": "4.1.0",
         "sensiolabs/security-checker": "6.0.2",
-        "squizlabs/php_codesniffer": "3.5.0",
+        "squizlabs/php_codesniffer": "3.5.1",
         "symfony/browser-kit": "4.3.4",
         "symfony/css-selector": "4.3.4",
         "symfony/debug-pack": "*",
