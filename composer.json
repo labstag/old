@@ -73,7 +73,7 @@
         "fzaninotto/faker": "1.8.0",
         "maglnet/composer-require-checker": "2.0.0",
         "pdepend/pdepend": "2.5.2",
-        "phan/phan": "2.2.13",
+        "phan/phan": "2.3.1",
         "phploc/phploc": "5.0.0",
         "phpmd/phpmd": "2.7.0",
         "phpro/grumphp": "0.16.1",
