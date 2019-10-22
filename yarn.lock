@@ -4482,6 +4482,16 @@ findup-sync@^2.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
+findup-sync@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/findup-sync/-/findup-sync-4.0.0.tgz#956c9cdde804052b881b428512905c4a5f2cdef0"
+  integrity sha512-6jvvn/12IC4quLBL1KNokxC7wWTvYncaVUYSoxWw7YykPLuRrnv4qdHcSOywOI5RpkOVGeQRtWM8/q+G6W6qfQ==
+  dependencies:
+    detect-file "^1.0.0"
+    is-glob "^4.0.0"
+    micromatch "^4.0.2"
+    resolve-dir "^1.0.1"
+
 flat-cache@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-2.0.1.tgz#5d296d6f04bda44a4630a301413bdbc2ec085ec0"
@@ -7112,7 +7122,7 @@ micromatch@^3.0.4, micromatch@^3.1.10, micromatch@^3.1.4, micromatch@^3.1.8:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-micromatch@^4.0.0:
+micromatch@^4.0.0, micromatch@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.2.tgz#4fcb0999bf9fbc2fcbdd212f6d629b9a56c39259"
   integrity sha512-y7FpHSbMUMoyPbYUSzO6PaZ6FyRnQOpHuKwbo1G+Knck95XVU4QAiKdGEnj5wwoS7PlOgthX/09u5iFJ+aYf5Q==
@@ -9966,13 +9976,14 @@ selfsigned@^1.10.4:
   dependencies:
     node-forge "0.7.5"
 
-semantic-git-commit-cli@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/semantic-git-commit-cli/-/semantic-git-commit-cli-3.4.0.tgz#d736794431e6b8e945c249291604adcf0f932462"
-  integrity sha512-trPf9t4RAaumrYy3lZGdAww5oOpZB8RNcmU8Ud3tRtpoqH6zgkQbHGmIduBCbfPo9gU9djkfm3JumieYHqaVjQ==
+semantic-git-commit-cli@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/semantic-git-commit-cli/-/semantic-git-commit-cli-3.5.0.tgz#504d4d53b0323ad596aebe32b55913dec23d07c4"
+  integrity sha512-bWKBDxyMDFaNkHPkOtvmyudIR4nStphy7J5GBDb+0vT2oxQe8xeAcHoo3ATgBH9D1gN48Jf7TCSSRx7eFTeBOA==
   dependencies:
     chalk "^1.1.3"
     execa "^0.6.1"
+    findup-sync "^4.0.0"
     fs-extra "^7.0.0"
     git-commit-count "^1.1.2"
     inquirer "^6.2.1"
