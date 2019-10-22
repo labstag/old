@@ -7952,17 +7952,7 @@ optionator@^0.8.1, optionator@^0.8.2:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
-ora@^0.2.1:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/ora/-/ora-0.2.3.tgz#37527d220adcd53c39b73571d754156d5db657a4"
-  integrity sha1-N1J9Igrc1Tw5tzVx11QVbV22V6Q=
-  dependencies:
-    chalk "^1.1.1"
-    cli-cursor "^1.0.2"
-    cli-spinners "^0.1.2"
-    object-assign "^4.0.1"
-
-ora@^4.0.0:
+ora@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/ora/-/ora-4.0.1.tgz#e0ddf8fcdcf28cf714f742f06a493cc84819621c"
   integrity sha512-yQv2q0GO8rqP2wzdOxpu0FxUmRg4z/Lw0m6uSpukPJXoOMaQzrIpl+STKHzjryFP5ExQC56+y8+yXPar2iezaw==
@@ -7974,6 +7964,16 @@ ora@^4.0.0:
     log-symbols "^3.0.0"
     strip-ansi "^5.2.0"
     wcwidth "^1.0.1"
+
+ora@^0.2.1:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/ora/-/ora-0.2.3.tgz#37527d220adcd53c39b73571d754156d5db657a4"
+  integrity sha1-N1J9Igrc1Tw5tzVx11QVbV22V6Q=
+  dependencies:
+    chalk "^1.1.1"
+    cli-cursor "^1.0.2"
+    cli-spinners "^0.1.2"
+    object-assign "^4.0.1"
 
 original@^1.0.0:
   version "1.0.2"
@@ -9373,10 +9373,10 @@ readline2@^1.0.1:
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
 
-readme-md-generator@0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/readme-md-generator/-/readme-md-generator-0.6.3.tgz#3a9759b1db16d82913abec1c378e943cf77b925a"
-  integrity sha512-SIorvIIxhAK75/w9apbykMmyHZJ6VMtL8t8csyzdVoEcd1LeKstbynQxt08RvQ2VxYXkc0eeHWaGgcyPk2Ai6A==
+readme-md-generator@0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/readme-md-generator/-/readme-md-generator-0.6.4.tgz#78adf2e8b19b6ef0df4956ed832d05ee5b02e9d0"
+  integrity sha512-p0G6H7ExIOzCW+1YtJnXs0mJ0MK59TNF9uEUqs2wUyM3OGaJBSXDW4bN2AjfQtEGKgvc3Rcq4Z/bFuIfPLioVw==
   dependencies:
     boxen "^4.0.0"
     date-fns "^2.0.1"
@@ -9385,7 +9385,7 @@ readme-md-generator@0.6.3:
     inquirer "~7.0.0"
     load-json-file "^6.0.0"
     lodash "^4.17.11"
-    ora "^4.0.0"
+    ora "4.0.1"
     yargs "^14.0.0"
 
 redent@^1.0.0:
