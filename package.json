@@ -65,7 +65,7 @@
     "@types/tinymce": "4.5.23",
     "babel-loader": "8.0.6",
     "copy-webpack-plugin": "5.0.4",
-    "core-js": "3.3.3",
+    "core-js": "3.3.5",
     "eslint": "6.6.0",
     "eslint-plugin-dollar-sign": "1.0.2",
     "eslint-plugin-varspacing": "1.2.1",
