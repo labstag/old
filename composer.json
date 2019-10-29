@@ -82,17 +82,17 @@
         "sebastian/phpcpd": "4.1.0",
         "sensiolabs/security-checker": "6.0.2",
         "squizlabs/php_codesniffer": "3.5.1",
-        "symfony/browser-kit": "4.3.4",
-        "symfony/css-selector": "4.3.4",
+        "symfony/browser-kit": "4.3.5",
+        "symfony/css-selector": "4.3.5",
         "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "1.13.1",
-        "symfony/panther": "0.5.2",
+        "symfony/maker-bundle": "1.14.0",
+        "symfony/panther": "0.6.0",
         "symfony/phpunit-bridge": "4.3.5",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "1.0.6",
         "symfony/thanks": "1.1.0",
         "symfony/web-server-bundle": "4.3.5",
-        "symfony/webpack-encore-bundle": "1.6.2"
+        "symfony/webpack-encore-bundle": "1.7.0"
     },
     "config": {
         "process-timeout": 0,
