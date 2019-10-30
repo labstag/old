@@ -69,7 +69,7 @@
     "eslint": "6.6.0",
     "eslint-plugin-dollar-sign": "1.0.2",
     "eslint-plugin-varspacing": "1.2.1",
-    "fork-ts-checker-webpack-plugin": "2.0.0",
+    "fork-ts-checker-webpack-plugin": "3.0.1",
     "jscpd": "2.0.16",
     "jspdf": "1.5.3",
     "jszip": "3.2.2",
