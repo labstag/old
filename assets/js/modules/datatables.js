@@ -147,6 +147,12 @@ export class datatables {
       new Date().getTime() + Math.floor(Math.random() * 10000 + 1)
     ).toString(16);
   }
+  
+  setAttribute(input, data) {
+    for (let [key, value] of Object.entries(array1)) {
+      input.setAttribute(key, value); 
+    }
+  }
 
   switch(value, row, id) {
     let div = document.createElement("div");
@@ -154,20 +160,25 @@ export class datatables {
 
     div.setAttribute("class", "custom-control custom-switch");
     let input = document.createElement("input");
-
-    input.setAttribute("type", "checkbox");
-    input.setAttribute("class", "custom-control-input");
-    input.setAttribute("data-enable", id);
-    input.setAttribute("id", "customSwitch" + uniqid);
-    input.setAttribute("data-id", row.id);
+    let data  = {
+      'type'       : 'checkbox',
+      'class'      : 'custom-control-input',
+      'data-enable': id,
+      'id'         : `customSwitch$(uniqId)`,
+      'data-id'    : row.id
+    };
     if (value == true) {
-      input.setAttribute("checked", "checked");
+      data['checked'] = 'checked';
     }
+    
+    this.setAttribute(input, data);
 
-    let label = document.createElement("label");
-
-    label.setAttribute("class", "custom-control-label");
-    label.setAttribute("for", "customSwitch" + uniqid);
+    let label  = document.createElement("label");
+    const data = {
+      'class': 'custom-control-label',
+      'for'  : `customSwitch$(uniqId)`
+    };
+    this.setAttribute(label, data);
     div.append(input);
     div.append(label);
 
@@ -233,14 +244,16 @@ export class datatables {
 
   imageFormatter(value, row) {
     if (value != null) {
-      let link = document.createElement("a");
-      let img = document.createElement("img");
-      let url = $("#CrudList").attr("data-files");
-
-      link.setAttribute("data-fancybox", true);
-      link.setAttribute("href", url + value);
-      img.setAttribute("src", url + value);
-      img.setAttribute("class", "img-thumbnail");
+      let link   = document.createElement("a");
+      let img    = document.createElement("img");
+      let url    = $("#CrudList").attr("data-files");
+      const data = {
+        'data-fancybox': true,
+        'href'         : `$(url)$(value)`,
+        'src'          : `$(url)$(value)`,
+        'class'        : 'img-thumbnail'
+      };
+      this.setAttribute(link, data);
       link.appendChild(img);
       return link.outerHTML;
     }
