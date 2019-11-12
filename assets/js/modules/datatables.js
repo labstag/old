@@ -18,8 +18,8 @@ export class datatables {
     this.execute();
     moment.locale($("body").attr("data-momentlang"));
   }
-
-  execute() {
+  
+  setWindows() {
     window.dateFormatter = this.dateFormatter;
     window.imageFormatter = this.imageFormatter;
     window.queryParams = this.queryParams;
@@ -29,6 +29,10 @@ export class datatables {
     window.endFormatter = this.end.bind(this);
     window.dataFormatter = this.dataFormatter;
     window.urlData = [];
+  }
+
+  execute() {
+    this.setWindows();
     window.ajaxOptions = {
       headers: {
         Accept: "application/ld+json"
