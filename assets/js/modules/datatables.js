@@ -84,8 +84,8 @@ export class datatables {
   }
 
   dataTreat(json) {
-    let id = json["@id"];
-    let type = json["@type"];
+    const id   = json["@id"];
+    const type = json["@type"];
 
     if (json.name != undefined) {
       this.changeDiv(id, json.name);
@@ -118,12 +118,12 @@ export class datatables {
   }
 
   changeEnable(event) {
-    let element = $(event.currentTarget);
-    let enable = $(element).attr("data-enable");
-    let state = $(element).is(":checked");
-    let table = $(element).closest("table");
-    let idTable = $(table).attr("id");
-    let url = $("#" + idTable).attr("data-enableurl-" + enable);
+    const element = $(event.currentTarget);
+    const enable = $(element).attr("data-enable");
+    const state = $(element).is(":checked");
+    const table = $(element).closest("table");
+    const idTable = $(table).attr("id");
+    const url = $("#" + idTable).attr("data-enableurl-" + enable);
 
     window.fetch(url, {
       method: "POST",
@@ -155,8 +155,8 @@ export class datatables {
   }
   
   setInput(uniqid) {
-    let input = document.createElement("input");
-    let data  = {
+    const input = document.createElement("input");
+    let data    = {
       'type'       : 'checkbox',
       'class'      : 'custom-control-input',
       'data-enable': id,
@@ -173,8 +173,8 @@ export class datatables {
   }
   
   setLabel(uniqId) {
-    let label  = document.createElement("label");
-    const data = {
+    const label = document.createElement("label");
+    const data  = {
       'class': 'custom-control-label',
       'for'  : `customSwitch$(uniqId)`
     };
@@ -184,12 +184,12 @@ export class datatables {
   }
 
   switch(value, row, id) {
-    let div = document.createElement("div");
-    let uniqid = this.uniqid();
+    const div    = document.createElement("div");
+    const uniqid = this.uniqid();
 
     div.setAttribute("class", "custom-control custom-switch");
-    let input = this.setInput(uniqId);
-    let label = this.setLabel(uniqId);
+    const input = this.setInput(uniqId);
+    const label = this.setLabel(uniqId);
     div.append(input);
     div.append(label);
 
@@ -201,10 +201,10 @@ export class datatables {
   }
 
   operations(value, row) {
-    let div = document.querySelector(".OperationCrud");
-    let links = div.querySelectorAll("a");
-    let html = "";
-    let idEntity = row.id;
+    const div      = document.querySelector(".OperationCrud");
+    const links    = div.querySelectorAll("a");
+    const html     = "";
+    const idEntity = row.id;
 
     if (value != undefined) {
       idEntity = value;
@@ -255,9 +255,9 @@ export class datatables {
 
   imageFormatter(value, row) {
     if (value != null) {
-      let link   = document.createElement("a");
-      let img    = document.createElement("img");
-      let url    = $("#CrudList").attr("data-files");
+      const link = document.createElement("a");
+      const img  = document.createElement("img");
+      const url  = $("#CrudList").attr("data-files");
       const data = {
         'data-fancybox': true,
         'href'         : `$(url)$(value)`,
