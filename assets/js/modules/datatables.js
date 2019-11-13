@@ -154,7 +154,7 @@ export class datatables {
     }
   }
   
-  setInput(uniqid) {
+  setInput(uniqId) {
     const input = document.createElement("input");
     let data    = {
       'type'       : 'checkbox',
@@ -185,7 +185,7 @@ export class datatables {
 
   switch(value, row, id) {
     const div    = document.createElement("div");
-    const uniqid = this.uniqid();
+    const uniqId = this.uniqid();
 
     div.setAttribute("class", "custom-control custom-switch");
     const input = this.setInput(uniqId);
@@ -201,10 +201,10 @@ export class datatables {
   }
 
   operations(value, row) {
-    const div      = document.querySelector(".OperationCrud");
-    const links    = div.querySelectorAll("a");
-    const html     = "";
-    const idEntity = row.id;
+    const div    = document.querySelector(".OperationCrud");
+    const links  = div.querySelectorAll("a");
+    let html     = "";
+    let idEntity = row.id;
 
     if (value != undefined) {
       idEntity = value;
