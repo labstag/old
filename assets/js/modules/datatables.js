@@ -153,12 +153,8 @@ export class datatables {
       input.setAttribute(key, value); 
     }
   }
-
-  switch(value, row, id) {
-    let div = document.createElement("div");
-    let uniqid = this.uniqid();
-
-    div.setAttribute("class", "custom-control custom-switch");
+  
+  setInput(uniqid) {
     let input = document.createElement("input");
     let data  = {
       'type'       : 'checkbox',
@@ -172,13 +168,28 @@ export class datatables {
     }
     
     this.setAttribute(input, data);
-
+    
+    return input;
+  }
+  
+  setLabel(uniqId) {
     let label  = document.createElement("label");
     const data = {
       'class': 'custom-control-label',
       'for'  : `customSwitch$(uniqId)`
     };
     this.setAttribute(label, data);
+    
+    return label;
+  }
+
+  switch(value, row, id) {
+    let div = document.createElement("div");
+    let uniqid = this.uniqid();
+
+    div.setAttribute("class", "custom-control custom-switch");
+    let input = this.setInput(uniqId);
+    let label = this.setLabel(uniqId);
     div.append(input);
     div.append(label);
 
