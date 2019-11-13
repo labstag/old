@@ -160,7 +160,7 @@ export class datatables {
       'type'       : 'checkbox',
       'class'      : 'custom-control-input',
       'data-enable': id,
-      'id'         : `customSwitch$(uniqId)`,
+      'id'         : `customSwitch${uniqId}`,
       'data-id'    : row.id
     };
     if (value == true) {
@@ -176,7 +176,7 @@ export class datatables {
     const label = document.createElement("label");
     const data  = {
       'class': 'custom-control-label',
-      'for'  : `customSwitch$(uniqId)`
+      'for'  : `customSwitch${uniqId}`
     };
     this.setAttribute(label, data);
     
@@ -260,8 +260,8 @@ export class datatables {
       const url  = $("#CrudList").attr("data-files");
       const data = {
         'data-fancybox': true,
-        'href'         : `$(url)$(value)`,
-        'src'          : `$(url)$(value)`,
+        'href'         : `${url}${value}`,
+        'src'          : `${url}${value}`,
         'class'        : 'img-thumbnail'
       };
       this.setAttribute(link, data);
