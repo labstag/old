@@ -20,15 +20,15 @@ export class datatables {
   }
   
   setWindows() {
-    window.dateFormatter = this.dateFormatter;
-    window.imageFormatter = this.imageFormatter;
-    window.queryParams = this.queryParams;
+    window.dateFormatter      = this.dateFormatter;
+    window.imageFormatter     = this.imageFormatter;
+    window.queryParams        = this.queryParams;
     window.operationDatatable = this.operations;
     window.dataTotalFormatter = this.dataTotal;
-    window.enableFormatter = this.enable.bind(this);
-    window.endFormatter = this.end.bind(this);
-    window.dataFormatter = this.dataFormatter;
-    window.urlData = [];
+    window.enableFormatter    = this.enable.bind(this);
+    window.endFormatter       = this.end.bind(this);
+    window.dataFormatter      = this.dataFormatter;
+    window.urlData            = [];
   }
 
   execute() {
@@ -119,11 +119,11 @@ export class datatables {
 
   changeEnable(event) {
     const element = $(event.currentTarget);
-    const enable = $(element).attr("data-enable");
-    const state = $(element).is(":checked");
-    const table = $(element).closest("table");
+    const enable  = $(element).attr("data-enable");
+    const state   = $(element).is(":checked");
+    const table   = $(element).closest("table");
     const idTable = $(table).attr("id");
-    const url = $("#" + idTable).attr("data-enableurl-" + enable);
+    const url     = $("#" + idTable).attr("data-enableurl-" + enable);
 
     window.fetch(url, {
       method: "POST",
