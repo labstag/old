@@ -10,7 +10,7 @@
         "ext-xml": "*",
         "api-platform/api-pack": "1.2.1",
         "api-platform/core": "2.5.2",
-        "beberlei/doctrineextensions": "1.2.3",
+        "beberlei/doctrineextensions": "1.2.4",
         "cocur/slugify": "3.2",
         "csa/guzzle-bundle": "3.1.1",
         "dompdf/dompdf": "0.8.3",
