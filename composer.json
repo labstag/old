@@ -61,7 +61,7 @@
         "symfony/workflow": "4.3.8",
         "symfony/yaml": "4.3.8",
         "twig/extensions": "1.5.4",
-        "vich/uploader-bundle": "1.10.2",
+        "vich/uploader-bundle": "1.11.0",
         "webonyx/graphql-php": "0.13.8",
         "zendframework/zend-soap": "2.8.0"
     },
