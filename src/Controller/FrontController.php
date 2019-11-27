@@ -49,22 +49,16 @@ class FrontController extends ControllerLib
             $html    = $templates->getHtml();
             $text    = $templates->getText();
             $this->setConfigurationParam();
-            $before  = [
-                '%sujet%',
-                '%site%',
-                '%name%',
-                '%email%',
-                '%message%',
+            $replace = [
+                '%sujet%'  => $contact['sujet'],
+                '%site%'   => $this->paramViews['config']['site_title'],
+                '%name%'   => $contact['name'],
+                '%email%'  => $contact['email'],
+                '%message%'=> $contact['content'],
             ];
-            $after   = [
-                $contact['sujet'],
-                $this->paramViews['config']['site_title'],
-                $contact['name'],
-                $contact['email'],
-                $contact['content'],
-            ];
-            $html    = str_replace($before, $after, $html);
-            $text    = str_replace($before, $after, $text);
+
+            $html    = strtr($html, $replace);
+            $text    = strtr($text, $replace);
             $message = new Swift_Message();
             $sujet   = $templates->getname();
             $sujet   = str_replace(
