@@ -69,17 +69,11 @@ class EmailListener extends EventSubscriberLib
         $text       = $templates->getText();
         $user       = $entity->getRefuser();
         $this->setConfigurationParam($args);
-        $before  = [
-            '%site%',
-            '%username%',
-            '%email%',
-            '%url%',
-        ];
-        $after   = [
-            $this->configParams['site_title'],
-            $user->getUsername(),
-            $entity->getAdresse(),
-            $this->router->generate(
+        $replace    = [
+            '%site%'     => $this->configParams['site_title'],
+            '%username%' => $user->getUsername(),
+            '%email%'    => $entity->getAdresse(),
+            '%url%'      => $this->router->generate(
                 'check-email',
                 [
                     'id' => $entity->getId(),
@@ -87,8 +81,9 @@ class EmailListener extends EventSubscriberLib
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
         ];
-        $html    = str_replace($before, $after, $html);
-        $text    = str_replace($before, $after, $text);
+
+        $html    = strtr($html, $replace);
+        $text    = strtr($text, $replace);
         $message = new Swift_Message();
         $sujet   = str_replace(
             '%site%',

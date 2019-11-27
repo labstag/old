@@ -95,26 +95,21 @@ class UserListener extends EventSubscriberLib
         $html       = $templates->getHtml();
         $text       = $templates->getText();
         $this->setConfigurationParam($args);
-        $before  = [
-            '%site%',
-            '%username%',
-            '%url%',
-            '%date%',
-        ];
-        $after   = [
-            $this->configParams['site_title'],
-            $entity->getUsername(),
-            $this->router->generate(
+        $replace    = [
+            '%site%'     => $this->configParams['site_title'],
+            '%username%' => $entity->getUsername(),
+            '%date%'     => $this->router->generate(
                 'change-password',
                 [
                     'id' => $entity->getId(),
                 ],
                 UrlGeneratorInterface::ABSOLUTE_URL
             ),
-            date('d/m/Y'),
+            '%date%'     => date('d/m/Y'),
         ];
-        $html    = str_replace($before, $after, $html);
-        $text    = str_replace($before, $after, $text);
+
+        $html    = strtr($html, $replace);
+        $text    = strtr($text, $replace);
         $message = new Swift_Message();
         $sujet   = str_replace(
             '%site%',
