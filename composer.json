@@ -20,7 +20,7 @@
         "knplabs/knp-components": "2.3.0",
         "knplabs/knp-menu-bundle": "2.3.0",
         "knplabs/knp-paginator-bundle": "5.0.0",
-        "knplabs/knp-time-bundle": "1.9.1",
+        "knplabs/knp-time-bundle": "1.10.0",
         "lexik/jwt-authentication-bundle": "2.6.5",
         "martinssipenko/password-policy": "1.0.0",
         "phpoffice/phppresentation": "0.9.0",
