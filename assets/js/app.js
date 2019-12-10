@@ -48,7 +48,11 @@ class Site {
     }
 
     login() {
-        $('#login_username').trigger('focus');
+        let event   = document.createEvent('HTMLEvents');
+        let element = document.querySelectorAll('#login_username');
+
+        event.initEvent('focus', true, false);
+        element.dispatchEvent(event);
     }
 }
 (($) => {
