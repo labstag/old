@@ -15,12 +15,10 @@ commit: ## Commit data
 	
 .PHONY: install
 install: ## install
-	mkdir mariadb
 	npm install
 	make build -i
 	make start -i
 	make core-install -i
-	npm install
 	make stop -i
 
 .PHONY: build
@@ -46,7 +44,7 @@ composer-update: ## COMPOSER update
 
 .PHONY: core-install
 core-install: ## CORE install
-	docker exec $(CONTAINER) make install
+	docker exec $(CONTAINER) composer install
 
 .PHONY: ssh
 ssh: ## SSH
@@ -128,3 +126,9 @@ audit: ##
 	make phpcpd -i
 	make phpmnd -i
 	make twigcs -i
+
+.PHONY: phpunit
+phpunit: ## PHPUnit
+	docker exec $(CONTAINER) php bin/console doctrine:schema:create
+	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load
+	docker exec $(CONTAINER) composer phpunit

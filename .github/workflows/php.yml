@@ -20,7 +20,9 @@ jobs:
         run: composer validate
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: make Install
 
       - name: Run the test suite
-        run: composer phpunit
+        run: |
+          make start
+          make phpunit
