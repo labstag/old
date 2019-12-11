@@ -15,10 +15,10 @@ commit: ## Commit data
 	
 .PHONY: install
 install: ## install
-	npm install
 	make build -i
 	make start -i
-	make core-install -i
+	npm install
+	docker exec $(CONTAINER) composer install
 	make stop -i
 
 .PHONY: build
@@ -41,10 +41,6 @@ logs: ## logs docker
 .PHONY: composer-update
 composer-update: ## COMPOSER update
 	docker exec $(CONTAINER) composer update
-
-.PHONY: core-install
-core-install: ## CORE install
-	docker exec $(CONTAINER) composer install
 
 .PHONY: ssh
 ssh: ## SSH
