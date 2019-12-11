@@ -14,7 +14,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: "7.4"
-          extensions: intl, mbstring, bcmatch, zip, gd, ldap
+          extensions: intl, mbstring, bcmath, zip, gd, ldap
 
       - name: Validate composer.json and composer.lock
         run: composer validate
