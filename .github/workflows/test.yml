@@ -22,17 +22,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: "7.4"
-          extensions: intl, mbstring, bcmath, zip, gd, ldap, soap
+      - name: Install dependencies
+        run: make install
 
       - name: Validate composer.json and composer.lock
-        run: composer validate
-
-      - name: Install dependencies
-        run: make Install
+        run: |
+          make start
+          make composer-validate
 
       - name: Run the test suite
         run: |
