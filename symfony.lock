@@ -19,6 +19,9 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.0"
     },
+    "behat/behat": {
+        "version": "v3.5.0"
+    },
     "behat/gherkin": {
         "version": "v4.6.0"
     },
@@ -715,6 +718,9 @@
     },
     "symfony/cache-contracts": {
         "version": "v1.1.5"
+    },
+    "symfony/class-loader": {
+        "version": "v3.4.36"
     },
     "symfony/config": {
         "version": "v4.2.3"
