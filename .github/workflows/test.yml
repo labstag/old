@@ -3,6 +3,18 @@ name: Test suite
 on: [push]
 
 jobs:
+  makefile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Show HELP
+        run: make help
+
+      - name: Show HELP
+        run: make
   phpunit:
     runs-on: ubuntu-latest
 
