@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := help
 EXEC_PHP = ./bin/
-EXEC_SYMFONY = $(EXEC_PHP)console
 PHPDOCUMENTORURL = https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 PHPDOCUMENTORFILE = phpDocumentor.phar
+CONTAINER = labstag-php7
+ARGS=$(filter-out $@,$(MAKECMDGOALS))
 	
 .PHONY: help
 help:
@@ -14,8 +15,51 @@ commit: ## Commit data
 	
 .PHONY: install
 install: ## install
-	composer install
+	mkdir mariadb
 	npm install
+	make build -i
+	make start -i
+	make core-install -i
+	npm install
+	make stop -i
+
+.PHONY: build
+build: ## build docker
+	docker-compose build
+
+.PHONY: start
+start: ## Start docker
+	docker-compose up -d
+
+.PHONY: restart
+restart: ## restart docker
+	docker-compose stop
+	docker-compose up -d
+
+.PHONY: logs
+logs: ## logs docker
+	docker-compose logs -f
+
+.PHONY: composer-update
+composer-update: ## COMPOSER update
+	docker exec $(CONTAINER) composer update
+
+.PHONY: core-install
+core-install: ## CORE install
+	docker exec $(CONTAINER) make install
+
+.PHONY: ssh
+ssh: ## SSH
+	docker exec -it $(CONTAINER) /bin/bash
+
+.PHONY: stop
+stop: ## Stop docker
+	docker-compose stop
+
+.PHONY: docker-recreate
+docker-recreate: ## RECREATE docker
+	make docker-stop
+	make docker-start
 	
 .PHONY: licenses
 licenses: ## Show licenses

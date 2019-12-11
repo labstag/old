@@ -52,3 +52,4 @@ public/robots.txt
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 /.history
+/mariadb
