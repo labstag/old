@@ -42,6 +42,10 @@ logs: ## logs docker
 composer-update: ## COMPOSER update
 	docker exec $(CONTAINER) composer update
 
+.PHONY: composer-validate
+composer-validate: ## COMPOSER validate
+	docker exec $(CONTAINER) composer validate
+
 .PHONY: ssh
 ssh: ## SSH
 	docker exec -it $(CONTAINER) /bin/bash
