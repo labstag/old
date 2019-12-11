@@ -1,6 +1,6 @@
 name: Test suite
 
-on: [pull]
+on: [push]
 
 jobs:
   phpunit:
