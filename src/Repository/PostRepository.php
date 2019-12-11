@@ -8,7 +8,7 @@ use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Post find($id, $lockMode = null, $lockVersion = null)
@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PostRepository extends ServiceEntityRepositoryLib
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
     }

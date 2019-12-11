@@ -4,7 +4,7 @@ namespace Labstag\Repository;
 
 use Labstag\Entity\Bookmark;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Bookmark find($id, $lockMode = null, $lockVersion = null)
@@ -14,11 +14,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BookmarkRepository extends ServiceEntityRepositoryLib
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Bookmark::class);
     }
-
     // /**
     //  * @return Bookmark[] Returns an array of Bookmark objects
     //  */
