@@ -1,6 +1,6 @@
 version: "3.4"
 services:
-  labstag-db:
+  labstag-madiadb:
     image: mariadb:10.3.20
     container_name: labstag-mariadb
     restart: always
@@ -16,7 +16,7 @@ services:
   labstag-aphp7:
     depends_on:
       - labstag-phpfpm7
-      - labstag-db
+      - labstag-madiadb
     image: httpd
     container_name: labstag-aphp7
     restart: always
@@ -27,13 +27,13 @@ services:
       - 8087:80
     links:
       - labstag-phpfpm7:phpfpm
-      - labstag-db:db
+      - labstag-madiadb:db
   labstag-phpfpm7:
     depends_on:
-      - labstag-db
+      - labstag-madiadb
     build: docker/phpfpm7
-    container_name: labstag-php7
+    container_name: labstag-phpfpm7
     volumes:
       - ${PWD}/:/usr/local/apache2/htdocs
     links:
-      - labstag-db:db
+      - labstag-madiadb:db
