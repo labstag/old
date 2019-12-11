@@ -32,5 +32,4 @@ jobs:
 
       - name: Run the test suite
         run: |
-          make start
           make phpunit
