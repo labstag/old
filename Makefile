@@ -90,43 +90,43 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	rm -rf output
 	
 .PHONY: watch-localhost
-watch-localhost:
+watch-localhost: ## WEBPACK DEV
 	export NODE_ENV=localhost && npm run watch
 	
 .PHONY: phpcsfixer
-phpcsfixer:
+phpcsfixer: ## PHPCSFIXER
 	composer php-cs-fixer
 	
 .PHONY: phpcbf
-phpcbf:
+phpcbf: ## PHPCBF
 	composer phpcbf
 	
 .PHONY: phpmd
-phpmd:
+phpmd: ## PHPMD
 	composer phpmd
 	
 .PHONY: phpcs
-phpcs:
+phpcs: ## PHPCS
 	composer phpcs
 	
 .PHONY: phpstan
-phpstan:
+phpstan: ## PHPSTAN
 	composer phpstan
 	
 .PHONY: phpcpd
-phpcpd:
+phpcpd: ## PHPCPD
 	composer phpcpd
 	
 .PHONY: phpmnd
-phpmnd:
+phpmnd: ## PHPMND
 	composer phpmnd
 	
 .PHONY: twigcs
-twigcs:
+twigcs: ## TWIGCS
 	composer twigcs
 
 .PHONY: audit
-audit: ## 
+audit: ## AUDIT CODE PHP
 	make phpcsfixer -i
 	make phpcbf -i
 	make phpmd -i

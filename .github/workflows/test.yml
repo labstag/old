@@ -22,10 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Build docker
+      - name: Build containers
         run: make build
 
-      - name: Start Docker
+      - name: Start containers
         run: make start
 
       - name: Check running containers
@@ -37,9 +37,11 @@ jobs:
       - name: NPM install
         run: npm install
 
-      - name: Validate composer.json and composer.lock
-        run: |
-          make composer-validate
+      - name: Validate composer
+        run: make composer-validate
+
+      - name: Add database
+        run: make migrate
 
       - name: Run the test suite
         run: |
