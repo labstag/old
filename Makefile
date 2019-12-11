@@ -19,6 +19,7 @@ install: ## install
 	make start -i
 	npm install
 	docker exec $(CONTAINER) composer install
+	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
 	make stop -i
 
 .PHONY: build
@@ -130,7 +131,6 @@ audit: ##
 .PHONY: phpunit
 phpunit: ## PHPUnit
 	make start -i
-	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
 	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
 	make stop -i
