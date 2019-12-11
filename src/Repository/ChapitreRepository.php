@@ -4,7 +4,7 @@ namespace Labstag\Repository;
 
 use Labstag\Entity\Chapitre;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Chapitre find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ChapitreRepository extends ServiceEntityRepositoryLib
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Chapitre::class);
     }

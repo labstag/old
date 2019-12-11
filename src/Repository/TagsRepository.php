@@ -5,7 +5,7 @@ namespace Labstag\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Tags;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Tags find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class TagsRepository extends ServiceEntityRepositoryLib
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tags::class);
     }

@@ -6,7 +6,7 @@ use Doctrine\ORM\Query;
 use Labstag\Entity\History;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|History find($id, $lockMode = null, $lockVersion = null)
@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class HistoryRepository extends ServiceEntityRepositoryLib
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, History::class);
     }
