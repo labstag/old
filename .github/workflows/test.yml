@@ -22,12 +22,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Install dependencies
-        run: make install
+      - name: Build docker
+        run: make build
+
+      - name: Start Docker
+        run: make start
+
+      - name: Check running containers
+        run: docker ps -a
+
+      - name: Composer install
+        run: make composer-install
+
+      - name: NPM install
+        run: npm install
 
       - name: Validate composer.json and composer.lock
         run: |
-          make start
           make composer-validate
 
       - name: Run the test suite

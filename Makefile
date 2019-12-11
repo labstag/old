@@ -17,10 +17,14 @@ commit: ## Commit data
 install: ## install
 	make build -i
 	make start -i
+	make composer-install -i
 	npm install
-	docker exec $(CONTAINER) composer install
-	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
+	make migrate -i
 	make stop -i
+
+.PHONY: migrate
+migrate: ## migrate database
+	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n*
 
 .PHONY: build
 build: ## build docker
@@ -38,6 +42,10 @@ restart: ## restart docker
 .PHONY: logs
 logs: ## logs docker
 	docker-compose logs -f
+
+.PHONY: composer-install
+composer-install: ## COMPOSER install
+	docker exec $(CONTAINER) composer install
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
@@ -130,7 +138,6 @@ audit: ##
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	make start -i
 	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
 	make stop -i
