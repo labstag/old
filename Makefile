@@ -2,7 +2,7 @@
 EXEC_PHP = ./bin/
 PHPDOCUMENTORURL = https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 PHPDOCUMENTORFILE = phpDocumentor.phar
-CONTAINER = labstag-php7
+CONTAINER = labstag-phpfpm7
 ARGS=$(filter-out $@,$(MAKECMDGOALS))
 	
 .PHONY: help
@@ -56,8 +56,8 @@ stop: ## Stop docker
 
 .PHONY: docker-recreate
 docker-recreate: ## RECREATE docker
-	make docker-stop
-	make docker-start
+	make docker-stop -i
+	make docker-start -i
 	
 .PHONY: licenses
 licenses: ## Show licenses
@@ -129,6 +129,8 @@ audit: ##
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	docker exec $(CONTAINER) php bin/console doctrine:schema:create
-	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load
+	make start -i
+	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
+	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
+	make stop -i
