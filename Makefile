@@ -12,12 +12,23 @@ help:
 .PHONY: commit
 commit: ## Commit data
 	npm run commit
-	
-.PHONY: install
-install: ## install
+
+
+.PHONY: install-dev
+install-dev: ## install DEV
 	make build -i
 	make start -i
-	make composer-install -i
+	make composer-install-dev -i
+	npm install
+	make bdd-dev -i
+	make migrate -i
+	make stop -i
+
+.PHONY: install-prod
+install-prod: ## install PROD
+	make build -i
+	make start -i
+	make composer-install-prod -i
 	npm install
 	make bdd-dev -i
 	make migrate -i
@@ -44,9 +55,13 @@ restart: ## restart docker
 logs: ## logs docker
 	docker-compose logs -f
 
-.PHONY: composer-install
-composer-install: ## COMPOSER install
+.PHONY: composer-install-dev
+composer-install-dev: ## COMPOSER install DEV
 	docker exec $(CONTAINER) composer install
+
+.PHONY: composer-install-prod
+composer-install-prod: ## COMPOSER install PROD
+	docker exec $(CONTAINER) composer install --no-dev
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
@@ -137,9 +152,12 @@ audit: ## AUDIT CODE PHP
 	make phpmnd -i
 	make twigcs -i
 
+.PHONY: fixtures
+fixtures: ## PHPUnit
+	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
+
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
 
 .PHONY: bdd-dev
