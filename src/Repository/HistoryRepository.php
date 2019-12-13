@@ -2,11 +2,11 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Labstag\Entity\History;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|History find($id, $lockMode = null, $lockVersion = null)

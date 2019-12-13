@@ -24,7 +24,7 @@ class OauthConnectUserListener extends EventSubscriberLib
 
     public function __construct(ContainerInterface $container, OauthService $OauthService)
     {
-        $this->container     = $container;
+        $this->container    = $container;
         $this->OauthService = $OauthService;
     }
 

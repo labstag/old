@@ -13,7 +13,6 @@ help:
 commit: ## Commit data
 	npm run commit
 
-
 .PHONY: install-dev
 install-dev: ## install DEV
 	make build -i
@@ -91,7 +90,7 @@ licenses: ## Show licenses
 	
 .PHONY: licensesPHP
 licensesPHP: ## Show licenses PHP
-	composer licenses
+	docker exec $(CONTAINER) composer licenses
 	
 .PHONY: licensesJSCSS
 licensesJSCSS: ## Show licenses JS / CSS
@@ -111,35 +110,35 @@ watch-localhost: ## WEBPACK DEV
 	
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
-	composer php-cs-fixer
+	docker exec $(CONTAINER) composer php-cs-fixer
 	
 .PHONY: phpcbf
 phpcbf: ## PHPCBF
-	composer phpcbf
+	docker exec $(CONTAINER) composer phpcbf
 	
 .PHONY: phpmd
 phpmd: ## PHPMD
-	composer phpmd
+	docker exec $(CONTAINER) composer phpmd
 	
 .PHONY: phpcs
 phpcs: ## PHPCS
-	composer phpcs
+	docker exec $(CONTAINER) composer phpcs
 	
 .PHONY: phpstan
 phpstan: ## PHPSTAN
-	composer phpstan
+	docker exec $(CONTAINER) composer phpstan
 	
 .PHONY: phpcpd
 phpcpd: ## PHPCPD
-	composer phpcpd
+	docker exec $(CONTAINER) composer phpcpd
 	
 .PHONY: phpmnd
 phpmnd: ## PHPMND
-	composer phpmnd
+	docker exec $(CONTAINER) composer phpmnd
 	
 .PHONY: twigcs
 twigcs: ## TWIGCS
-	composer twigcs
+	docker exec $(CONTAINER) composer twigcs
 
 .PHONY: audit
 audit: ## AUDIT CODE PHP
@@ -155,7 +154,6 @@ audit: ## AUDIT CODE PHP
 .PHONY: fixtures
 fixtures: ## PHPUnit
 	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
-
 
 .PHONY: tests
 tests: ## tests

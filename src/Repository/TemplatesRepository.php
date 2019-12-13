@@ -2,9 +2,9 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\Templates;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Templates find($id, $lockMode = null, $lockVersion = null)

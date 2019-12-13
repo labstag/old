@@ -2,13 +2,13 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Post find($id, $lockMode = null, $lockVersion = null)

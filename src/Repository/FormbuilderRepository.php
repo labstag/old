@@ -2,9 +2,9 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\Formbuilder;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Formbuilder find($id, $lockMode = null, $lockVersion = null)
