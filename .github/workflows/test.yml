@@ -41,7 +41,7 @@ jobs:
         run: make composer-validate
 
       - name: Install BDD
-	run: make bdd-dev
+	      run: make bdd-dev
 
       - name: Add database
         run: make migrate
