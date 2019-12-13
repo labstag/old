@@ -157,15 +157,16 @@ fixtures: ## PHPUnit
 
 .PHONY: tests
 tests: ## tests
-	docker exec $(CONTAINER) composer tests
+	make phpunit -i
+	make phpspec -i
+
+.PHONY: phpspec
+phpspec: ## phpspec
+	docker exec $(CONTAINER) composer phpspec
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
 	docker exec $(CONTAINER) composer phpunit
-
-.PHONY: behat
-behat: ## behat
-	docker exec $(CONTAINER) composer behat
 
 .PHONY: bdd-dev
 bdd-dev: ## Install BDD DEV
