@@ -140,10 +140,18 @@ phpmnd: ## PHPMND
 twigcs: ## TWIGCS
 	docker exec $(CONTAINER) composer twigcs
 
-.PHONY: audit
-audit: ## AUDIT CODE PHP
+.PHONY: fix
+fix: ## FIX AND AUDIT CODE PHP
 	make phpcsfixer -i
 	make phpcbf -i
+
+.PHONY: fixaudit
+fixaudit: ## Fix and audit file
+	make fix -i
+	make audit -i
+
+.PHONY: audit
+audit: ## AUDIT CODE PHP
 	make phpmd -i
 	make phpcs -i
 	make phpstan -i
