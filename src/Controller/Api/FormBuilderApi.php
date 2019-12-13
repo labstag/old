@@ -15,14 +15,14 @@ use Symfony\Component\Routing\RouterInterface;
 class FormBuilderApi extends ApiControllerLib
 {
     public function __construct(
-        FormBuilderPublishingHandler $formbuilderPublishingHandler,
+        FormBuilderPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->formbuilderPublishingHandler = $formbuilderPublishingHandler;
+        $this->formbuilderPublishingHandler = $handler;
     }
 
     public function __invoke(Formbuilder $data): Formbuilder

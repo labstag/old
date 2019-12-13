@@ -15,17 +15,20 @@ class OauthConnectUserListener extends EventSubscriberLib
     /**
      * @var OauthService
      */
-    private $OauthService;
+    private $oauthService;
 
     /**
      * @var ContainerInterface
      */
     private $container;
 
-    public function __construct(ContainerInterface $container, OauthService $OauthService)
+    public function __construct(
+        ContainerInterface $container,
+        OauthService $oauthService
+    )
     {
         $this->container    = $container;
-        $this->OauthService = $OauthService;
+        $this->oauthService = $oauthService;
     }
 
     /**
@@ -71,7 +74,7 @@ class OauthConnectUserListener extends EventSubscriberLib
     {
         $name     = $entity->getName();
         $data     = $entity->getData();
-        $identity = $this->OauthService->getIdentity($data, $name);
+        $identity = $this->oauthService->getIdentity($data, $name);
         $entity->setIdentity($identity);
     }
 }

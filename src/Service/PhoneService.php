@@ -34,14 +34,14 @@ class PhoneService
                 strtoupper($locale)
             );
 
-            $CountryCodeSource = $numberProto->getCountryCodeSource();
+            $countryCodeSource = $numberProto->getCountryCodeSource();
             $nationalNumber    = $numberProto->getNationalNumber();
             $json              = [
                 'country'       => $this->phoneUtil->getRegionCodeForNumber(
                     $numberProto
                 ),
                 'international' => '+'.$numberProto->getNationalNumber(),
-                'num'           => $CountryCodeSource.$nationalNumber,
+                'num'           => $countryCodeSource.$nationalNumber,
             ];
         } catch (NumberParseException $e) {
             $json['error'] = $e->__toString();

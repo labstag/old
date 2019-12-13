@@ -15,7 +15,7 @@ use Symfony\Component\Routing\RouterInterface;
 class BookmarkApi extends ApiControllerLib
 {
     public function __construct(
-        BookmarkPublishingHandler $bookmarkPublishingHandler,
+        BookmarkPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
@@ -23,7 +23,7 @@ class BookmarkApi extends ApiControllerLib
     )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->bookmarkPublishingHandler = $bookmarkPublishingHandler;
+        $this->bookmarkPublishingHandler = $handler;
     }
 
     public function __invoke(Bookmark $data): Bookmark
