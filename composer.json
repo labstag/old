@@ -78,6 +78,7 @@
         "phploc/phploc": "5.0.0",
         "phpmd/phpmd": "2.7.0",
         "phpro/grumphp": "0.17.0",
+        "phpstan/phpstan": "^0.12.2",
         "povils/phpmnd": "2.1.0",
         "sebastian/phpcpd": "4.1.0",
         "sensiolabs/security-checker": "6.0.3",

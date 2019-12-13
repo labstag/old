@@ -5,10 +5,12 @@ namespace Labstag\Tests\Service;
 use Labstag\Lib\ServiceTestLib;
 use Labstag\Service\PhoneService;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PhoneTest extends ServiceTestLib
 {
-
-
     public function testPhone()
     {
         /** @var PhoneService */

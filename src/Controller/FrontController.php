@@ -50,11 +50,11 @@ class FrontController extends ControllerLib
             $text    = $templates->getText();
             $this->setConfigurationParam();
             $replace = [
-                '%sujet%'  => $contact['sujet'],
-                '%site%'   => $this->paramViews['config']['site_title'],
-                '%name%'   => $contact['name'],
-                '%email%'  => $contact['email'],
-                '%message%'=> $contact['content'],
+                '%sujet%'   => $contact['sujet'],
+                '%site%'    => $this->paramViews['config']['site_title'],
+                '%name%'    => $contact['name'],
+                '%email%'   => $contact['email'],
+                '%message%' => $contact['content'],
             ];
 
             $html    = strtr($html, $replace);
