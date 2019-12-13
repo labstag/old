@@ -7,7 +7,7 @@ use PhpSpec\ObjectBehavior;
 
 class TagsSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Tags::class);
     }

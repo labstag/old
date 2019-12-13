@@ -7,7 +7,7 @@ use PhpSpec\ObjectBehavior;
 
 class HistoryPublishingHandlerSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(HistoryPublishingHandler::class);
     }

@@ -7,7 +7,7 @@ use PhpSpec\ObjectBehavior;
 
 class PostListenerSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(PostListener::class);
     }

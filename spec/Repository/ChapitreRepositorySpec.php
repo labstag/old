@@ -7,7 +7,7 @@ use PhpSpec\ObjectBehavior;
 
 class ChapitreRepositorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ChapitreRepository::class);
     }
