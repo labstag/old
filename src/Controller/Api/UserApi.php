@@ -15,14 +15,14 @@ use Symfony\Component\Routing\RouterInterface;
 class UserApi extends ApiControllerLib
 {
     public function __construct(
-        UserPublishingHandler $userPublishingHandler,
+        UserPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->userPublishingHandler = $userPublishingHandler;
+        $this->userPublishingHandler = $handler;
     }
 
     public function __invoke(User $data): User

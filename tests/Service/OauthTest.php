@@ -38,6 +38,8 @@ class OauthTest extends ServiceTestLib
         $falseProvider = $service->getActivedProvider(md5('gitlab'));
         $gitlab        = $service->getActivedProvider('gitlab');
         $this->assertFalse($empty);
+        $this->assertFalse($falseProvider);
+        $this->assertFalse($gitlab);
     }
 
     public function testsetProvider()
@@ -45,5 +47,7 @@ class OauthTest extends ServiceTestLib
         $service = $this->service;
         $empty   = $service->setProvider(null);
         $gitlab  = $service->setProvider('gitlab');
+        $this->assertFalse($empty);
+        $this->assertFalse($gitlab);
     }
 }

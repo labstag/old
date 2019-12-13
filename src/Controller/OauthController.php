@@ -26,7 +26,13 @@ class OauthController extends ControllerLib
      */
     private $OauthService;
 
-    public function __construct(ContainerInterface $container, OauthService $OauthService, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
+    public function __construct(
+        ContainerInterface $container,
+        OauthService $OauthService,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
         $this->OauthService = $OauthService;
