@@ -136,6 +136,11 @@
             "phpmnd src",
             "phpmnd tests"
         ],
+        "tests": [
+            "behat",
+            "phpunit"
+        ],
+        "behat": "behat",
         "phpmd": "phpmd src,tests text phpmd.xml",
         "phpcpd": "phpcpd src",
         "phpunit": "phpunit",

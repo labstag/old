@@ -160,6 +160,10 @@ fixtures: ## PHPUnit
 phpunit: ## PHPUnit
 	docker exec $(CONTAINER) composer phpunit
 
+.PHONY: behat
+behat: ## behat
+	docker exec $(CONTAINER) composer behat
+
 .PHONY: bdd-dev
 bdd-dev: ## Install BDD DEV
 	docker exec $(CONTAINER) cp .env.dist .env
