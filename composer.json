@@ -66,7 +66,6 @@
         "zendframework/zend-soap": "2.8.0"
     },
     "require-dev": {
-        "behat/behat": "^3.5",
         "codeception/codeception": "3.1.2",
         "doctrine/doctrine-fixtures-bundle": "3.3.0",
         "friendsofphp/php-cs-fixer": "2.16.1",
@@ -78,6 +77,7 @@
         "phploc/phploc": "5.0.0",
         "phpmd/phpmd": "2.7.0",
         "phpro/grumphp": "0.17.0",
+        "phpspec/phpspec": "^6.1",
         "phpstan/phpstan": "^0.12.2",
         "povils/phpmnd": "2.1.0",
         "sebastian/phpcpd": "4.1.0",
@@ -138,10 +138,10 @@
             "phpmnd tests"
         ],
         "tests": [
-            "behat",
-            "phpunit"
+            "phpunit",
+            "phpspec run"
         ],
-        "behat": "behat",
+        "phpspec": "phpspec run",
         "phpmd": "phpmd src,tests text phpmd.xml",
         "phpcpd": "phpcpd src",
         "phpunit": "phpunit",
