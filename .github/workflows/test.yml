@@ -51,3 +51,6 @@ jobs:
 
       - name: Run the test suite
         run: make phpunit
+
+      - name: Run BEHAT
+        run: make behat
