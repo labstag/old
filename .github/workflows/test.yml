@@ -39,7 +39,7 @@ jobs:
 
       - name: Validate composer
         run: make composer-validate
-			
+
 			- name: Install BDD
 				run: make bdd-dev
 
