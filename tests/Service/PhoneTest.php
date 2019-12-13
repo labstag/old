@@ -14,6 +14,5 @@ class PhoneTest extends ServiceTestLib
         /** @var PhoneService */
         $service = self::$container->get(PhoneService::class);
         $json    = $service->verif('0701010101', 'fr');
-        var_dump($json);
     }
 }
