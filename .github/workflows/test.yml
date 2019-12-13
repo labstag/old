@@ -47,5 +47,4 @@ jobs:
         run: make migrate
 
       - name: Run the test suite
-        run: |
-          make phpunit
+        run: make phpunit
