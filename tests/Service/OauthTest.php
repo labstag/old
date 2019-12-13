@@ -5,6 +5,10 @@ namespace Labstag\Tests\Service;
 use Labstag\Lib\ServiceTestLib;
 use Labstag\Service\OauthService;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class OauthTest extends ServiceTestLib
 {
 
@@ -12,7 +16,7 @@ class OauthTest extends ServiceTestLib
      * @var OauthService
      */
     private $service;
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -39,8 +43,7 @@ class OauthTest extends ServiceTestLib
     public function testsetProvider()
     {
         $service = $this->service;
-        $empty = $service->setProvider(null);
-        $gitlab = $service->setProvider('gitlab');
-        
+        $empty   = $service->setProvider(null);
+        $gitlab  = $service->setProvider('gitlab');
     }
 }

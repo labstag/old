@@ -2,10 +2,10 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Tags;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Tags find($id, $lockMode = null, $lockVersion = null)

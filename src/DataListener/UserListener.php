@@ -95,7 +95,7 @@ class UserListener extends EventSubscriberLib
         $html       = $templates->getHtml();
         $text       = $templates->getText();
         $this->setConfigurationParam($args);
-        $replace    = [
+        $replace = [
             '%site%'     => $this->configParams['site_title'],
             '%username%' => $entity->getUsername(),
             '%date%'     => $this->router->generate(

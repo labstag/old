@@ -91,7 +91,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder  = $passwordEncoder;
         $this->requestStack     = $requestStack;
         $this->request          = $this->requestStack->getCurrentRequest();
-        $this->OauthService    = $OauthService;
+        $this->OauthService     = $OauthService;
         $this->tokenStorage     = $tokenStorage;
         $this->oauthCode        = $this->request->attributes->get('oauthCode');
     }

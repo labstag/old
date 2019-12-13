@@ -2,10 +2,10 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|OauthConnectUser find($id, $lockMode = null, $lockVersion = null)

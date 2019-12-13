@@ -2,9 +2,9 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\Chapitre;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method null|Chapitre find($id, $lockMode = null, $lockVersion = null)
