@@ -7,7 +7,7 @@ use PhpSpec\ObjectBehavior;
 
 class PostFixturesSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(PostFixtures::class);
     }

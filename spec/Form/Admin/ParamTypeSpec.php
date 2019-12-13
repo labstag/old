@@ -7,7 +7,7 @@ use PhpSpec\ObjectBehavior;
 
 class ParamTypeSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ParamType::class);
     }
