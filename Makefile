@@ -19,12 +19,13 @@ install: ## install
 	make start -i
 	make composer-install -i
 	npm install
+	make bdd-dev -i
 	make migrate -i
 	make stop -i
 
 .PHONY: migrate
 migrate: ## migrate database
-	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n*
+	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
 
 .PHONY: build
 build: ## build docker
@@ -141,3 +142,7 @@ phpunit: ## PHPUnit
 	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
 	make stop -i
+
+.PHONY: bdd-dev
+bdd-dev: ## Install BDD DEV
+	docker exec $(CONTAINER) cp .env.dist .env
