@@ -141,7 +141,6 @@ audit: ## AUDIT CODE PHP
 phpunit: ## PHPUnit
 	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
-	make stop -i
 
 .PHONY: bdd-dev
 bdd-dev: ## Install BDD DEV

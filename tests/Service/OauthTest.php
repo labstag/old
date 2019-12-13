@@ -25,7 +25,6 @@ class OauthTest extends ServiceTestLib
         $empty   = $service->getIdentity(null, null);
         $this->assertTrue(is_null($empty));
         $empty = $service->getIdentity(null, null);
-        var_dump(get_class_methods($this->service));
     }
 
     public function testgetActivedProvider()
