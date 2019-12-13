@@ -13,11 +13,11 @@ class ConfigurationFixtures extends Fixture
     /**
      * @var OauthService
      */
-    private $OauthService;
+    private $oauthService;
 
-    public function __construct(OauthService $OauthService)
+    public function __construct(OauthService $oauthService)
     {
-        $this->OauthService = $OauthService;
+        $this->oauthService = $oauthService;
     }
 
     public function load(ObjectManager $manager)
@@ -83,7 +83,7 @@ class ConfigurationFixtures extends Fixture
                 ]     = explode('_', $code);
                 if (!isset($oauth[$type])) {
                     $oauth[$type] = [
-                        'activate' => $this->OauthService->getActivedProvider($type),
+                        'activate' => $this->oauthService->getActivedProvider($type),
                         'type'     => $type,
                     ];
                 }

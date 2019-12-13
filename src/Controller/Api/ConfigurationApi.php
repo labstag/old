@@ -15,14 +15,14 @@ use Symfony\Component\Routing\RouterInterface;
 class ConfigurationApi extends ApiControllerLib
 {
     public function __construct(
-        ConfigurationPublishingHandler $configurationPublishingHandler,
+        ConfigurationPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->configurationPublishingHandler = $configurationPublishingHandler;
+        $this->configurationPublishingHandler = $handler;
     }
 
     public function __invoke(Configuration $data): Configuration

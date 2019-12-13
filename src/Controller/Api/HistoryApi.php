@@ -15,14 +15,14 @@ use Symfony\Component\Routing\RouterInterface;
 class HistoryApi extends ApiControllerLib
 {
     public function __construct(
-        HistoryPublishingHandler $historyPublishingHandler,
+        HistoryPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->historyPublishingHandler = $historyPublishingHandler;
+        $this->historyPublishingHandler = $handler;
     }
 
     public function __invoke(History $data): History
