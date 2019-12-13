@@ -156,6 +156,11 @@ audit: ## AUDIT CODE PHP
 fixtures: ## PHPUnit
 	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 
+
+.PHONY: tests
+tests: ## tests
+	docker exec $(CONTAINER) composer tests
+
 .PHONY: phpunit
 phpunit: ## PHPUnit
 	docker exec $(CONTAINER) composer phpunit
