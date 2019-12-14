@@ -39,6 +39,7 @@ class TagsTest extends RepositoryTestLib
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
             $this->assertTrue($random instanceof Tags);
+
             return;
         }
 

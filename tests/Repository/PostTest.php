@@ -69,6 +69,7 @@ class PostTest extends RepositoryTestLib
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
             $this->assertTrue($random instanceof Post);
+
             return;
         }
 
@@ -83,6 +84,7 @@ class PostTest extends RepositoryTestLib
         if ($user instanceof User) {
             $posts = $this->repository->findAllActiveByUser($user);
             $this->assertTrue($posts instanceof Query);
+
             return;
         }
 
@@ -97,6 +99,7 @@ class PostTest extends RepositoryTestLib
         if ($tags instanceof Tags) {
             $posts = $this->repository->findAllActiveByTag($tags);
             $this->assertTrue($posts instanceof Query);
+
             return;
         }
 
@@ -111,6 +114,7 @@ class PostTest extends RepositoryTestLib
         if ($category instanceof Category) {
             $posts = $this->repository->findAllActiveByCategory($category);
             $this->assertTrue($posts instanceof Query);
+
             return;
         }
 

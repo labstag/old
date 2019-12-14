@@ -141,7 +141,7 @@ twigcs: ## TWIGCS
 	docker exec $(CONTAINER) composer twigcs
 
 .PHONY: fix
-fix: ## FIX AND AUDIT CODE PHP
+fix: ## FIX CODE PHP
 	make phpcsfixer -i
 	make phpcbf -i
 

@@ -1,25 +1,28 @@
 version: "3.4"
 services:
-  labstag-madiadb:
-    image: mariadb:10.3.20
+  labstag-mariadb:
+    image: mariadb:10.4.11
     container_name: labstag-mariadb
-    restart: always
+    restart: "no"
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: core
       MYSQL_USER: labstag
-      MYSQL_PASSWORD: "password"
-    ports:
-      - 3307:3306
+      MYSQL_PASSWORD: password
+      TZ: Europe/Paris
     volumes:
       - ${PWD}/mariadb:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - labstag-network
   labstag-aphp7:
     depends_on:
       - labstag-phpfpm7
-      - labstag-madiadb
+      - labstag-mariadb
     image: httpd
     container_name: labstag-aphp7
-    restart: always
+    restart: "no"
     volumes:
       - ${PWD}/:/usr/local/apache2/htdocs/
       - ${PWD}/docker/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
@@ -27,13 +30,25 @@ services:
       - 8087:80
     links:
       - labstag-phpfpm7:phpfpm
-      - labstag-madiadb:db
+      - labstag-mariadb:mariadb
+    networks:
+      - labstag-network
   labstag-phpfpm7:
     depends_on:
-      - labstag-madiadb
+      - labstag-mariadb
     build: docker/phpfpm7
     container_name: labstag-phpfpm7
     volumes:
       - ${PWD}/:/usr/local/apache2/htdocs
     links:
-      - labstag-madiadb:db
+      - labstag-mariadb:mariadb
+    networks:
+      - labstag-network
+
+networks:
+  labstag-network:
+    driver: bridge
+
+volumes:
+  mariadb:
+    driver: local
