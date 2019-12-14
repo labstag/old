@@ -2,25 +2,15 @@
 
 namespace Labstag\Controller\Api;
 
-use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\User;
 use Labstag\Handler\UserPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\UserRepository;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 
 class UserApi extends ApiControllerLib
 {
-    public function __construct(
-        UserPublishingHandler $handler,
-        ContainerInterface $container,
-        PaginatorInterface $paginator,
-        RequestStack $requestStack,
-        RouterInterface $router
-    )
+    public function __construct(UserPublishingHandler $handler)
     {
         $this->userPublishingHandler = $handler;
     }

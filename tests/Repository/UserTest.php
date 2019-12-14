@@ -38,6 +38,7 @@ class UserTest extends RepositoryTestLib
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
             $this->assertTrue($random instanceof User);
+
             return;
         }
 
@@ -55,6 +56,7 @@ class UserTest extends RepositoryTestLib
         if ($user instanceof User) {
             $user = $this->repository->loginToken($user->getApiKey());
             $this->assertTrue($user instanceof User);
+
             return;
         }
 
@@ -75,6 +77,7 @@ class UserTest extends RepositoryTestLib
                 $user->getEmail()
             );
             $this->assertTrue($user instanceof User);
+
             return;
         }
 

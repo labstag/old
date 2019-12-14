@@ -48,6 +48,7 @@ class OauthConnectUserTest extends RepositoryTestLib
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
             $this->assertTrue($random instanceof OauthConnectUser);
+
             return;
         }
 
@@ -67,6 +68,7 @@ class OauthConnectUserTest extends RepositoryTestLib
                 $random->getName()
             );
             $this->assertTrue($oauth instanceof OauthConnectUser);
+
             return;
         }
 
@@ -85,6 +87,7 @@ class OauthConnectUserTest extends RepositoryTestLib
                 $user
             );
             $this->assertTrue($oauth instanceof OauthConnectUser);
+
             return;
         }
 
@@ -102,6 +105,7 @@ class OauthConnectUserTest extends RepositoryTestLib
                 $random->getIdentity()
             );
             $this->assertTrue($oauth instanceof OauthConnectUser);
+
             return;
         }
 
