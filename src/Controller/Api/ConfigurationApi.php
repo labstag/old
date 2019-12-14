@@ -22,6 +22,7 @@ class ConfigurationApi extends ApiControllerLib
         RouterInterface $router
     )
     {
+        parent::__construct($container, $paginator, $requestStack, $router);
         $this->configurationPublishingHandler = $handler;
     }
 

@@ -22,6 +22,7 @@ class FormBuilderApi extends ApiControllerLib
         RouterInterface $router
     )
     {
+        parent::__construct($container, $paginator, $requestStack, $router);
         $this->formbuilderPublishingHandler = $handler;
     }
 

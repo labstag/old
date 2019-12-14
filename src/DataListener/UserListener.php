@@ -98,7 +98,7 @@ class UserListener extends EventSubscriberLib
         $replace = [
             '%site%'     => $this->configParams['site_title'],
             '%username%' => $entity->getUsername(),
-            '%url%'     => $this->router->generate(
+            '%url%'      => $this->router->generate(
                 'change-password',
                 [
                     'id' => $entity->getId(),

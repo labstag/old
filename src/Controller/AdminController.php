@@ -30,8 +30,8 @@ class AdminController extends AdminControllerLib
      */
     public function profil(Request $request, Security $security): Response
     {
-        $user    = $security->getUser();
-        $form    = $this->createForm(
+        $user = $security->getUser();
+        $form = $this->createForm(
             ProfilType::class,
             $user
         );
