@@ -82,7 +82,16 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $tokenStorage;
 
-    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, OauthService $oauthService, RequestStack $requestStack, TokenStorageInterface $tokenStorage)
+    public function __construct(
+        ContainerInterface $container,
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        OauthService $oauthService,
+        RequestStack $requestStack,
+        TokenStorageInterface $tokenStorage
+    )
     {
         $this->container        = $container;
         $this->entityManager    = $entityManager;

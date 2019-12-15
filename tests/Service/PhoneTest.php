@@ -15,7 +15,9 @@ class PhoneTest extends ServiceTestLib
     {
         /** @var PhoneService */
         $service = self::$container->get(PhoneService::class);
-        $json    = $service->verif('0701010101', 'fr');
-        $this->assertFalse($json);
+        $data    = $service->verif('0606060606', 'FR');
+        $this->assertTrue(is_array($data));
+        $this->assertSame('+33606060606', $data['format']['e164']);
+        $this->assertSame('Europe/Paris', $data['timezones'][0]);
     }
 }

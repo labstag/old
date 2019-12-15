@@ -34,7 +34,11 @@ class OauthService
 
     public function getIdentity(?array $data, ?string $oauth): ?string
     {
-        $entity = '';
+        $entity = null;
+        if (is_null($oauth)) {
+            return $entity;
+        }
+
         switch ($oauth) {
             case 'gitlab':
             case 'github':
@@ -57,11 +61,13 @@ class OauthService
         return $entity;
     }
 
-    public function setProvider($clientName)
+    public function setProvider($clientName): ?GenericProviderLib
     {
         if (isset($this->configProvider[$clientName])) {
             return $this->initProvider($clientName);
         }
+
+        return null;
     }
 
     public function getActivedProvider($clientName)

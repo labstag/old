@@ -54,7 +54,12 @@ abstract class ControllerLib extends AbstractController
      *
      * @param ContainerInterface $container container
      */
-    public function __construct(ContainerInterface $container, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router)
+    public function __construct(
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
         $this->paramViews   = [];
         $this->container    = $container;
@@ -145,6 +150,13 @@ abstract class ControllerLib extends AbstractController
         $this->paramViews['config'] = $config;
     }
 
+    protected function persistAndFlush(&$entity): void
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($entity);
+        $entityManager->flush();
+    }
+
     private function disclaimerActivate($parameters)
     {
         $session = $this->request->getSession();
@@ -163,8 +175,14 @@ abstract class ControllerLib extends AbstractController
         if (isset($parameters['setMeta'])) {
             $entity = $parameters['setMeta'];
 
-            $this->paramViews['config']['meta'][0]['article:published_time'] = $entity->getCreatedAt()->format(DateTimeInterface::ATOM);
-            $this->paramViews['config']['meta'][0]['article:modified_time']  = $entity->getUpdatedAt()->format(DateTimeInterface::ATOM);
+            $this->paramViews['config']['meta'][0] = [
+                'article:published_time' => $entity->getCreatedAt()->format(
+                    DateTimeInterface::ATOM
+                ),
+                'article:modified_time'  => $entity->getUpdatedAt()->format(
+                    DateTimeInterface::ATOM
+                ),
+            ];
         }
     }
 }

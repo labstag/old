@@ -14,6 +14,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class ChapitreApi extends ApiControllerLib
 {
+
+    /**
+     * @var ChapitrePublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
         ChapitrePublishingHandler $handler,
         ContainerInterface $container,
@@ -23,12 +29,12 @@ class ChapitreApi extends ApiControllerLib
     )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->chapitrePublishingHandler = $handler;
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Chapitre $data): Chapitre
     {
-        $this->chapitrePublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

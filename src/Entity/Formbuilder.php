@@ -11,7 +11,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Labstag\Controller\Api\FormBuilderApi;
+use Labstag\Controller\Api\FormbuilderApi;
 
 /**
  * @ApiResource(
@@ -23,7 +23,7 @@ use Labstag\Controller\Api\FormBuilderApi;
  *             "method": "GET",
  *             "path": "/formbuilders/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": FormBuilderApi::class,
+ *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Corbeille",
@@ -34,7 +34,7 @@ use Labstag\Controller\Api\FormBuilderApi;
  *             "method": "DELETE",
  *             "path": "/formbuilders/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": FormBuilderApi::class,
+ *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Remove",
@@ -45,7 +45,7 @@ use Labstag\Controller\Api\FormBuilderApi;
  *             "method": "POST",
  *             "path": "/formbuilders/restore",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": FormBuilderApi::class,
+ *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Restore",
@@ -56,7 +56,7 @@ use Labstag\Controller\Api\FormBuilderApi;
  *             "method": "POST",
  *             "path": "/formbuilders/empty",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": FormBuilderApi::class,
+ *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Empty",
