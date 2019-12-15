@@ -49,8 +49,5 @@ jobs:
       - name: Run the fixtures
         run: make fixtures
 
-      - name: Run phpspec
-        run: make phpspec
-
       - name: Run the test suite
         run: make phpunit

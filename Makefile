@@ -166,11 +166,6 @@ fixtures: ## PHPUnit
 .PHONY: tests
 tests: ## tests
 	make phpunit -i
-	make phpspec -i
-
-.PHONY: phpspec
-phpspec: ## phpspec
-	docker exec $(CONTAINER) composer phpspec
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
