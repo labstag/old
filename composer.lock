@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7af97bace713bf6a85456eab5495fd39",
+    "content-hash": "fe38aafb1418edc09d4b087c9abfc20e",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -4767,16 +4767,16 @@
         },
         {
             "name": "scienta/doctrine-json-functions",
-            "version": "4.0.2",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ScientaNL/DoctrineJsonFunctions.git",
-                "reference": "f8e2247c0d8afbe434636e87028372f1aaea53f1"
+                "reference": "34502880cef2eb06f62e381e71cc1e1f245dc2c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/f8e2247c0d8afbe434636e87028372f1aaea53f1",
-                "reference": "f8e2247c0d8afbe434636e87028372f1aaea53f1",
+                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/34502880cef2eb06f62e381e71cc1e1f245dc2c9",
+                "reference": "34502880cef2eb06f62e381e71cc1e1f245dc2c9",
                 "shasum": ""
             },
             "require": {
@@ -4788,10 +4788,13 @@
                 "doctrine/orm": "~2.6",
                 "phpunit/phpunit": "^6.5"
             },
+            "suggest": {
+                "dunglas/doctrine-json-odm": "To serialize / deserialize objects as JSON documents."
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -4819,9 +4822,10 @@
                 "mysql",
                 "orm",
                 "postgres",
-                "postgresql"
+                "postgresql",
+                "sqlite"
             ],
-            "time": "2019-03-12T08:52:10+00:00"
+            "time": "2019-12-13T10:04:29+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
