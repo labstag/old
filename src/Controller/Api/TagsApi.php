@@ -14,6 +14,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class TagsApi extends ApiControllerLib
 {
+
+    /**
+     * @var TagsPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
         TagsPublishingHandler $handler,
         ContainerInterface $container,
@@ -23,12 +29,12 @@ class TagsApi extends ApiControllerLib
     )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->tagsPublishingHandler = $handler;
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Tags $data): Tags
     {
-        $this->tagsPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

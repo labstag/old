@@ -9,12 +9,17 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Labstag\Controller\Api\UserApi;
+use Labstag\Entity\Traits\Bookmark;
+use Labstag\Entity\Traits\Email;
+use Labstag\Entity\Traits\History;
+use Labstag\Entity\Traits\OauthConnectUser;
+use Labstag\Entity\Traits\Phone;
+use Labstag\Entity\Traits\Post;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -96,6 +101,12 @@ class User implements UserInterface, \Serializable
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
+    use Bookmark;
+    use Email;
+    use History;
+    use OauthConnectUser;
+    use Phone;
+    use Post;
 
     /**
      * @ORM\Id
@@ -417,192 +428,6 @@ class User implements UserInterface, \Serializable
     {
         $this->setPassword('');
         $this->plainPassword = $plainPassword;
-    }
-
-    /**
-     * @return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getRefuser() === $this) {
-                $post->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OauthConnectUser[]
-     */
-    public function getOauthConnectUsers(): Collection
-    {
-        return $this->oauthConnectUsers;
-    }
-
-    public function addOauthConnectUser(OauthConnectUser $oauthConnectUser): self
-    {
-        if (!$this->oauthConnectUsers->contains($oauthConnectUser)) {
-            $this->oauthConnectUsers[] = $oauthConnectUser;
-            $oauthConnectUser->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOauthConnectUser(OauthConnectUser $oauthConnectUser): self
-    {
-        if ($this->oauthConnectUsers->contains($oauthConnectUser)) {
-            $this->oauthConnectUsers->removeElement($oauthConnectUser);
-            // set the owning side to null (unless already changed)
-            if ($oauthConnectUser->getRefuser() === $this) {
-                $oauthConnectUser->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|History[]
-     */
-    public function getHistories(): Collection
-    {
-        return $this->histories;
-    }
-
-    public function addHistory(History $history): self
-    {
-        if (!$this->histories->contains($history)) {
-            $this->histories[] = $history;
-            $history->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHistory(History $history): self
-    {
-        if ($this->histories->contains($history)) {
-            $this->histories->removeElement($history);
-            // set the owning side to null (unless already changed)
-            if ($history->getRefuser() === $this) {
-                $history->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Bookmark[]|Collection
-     */
-    public function getBookmarks(): Collection
-    {
-        return $this->bookmarks;
-    }
-
-    public function addBookmark(Bookmark $bookmark): self
-    {
-        if (!$this->bookmarks->contains($bookmark)) {
-            $this->bookmarks[] = $bookmark;
-            $bookmark->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBookmark(Bookmark $bookmark): self
-    {
-        if ($this->bookmarks->contains($bookmark)) {
-            $this->bookmarks->removeElement($bookmark);
-            // set the owning side to null (unless already changed)
-            if ($bookmark->getRefuser() === $this) {
-                $bookmark->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Email[]
-     */
-    public function getEmails(): Collection
-    {
-        return $this->emails;
-    }
-
-    public function addEmail(Email $email): self
-    {
-        if (!$this->emails->contains($email)) {
-            $email->setRefuser($this);
-            $this->emails[] = $email;
-        }
-
-        return $this;
-    }
-
-    public function removeEmail(Email $email): self
-    {
-        if ($this->emails->contains($email)) {
-            $this->emails->removeElement($email);
-            // set the owning side to null (unless already changed)
-            if ($email->getRefuser() === $this) {
-                $email->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Phone[]
-     */
-    public function getPhones(): Collection
-    {
-        return $this->phones;
-    }
-
-    public function addPhone(Phone $phone): self
-    {
-        if (!$this->phones->contains($phone)) {
-            $phone->setRefuser($this);
-            $this->phones[] = $phone;
-        }
-
-        return $this;
-    }
-
-    public function removePhone(Phone $phone): self
-    {
-        if ($this->phones->contains($phone)) {
-            $this->phones->removeElement($phone);
-            // set the owning side to null (unless already changed)
-            if ($phone->getRefuser() === $this) {
-                $phone->setRefuser(null);
-            }
-        }
-
-        return $this;
     }
 
     public function isLost(): ?bool

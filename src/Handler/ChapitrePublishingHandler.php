@@ -8,6 +8,7 @@ class ChapitrePublishingHandler
 {
     public function handle(Chapitre $entity): array
     {
+        unset($entity);
         // your logic for publishing book or/and eg. return your custom data
     }
 }

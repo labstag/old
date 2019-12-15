@@ -37,7 +37,7 @@ class PhoneTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Phone);
+            $this->assertSame(get_class($random), Phone::class);
 
             return;
         }

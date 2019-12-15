@@ -14,6 +14,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class PostApi extends ApiControllerLib
 {
+
+    /**
+     * @var PostPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
         PostPublishingHandler $handler,
         ContainerInterface $container,
@@ -23,12 +29,12 @@ class PostApi extends ApiControllerLib
     )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->postPublishingHandler = $handler;
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Post $data): Post
     {
-        $this->postPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }
