@@ -3,21 +3,38 @@
 namespace Labstag\Controller\Api;
 
 use Labstag\Entity\User;
+use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Handler\UserPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\UserRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class UserApi extends ApiControllerLib
 {
-    public function __construct(UserPublishingHandler $handler)
+
+    /**
+     * @var UserPublishingHandler
+     */
+    protected $publishingHandler;
+
+    public function __construct(
+        UserPublishingHandler $handler,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router
+    )
     {
-        $this->userPublishingHandler = $handler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(User $data): User
     {
-        $this->userPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

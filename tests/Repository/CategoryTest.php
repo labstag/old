@@ -38,7 +38,7 @@ class CategoryTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Category);
+            $this->assertSame(get_class($random), Category::class);
 
             return;
         }
@@ -49,6 +49,6 @@ class CategoryTest extends RepositoryTestLib
     public function testfindForForm()
     {
         $entities = $this->repository->findForForm();
-        $this->assertTrue($entities instanceof QueryBuilder);
+        $this->assertSame(get_class($entities), QueryBuilder::class);
     }
 }

@@ -4,7 +4,7 @@ namespace Labstag\Controller\Api;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Formbuilder;
-use Labstag\Handler\FormBuilderPublishingHandler;
+use Labstag\Handler\FormbuilderPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\FormbuilderRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,8 +12,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-class FormBuilderApi extends ApiControllerLib
+class FormbuilderApi extends ApiControllerLib
 {
+
+    /**
+     * @var FormbuilderPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
         FormBuilderPublishingHandler $handler,
         ContainerInterface $container,
@@ -23,12 +29,12 @@ class FormBuilderApi extends ApiControllerLib
     )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->formbuilderPublishingHandler = $handler;
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Formbuilder $data): Formbuilder
     {
-        $this->formbuilderPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

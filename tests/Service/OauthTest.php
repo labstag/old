@@ -2,7 +2,10 @@
 
 namespace Labstag\Tests\Service;
 
+use Labstag\Entity\OauthConnectUser;
+use Labstag\Lib\GenericProviderLib;
 use Labstag\Lib\ServiceTestLib;
+use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
 
 /**
@@ -17,37 +20,49 @@ class OauthTest extends ServiceTestLib
      */
     private $service;
 
+    /**
+     * @var OauthConnectUserRepository
+     */
+    private $repository;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->service = self::$container->get(OauthService::class);
+        $this->service    = self::$container->get(OauthService::class);
+        $this->repository = $this->entityManager->getRepository(
+            OauthConnectUser::class
+        );
     }
 
     public function testgetIdentity()
     {
         $service = $this->service;
         $empty   = $service->getIdentity(null, null);
-        $this->assertTrue(empty($empty));
-        $empty = $service->getIdentity(null, null);
+        $this->AssertNull($empty);
+        $random = $this->repository->findOneRandom();
+        if ($random instanceof OauthConnectUser) {
+            $identity = $service->getIdentity('', '');
+            $this->AssertNull($identity);
+        }
     }
 
     public function testgetActivedProvider()
     {
-        $service       = $this->service;
-        $empty         = $service->getActivedProvider(null);
-        $falseProvider = $service->getActivedProvider(md5('gitlab'));
-        $gitlab        = $service->getActivedProvider('gitlab');
+        $service = $this->service;
+        $empty   = $service->getActivedProvider(null);
         $this->assertFalse($empty);
+        $falseProvider = $service->getActivedProvider(md5('gitlab'));
         $this->assertFalse($falseProvider);
-        $this->assertFalse($gitlab);
+        $gitlab = $service->getActivedProvider('gitlab');
+        $this->assertTrue($gitlab);
     }
 
     public function testsetProvider()
     {
         $service = $this->service;
         $empty   = $service->setProvider(null);
-        $gitlab  = $service->setProvider('gitlab');
-        $this->assertFalse($empty);
-        $this->assertFalse($gitlab);
+        $this->AssertNull($empty);
+        $gitlab = $service->setProvider('gitlab');
+        $this->assertSame(get_class($gitlab), GenericProviderLib::class);
     }
 }

@@ -37,7 +37,7 @@ class UserTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof User);
+            $this->assertSame(get_class($random), User::class);
 
             return;
         }
@@ -48,14 +48,14 @@ class UserTest extends RepositoryTestLib
     public function testloginToken()
     {
         $empty = $this->repository->loginToken(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $user = $this->repository->findOneRandom(
             'e.apiKey IS NOT NULL AND e.apiKey!=:apikey',
             ['apikey' => '']
         );
         if ($user instanceof User) {
             $user = $this->repository->loginToken($user->getApiKey());
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
 
             return;
         }
@@ -66,17 +66,17 @@ class UserTest extends RepositoryTestLib
     public function testlogin()
     {
         $empty = $this->repository->login(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $user = $this->repository->findOneRandom();
         if ($user instanceof User) {
             $user = $this->repository->login(
                 $user->getUsername()
             );
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
             $user = $this->repository->login(
                 $user->getEmail()
             );
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
 
             return;
         }

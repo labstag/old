@@ -47,7 +47,7 @@ class OauthConnectUserTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof OauthConnectUser);
+            $this->assertSame(get_class($random), OauthConnectUser::class);
 
             return;
         }
@@ -58,7 +58,7 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function testfindOauthNotUser()
     {
         $empty = $this->repository->findOauthNotUser(null, null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         $user   = $this->userRepository->findOneRandom();
         if ($random instanceof OauthConnectUser && $user instanceof User) {
@@ -78,7 +78,7 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function testfindOneOauthByUser()
     {
         $empty = $this->repository->findOneOauthByUser(null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         $user   = $this->userRepository->findOneRandom();
         if ($user instanceof User && $random instanceof OauthConnectUser) {
@@ -97,7 +97,7 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function testlogin()
     {
         $empty = $this->repository->login(null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         if ($random instanceof OauthConnectUser) {
             $oauth = $this->repository->login(

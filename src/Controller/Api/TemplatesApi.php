@@ -14,6 +14,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class TemplatesApi extends ApiControllerLib
 {
+
+    /**
+     * @var TemplatesPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
         TemplatesPublishingHandler $handler,
         ContainerInterface $container,
@@ -23,12 +29,12 @@ class TemplatesApi extends ApiControllerLib
     )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
-        $this->templatesPublishingHandler = $handler;
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Templates $data): Templates
     {
-        $this->templatesPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }

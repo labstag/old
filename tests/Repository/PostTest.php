@@ -68,7 +68,7 @@ class PostTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Post);
+            $this->assertSame(get_class($random), Post::class);
 
             return;
         }
@@ -79,11 +79,11 @@ class PostTest extends RepositoryTestLib
     public function testfindAllActiveByUser()
     {
         $empty = $this->repository->findAllActiveByUser(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $user = $this->tagsRepository->findOneRandom();
         if ($user instanceof User) {
             $posts = $this->repository->findAllActiveByUser($user);
-            $this->assertTrue($posts instanceof Query);
+            $this->assertSame(get_class($posts), Query::class);
 
             return;
         }
@@ -94,11 +94,11 @@ class PostTest extends RepositoryTestLib
     public function testfindAllActiveByTag()
     {
         $empty = $this->repository->findAllActiveByTag(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $tags = $this->tagsRepository->findOneRandom();
         if ($tags instanceof Tags) {
             $posts = $this->repository->findAllActiveByTag($tags);
-            $this->assertTrue($posts instanceof Query);
+            $this->assertSame(get_class($posts), Query::class);
 
             return;
         }
@@ -109,11 +109,11 @@ class PostTest extends RepositoryTestLib
     public function testfindAllActiveByCategory()
     {
         $empty = $this->repository->findAllActiveByCategory(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $category = $this->categoryRepository->findOneRandom();
         if ($category instanceof Category) {
             $posts = $this->repository->findAllActiveByCategory($category);
-            $this->assertTrue($posts instanceof Query);
+            $this->assertSame(get_class($posts), Query::class);
 
             return;
         }
@@ -124,6 +124,6 @@ class PostTest extends RepositoryTestLib
     public function testfindAllActive()
     {
         $posts = $this->repository->findAllActive();
-        $this->assertTrue($posts instanceof Query);
+        $this->assertSame(get_class($posts), Query::class);
     }
 }
