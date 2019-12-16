@@ -15,7 +15,7 @@ jobs:
 
       - name: Show HELP
         run: make
-  phpunit:
+  php:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,14 +31,17 @@ jobs:
       - name: Check running containers
         run: docker ps -a
 
+      - name: Validate composer
+        run: make composer-validate
+
       - name: Composer install
         run: make composer-install-dev
 
+      - name: NPM doctor
+        run: npm doctor
+
       - name: NPM install
         run: npm install
-
-      - name: Validate composer
-        run: make composer-validate
 
       - name: Install BDD
         run: make bdd-dev
