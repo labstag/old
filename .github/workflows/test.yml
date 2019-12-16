@@ -15,7 +15,7 @@ jobs:
 
       - name: Show HELP
         run: make
-  php:
+  stacks:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +41,7 @@ jobs:
         run: npm doctor
 
       - name: NPM install
-        run: npm install
+        run: npm clean-install
 
       - name: Install BDD
         run: make bdd-dev
