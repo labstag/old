@@ -24,7 +24,7 @@ install: ## install
 
 .PHONY: migrate
 migrate: ## migrate database
-	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n*
+	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
 
 .PHONY: build
 build: ## build docker
