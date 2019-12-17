@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95b5411d3ceed6473f5794c6df09c190",
+    "content-hash": "bf4d47447c1633e4f91a4878c6a2cea2",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -1179,16 +1179,16 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "2.1.0",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "afc7299feacd26e5ec17d9baa84adde0a1486753"
+                "reference": "856437e8de96a70233e1f0cc2352fc8dd15a899d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/afc7299feacd26e5ec17d9baa84adde0a1486753",
-                "reference": "afc7299feacd26e5ec17d9baa84adde0a1486753",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/856437e8de96a70233e1f0cc2352fc8dd15a899d",
+                "reference": "856437e8de96a70233e1f0cc2352fc8dd15a899d",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1243,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2019-11-13T11:20:28+00:00"
+            "time": "2019-11-13T12:57:41+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -7140,17 +7140,6 @@
         {
             "name": "symfony/orm-pack",
             "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/orm-pack.git",
-                "reference": "afd5539f04ea5e516532bf43e2dffc4088d2690d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/orm-pack/zipball/afd5539f04ea5e516532bf43e2dffc4088d2690d",
-                "reference": "afd5539f04ea5e516532bf43e2dffc4088d2690d",
-                "shasum": ""
-            },
             "require": {
                 "doctrine/doctrine-bundle": "^1.6",
                 "doctrine/orm": "^2.4.5",
@@ -7977,17 +7966,6 @@
         {
             "name": "symfony/serializer-pack",
             "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/serializer-pack.git",
-                "reference": "d83854fc72317cb94f1796619ab90bd41b8e8996"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer-pack/zipball/d83854fc72317cb94f1796619ab90bd41b8e8996",
-                "reference": "d83854fc72317cb94f1796619ab90bd41b8e8996",
-                "shasum": ""
-            },
             "require": {
                 "doctrine/annotations": "^1.0",
                 "php": "^7.0",
@@ -8715,28 +8693,28 @@
         },
         {
             "name": "symfony/var-exporter",
-            "version": "v4.4.1",
+            "version": "v5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-exporter.git",
-                "reference": "e566070effe60b8d16b99e958cdbd92aa2e470cb"
+                "reference": "1b9653e68d5b701bf6d9c91bdd3660078c9f4f28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/e566070effe60b8d16b99e958cdbd92aa2e470cb",
-                "reference": "e566070effe60b8d16b99e958cdbd92aa2e470cb",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/1b9653e68d5b701bf6d9c91bdd3660078c9f4f28",
+                "reference": "1b9653e68d5b701bf6d9c91bdd3660078c9f4f28",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3"
+                "php": "^7.2.5"
             },
             "require-dev": {
-                "symfony/var-dumper": "^4.1.1|^5.0"
+                "symfony/var-dumper": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.4-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -8771,7 +8749,7 @@
                 "instantiate",
                 "serialize"
             ],
-            "time": "2019-12-01T08:39:58+00:00"
+            "time": "2019-12-01T08:48:26+00:00"
         },
         {
             "name": "symfony/web-link",
