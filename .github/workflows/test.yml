@@ -15,7 +15,7 @@ jobs:
 
       - name: Show HELP
         run: make
-  phpunit:
+  stacks:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +35,7 @@ jobs:
         run: make composer-install
 
       - name: NPM install
-        run: npm install
+        run: npm clean-install
 
       - name: Validate composer
         run: make composer-validate
@@ -44,5 +44,4 @@ jobs:
         run: make migrate
 
       - name: Run the test suite
-        run: |
-          make phpunit
+        run: make phpunit
