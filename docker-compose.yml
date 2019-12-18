@@ -20,12 +20,11 @@ services:
     depends_on:
       - labstag-phpfpm7
       - labstag-mariadb
-    image: httpd
+    build: docker/aphp7
     container_name: labstag-aphp7
     restart: "no"
     volumes:
       - ${PWD}/:/usr/local/apache2/htdocs/
-      - ${PWD}/docker/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
     ports:
       - 8087:80
     links:
@@ -44,7 +43,6 @@ services:
       - labstag-mariadb:mariadb
     networks:
       - labstag-network
-
 networks:
   labstag-network:
     driver: bridge
