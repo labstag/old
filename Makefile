@@ -72,7 +72,7 @@ composer-validate: ## COMPOSER validate
 
 .PHONY: ssh
 ssh: ## SSH
-	docker exec -it $(CONTAINER) /bin/bash
+	docker-compose exec $(CONTAINER) /bin/bash
 
 .PHONY: stop
 stop: ## Stop docker
