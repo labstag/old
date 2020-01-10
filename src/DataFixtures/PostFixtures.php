@@ -5,6 +5,7 @@ namespace Labstag\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use Faker\Factory;
 use Labstag\Entity\Post;
 use Labstag\Repository\CategoryRepository;
@@ -71,20 +72,27 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
             $post->setRefcategory($categories[array_rand($categories)]);
             $this->addTags($post, $tags);
-            $image   = $faker->unique()->imageUrl(1920, 1920);
-            $content = file_get_contents($image);
-            $tmpfile = tmpfile();
-            $data    = stream_get_meta_data($tmpfile);
-            file_put_contents($data['uri'], $content);
-            $file = new UploadedFile(
-                $data['uri'],
-                'image.jpg',
-                filesize($data['uri']),
-                null,
-                true
-            );
 
-            $post->setImageFile($file);
+            try {
+                $image   = $faker->unique()->imageUrl(1920, 1920);
+                $content = file_get_contents($image);
+                $tmpfile = tmpfile();
+                $data    = stream_get_meta_data($tmpfile);
+                file_put_contents($data['uri'], $content);
+                $file = new UploadedFile(
+                    $data['uri'],
+                    'image.jpg',
+                    filesize($data['uri']),
+                    null,
+                    true
+                );
+
+                $post->setImageFile($file);
+            }
+            catch(Exception $exception) {
+
+            }
+
             $manager->persist($post);
         }
 

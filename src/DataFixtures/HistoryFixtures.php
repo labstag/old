@@ -55,20 +55,26 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
             $end = rand(0, 1);
             $history->setEnd($end);
-            $image   = $faker->unique()->imageUrl(1920, 1920);
-            $content = file_get_contents($image);
-            $tmpfile = tmpfile();
-            $data    = stream_get_meta_data($tmpfile);
-            file_put_contents($data['uri'], $content);
-            $file = new UploadedFile(
-                $data['uri'],
-                'image.jpg',
-                filesize($data['uri']),
-                null,
-                true
-            );
+            try {
+                $image   = $faker->unique()->imageUrl(1920, 1920);
+                $content = file_get_contents($image);
+                $tmpfile = tmpfile();
+                $data    = stream_get_meta_data($tmpfile);
+                file_put_contents($data['uri'], $content);
+                $file = new UploadedFile(
+                    $data['uri'],
+                    'image.jpg',
+                    filesize($data['uri']),
+                    null,
+                    true
+                );
 
-            $history->setImageFile($file);
+                $history->setImageFile($file);
+            }
+            catch(Exception $exception) {
+
+            }
+            
             $manager->persist($history);
         }
 
