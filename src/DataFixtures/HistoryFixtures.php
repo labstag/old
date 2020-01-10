@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Labstag\Entity\History;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -41,6 +42,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
     {
         $users = $this->userRepository->findAll();
         $faker = Factory::create('fr_FR');
+        $faker->addProvider(new ImagesGeneratorProvider($faker));
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $history = new History();
             $history->setName($faker->unique()->safeColorName);
@@ -57,7 +59,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             $history->setEnd($end);
 
             try {
-                $image   = $faker->unique()->imageUrl(1920, 1920);
+                $image = $faker->imageGEnerator(null, 1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);

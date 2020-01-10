@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
+use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Labstag\Entity\Post;
 use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\TagsRepository;
@@ -60,6 +61,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $categories = $this->categoryRepository->findAll();
         $tags       = $this->tagsRepository->findBy(['type' => 'post']);
         $faker      = Factory::create('fr_FR');
+        $faker->addProvider(new ImagesGeneratorProvider($faker));
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $post = new Post();
             $post->setName($faker->unique()->text(rand(5, 50)));
@@ -74,7 +76,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $this->addTags($post, $tags);
 
             try {
-                $image   = $faker->unique()->imageUrl(1920, 1920);
+                $image = $faker->imageGEnerator(null, 1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
