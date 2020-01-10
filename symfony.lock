@@ -25,6 +25,9 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "bheller/images-generator": {
+        "version": "1.0.1"
+    },
     "cocur/slugify": {
         "version": "v3.2"
     },

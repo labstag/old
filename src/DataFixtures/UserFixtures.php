@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
+use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Labstag\Entity\Email;
 use Labstag\Entity\Phone;
 use Labstag\Entity\User;
@@ -29,6 +30,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     private function add(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
+        $faker->addProvider(new ImagesGeneratorProvider($faker));
         $users = [
             [
                 'username' => 'admin',
@@ -84,7 +86,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->addRole($dataUser['role']);
 
             try {
-                $image   = $faker->unique()->imageUrl(200, 200);
+                $image = $faker->imageGEnerator(null, 1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
