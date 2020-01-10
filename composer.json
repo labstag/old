@@ -67,7 +67,7 @@
         "zendframework/zend-soap": "2.8.0"
     },
     "require-dev": {
-        "bheller/images-generator": "^1.0",
+        "bheller/images-generator": "1.0.1",
         "codeception/codeception": "3.1.2",
         "doctrine/doctrine-fixtures-bundle": "3.3.0",
         "friendsofphp/php-cs-fixer": "2.16.1",
