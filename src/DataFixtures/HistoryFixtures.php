@@ -2,11 +2,11 @@
 
 namespace Labstag\DataFixtures;
 
+use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Labstag\Entity\History;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -59,7 +59,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             $history->setEnd($end);
 
             try {
-                $image = $faker->imageGEnerator(null, 1920, 1920);
+                $image   = $faker->imageGEnerator(null, 1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);

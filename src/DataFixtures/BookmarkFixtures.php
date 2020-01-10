@@ -2,12 +2,12 @@
 
 namespace Labstag\DataFixtures;
 
+use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
-use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Labstag\Entity\Bookmark;
 use Labstag\Repository\TagsRepository;
 use Labstag\Repository\UserRepository;
@@ -67,7 +67,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
             $this->addTags($bookmark, $tags);
 
             try {
-                $image = $faker->imageGEnerator(null, 1920, 1920);
+                $image   = $faker->imageGEnerator(null, 1920, 1920);
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
