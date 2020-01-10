@@ -82,6 +82,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
             $user->setEmail($dataUser['email'][0]);
             $user->addRole($dataUser['role']);
+
             try {
                 $image   = $faker->unique()->imageUrl(200, 200);
                 $content = file_get_contents($image);
@@ -97,11 +98,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 );
 
                 $user->setImageFile($file);
+            } catch (Exception $exception) {
             }
-            catch(Exception $exception) {
 
-            }
-            
             $manager->persist($user);
         }
 

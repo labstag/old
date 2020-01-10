@@ -88,9 +88,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                 );
 
                 $post->setImageFile($file);
-            }
-            catch(Exception $exception) {
-
+            } catch (Exception $exception) {
             }
 
             $manager->persist($post);

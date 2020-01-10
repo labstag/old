@@ -4,7 +4,6 @@ namespace Labstag\Service;
 
 class GeonameService
 {
-
     public function astergdem(?string $format, ?array $params = [])
     {
         $path    = 'astergdem';
@@ -470,10 +469,10 @@ class GeonameService
             return null;
         }
 
-        $url       = $this->setUrl($path, $format, $params);
-        $content   = $this->getContents($url);
-        $traitment = $this->traitmentContents($content, $format);
-        return $traitment;
+        $url     = $this->setUrl($path, $format, $params);
+        $content = $this->getContents($url);
+
+        return $this->traitmentContents($content, $format);
     }
 
     public function getContents(?string $url): string
@@ -482,9 +481,7 @@ class GeonameService
             return '';
         }
 
-        $content = file_get_contents($url);
-
-        return $content;
+        return file_get_contents($url);
     }
 
     public function traitmentContents(?string $content, ?string $format): array
@@ -496,6 +493,7 @@ class GeonameService
         switch ($format) {
             case 'json':
                 $data = json_decode($content, true);
+
                 break;
             case 'rss':
             case 'xml':
@@ -506,15 +504,32 @@ class GeonameService
                 );
                 $json = json_encode($xml);
                 $data = json_decode($json, true);
+
                 break;
             default:
                 $data = [];
+
                 break;
         }
 
         return $data;
     }
 
+    public function setUrl(?string $path, ?string $format, ?array $params = [])
+    {
+        $params = is_null($params) ? [] : $params;
+
+        if (is_null($path) || is_null($format)) {
+            return '';
+        }
+
+        $url = 'http://api.geonames.org/'.$path;
+        $this->setParamUrl($format, $url);
+        ksort($params);
+        $query = http_build_query($params);
+
+        return ('' != $query) ? $url.'?'.$query : $url;
+    }
 
     private function setParamUrl($format, &$url)
     {
@@ -542,22 +557,5 @@ class GeonameService
             default:
                 break;
         }
-    }
-
-    public function setUrl(?string $path, ?string $format, ?array $params = [])
-    {
-        $params = is_null($params) ? [] : $params;
-
-        if (is_null($path) || is_null($format)) {
-            return '';
-        }
-
-        $url = 'http://api.geonames.org/'.$path;
-        $this->setParamUrl($format, $url);
-        ksort($params);
-        $query = http_build_query($params);
-        $url   = ('' != $query) ? $url.'?'.$query : $url;
-
-        return $url;
     }
 }

@@ -35,7 +35,7 @@ class PhoneService
         $carrier        = PhoneNumberToCarrierMapper::getInstance();
 
         try {
-            $parse = $this->phoneUtil->parse(
+            $parse   = $this->phoneUtil->parse(
                 $numero,
                 strtoupper($locale)
             );
