@@ -2,8 +2,8 @@
 
 namespace Labstag\Controller\Api;
 
-use Labstag\Entity\User;
 use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\User;
 use Labstag\Handler\UserPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\UserRepository;

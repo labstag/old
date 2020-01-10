@@ -55,6 +55,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
             $end = rand(0, 1);
             $history->setEnd($end);
+
             try {
                 $image   = $faker->unique()->imageUrl(1920, 1920);
                 $content = file_get_contents($image);
@@ -70,11 +71,9 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                 );
 
                 $history->setImageFile($file);
+            } catch (Exception $exception) {
             }
-            catch(Exception $exception) {
 
-            }
-            
             $manager->persist($history);
         }
 
