@@ -63,6 +63,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $this->addTags($bookmark, $tags);
+
             try {
                 $image   = $faker->unique()->imageUrl(1920, 1920);
                 $content = file_get_contents($image);
@@ -78,11 +79,9 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
                 );
 
                 $bookmark->setImageFile($file);
+            } catch (Exception $exception) {
             }
-            catch(Exception $exception) {
 
-            }
-            
             $manager->persist($bookmark);
         }
 
