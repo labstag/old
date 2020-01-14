@@ -19,12 +19,18 @@
 
 ### 🏠 [Homepage](https://github.com/labstag/core#readme)
 
-## Install
+## Install dev 
 
 ```sh
-npm install
-composer install
-php bin/console doctrine:fixtures:load
+make install-dev
+make start
+```
+
+## Install prod 
+
+```sh
+make install-prod
+make start
 ```
 
 ## Author
