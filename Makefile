@@ -21,6 +21,7 @@ install-dev: ## install DEV
 	npm install
 	make bdd-dev -i
 	make migrate -i
+	make fixtures -i
 	make stop -i
 
 .PHONY: install-prod
