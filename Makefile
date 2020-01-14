@@ -33,6 +33,7 @@ install-prod: ## install PROD
 	npm install
 	make bdd-dev -i
 	make migrate -i
+	docker exec -it $(CONTAINER) npm run build
 	make stop -i
 
 .PHONY: migrate
