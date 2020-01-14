@@ -22,6 +22,7 @@ install-dev: ## install DEV
 	make bdd-dev -i
 	make migrate -i
 	make fixtures -i
+	docker exec -it $(CONTAINER) npm run dev
 	make stop -i
 
 .PHONY: install-prod
