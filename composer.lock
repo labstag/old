@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6fc17d3e3715686cf18a6e39b8d1a16",
+    "content-hash": "3e144dfd1a71c8cd77532c131f8b3e7c",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -4841,16 +4841,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v5.5.2",
+            "version": "v5.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "92acfcc610e2180c52790ec3ff2e893f67e76b32"
+                "reference": "98f0807137b13d0acfdf3c255a731516e97015de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/92acfcc610e2180c52790ec3ff2e893f67e76b32",
-                "reference": "92acfcc610e2180c52790ec3ff2e893f67e76b32",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/98f0807137b13d0acfdf3c255a731516e97015de",
+                "reference": "98f0807137b13d0acfdf3c255a731516e97015de",
                 "shasum": ""
             },
             "require": {
@@ -4915,7 +4915,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2019-12-12T16:21:49+00:00"
+            "time": "2019-12-27T08:57:19+00:00"
         },
         {
             "name": "setasign/fpdf",
