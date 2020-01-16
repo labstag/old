@@ -59,7 +59,7 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.7.7",
+    "@babel/preset-env": "7.8.3",
     "@symfony/webpack-encore": "0.28.2",
     "@types/tinymce": "4.5.23",
     "babel-loader": "8.0.6",
@@ -81,7 +81,7 @@
     "readme-md-generator": "1.0.0",
     "sass-loader": "7.0.1",
     "semantic-git-commit-cli": "3.5.0",
-    "stylelint": "12.0.1",
+    "stylelint": "13.0.0",
     "stylelint-config-standard": "19.0.0",
     "ts-loader": "6.2.1",
     "typescript": "3.7.4",

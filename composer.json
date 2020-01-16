@@ -62,7 +62,7 @@
         "symfony/workflow": "4.4.1",
         "symfony/yaml": "4.4.1",
         "twig/extensions": "1.5.4",
-        "vich/uploader-bundle": "1.12.1",
+        "vich/uploader-bundle": "1.13.0",
         "webonyx/graphql-php": "0.13.8",
         "zendframework/zend-soap": "2.8.0"
     },
@@ -80,7 +80,7 @@
         "phpmd/phpmd": "2.7.0",
         "phpro/grumphp": "0.17.0",
         "phpstan/phpstan": "0.12.5",
-        "povils/phpmnd": "2.1.0",
+        "povils/phpmnd": "2.2.0",
         "sebastian/phpcpd": "4.1.0",
         "sensiolabs/security-checker": "6.0.3",
         "squizlabs/php_codesniffer": "3.5.3",
