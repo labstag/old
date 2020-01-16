@@ -77,7 +77,7 @@
         "pdepend/pdepend": "2.6.0",
         "phan/phan": "2.4.6",
         "phploc/phploc": "5.0.0",
-        "phpmd/phpmd": "2.7.0",
+        "phpmd/phpmd": "2.8.1",
         "phpro/grumphp": "0.17.0",
         "phpstan/phpstan": "0.12.5",
         "povils/phpmnd": "2.2.0",
