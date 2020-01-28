@@ -21,9 +21,11 @@ class ConfigurationTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var ConfigurationRepository $repository */
+        $repository = $this->entityManager->getRepository(
             Configuration::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void

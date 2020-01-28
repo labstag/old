@@ -21,9 +21,11 @@ class PhoneTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var PhoneRepository $repository */
+        $repository = $this->entityManager->getRepository(
             Phone::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void

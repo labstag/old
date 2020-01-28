@@ -43,18 +43,27 @@ class PostTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository         = $this->entityManager->getRepository(
+        /** @var PostRepository $repository */
+        $repository         = $this->entityManager->getRepository(
             Post::class
         );
-        $this->categoryRepository = $this->entityManager->getRepository(
+        $this->repository = $repository;
+        /** @var CategoryRepository $categoryRepository */
+        $categoryRepository = $this->entityManager->getRepository(
             Category::class
         );
-        $this->tagsRepository     = $this->entityManager->getRepository(
+        $this->categoryRepository = $categoryRepository;
+        /** @var TagsRepository $tagsRepository */
+        $tagsRepository     = $this->entityManager->getRepository(
             Tags::class
         );
-        $this->userRepository     = $this->entityManager->getRepository(
+        $this->tagsRepository = $tagsRepository;
+        /** @var UserRepository $userRepository */
+        $userRepository     = $this->entityManager->getRepository(
             User::class
         );
+
+        $this->userRepository = $userRepository;
     }
 
     public function testFindAll(): void
@@ -82,6 +91,7 @@ class PostTest extends RepositoryTestLib
         $this->AssertNull($empty);
         $user = $this->tagsRepository->findOneRandom();
         if ($user instanceof User) {
+            /** @var Query $posts */
             $posts = $this->repository->findAllActiveByUser($user);
             $this->assertSame(get_class($posts), Query::class);
 
@@ -97,6 +107,7 @@ class PostTest extends RepositoryTestLib
         $this->AssertNull($empty);
         $tags = $this->tagsRepository->findOneRandom();
         if ($tags instanceof Tags) {
+            /** @var Query $posts */
             $posts = $this->repository->findAllActiveByTag($tags);
             $this->assertSame(get_class($posts), Query::class);
 
@@ -112,6 +123,7 @@ class PostTest extends RepositoryTestLib
         $this->AssertNull($empty);
         $category = $this->categoryRepository->findOneRandom();
         if ($category instanceof Category) {
+            /** @var Query $posts */
             $posts = $this->repository->findAllActiveByCategory($category);
             $this->assertSame(get_class($posts), Query::class);
 
@@ -123,6 +135,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActive(): void
     {
+        /** @var Query $posts */
         $posts = $this->repository->findAllActive();
         $this->assertSame(get_class($posts), Query::class);
     }

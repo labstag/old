@@ -22,9 +22,11 @@ class CategoryTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var CategoryRepository $repository */
+        $repository = $this->entityManager->getRepository(
             Category::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void
