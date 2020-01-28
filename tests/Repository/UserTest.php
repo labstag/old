@@ -21,9 +21,11 @@ class UserTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var UserRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             User::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void
