@@ -118,6 +118,7 @@ class OauthConnectUserTest extends RepositoryTestLib
 
     public function testfindDistinctAllOauth(): void
     {
+        /** @var array $oauths */
         $oauths = $this->repository->findDistinctAllOauth();
         $this->assertTrue(is_array($oauths));
     }
