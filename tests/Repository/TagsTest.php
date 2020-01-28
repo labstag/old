@@ -22,9 +22,11 @@ class TagsTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var TagsRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Tags::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void
@@ -50,9 +52,11 @@ class TagsTest extends RepositoryTestLib
     {
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $this->AssertNull($empty);
+        /** @var QueryBuilder $tags */
         $tags = $this->repository->findTagsByTypeNotTemporary('');
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
+        /** @var QueryBuilder $tags */
         $tags   = $this->repository->findTagsByTypeNotTemporary(
             $random->getType()
         );
@@ -63,10 +67,12 @@ class TagsTest extends RepositoryTestLib
     {
         $empty = $this->repository->findTagsByType(null);
         $this->AssertNull($empty);
+        /** @var QueryBuilder $tags */
         $tags = $this->repository->findTagsByType('');
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
-        $tags   = $this->repository->findTagsByType($random->getType());
+        /** @var QueryBuilder $tags */
+        $tags = $this->repository->findTagsByType($random->getType());
         $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 }

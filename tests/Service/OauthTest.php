@@ -2,6 +2,7 @@
 
 namespace Labstag\Tests\Service;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Lib\GenericProviderLib;
 use Labstag\Lib\ServiceTestLib;
@@ -28,10 +29,15 @@ class OauthTest extends ServiceTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->service    = self::$container->get(OauthService::class);
-        $this->repository = $this->entityManager->getRepository(
+        /** @var OauthService $service */
+        $service       = self::$container->get(OauthService::class);
+        $this->service = $service;
+        /** @var OauthConnectUserRepository $repository */
+        $repository = $this->entityManager->getRepository(
             OauthConnectUser::class
         );
+
+        $this->repository = $repository;
     }
 
     public function testgetIdentity(): void
@@ -41,7 +47,7 @@ class OauthTest extends ServiceTestLib
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         if ($random instanceof OauthConnectUser) {
-            $identity = $service->getIdentity('', '');
+            $identity = $service->getIdentity([], '');
             $this->AssertNull($identity);
         }
     }
@@ -62,6 +68,7 @@ class OauthTest extends ServiceTestLib
         $service = $this->service;
         $empty   = $service->setProvider(null);
         $this->AssertNull($empty);
+        /** @var GenericProviderLib $gitlab */
         $gitlab = $service->setProvider('gitlab');
         $this->assertSame(get_class($gitlab), GenericProviderLib::class);
     }

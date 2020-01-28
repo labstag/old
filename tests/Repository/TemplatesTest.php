@@ -21,9 +21,11 @@ class TemplatesTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var TemplatesRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Templates::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void
