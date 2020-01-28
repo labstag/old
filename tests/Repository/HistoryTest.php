@@ -37,13 +37,13 @@ class HistoryTest extends RepositoryTestLib
         );
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -56,7 +56,7 @@ class HistoryTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByUser()
+    public function testfindAllActiveByUser(): void
     {
         $empty = $this->repository->findAllActiveByUser(null);
         $this->AssertNull($empty);
@@ -71,7 +71,7 @@ class HistoryTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActive()
+    public function testfindAllActive(): void
     {
         $histories = $this->repository->findAllActive();
         $this->assertSame(get_class($histories), Query::class);

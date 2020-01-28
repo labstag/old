@@ -34,7 +34,7 @@ class OauthTest extends ServiceTestLib
         );
     }
 
-    public function testgetIdentity()
+    public function testgetIdentity(): void
     {
         $service = $this->service;
         $empty   = $service->getIdentity(null, null);
@@ -46,7 +46,7 @@ class OauthTest extends ServiceTestLib
         }
     }
 
-    public function testgetActivedProvider()
+    public function testgetActivedProvider(): void
     {
         $service = $this->service;
         $empty   = $service->getActivedProvider(null);
@@ -57,7 +57,7 @@ class OauthTest extends ServiceTestLib
         $this->assertTrue($gitlab);
     }
 
-    public function testsetProvider()
+    public function testsetProvider(): void
     {
         $service = $this->service;
         $empty   = $service->setProvider(null);

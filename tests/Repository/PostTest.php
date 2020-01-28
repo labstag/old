@@ -57,13 +57,13 @@ class PostTest extends RepositoryTestLib
         );
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -76,7 +76,7 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByUser()
+    public function testfindAllActiveByUser(): void
     {
         $empty = $this->repository->findAllActiveByUser(null);
         $this->AssertNull($empty);
@@ -91,7 +91,7 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByTag()
+    public function testfindAllActiveByTag(): void
     {
         $empty = $this->repository->findAllActiveByTag(null);
         $this->AssertNull($empty);
@@ -106,7 +106,7 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByCategory()
+    public function testfindAllActiveByCategory(): void
     {
         $empty = $this->repository->findAllActiveByCategory(null);
         $this->AssertNull($empty);
@@ -121,7 +121,7 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActive()
+    public function testfindAllActive(): void
     {
         $posts = $this->repository->findAllActive();
         $this->assertSame(get_class($posts), Query::class);
