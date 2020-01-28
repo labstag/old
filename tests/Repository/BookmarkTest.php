@@ -21,9 +21,11 @@ class BookmarkTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var BookmarkRepository $repository */
+        $repository = $this->entityManager->getRepository(
             Bookmark::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void
