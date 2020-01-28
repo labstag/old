@@ -47,9 +47,4 @@ class ConfigurationRepository extends ServiceEntityRepositoryLib
         ;
     }
     */
-
-    public function getDataArray()
-    {
-        return $this->createQueryBuilder('c')->getQuery()->getScalarResult();
-    }
 }

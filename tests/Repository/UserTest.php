@@ -51,11 +51,13 @@ class UserTest extends RepositoryTestLib
     {
         $empty = $this->repository->loginToken(null);
         $this->AssertNull($empty);
+        /** @var ?User $user */
         $user = $this->repository->findOneRandom(
             'e.apiKey IS NOT NULL AND e.apiKey!=:apikey',
             ['apikey' => '']
         );
         if ($user instanceof User) {
+            /** @var User $user */
             $user = $this->repository->loginToken($user->getApiKey());
             $this->assertSame(get_class($user), User::class);
 
@@ -69,16 +71,19 @@ class UserTest extends RepositoryTestLib
     {
         $empty = $this->repository->login(null);
         $this->AssertNull($empty);
+        /** @var ?User $user */
         $user = $this->repository->findOneRandom();
         if ($user instanceof User) {
-            $user = $this->repository->login(
+            /** @var User $login */
+            $login = $this->repository->login(
                 $user->getUsername()
             );
-            $this->assertSame(get_class($user), User::class);
-            $user = $this->repository->login(
+            $this->assertSame(get_class($login), User::class);
+            /** @var User $email */
+            $email = $this->repository->login(
                 $user->getEmail()
             );
-            $this->assertSame(get_class($user), User::class);
+            $this->assertSame(get_class($email), User::class);
 
             return;
         }

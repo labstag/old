@@ -52,4 +52,9 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
 
         return $dql->getQuery()->getOneOrNullResult();
     }
+
+    public function getDataArray(): array
+    {
+        return $this->createQueryBuilder('c')->getQuery()->getScalarResult();
+    }
 }
