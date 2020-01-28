@@ -27,13 +27,13 @@ class TagsTest extends RepositoryTestLib
         );
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -46,7 +46,7 @@ class TagsTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindTagsByTypeNotTemporary()
+    public function testfindTagsByTypeNotTemporary(): void
     {
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $this->AssertNull($empty);
@@ -59,7 +59,7 @@ class TagsTest extends RepositoryTestLib
         $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 
-    public function testfindTagsByType()
+    public function testfindTagsByType(): void
     {
         $empty = $this->repository->findTagsByType(null);
         $this->AssertNull($empty);

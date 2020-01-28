@@ -37,13 +37,13 @@ class EmailTest extends RepositoryTestLib
         );
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -56,7 +56,7 @@ class EmailTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindEmailByUser()
+    public function testfindEmailByUser(): void
     {
         $empty = $this->repository->findEmailByUser(null);
         $this->AssertNull($empty);
