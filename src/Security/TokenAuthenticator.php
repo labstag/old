@@ -4,6 +4,7 @@ namespace Labstag\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Labstag\Entity\User;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      * used for the request. Returning false will cause this authenticator
      * to be skipped.
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $request->headers->has('X-AUTH-TOKEN');
     }
@@ -40,29 +41,30 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      * Called on every request. Return whatever credentials you want to
      * be passed to getUser() as $credentials.
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         return [
             'token' => $request->headers->get('X-AUTH-TOKEN'),
         ];
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         unset($userProvider);
         $apiToken = $credentials['token'];
 
-        if (null === $apiToken) {
-            return;
+        if (is_null($apiToken)) {
+            return null;
         }
 
         // if a User object, checkCredentials() is called
+        /** @var UserRepository $repository */
         $repository = $this->entityManager->getRepository(User::class);
 
         return $repository->loginToken($apiToken);
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         unset($credentials, $user);
 
@@ -73,14 +75,15 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
         unset($request, $token, $providerKey);
 
         // on success, let the request continue
+        return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
     {
         unset($request);
         $data = [
@@ -99,7 +102,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     /**
      * Called when authentication is needed, but it's not sent.
      */
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException $authException = null): JsonResponse
     {
         unset($request, $authException);
 

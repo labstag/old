@@ -1,11 +1,11 @@
-includes:
-  - vendor/phpstan/phpstan-phpunit/extension.neon
-  - vendor/phpstan/phpstan-mockery/extension.neon
-
 parameters:
   level: 8
+  checkMissingIterableValueType: false
+  inferPrivatePropertyTypeFromConstructor: true
   paths:
     - src
     - tests
   excludes_analyse:
     - src/Migrations/*
+  ignoreErrors:
+    - '#Call to an undefined method [a-zA-Z0-9\\_]+::__toString\(\)#'
