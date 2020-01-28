@@ -6,7 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
+use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
+use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,7 +80,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     private $requestStack;
 
     /**
-     * @var TokenStorage
+     * @var TokenStorageInterface|TokenStorage
      */
     private $tokenStorage;
 
@@ -99,10 +101,16 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder  = $passwordEncoder;
         $this->requestStack     = $requestStack;
-        $this->request          = $this->requestStack->getCurrentRequest();
-        $this->oauthService     = $oauthService;
-        $this->tokenStorage     = $tokenStorage;
-        $this->oauthCode        = $this->request->attributes->get('oauthCode');
+        /** @var Request $request */
+        $request = $this->requestStack->getCurrentRequest();
+
+        $this->request      = $request;
+        $this->oauthService = $oauthService;
+        $this->tokenStorage = $tokenStorage;
+
+        $attributes      = $this->request->attributes;
+        $oauthCode       = $attributes->has('oauthCode') ? $attributes->get('oauthCode') : '';
+        $this->oauthCode = $oauthCode;
     }
 
     public function supports(Request $request)
@@ -125,6 +133,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         try {
+            /** @var AccessToken $tokenProvider */
             $tokenProvider = $provider->getAccessToken(
                 'authorization_code',
                 [
@@ -136,7 +145,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
             $credentials['user'] = $userOauth;
 
             return $credentials;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             return [];
         }
     }
@@ -150,6 +159,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
             );
         }
 
+        /** @var OauthConnectUserRepository $enm */
         $enm = $this->entityManager->getRepository(OauthConnectUser::class);
 
         $identity         = $this->oauthService->getIdentity(

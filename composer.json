@@ -79,9 +79,11 @@
         "phploc/phploc": "5.0.0",
         "phpmd/phpmd": "2.8.1",
         "phpro/grumphp": "0.17.2",
+        "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "0.12.5",
         "phpstan/phpstan-mockery": "^0.12.3",
         "phpstan/phpstan-phpunit": "^0.12.6",
+        "phpstan/phpstan-symfony": "^0.12.4",
         "povils/phpmnd": "2.2.0",
         "sebastian/phpcpd": "4.1.0",
         "sensiolabs/security-checker": "6.0.3",
@@ -135,7 +137,7 @@
         "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",
         "phpcbf": "phpcbf src tests --ignore=src/Migrations/*,src/Kernel.php",
         "phpcs": "phpcs src tests --ignore=src/Migrations/*,src/Kernel.php",
-        "phpstan": "phpstan analyse",
+        "phpstan": "phpstan analyse --memory-limit=-1",
         "phpmnd": [
             "phpmnd src",
             "phpmnd tests"
@@ -164,6 +166,11 @@
         "symfony/symfony": "*"
     },
     "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        },
         "symfony": {
             "allow-contrib": false,
             "require": "4.4.*"

@@ -4,6 +4,7 @@ namespace Labstag\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Labstag\Entity\User;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,6 +96,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
+        /** @var UserRepository $enm */
         $enm  = $this->entityManager->getRepository(User::class);
         $user = $enm->login($credentials['username']);
         if (!$user) {
