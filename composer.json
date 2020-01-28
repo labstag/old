@@ -80,6 +80,8 @@
         "phpmd/phpmd": "2.8.1",
         "phpro/grumphp": "0.17.2",
         "phpstan/phpstan": "0.12.5",
+        "phpstan/phpstan-mockery": "^0.12.3",
+        "phpstan/phpstan-phpunit": "^0.12.6",
         "povils/phpmnd": "2.2.0",
         "sebastian/phpcpd": "4.1.0",
         "sensiolabs/security-checker": "6.0.3",
@@ -89,7 +91,7 @@
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "1.14.3",
         "symfony/panther": "0.6.0",
-        "symfony/phpunit-bridge": "4.4.1",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "1.0.6",
         "symfony/thanks": "1.2.4",
@@ -133,7 +135,7 @@
         "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",
         "phpcbf": "phpcbf src tests --ignore=src/Migrations/*,src/Kernel.php",
         "phpcs": "phpcs src tests --ignore=src/Migrations/*,src/Kernel.php",
-        "phpstan": "phpstan analyse src",
+        "phpstan": "phpstan analyse",
         "phpmnd": [
             "phpmnd src",
             "phpmnd tests"
