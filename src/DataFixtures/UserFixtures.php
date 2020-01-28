@@ -86,7 +86,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->addRole($dataUser['role']);
 
             try {
-                $image   = $faker->imageGEnerator(null, 1920, 1920);
+                $image   = $faker->imageGenerator(
+                    null,
+                    1920,
+                    1920,
+                    'jpg',
+                    true,
+                    $faker->word,
+                    $faker->hexColor,
+                    $faker->hexColor
+                );
                 $content = file_get_contents($image);
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
