@@ -20,7 +20,9 @@ class GeonameTest extends ServiceTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->service = self::$container->get(GeonameService::class);
+        /** @var GeonameService $service */
+        $service       = self::$container->get(GeonameService::class);
+        $this->service = $service;
     }
 
     public function testastergdem(): void
