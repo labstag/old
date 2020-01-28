@@ -1,0 +1,11 @@
+includes:
+  - vendor/phpstan/phpstan-phpunit/extension.neon
+  - vendor/phpstan/phpstan-mockery/extension.neon
+
+parameters:
+  level: 8
+  paths:
+    - src
+    - tests
+  excludes_analyse:
+    - src/Migrations/*

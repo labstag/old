@@ -1,3 +1,5 @@
+user := $(shell id -u)
+group := $(shell id -g)
 .DEFAULT_GOAL := help
 EXEC_PHP = ./bin/
 PHPDOCUMENTORURL = https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
