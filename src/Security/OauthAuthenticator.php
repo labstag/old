@@ -150,7 +150,12 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         }
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    /**
+     * @param mixed $credentials credentials
+     * 
+     * @throws CustomUserMessageAuthenticationException
+     */
+    public function getUser($credentials, UserProviderInterface $userProvider): User
     {
         unset($userProvider);
         if (!isset($credentials['user'])) {
@@ -175,7 +180,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $user = $oauthConnectUser->getRefuser();
-        if (!$user->isEnable()) {
+        if (!($user instanceof User) || !$user->isEnable()) {
             throw new CustomUserMessageAuthenticationException(
                 'Username not activate.'
             );

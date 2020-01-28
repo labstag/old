@@ -20,10 +20,10 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, OauthConnectUser::class);
     }
 
-    public function findOauthNotUser(?User $user, ?string $identity, ?string $client)
+    public function findOauthNotUser(?User $user, ?string $identity, ?string $client): ?OauthConnectUser
     {
         if (is_null($identity) || is_null($user) || is_null($client)) {
-            return;
+            return null;
         }
 
         $dql = $this->createQueryBuilder('p');
@@ -41,10 +41,10 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery()->getOneOrNullResult();
     }
 
-    public function findOneOauthByUser(?string $oauthCode, ?User $user)
+    public function findOneOauthByUser(?string $oauthCode, ?User $user): ?OauthConnectUser
     {
         if (is_null($oauthCode) || is_null($user)) {
-            return;
+            return null;
         }
 
         $dql = $this->createQueryBuilder('p');
@@ -89,10 +89,10 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
     }
     */
 
-    public function login(?string $identity, ?string $oauth)
+    public function login(?string $identity, ?string $oauth): ?OauthConnectUser
     {
         if (is_null($identity) || is_null($oauth)) {
-            return;
+            return null;
         }
 
         $builder = $this->createQueryBuilder('u');
@@ -109,11 +109,11 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $builder->getQuery()->getOneOrNullResult();
     }
 
-    public function findDistinctAllOauth()
+    public function findDistinctAllOauth(): array
     {
         $builder = $this->createQueryBuilder('u');
         $builder->select('u.name');
-        $builder->distinct('u.name');
+        $builder->distinct();
         $builder->orderBy('u.name', 'ASC');
 
         return $builder->getQuery()->getResult();

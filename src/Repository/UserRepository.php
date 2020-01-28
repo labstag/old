@@ -36,10 +36,10 @@ class UserRepository extends ServiceEntityRepositoryLib
     }
     */
 
-    public function loginToken(?string $token)
+    public function loginToken(?string $token): ?User
     {
         if (is_null($token)) {
-            return;
+            return null;
         }
 
         $builder = $this->createQueryBuilder('u');
@@ -56,10 +56,10 @@ class UserRepository extends ServiceEntityRepositoryLib
         return $builder->getQuery()->getOneOrNullResult();
     }
 
-    public function login(?string $login)
+    public function login(?string $login): ?User
     {
         if (is_null($login)) {
-            return;
+            return null;
         }
 
         $builder = $this->createQueryBuilder('u');
