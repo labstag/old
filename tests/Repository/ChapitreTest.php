@@ -21,9 +21,11 @@ class ChapitreTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var ChapitreRepository $repository */
+        $repository = $this->entityManager->getRepository(
             Chapitre::class
         );
+        $this->repository = $repository;
     }
 
     public function testFindAll(): void
