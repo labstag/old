@@ -101,15 +101,11 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         $user = $enm->login($credentials['username']);
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException(
-                'Username could not be found.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
 
         if (!$user->isEnable()) {
-            throw new CustomUserMessageAuthenticationException(
-                'Username not activate.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username not activate.');
         }
 
         return $user;
