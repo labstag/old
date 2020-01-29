@@ -160,9 +160,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     {
         unset($userProvider);
         if (!isset($credentials['user'])) {
-            throw new CustomUserMessageAuthenticationException(
-                'Connexion impossible avec ce service.'
-            );
+            throw new CustomUserMessageAuthenticationException('Connexion impossible avec ce service.');
         }
 
         /** @var OauthConnectUserRepository $enm */
@@ -176,16 +174,12 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         $oauthConnectUser = $enm->login($identity, $this->oauthCode);
         if (!($oauthConnectUser instanceof OauthConnectUser) || '' == $identity) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException(
-                'Username could not be found.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
 
         $user = $oauthConnectUser->getRefuser();
         if (!($user instanceof User) || !$user->isEnable()) {
-            throw new CustomUserMessageAuthenticationException(
-                'Username not activate.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username not activate.');
         }
 
         return $user;

@@ -9,8 +9,8 @@ use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
- * @method null|Email find($id, $lockMode = null, $lockVersion = null)
- * @method null|Email findOneBy(array $criteria, array $orderBy = null)
+ * @method Email|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Email|null findOneBy(array $criteria, array $orderBy = null)
  * @method Email[]    findAll()
  * @method Email[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

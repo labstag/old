@@ -33,7 +33,7 @@ class OauthService
     }
 
     /**
-     * @param null|mixed $data
+     * @param mixed|null $data
      *
      * @return mixed|void
      */
