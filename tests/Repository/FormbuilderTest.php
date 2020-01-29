@@ -22,7 +22,7 @@ class FormbuilderTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var FormbuilderRepository $repository */
-        $repository = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Formbuilder::class
         );
         $this->repository = $repository;

@@ -18,7 +18,8 @@ abstract class RepositoryTestLib extends KernelTestCase
      */
     public function setUp(): void
     {
-        $kernel              = self::bootKernel();
+        $kernel = self::bootKernel();
+        /** @var mixed $doctrine */
         $doctrine            = $kernel->getContainer()->get('doctrine');
         $this->entityManager = $doctrine->getManager();
     }
@@ -27,6 +28,5 @@ abstract class RepositoryTestLib extends KernelTestCase
     {
         parent::tearDown();
         $this->entityManager->close();
-        $this->entityManager = null;
     }
 }

@@ -380,7 +380,7 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
-    private function generateLogs(&$params, $data, $entityManager)
+    private function generateLogs(&$params, $data, $entityManager): void
     {
         $repository = $entityManager->getRepository(LogEntry::class);
         if (is_array($data['entity'])) {
@@ -398,7 +398,7 @@ abstract class AdminControllerLib extends ControllerLib
         $params['logs'] = $dataLogs;
     }
 
-    private function setOperationLink(&$paramtwig)
+    private function setOperationLink(array &$paramtwig): void
     {
         $tabDataCheck                = [
             'url_delete',
@@ -419,7 +419,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function setParamTwig(&$paramtwig, $data)
+    private function setParamTwig(array &$paramtwig, array $data): void
     {
         $tabDataCheck = [
             'url_new',
@@ -436,7 +436,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function setDatatable(&$data)
+    private function setDatatable(array &$data): void
     {
         foreach ($data['datatable'] as &$row) {
             if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
@@ -459,7 +459,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function dateInTrash(&$paramtwig, $dataInTrash, $data)
+    private function dateInTrash(array &$paramtwig, string $dataInTrash, array $data): void
     {
         $route                  = $this->request->attributes->get('_route');
         $paramtwig['url_trash'] = $data['url_trash'];
@@ -477,7 +477,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function findEntity($trash, $repository, $dataInTrash)
+    private function findEntity(bool $trash, ServiceEntityRepositoryLib $repository, string $dataInTrash)
     {
         if (0 == $trash) {
             return $repository->find($dataInTrash);
@@ -486,7 +486,7 @@ abstract class AdminControllerLib extends ControllerLib
         return $repository->findOneDateInTrash($dataInTrash);
     }
 
-    private function setMenuAdmin()
+    private function setMenuAdmin(): void
     {
         $menuadmin = [
             [
@@ -572,7 +572,7 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews['menuadmin']   = $menuadmin;
     }
 
-    private function setMenuActualRoute(&$menuadmin, $actualroute)
+    private function setMenuActualRoute(array &$menuadmin, string $actualroute): void
     {
         foreach ($menuadmin as &$menu) {
             if (isset($menu['child'])) {
@@ -583,7 +583,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function isActualRoute($url, $actualroute)
+    private function isActualRoute(string $url, string $actualroute): bool
     {
         if ($url == $actualroute) {
             return true;
@@ -599,8 +599,6 @@ abstract class AdminControllerLib extends ControllerLib
         ] = explode('_', $actualroute);
         unset($route1, $route2);
 
-        if ($controller1 == $controller2) {
-            return true;
-        }
+        return $controller1 == $controller2;
     }
 }

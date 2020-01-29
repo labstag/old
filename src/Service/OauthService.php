@@ -17,7 +17,7 @@ class OauthService
     protected $configProvider;
 
     /**
-     * @var RouterInterface|Router
+     * @var Router|RouterInterface
      */
     protected $router;
 
@@ -32,36 +32,40 @@ class OauthService
         $this->setConfigProvider();
     }
 
-    public function getIdentity(?array $data, ?string $oauth): ?string
+    /**
+     * @param null|mixed $data
+     *
+     * @return mixed|void
+     */
+    public function getIdentity($data, ?string $oauth)
     {
-        /** @var mixed $data */
         $entity = null;
         if (is_null($oauth)) {
-            return $entity;
+            return;
         }
 
         switch ($oauth) {
             case 'gitlab':
             case 'github':
             case 'discord':
-                if (isset($data['id'])) {
-                    return $entity;
+                if (!isset($data['id'])) {
+                    return;
                 }
 
                 $entity = $data['id'];
 
                 break;
             case 'google':
-                if (isset($data['sub'])) {
-                    return $entity;
+                if (!isset($data['sub'])) {
+                    return;
                 }
 
                 $entity = $data['sub'];
 
                 break;
             case 'bitbucket':
-                if (isset($data['uuid'])) {
-                    return $entity;
+                if (!isset($data['uuid'])) {
+                    return;
                 }
 
                 $entity = $data['uuid'];
@@ -74,17 +78,18 @@ class OauthService
         return $entity;
     }
 
-    public function setProvider(?string $clientName): ?GenericProviderLib
+    /**
+     * @return GenericProviderLib|void
+     */
+    public function setProvider(?string $clientName)
     {
         if (is_null($clientName)) {
-            return null;
+            return;
         }
 
         if (isset($this->configProvider[$clientName])) {
             return $this->initProvider($clientName);
         }
-
-        return null;
     }
 
     public function getActivedProvider(?string $clientName): bool

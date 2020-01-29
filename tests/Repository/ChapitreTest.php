@@ -22,7 +22,7 @@ class ChapitreTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var ChapitreRepository $repository */
-        $repository = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Chapitre::class
         );
         $this->repository = $repository;

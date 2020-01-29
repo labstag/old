@@ -48,13 +48,16 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         ];
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
+    /**
+     * @return UserInterface|void
+     */
+    public function getUser($credentials, UserProviderInterface $userProvider)
     {
         unset($userProvider);
         $apiToken = $credentials['token'];
 
         if (is_null($apiToken)) {
-            return null;
+            return;
         }
 
         // if a User object, checkCredentials() is called
@@ -75,12 +78,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return true;
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
+    /**
+     * @return Response|void
+     */
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         unset($request, $token, $providerKey);
 
         // on success, let the request continue
-        return null;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
