@@ -30,12 +30,12 @@ class EmailTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var EmailRepository $repository */
-        $repository     = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Email::class
         );
         $this->repository = $repository;
         /** @var UserRepository $userRepository */
-        $userRepository = $this->entityManager->getRepository(
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
         $this->userRepository = $userRepository;
@@ -62,6 +62,7 @@ class EmailTest extends RepositoryTestLib
 
     public function testfindEmailByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findEmailByUser(null);
         $this->AssertNull($empty);
         $user = $this->userRepository->findOneRandom();

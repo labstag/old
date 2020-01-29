@@ -2,6 +2,7 @@
 
 namespace Labstag\Lib;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -17,35 +18,35 @@ abstract class ApiControllerLib extends ControllerLib
      */
     private $serializer;
 
-    protected function trashAction(ServiceEntityRepositoryLib $repository)
+    protected function trashAction(ServiceEntityRepositoryLib $repository): Response
     {
         $dataInTrash = $repository->findDataInTrash();
 
         return new Response($this->serializerData($dataInTrash));
     }
 
-    protected function restoreAction(ServiceEntityRepositoryLib $repository)
+    protected function restoreAction(ServiceEntityRepositoryLib $repository): JsonResponse
     {
         unset($repository);
 
         return $this->setJson();
     }
 
-    protected function emptyAction(ServiceEntityRepositoryLib $repository)
+    protected function emptyAction(ServiceEntityRepositoryLib $repository): JsonResponse
     {
         unset($repository);
 
         return $this->setJson();
     }
 
-    protected function deleteAction(ServiceEntityRepositoryLib $repository)
+    protected function deleteAction(ServiceEntityRepositoryLib $repository): JsonResponse
     {
         unset($repository);
 
         return $this->setJson();
     }
 
-    private function setJson()
+    private function setJson(): JsonResponse
     {
         $get        = $this->request->query->all();
         $post       = $this->request->request->all();
@@ -68,7 +69,7 @@ abstract class ApiControllerLib extends ControllerLib
         );
     }
 
-    private function serializerData($data)
+    private function serializerData($data): string
     {
         $this->setSerializer();
         $accept = $this->request->server->get('HTTP_ACCEPT');
@@ -88,7 +89,7 @@ abstract class ApiControllerLib extends ControllerLib
         return $this->serializer->serialize($data, $serialize);
     }
 
-    private function setSerializer()
+    private function setSerializer(): void
     {
         $encoders    = [
             new XmlEncoder(),

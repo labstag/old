@@ -44,22 +44,22 @@ class PostTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var PostRepository $repository */
-        $repository         = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Post::class
         );
         $this->repository = $repository;
         /** @var CategoryRepository $categoryRepository */
-        $categoryRepository = $this->entityManager->getRepository(
+        $categoryRepository       = $this->entityManager->getRepository(
             Category::class
         );
         $this->categoryRepository = $categoryRepository;
         /** @var TagsRepository $tagsRepository */
-        $tagsRepository     = $this->entityManager->getRepository(
+        $tagsRepository       = $this->entityManager->getRepository(
             Tags::class
         );
         $this->tagsRepository = $tagsRepository;
         /** @var UserRepository $userRepository */
-        $userRepository     = $this->entityManager->getRepository(
+        $userRepository = $this->entityManager->getRepository(
             User::class
         );
 
@@ -87,6 +87,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActiveByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByUser(null);
         $this->AssertNull($empty);
         $user = $this->tagsRepository->findOneRandom();
@@ -103,6 +104,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActiveByTag(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByTag(null);
         $this->AssertNull($empty);
         $tags = $this->tagsRepository->findOneRandom();
@@ -119,6 +121,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActiveByCategory(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByCategory(null);
         $this->AssertNull($empty);
         $category = $this->categoryRepository->findOneRandom();
