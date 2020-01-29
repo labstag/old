@@ -21,10 +21,13 @@ class EmailRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Email::class);
     }
 
-    public function findEmailByUser(?User $user): ?QueryBuilder
+    /**
+     * @return QueryBuilder|void
+     */
+    public function findEmailByUser(?User $user)
     {
         if (is_null($user)) {
-            return null;
+            return;
         }
 
         $params = [

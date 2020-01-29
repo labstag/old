@@ -80,7 +80,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     private $requestStack;
 
     /**
-     * @var TokenStorageInterface|TokenStorage
+     * @var TokenStorage|TokenStorageInterface
      */
     private $tokenStorage;
 
@@ -140,7 +140,8 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
                     'code' => $query['code'],
                 ]
             );
-            $userOauth     = $provider->getResourceOwner($tokenProvider);
+            /** @var mixed $userOauth */
+            $userOauth = $provider->getResourceOwner($tokenProvider);
 
             $credentials['user'] = $userOauth;
 
@@ -152,7 +153,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     /**
      * @param mixed $credentials credentials
-     * 
+     *
      * @throws CustomUserMessageAuthenticationException
      */
     public function getUser($credentials, UserProviderInterface $userProvider): User
@@ -167,12 +168,13 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         /** @var OauthConnectUserRepository $enm */
         $enm = $this->entityManager->getRepository(OauthConnectUser::class);
 
-        $identity         = $this->oauthService->getIdentity(
+        $identity = $this->oauthService->getIdentity(
             $credentials['user']->toArray(),
             $this->oauthCode
         );
+        /** @var OauthConnectUser $oauthConnectUser */
         $oauthConnectUser = $enm->login($identity, $this->oauthCode);
-        if (!$oauthConnectUser || '' == $identity) {
+        if (!($oauthConnectUser instanceof OauthConnectUser) || '' == $identity) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException(
                 'Username could not be found.'

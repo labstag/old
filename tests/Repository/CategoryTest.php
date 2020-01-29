@@ -23,7 +23,7 @@ class CategoryTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var CategoryRepository $repository */
-        $repository = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Category::class
         );
         $this->repository = $repository;

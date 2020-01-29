@@ -50,6 +50,7 @@ class TagsTest extends RepositoryTestLib
 
     public function testfindTagsByTypeNotTemporary(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $this->AssertNull($empty);
         /** @var QueryBuilder $tags */
@@ -57,7 +58,7 @@ class TagsTest extends RepositoryTestLib
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
         /** @var QueryBuilder $tags */
-        $tags   = $this->repository->findTagsByTypeNotTemporary(
+        $tags = $this->repository->findTagsByTypeNotTemporary(
             $random->getType()
         );
         $this->assertSame(get_class($tags), QueryBuilder::class);
@@ -65,6 +66,7 @@ class TagsTest extends RepositoryTestLib
 
     public function testfindTagsByType(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findTagsByType(null);
         $this->AssertNull($empty);
         /** @var QueryBuilder $tags */
