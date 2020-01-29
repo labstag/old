@@ -35,7 +35,7 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         return $dql->getQuery()->getOneOrNullResult();
     }
 
-    public function findOneRandom(string $where = '', array $params = [])
+    public function findOneRandom(string $where = '', array $params = []): object
     {
         $entityManager = $this->getEntityManager();
         $dql           = $entityManager->createQueryBuilder();
