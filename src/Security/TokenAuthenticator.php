@@ -49,6 +49,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
+     * @param mixed $credentials
+     *
      * @return UserInterface|void
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -79,6 +81,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
+     * @param mixed $providerKey
+     *
      * @return Response|void
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
