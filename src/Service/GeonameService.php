@@ -497,7 +497,7 @@ class GeonameService
                 break;
             case 'rss':
             case 'xml':
-                $xml  = simplexml_load_string(
+                $xml = simplexml_load_string(
                     $content,
                     'SimpleXMLElement',
                     LIBXML_NOCDATA
@@ -524,7 +524,7 @@ class GeonameService
             return '';
         }
 
-        $url = 'http://api.geonames.org/'.$path;
+        $url    = 'http://api.geonames.org/'.$path;
         $params = $this->setParamUrl($format, $url, $params);
         ksort($params);
         $query = http_build_query($params);

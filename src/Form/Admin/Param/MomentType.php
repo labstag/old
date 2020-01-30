@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MomentType extends AbstractTypeLibAdminParam
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $lang = $this->getFilesLang();
         $builder->add(
@@ -22,7 +22,7 @@ class MomentType extends AbstractTypeLibAdminParam
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         // Configure your form options here
         $resolver->setDefaults(
@@ -30,10 +30,11 @@ class MomentType extends AbstractTypeLibAdminParam
         );
     }
 
-    private function getFilesLang()
+    private function getFilesLang(): array
     {
         $tabLang = [];
-        $files   = glob('../node_modules/moment/locale/*');
+        /** @var array $files */
+        $files = glob('../node_modules/moment/locale/*');
         foreach ($files as $file) {
             $pathfile           = pathinfo($file);
             $filename           = $pathfile['filename'];

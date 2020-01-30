@@ -3,7 +3,6 @@
 namespace Labstag\Lib;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class RepositoryTestLib extends KernelTestCase
@@ -19,8 +18,8 @@ abstract class RepositoryTestLib extends KernelTestCase
      */
     public function setUp(): void
     {
-        $kernel              = self::bootKernel();
-        /** @var ManagerRegistry $doctrine */
+        $kernel = self::bootKernel();
+        /** @var mixed $doctrine */
         $doctrine            = $kernel->getContainer()->get('doctrine');
         $this->entityManager = $doctrine->getManager();
     }
