@@ -2,7 +2,6 @@
 
 namespace Labstag\Lib;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Gedmo\Loggable\Entity\LogEntry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -110,6 +109,7 @@ abstract class AdminControllerLib extends ControllerLib
 
     /**
      * @throws HttpException
+     *
      * @return RedirectResponse|Response
      */
     protected function crudNewAction(array $data = [])
