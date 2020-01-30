@@ -27,6 +27,6 @@ abstract class ServiceTestLib extends KernelTestCase
     {
         parent::tearDown();
         $this->entityManager->close();
-        $this->entityManager = null;
+        unset($this->entityManager);
     }
 }
