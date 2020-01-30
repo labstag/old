@@ -143,11 +143,9 @@
             "phpmnd tests"
         ],
         "tests": [
-            "phpunit",
-            "phpspec run"
+            "phpunit"
         ],
-        "phpspec": "phpspec run",
-        "phpmd": "phpmd src,tests,spec text phpmd.xml",
+        "phpmd": "phpmd src,tests text phpmd.xml",
         "phpcpd": "phpcpd src tests",
         "phpunit": "phpunit",
         "auto-scripts": {
