@@ -75,6 +75,8 @@ class TemplatesAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="admintemplates_trashedit", methods={"GET", "POST"})
+     *
+     * @param mixed $id
      */
     public function trashEdit(ConfigurationRepository $repository, $id): Response
     {

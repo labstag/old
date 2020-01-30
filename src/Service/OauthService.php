@@ -17,7 +17,7 @@ class OauthService
     protected $configProvider;
 
     /**
-     * @var RouterInterface|Router
+     * @var Router|RouterInterface
      */
     protected $router;
 

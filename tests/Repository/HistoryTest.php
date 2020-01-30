@@ -30,12 +30,12 @@ class HistoryTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var HistoryRepository $repository */
-        $repository     = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             History::class
         );
         $this->repository = $repository;
         /** @var UserRepository $userRepository */
-        $userRepository = $this->entityManager->getRepository(
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
         $this->userRepository = $userRepository;

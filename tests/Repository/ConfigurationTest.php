@@ -22,7 +22,7 @@ class ConfigurationTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var ConfigurationRepository $repository */
-        $repository = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Configuration::class
         );
         $this->repository = $repository;

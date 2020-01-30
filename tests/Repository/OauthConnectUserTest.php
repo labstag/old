@@ -29,12 +29,12 @@ class OauthConnectUserTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var OauthConnectUserRepository $repository */
-        $repository     = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             OauthConnectUser::class
         );
         $this->repository = $repository;
         /** @var UserRepository $userRepository */
-        $userRepository = $this->entityManager->getRepository(
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
         $this->userRepository = $userRepository;

@@ -2,6 +2,7 @@
 
 namespace Labstag\Lib;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Gedmo\Loggable\Entity\LogEntry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -107,6 +108,10 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->twig('admin/crud/list.html.twig', $paramtwig);
     }
 
+    /**
+     * @throws HttpException
+     * @return RedirectResponse|Response
+     */
     protected function crudNewAction(array $data = [])
     {
         $tabDataCheck = [
@@ -161,7 +166,7 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->crudShowForm($params);
     }
 
-    protected function crudEditAction(array $data = [])
+    protected function crudEditAction(array $data = []): response
     {
         $tabDataCheck  = [
             'form',
@@ -253,7 +258,8 @@ abstract class AdminControllerLib extends ControllerLib
             }
         }
 
-        $data          = json_decode($this->request->getContent(), true);
+        $data = json_decode($this->request->getContent(), true);
+        /** @var mixed $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
         $restore       = 0;
         $routeRedirect = $route['url_trash'];
@@ -380,7 +386,10 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
-    private function generateLogs(&$params, $data, $entityManager)
+    /**
+     * @param mixed $entityManager
+     */
+    private function generateLogs(array &$params, array $data, $entityManager): void
     {
         $repository = $entityManager->getRepository(LogEntry::class);
         if (is_array($data['entity'])) {
@@ -398,7 +407,7 @@ abstract class AdminControllerLib extends ControllerLib
         $params['logs'] = $dataLogs;
     }
 
-    private function setOperationLink(&$paramtwig)
+    private function setOperationLink(array &$paramtwig): void
     {
         $tabDataCheck                = [
             'url_delete',
@@ -419,7 +428,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function setParamTwig(&$paramtwig, $data)
+    private function setParamTwig(array &$paramtwig, array $data): void
     {
         $tabDataCheck = [
             'url_new',
@@ -436,7 +445,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function setDatatable(&$data)
+    private function setDatatable(array &$data): void
     {
         foreach ($data['datatable'] as &$row) {
             if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
@@ -459,7 +468,10 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function dateInTrash(&$paramtwig, $dataInTrash, $data)
+    /**
+     * @param mixed $dataInTrash
+     */
+    private function dateInTrash(array &$paramtwig, $dataInTrash, array $data): void
     {
         $route                  = $this->request->attributes->get('_route');
         $paramtwig['url_trash'] = $data['url_trash'];
@@ -477,7 +489,10 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function findEntity($trash, $repository, $dataInTrash)
+    /**
+     * @return mixed|null
+     */
+    private function findEntity(int $trash, ServiceEntityRepositoryLib $repository, string $dataInTrash)
     {
         if (0 == $trash) {
             return $repository->find($dataInTrash);
@@ -486,7 +501,7 @@ abstract class AdminControllerLib extends ControllerLib
         return $repository->findOneDateInTrash($dataInTrash);
     }
 
-    private function setMenuAdmin()
+    private function setMenuAdmin(): void
     {
         $menuadmin = [
             [
@@ -572,7 +587,7 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews['menuadmin']   = $menuadmin;
     }
 
-    private function setMenuActualRoute(&$menuadmin, $actualroute)
+    private function setMenuActualRoute(array &$menuadmin, string $actualroute): void
     {
         foreach ($menuadmin as &$menu) {
             if (isset($menu['child'])) {
@@ -583,7 +598,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function isActualRoute($url, $actualroute)
+    private function isActualRoute(string $url, string $actualroute): bool
     {
         if ($url == $actualroute) {
             return true;
@@ -599,8 +614,6 @@ abstract class AdminControllerLib extends ControllerLib
         ] = explode('_', $actualroute);
         unset($route1, $route2);
 
-        if ($controller1 == $controller2) {
-            return true;
-        }
+        return $controller1 == $controller2;
     }
 }

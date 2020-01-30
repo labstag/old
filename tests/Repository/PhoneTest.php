@@ -22,7 +22,7 @@ class PhoneTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var PhoneRepository $repository */
-        $repository = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Phone::class
         );
         $this->repository = $repository;

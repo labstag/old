@@ -44,22 +44,22 @@ class PostTest extends RepositoryTestLib
     {
         parent::setUp();
         /** @var PostRepository $repository */
-        $repository         = $this->entityManager->getRepository(
+        $repository       = $this->entityManager->getRepository(
             Post::class
         );
         $this->repository = $repository;
         /** @var CategoryRepository $categoryRepository */
-        $categoryRepository = $this->entityManager->getRepository(
+        $categoryRepository       = $this->entityManager->getRepository(
             Category::class
         );
         $this->categoryRepository = $categoryRepository;
         /** @var TagsRepository $tagsRepository */
-        $tagsRepository     = $this->entityManager->getRepository(
+        $tagsRepository       = $this->entityManager->getRepository(
             Tags::class
         );
         $this->tagsRepository = $tagsRepository;
         /** @var UserRepository $userRepository */
-        $userRepository     = $this->entityManager->getRepository(
+        $userRepository = $this->entityManager->getRepository(
             User::class
         );
 
