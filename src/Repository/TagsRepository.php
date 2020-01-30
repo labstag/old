@@ -8,8 +8,8 @@ use Labstag\Entity\Tags;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
- * @method null|Tags find($id, $lockMode = null, $lockVersion = null)
- * @method null|Tags findOneBy(array $criteria, array $orderBy = null)
+ * @method Tags|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tags|null findOneBy(array $criteria, array $orderBy = null)
  * @method Tags[]    findAll()
  * @method Tags[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

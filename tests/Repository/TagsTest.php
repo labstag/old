@@ -57,7 +57,7 @@ class TagsTest extends RepositoryTestLib
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
         /** @var QueryBuilder $tags */
-        $tags   = $this->repository->findTagsByTypeNotTemporary(
+        $tags = $this->repository->findTagsByTypeNotTemporary(
             $random->getType()
         );
         $this->assertSame(get_class($tags), QueryBuilder::class);

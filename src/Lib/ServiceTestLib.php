@@ -18,7 +18,8 @@ abstract class ServiceTestLib extends KernelTestCase
      */
     public function setUp(): void
     {
-        $kernel              = self::bootKernel();
+        $kernel = self::bootKernel();
+        /** @var mixed $doctrine */
         $doctrine            = $kernel->getContainer()->get('doctrine');
         $this->entityManager = $doctrine->getManager();
     }

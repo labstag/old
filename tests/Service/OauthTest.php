@@ -2,7 +2,6 @@
 
 namespace Labstag\Tests\Service;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Lib\GenericProviderLib;
 use Labstag\Lib\ServiceTestLib;

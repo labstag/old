@@ -23,14 +23,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FormbuilderViewType extends AbstractTypeLibAdmin
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         foreach ($options['data'] as $field) {
             $this->addField($field, $builder);
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             []
