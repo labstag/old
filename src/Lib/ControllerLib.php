@@ -10,6 +10,7 @@ use Labstag\Entity\Configuration;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,12 +80,14 @@ abstract class ControllerLib extends AbstractController
      * @param string    $view       template
      * @param array     $parameters data
      * @param ?Response $response   ??
+     *
+     * @return RedirectResponse|Response
      */
     public function twig(
         string $view,
         array $parameters = [],
         Response $response = null
-    ): Response
+    )
     {
         $this->addParamViewsSite($parameters);
         if ($this->disclaimerActivate($parameters)) {

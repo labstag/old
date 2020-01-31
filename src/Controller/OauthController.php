@@ -4,18 +4,17 @@ namespace Labstag\Controller;
 
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
-use Labstag\Entity\OauthConnectUser;
-use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
-use League\OAuth2\Client\Provider\GenericResourceOwner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
 use Symfony\Component\Security\Core\Security;
 
 class OauthController extends ControllerLib
@@ -43,15 +42,22 @@ class OauthController extends ControllerLib
      *
      * @Route("/lost/{oauthCode}", name="connect_lost")
      */
-    public function lostAction(Request $request, string $oauthCode, Security $security, OauthConnectUserRepository $repository)
+    public function lostAction(
+        Request $request,
+        string $oauthCode,
+        Security $security,
+        OauthConnectUserRepository $repository
+    ): RedirectResponse
     {
         $user    = $security->getUser();
+        /** @var string $referer */
         $referer = $request->headers->get('referer');
         $session = $request->getSession();
         $session->set('referer', $referer);
+        /** @var string $url */
         $url = $this->generateUrl('front');
-        if ('' != $referer) {
-            $url = $referer;
+        if ('' == $referer) {
+            $referer = $url;
         }
 
         $entity  = $repository->findOneOauthByUser($oauthCode, $user);
@@ -70,15 +76,17 @@ class OauthController extends ControllerLib
      *
      * @Route("/connect/{oauthCode}", name="connect_start")
      */
-    public function connectAction(Request $request, string $oauthCode)
+    public function connectAction(Request $request, string $oauthCode): RedirectResponse
     {
         $provider = $this->oauthService->setProvider($oauthCode);
         $session  = $request->getSession();
+        /** @var string $referer */
         $referer  = $request->headers->get('referer');
         $session->set('referer', $referer);
+        /** @var string $url */
         $url = $this->generateUrl('front');
-        if ('' != $referer) {
-            $url = $referer;
+        if ('' == $referer) {
+            $referer = $url;
         }
 
         if (is_null($provider)) {
@@ -103,16 +111,17 @@ class OauthController extends ControllerLib
      *
      * @Route("/connect/{oauthCode}/check", name="connect_check")
      */
-    public function connectCheckAction(Request $request, string $oauthCode)
+    public function connectCheckAction(Request $request, string $oauthCode): RedirectResponse
     {
         $provider    = $this->oauthService->setProvider($oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
         $referer     = $session->get('referer');
         $oauth2state = $session->get('oauth2state');
-        $url         = $this->generateUrl('front');
-        if ('' != $referer) {
-            $url = $referer;
+        /** @var string $url */
+        $url = $this->generateUrl('front');
+        if ('' == $referer) {
+            $referer = $url;
         }
 
         if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
@@ -124,20 +133,13 @@ class OauthController extends ControllerLib
         }
 
         try {
-            $tokenProvider = $provider->getAccessToken(
-                'authorization_code',
-                [
-                    'code' => $query['code'],
-                ]
-            );
-
             $session->remove('oauth2state');
             $session->remove('referer');
-            $userOauth = $provider->getResourceOwner($tokenProvider);
-            $token     = $this->get('security.token_storage')->getToken();
+            /** @var UsageTrackingTokenStorage $tokenStorage */
+            $tokenStorage = $this->get('security.token_storage');
+            $token        = $tokenStorage->getToken();
             if (!($token instanceof AnonymousToken)) {
-                $user = $token->getUser();
-                $this->addOauthToUser($oauthCode, $user, $userOauth);
+                $this->addFlash('error', 'En cours de modification');
             }
 
             return $this->redirect($referer);
@@ -146,53 +148,5 @@ class OauthController extends ControllerLib
 
             return $this->redirect($referer);
         }
-    }
-
-    private function addOauthToUser(string $client, User $user, GenericResourceOwner $userOauth)
-    {
-        $oauthConnects = $user->getOauthConnectUsers();
-        $find          = 0;
-        $data          = $userOauth->toArray();
-        $identity      = $this->oauthService->getIdentity($data, $client);
-        // @var OauthConnectUser
-        foreach ($oauthConnects as $oauthConnect) {
-            if ($oauthConnect->getName() == $client && $oauthConnect->getIdentity() == $identity) {
-                $find = 1;
-
-                break;
-            }
-        }
-
-        $manager    = $this->getDoctrine()->getManager();
-        $repository = $manager->getRepository(OauthConnectUser::class);
-        // @var OauthConnectUserRepository $repository
-        if (0 == $find) {
-            $auths = $repository->findOauthNotUser($user, $identity, $client);
-            if (!is_null($auths)) {
-                $find = 1;
-            }
-        }
-
-        if (0 === $find) {
-            $oauthConnect = new OauthConnectUser();
-            $oauthConnect->setRefuser($user);
-            $oauthConnect->setName($client);
-        }
-
-        $oauthConnect->setData($userOauth->toArray());
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($oauthConnect);
-        $entityManager->flush();
-        $message = $this->setMessagefindaddOauthToUser($find, $client, $user);
-        $this->addFlash('success', $message);
-    }
-
-    private function setMessagefindaddOauthToUser($find, $client, $user)
-    {
-        if (0 == $find) {
-            return 'Compte '.$client." associé à l'utilisateur ".$user;
-        }
-
-        return 'Compte '.$client." associé à l'utilisateur ".$user;
     }
 }
