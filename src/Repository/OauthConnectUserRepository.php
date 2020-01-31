@@ -42,7 +42,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery()->getOneOrNullResult();
     }
 
-    public function findOneOauthByUser(?string $oauthCode, ?UserInterface $user): ?OauthConnectUser
+    public function findOneOauthByUser(?string $oauthCode, ?User $user): ?OauthConnectUser
     {
         if (is_null($oauthCode) || is_null($user)) {
             return null;
@@ -53,7 +53,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         $dql->andWhere('p.refuser=:iduser');
         $dql->setParameters(
             [
-                'iduser' => $user->getId(),
+                'iduser' => (string) $user->getId(),
                 'name'   => $oauthCode,
             ]
         );

@@ -235,20 +235,22 @@ class User implements UserInterface, \Serializable
         $this->phones            = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getUsername();
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image = null): self
     {
         $this->imageFile = $image;
         if ($image) {
             $this->updatedAt = new DateTimeImmutable();
         }
+        
+        return $this;
     }
 
-    public function getImageFile()
+    public function getImageFile(): string
     {
         return $this->imageFile;
     }
@@ -258,7 +260,7 @@ class User implements UserInterface, \Serializable
         return $this->avatar;
     }
 
-    public function setAvatar($avatar): self
+    public function setAvatar(string $avatar): self
     {
         $this->avatar = $avatar;
 
@@ -316,6 +318,9 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @param mixed $role
+     */
     public function addRole($role): self
     {
         $roles       = $this->roles;
@@ -364,7 +369,7 @@ class User implements UserInterface, \Serializable
         return (string) $this->apiKey;
     }
 
-    public function setApiKey($apiKey): self
+    public function setApiKey(string $apiKey): self
     {
         $this->apiKey = $apiKey;
 
@@ -373,14 +378,19 @@ class User implements UserInterface, \Serializable
 
     /**
      * @see UserInterface
+     * 
+     * @return string|null
      */
     public function getSalt()
     {
+
+        return '';
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
+     * @return mixed;
      */
     public function eraseCredentials()
     {
@@ -405,6 +415,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * {@inheritdoc}
+     * 
+     * @param string $serialized
      */
     public function unserialize($serialized): void
     {
@@ -419,15 +431,17 @@ class User implements UserInterface, \Serializable
         );
     }
 
-    public function getPlainPassword()
+    public function getPlainPassword(): string
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->setPassword('');
         $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 
     public function isLost(): ?bool
