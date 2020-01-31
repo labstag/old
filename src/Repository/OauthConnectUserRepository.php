@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method OauthConnectUser|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,7 +28,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         }
 
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.refuser=:iduser');
+        $dql->where('p.refuser!=:iduser');
         $dql->andWhere('p.identity=:identity');
         $dql->andWhere('p.name=:name');
         $dql->setParameters(
@@ -41,7 +42,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery()->getOneOrNullResult();
     }
 
-    public function findOneOauthByUser(?string $oauthCode, ?User $user): ?OauthConnectUser
+    public function findOneOauthByUser(?string $oauthCode, ?UserInterface $user): ?OauthConnectUser
     {
         if (is_null($oauthCode) || is_null($user)) {
             return null;
