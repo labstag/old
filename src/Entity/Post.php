@@ -241,12 +241,14 @@ class Post implements Translatable
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image = null): self
     {
         $this->imageFile = $image;
         if ($image) {
             $this->updatedAt = new DateTimeImmutable();
         }
+
+        return $this;
     }
 
     public function getImageFile()

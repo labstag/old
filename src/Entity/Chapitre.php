@@ -216,8 +216,10 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale)
+    public function setTranslatableLocale($locale): self
     {
         $this->locale = $locale;
+
+        return $this;
     }
 }
