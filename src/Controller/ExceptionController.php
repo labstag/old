@@ -78,9 +78,10 @@ class ExceptionController extends ControllerLib
         ];
         $this->addParamViewsSite($parameters);
 
+        $templates = $this->findTemplate($request, (string) $request->getRequestFormat(), $code, $showException);
         return new Response(
             $this->twig->render(
-                (string) $this->findTemplate($request, $request->getRequestFormat(), $code, $showException),
+                $templates,
                 $this->paramViews
             ),
             200,
@@ -89,11 +90,9 @@ class ExceptionController extends ControllerLib
     }
 
     /**
-     * @param int $startObLevel
-     *
-     * @return string
+     * @return string|false
      */
-    protected function getAndCleanOutputBuffering($startObLevel)
+    protected function getAndCleanOutputBuffering(int $startObLevel)
     {
         if (ob_get_level() <= $startObLevel) {
             return '';
@@ -138,11 +137,16 @@ class ExceptionController extends ControllerLib
         return sprintf('exception/%s.html.twig', $showException ? 'exception_full' : $name);
     }
 
-    // to be removed when the minimum required version of Twig is >= 3.0
-    protected function templateExists($template)
+    // 
+
+    /**
+     * to be removed when the minimum required version of Twig is >= 3.0
+     * 
+     * @return string|bool
+     */
+    protected function templateExists(string $template)
     {
-        $template = (string) $template;
-        $loader   = $this->twig->getLoader();
+        $loader = $this->twig->getLoader();
         if ($loader instanceof ExistsLoaderInterface || method_exists($loader, 'exists')) {
             return $loader->exists($template);
         }
@@ -154,7 +158,5 @@ class ExceptionController extends ControllerLib
         } catch (LoaderError $error) {
             return $error->getMessage();
         }
-
-        return false;
     }
 }

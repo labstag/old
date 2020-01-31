@@ -6,6 +6,7 @@ use Labstag\Entity\History;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\HistoryRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,7 +17,7 @@ class HistoryFront extends ControllerLib
     /**
      * @Route("/", name="history_list")
      */
-    public function histoires(HistoryRepository $repository)
+    public function histoires(HistoryRepository $repository): Response
     {
         $histoires = $repository->findAllActive();
         $this->paginator($histoires);
@@ -27,7 +28,7 @@ class HistoryFront extends ControllerLib
     /**
      * @Route("/user/{user}", name="history_user")
      */
-    public function user(User $user, HistoryRepository $repository)
+    public function user(User $user, HistoryRepository $repository): Response
     {
         $histoires = $repository->findAllActiveByUser($user);
         $this->paginator($histoires);
@@ -38,7 +39,7 @@ class HistoryFront extends ControllerLib
     /**
      * @Route("/histoire/{slug}", name="history_show")
      */
-    public function histoire(History $history)
+    public function histoire(History $history): Response
     {
         $idChapitre = $this->request->query->get('chapitre');
         $chapitres  = $history->getChapitresEnabled();
