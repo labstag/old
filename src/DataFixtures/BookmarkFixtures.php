@@ -7,6 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use finfo;
 use Faker\Factory;
 use Labstag\Entity\Bookmark;
 use Labstag\Repository\TagsRepository;
@@ -53,6 +54,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
         $tags  = $this->tagsRepository->findBy(['type' => 'bookmark']);
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $bookmark = new Bookmark();
             $bookmark->setUrl($faker->unique()->url);
@@ -84,7 +86,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
                 $file = new UploadedFile(
                     $data['uri'],
                     'image.jpg',
-                    filesize($data['uri']),
+                    finfo_file($finfo, $data['uri']),
                     null,
                     true
                 );
