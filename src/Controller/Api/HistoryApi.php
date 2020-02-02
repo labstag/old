@@ -8,7 +8,9 @@ use Labstag\Handler\HistoryPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\HistoryRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -42,7 +44,7 @@ class HistoryApi extends ApiControllerLib
     /**
      * @Route("/api/histories/trash", name="api_historytrash")
      */
-    public function trash(HistoryRepository $repository)
+    public function trash(HistoryRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -50,7 +52,7 @@ class HistoryApi extends ApiControllerLib
     /**
      * @Route("/api/histories/trash", name="api_historytrashdelete", methods={"DELETE"})
      */
-    public function delete(HistoryRepository $repository)
+    public function delete(HistoryRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -58,7 +60,7 @@ class HistoryApi extends ApiControllerLib
     /**
      * @Route("/api/histories/restore", name="api_historyrestore", methods={"POST"})
      */
-    public function restore(HistoryRepository $repository)
+    public function restore(HistoryRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -66,7 +68,7 @@ class HistoryApi extends ApiControllerLib
     /**
      * @Route("/api/histories/empty", name="api_historyempty", methods={"POST"})
      */
-    public function vider(HistoryRepository $repository)
+    public function vider(HistoryRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }
