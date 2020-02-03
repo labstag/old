@@ -24,21 +24,21 @@ class OauthConnectUser
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="array")
-     * 
+     *
      * @var array
      */
     private $data = [];
@@ -46,7 +46,7 @@ class OauthConnectUser
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="oauthConnectUsers")
      * @ORM\JoinColumn(nullable=false)
-     * 
+     *
      * @var User
      */
     private $refuser;

@@ -46,7 +46,7 @@ class TagsFixtures extends Fixture
     private function delete(ObjectManager $manager): void
     {
         /** @var array $tags */
-        $tags     = $this->repository->findAll();
+        $tags = $this->repository->findAll();
         /** @var int $tabIndex */
         $tabIndex = array_rand($tags, 1);
         $manager->remove($tags[$tabIndex]);

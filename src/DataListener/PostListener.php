@@ -22,7 +22,7 @@ class PostListener extends EventSubscriberLib
         ];
     }
 
-    public function onFlush(OnFlushEventArgs $args)
+    public function onFlush(OnFlushEventArgs $args): void
     {
         $manager       = $args->getEntityManager();
         $uow           = $manager->getUnitOfWork();
