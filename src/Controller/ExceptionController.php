@@ -83,6 +83,7 @@ class ExceptionController extends ControllerLib
         $templates   = $this->findTemplate($request, (string) $request->getRequestFormat(), $code, $showException);
         $contentType = (string) $request->getMimeType((string) $request->getRequestFormat());
         $contentType = !empty($contentType) ? $contentType : 'text/html';
+
         return new Response(
             $this->twig->render(
                 $templates,
@@ -141,10 +142,8 @@ class ExceptionController extends ControllerLib
         return sprintf('exception/%s.html.twig', $showException ? 'exception_full' : $name);
     }
 
-    //
-
     /**
-     * to be removed when the minimum required version of Twig is >= 3.0
+     * to be removed when the minimum required version of Twig is >= 3.0.
      *
      * @return string|bool
      */
