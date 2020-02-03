@@ -60,7 +60,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
             $bookmark = new Bookmark();
             $bookmark->setUrl($faker->unique()->url);
             $bookmark->setName($faker->unique()->text(rand(5, 50)));
-            $bookmark->setContent($faker->unique()->paragraphs(4, true));
+            $bookmark->setContent((string) $faker->unique()->paragraphs(4, true));
             $user = rand(0, 1);
             if ($user) {
                 $tabIndex = array_rand($users);

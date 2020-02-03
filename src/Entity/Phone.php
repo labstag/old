@@ -31,28 +31,28 @@ class Phone
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="phones")
-     * 
+     *
      * @var User
      */
     private $refuser;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $numero;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $type;

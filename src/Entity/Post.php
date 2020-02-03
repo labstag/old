@@ -97,7 +97,7 @@ class Post implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
@@ -105,14 +105,14 @@ class Post implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
-     * 
+     *
      * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $file;
@@ -128,14 +128,14 @@ class Post implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
-     * 
+     *
      * @var string
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
-     * 
+     *
      * @var User
      */
     private $refuser;
@@ -143,7 +143,7 @@ class Post implements Translatable
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\Category", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
-     * 
+     *
      * @var Category
      */
     private $refcategory;
@@ -156,14 +156,14 @@ class Post implements Translatable
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $slug;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true}))
-     * 
+     *
      * @var bool
      */
     private $enable;
@@ -172,6 +172,8 @@ class Post implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
@@ -291,7 +293,7 @@ class Post implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale)
+    public function setTranslatableLocale(string $locale): void
     {
         $this->locale = $locale;
     }

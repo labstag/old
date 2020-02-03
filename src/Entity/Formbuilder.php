@@ -86,7 +86,7 @@ class Formbuilder
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
@@ -94,7 +94,7 @@ class Formbuilder
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
-     * 
+     *
      * @var string
      */
     private $name;
@@ -102,12 +102,14 @@ class Formbuilder
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
+     *
+     * @var string
      */
     private $formbuilder;
 
     /**
      * @ORM\Column(type="boolean")
-     * 
+     *
      * @var bool
      */
     private $enable;
@@ -115,14 +117,14 @@ class Formbuilder
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string|null
      */
     private $slug;
 
     public function __construct()
     {
-        $this->formbuilder = json_encode([]);
+        $this->formbuilder = (string) json_encode([]);
     }
 
     public function __toString(): string
@@ -147,7 +149,7 @@ class Formbuilder
         return $this;
     }
 
-    public function getFormbuilder(): ?string
+    public function getFormbuilder(): string
     {
         return $this->formbuilder;
     }
