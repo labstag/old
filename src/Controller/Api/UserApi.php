@@ -7,10 +7,10 @@ use Labstag\Entity\User;
 use Labstag\Handler\UserPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
