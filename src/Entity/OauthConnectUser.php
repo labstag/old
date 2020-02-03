@@ -45,6 +45,8 @@ class OauthConnectUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
      */
     private $identity;
 

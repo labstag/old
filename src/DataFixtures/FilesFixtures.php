@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class FilesFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         unset($manager);
         $folder = 'public/file';
@@ -16,9 +16,9 @@ class FilesFixtures extends Fixture
         }
     }
 
-    public function delTree($dir)
+    public function delTree(string $dir): bool
     {
-        $files = array_diff(scandir($dir), ['.', '..']);
+        $files = array_diff((array) scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             if (is_dir($dir.'/'.$file)) {
                 $this->delTree($dir.'/'.$file);

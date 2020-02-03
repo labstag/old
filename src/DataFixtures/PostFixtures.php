@@ -41,12 +41,12 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $this->tagsRepository     = $tagsRepository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             FilesFixtures::class,
@@ -56,7 +56,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $users      = $this->userRepository->findAll();
         $categories = $this->categoryRepository->findAll();
@@ -112,7 +112,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function addTags($post, $tags)
+    private function addTags(Post $post, array $tags): void
     {
         $nbr = rand(0, count($tags));
         if (0 == $nbr) {

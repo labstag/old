@@ -27,12 +27,12 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         $this->userRepository = $userRepository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             FilesFixtures::class,
@@ -40,7 +40,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $users = $this->userRepository->findAll();
         $faker = Factory::create('fr_FR');
@@ -51,7 +51,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
             $history = new History();
             $history->setName($faker->unique()->safeColorName);
             $history->setResume($faker->unique()->sentence);
-            $enable = rand(0, 1);
+            $enable = (bool) rand(0, 1);
             $history->setEnable($enable);
             $user = rand(0, 1);
             if ($user) {
@@ -59,7 +59,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                 $history->setRefuser($users[$tabIndex]);
             }
 
-            $end = rand(0, 1);
+            $end = (bool) rand(0, 1);
             $history->setEnd($end);
 
             try {

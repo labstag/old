@@ -22,13 +22,13 @@ class CategoryFixtures extends Fixture
         $this->repository = $repository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
         $this->delete($manager);
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
@@ -40,9 +40,11 @@ class CategoryFixtures extends Fixture
         $manager->flush();
     }
 
-    private function delete(ObjectManager $manager)
+    private function delete(ObjectManager $manager): void
     {
+        /** @var array $category */
         $category = $this->repository->findAll();
+        /** @var int $tabIndex */
         $tabIndex = array_rand($category, 1);
         $manager->remove($category[$tabIndex]);
         $manager->flush();
