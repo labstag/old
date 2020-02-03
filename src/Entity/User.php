@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -120,6 +121,8 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $username;
 
@@ -131,12 +134,16 @@ class User implements UserInterface, \Serializable
      *     checkMX=true
      * )
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
      * @Groups({"get"})
+     *
+     * @var array
      */
     private $roles = [];
 
@@ -147,11 +154,16 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var string|null
+     */
     private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
      * @Groups({"write"})
+     *
+     * @var string
      */
     private $apiKey;
 
@@ -164,6 +176,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $avatar;
 
@@ -171,7 +185,7 @@ class User implements UserInterface, \Serializable
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
      * @Assert\File(mimeTypes={"image/*"})
      *
-     * @var File
+     * @var File|null
      */
     private $imageFile;
 
@@ -244,13 +258,19 @@ class User implements UserInterface, \Serializable
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new DateTimeImmutable();
+            $dateTimeImmutable = new DateTimeImmutable();
+            $dateTime          = new DateTime();
+            $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            $this->updatedAt = $dateTime;
         }
-        
+
         return $this;
     }
 
-    public function getImageFile(): string
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
     {
         return $this->imageFile;
     }
@@ -378,18 +398,18 @@ class User implements UserInterface, \Serializable
 
     /**
      * @see UserInterface
-     * 
+     *
      * @return string|null
      */
     public function getSalt()
     {
-
         return '';
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
+     *
      * @return mixed;
      */
     public function eraseCredentials()
@@ -415,7 +435,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @param string $serialized
      */
     public function unserialize($serialized): void
@@ -431,7 +451,10 @@ class User implements UserInterface, \Serializable
         );
     }
 
-    public function getPlainPassword(): string
+    /**
+     * @return string|null
+     */
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }

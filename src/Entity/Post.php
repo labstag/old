@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -114,7 +115,7 @@ class Post implements Translatable
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="file")
      * @Assert\File(mimeTypes={"image/*"})
      *
-     * @var File
+     * @var File|null
      */
     private $imageFile;
 
@@ -245,12 +246,18 @@ class Post implements Translatable
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new DateTimeImmutable();
+            $dateTimeImmutable = new DateTimeImmutable();
+            $dateTime          = new DateTime();
+            $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            $this->updatedAt = $dateTime;
         }
 
         return $this;
     }
 
+    /**
+     * @return File|null
+     */
     public function getImageFile()
     {
         return $this->imageFile;
