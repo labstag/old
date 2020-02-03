@@ -2,15 +2,13 @@
 
 namespace Labstag\Entity\Traits;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\History as HistoryEntity;
 
 trait History
 {
-    /**
-     * @return Collection|HistoryEntity
-     */
-    public function getHistories(): Collection
+    public function getHistories(): ArrayCollection
     {
         return $this->histories;
     }

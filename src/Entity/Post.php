@@ -127,6 +127,8 @@ class Post implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
+     * 
+     * @var User
      */
     private $refuser;
 
