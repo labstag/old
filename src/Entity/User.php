@@ -115,6 +115,8 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      * @Groups({"get"})
+     * 
+     * @var string
      */
     private $id;
 

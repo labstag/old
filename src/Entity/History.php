@@ -99,33 +99,45 @@ class History implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * 
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
+     * 
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="histories")
+     * 
+     * @var User
      */
     private $refuser;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true}))
+     * 
+     * @var bool
      */
     private $enable;
 
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @var string|null
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @var string|null
      */
     private $file;
 
@@ -148,12 +160,16 @@ class History implements Translatable
 
     /**
      * @ORM\Column(type="boolean")
+     * 
+     * @var bool
      */
     private $end;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
+     * 
+     * @var string
      */
     private $resume;
 
@@ -171,9 +187,9 @@ class History implements Translatable
         $this->chapitres = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
     public function getId(): ?string
@@ -198,7 +214,7 @@ class History implements Translatable
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image = null): void
     {
         $this->imageFile = $image;
         if ($image) {
@@ -229,7 +245,7 @@ class History implements Translatable
         return $this->refuser;
     }
 
-    public function setRefuser(?User $refuser): self
+    public function setRefuser(User $refuser): self
     {
         $this->refuser = $refuser;
 
@@ -241,7 +257,7 @@ class History implements Translatable
         return $this->enable;
     }
 
-    public function setEnable(?bool $enable): self
+    public function setEnable(bool $enable): self
     {
         $this->enable = $enable;
 
