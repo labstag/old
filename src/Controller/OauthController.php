@@ -4,6 +4,7 @@ namespace Labstag\Controller;
 
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
@@ -49,7 +50,8 @@ class OauthController extends ControllerLib
         OauthConnectUserRepository $repository
     ): RedirectResponse
     {
-        $user    = $security->getUser();
+        /** @var User $user */
+        $user = $security->getUser();
         /** @var string $referer */
         $referer = $request->headers->get('referer');
         $session = $request->getSession();
@@ -81,7 +83,7 @@ class OauthController extends ControllerLib
         $provider = $this->oauthService->setProvider($oauthCode);
         $session  = $request->getSession();
         /** @var string $referer */
-        $referer  = $request->headers->get('referer');
+        $referer = $request->headers->get('referer');
         $session->set('referer', $referer);
         /** @var string $url */
         $url = $this->generateUrl('front');
