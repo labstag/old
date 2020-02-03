@@ -141,6 +141,8 @@ class History implements Translatable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Chapitre", mappedBy="refhistory")
      * @ApiSubresource
      * @ORM\OrderBy({"position": "ASC"})
+     * 
+     * @var ArrayCollection
      */
     private $chapitres;
 
