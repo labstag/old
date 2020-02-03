@@ -36,7 +36,7 @@ class OauthConnectUserListener extends EventSubscriberLib
      *
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::preUpdate,
@@ -44,7 +44,7 @@ class OauthConnectUserListener extends EventSubscriberLib
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof OauthConnectUser) {
@@ -57,7 +57,7 @@ class OauthConnectUserListener extends EventSubscriberLib
         // $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof OauthConnectUser) {
