@@ -17,7 +17,7 @@ class PhoneListener extends EventSubscriberLib
 {
 
     /**
-     * @var Router
+     * @var RouterInterface|Router
      */
     protected $router;
 
@@ -34,17 +34,15 @@ class PhoneListener extends EventSubscriberLib
 
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::postPersist,
         ];
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof Phone) {
@@ -54,7 +52,7 @@ class PhoneListener extends EventSubscriberLib
         $this->checkPhone($entity, $args);
     }
 
-    private function checkPhone(Phone $entity, $args)
+    private function checkPhone(Phone $entity, LifecycleEventArgs $args): void
     {
         $check = $entity->isChecked();
         if (true === $check) {
