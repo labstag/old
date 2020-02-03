@@ -91,17 +91,23 @@ class Category implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * 
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
+     * 
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
+     * 
+     * @var bool
      */
     private $temporary;
 
@@ -116,6 +122,8 @@ class Category implements Translatable
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
+     * 
+     * @var string|null
      */
     private $slug;
 
@@ -132,7 +140,7 @@ class Category implements Translatable
         $this->posts     = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
         return $this->getName();
     }

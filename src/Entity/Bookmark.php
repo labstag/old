@@ -96,24 +96,32 @@ class Bookmark implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * 
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
+     * 
+     * @var string
      */
     private $name;
 
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
+     * 
+     * @var string|null
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url
+     * 
+     * @var string
      */
     private $url;
 
@@ -131,6 +139,8 @@ class Bookmark implements Translatable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @var string|null
      */
     private $file;
 
@@ -144,16 +154,22 @@ class Bookmark implements Translatable
 
     /**
      * @ORM\Column(type="boolean")
+     * 
+     * @var bool
      */
     private $enable;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @var string
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="bookmarks")
+     * 
+     * @var User
      */
     private $refuser;
 
@@ -214,7 +230,7 @@ class Bookmark implements Translatable
         return $this->refuser;
     }
 
-    public function setRefuser(?User $refuser): self
+    public function setRefuser(User $refuser): self
     {
         $this->refuser = $refuser;
 

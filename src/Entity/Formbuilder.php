@@ -86,12 +86,16 @@ class Formbuilder
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * 
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
+     * 
+     * @var string
      */
     private $name;
 
@@ -103,12 +107,16 @@ class Formbuilder
 
     /**
      * @ORM\Column(type="boolean")
+     * 
+     * @var bool
      */
     private $enable;
 
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255)
+     * 
+     * @var string|null
      */
     private $slug;
 
@@ -117,9 +125,9 @@ class Formbuilder
         $this->formbuilder = json_encode([]);
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
     public function getId(): ?string
@@ -168,7 +176,7 @@ class Formbuilder
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 

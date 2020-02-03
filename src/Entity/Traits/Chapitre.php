@@ -13,7 +13,7 @@ trait Chapitre
         return $this->chapitres;
     }
 
-    public function getChapitresEnabled()
+    public function getChapitresEnabled(): array
     {
         $chapitres = [];
         foreach ($this->chapitres as $chapitre) {
