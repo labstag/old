@@ -89,30 +89,40 @@ class Chapitre implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * 
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
+     * 
+     * @var string
      */
     private $name;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
+     * 
+     * @var string
      */
     private $content;
 
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
+     * 
+     * @var int
      */
     private $position;
 
     /**
      * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\History", inversedBy="chapitres")
+     * 
+     * @var History
      */
     private $refhistory;
 
@@ -173,7 +183,7 @@ class Chapitre implements Translatable
         return $this->refhistory;
     }
 
-    public function setRefhistory(?History $refhistory): self
+    public function setRefhistory(History $refhistory): self
     {
         $this->refhistory = $refhistory;
 
@@ -185,7 +195,7 @@ class Chapitre implements Translatable
         return $this->enable;
     }
 
-    public function setEnable(?bool $enable): self
+    public function setEnable(bool $enable): self
     {
         $this->enable = $enable;
 
