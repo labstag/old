@@ -81,6 +81,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
                     $faker->hexColor
                 );
                 $content = file_get_contents($image);
+                /** @var resource $tmpfile */
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
                 file_put_contents($data['uri'], $content);
