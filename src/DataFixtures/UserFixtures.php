@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
@@ -28,7 +28,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));

@@ -34,12 +34,12 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
         $this->tagsRepository = $tagsRepository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             FilesFixtures::class,
@@ -48,7 +48,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $users = $this->userRepository->findAll();
         $tags  = $this->tagsRepository->findBy(['type' => 'bookmark']);
@@ -103,7 +103,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function addTags($bookmark, $tags)
+    private function addTags(Bookmark $bookmark, array $tags): void
     {
         $nbr = rand(0, count($tags));
         if (0 == $nbr) {

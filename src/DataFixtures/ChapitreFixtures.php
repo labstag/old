@@ -23,31 +23,31 @@ class ChapitreFixtures extends Fixture implements DependentFixtureInterface
         $this->historyRepository = $historyRepository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             HistoryFixtures::class,
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $histoires = $this->historyRepository->findAll();
         $faker     = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $chapitre = new Chapitre();
             $chapitre->setName($faker->unique()->sentence);
-            $enable = rand(0, 1);
+            $enable = (bool) rand(0, 1);
             $chapitre->setEnable($enable);
             $tabIndex = array_rand($histoires);
             $histoire = $histoires[$tabIndex];
             $chapitre->setRefhistory($histoire);
-            $enable = rand(0, 1);
+            $enable = (bool) rand(0, 1);
             $chapitre->setEnable($enable);
             $chapitre->setContent($faker->unique()->paragraphs(10, true));
             $manager->persist($chapitre);

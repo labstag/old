@@ -34,7 +34,11 @@ class UserListener extends EventSubscriberLib
      */
     private $container;
 
-    public function __construct(ContainerInterface $container, RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(
+        ContainerInterface $container,
+        RouterInterface $router,
+        UserPasswordEncoderInterface $passwordEncoder
+    )
     {
         $this->container       = $container;
         $this->router          = $router;
@@ -43,10 +47,8 @@ class UserListener extends EventSubscriberLib
 
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::preUpdate,
@@ -54,7 +56,7 @@ class UserListener extends EventSubscriberLib
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
@@ -68,7 +70,7 @@ class UserListener extends EventSubscriberLib
         // $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
@@ -82,7 +84,7 @@ class UserListener extends EventSubscriberLib
         $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    private function lost(User $entity, $args)
+    private function lost(User $entity, LifecycleEventArgs $args): void
     {
         if (!$entity->isLost()) {
             return;
@@ -125,7 +127,7 @@ class UserListener extends EventSubscriberLib
         $mailer->send($message);
     }
 
-    private function plainPassword(User $entity)
+    private function plainPassword(User $entity): void
     {
         $plainPassword = $entity->getPlainPassword();
         if ('' === $plainPassword || is_null($plainPassword)) {
