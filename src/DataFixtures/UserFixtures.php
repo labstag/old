@@ -32,7 +32,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
-        /** @ var resource $finfo */
+        /** @var resource $finfo */
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $users = [
             [
@@ -106,7 +106,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $file = new UploadedFile(
                     $data['uri'],
                     'image.jpg',
-                    finfo_file($finfo, $data['uri']),
+                    (string) finfo_file($finfo, $data['uri']),
                     null,
                     true
                 );

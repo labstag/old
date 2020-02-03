@@ -6,7 +6,6 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method OauthConnectUser|null find($id, $lockMode = null, $lockVersion = null)
