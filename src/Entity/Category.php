@@ -108,6 +108,8 @@ class Category implements Translatable
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refcategory")
      * @ApiSubresource
+     * 
+     * @var ArrayCollection
      */
     private $posts;
 
