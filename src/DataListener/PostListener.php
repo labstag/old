@@ -15,14 +15,14 @@ class PostListener extends EventSubscriberLib
      *
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::onFlush,
         ];
     }
 
-    public function onFlush(OnFlushEventArgs $args)
+    public function onFlush(OnFlushEventArgs $args): void
     {
         $manager       = $args->getEntityManager();
         $uow           = $manager->getUnitOfWork();

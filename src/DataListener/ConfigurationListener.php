@@ -14,7 +14,7 @@ class ConfigurationListener extends EventSubscriberLib
      *
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::preUpdate,
@@ -22,7 +22,7 @@ class ConfigurationListener extends EventSubscriberLib
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof Configuration) {
@@ -32,7 +32,7 @@ class ConfigurationListener extends EventSubscriberLib
         $this->traitement($entity);
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof Configuration) {
