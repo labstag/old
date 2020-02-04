@@ -50,6 +50,7 @@ class TagsTest extends RepositoryTestLib
 
     public function testfindTagsByTypeNotTemporary(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $this->AssertNull($empty);
         /** @var QueryBuilder $tags */
@@ -65,6 +66,7 @@ class TagsTest extends RepositoryTestLib
 
     public function testfindTagsByType(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findTagsByType(null);
         $this->AssertNull($empty);
         /** @var QueryBuilder $tags */

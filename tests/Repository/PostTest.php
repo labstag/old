@@ -87,6 +87,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActiveByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByUser(null);
         $this->AssertNull($empty);
         $user = $this->tagsRepository->findOneRandom();
@@ -103,6 +104,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActiveByTag(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByTag(null);
         $this->AssertNull($empty);
         $tags = $this->tagsRepository->findOneRandom();
@@ -119,6 +121,7 @@ class PostTest extends RepositoryTestLib
 
     public function testfindAllActiveByCategory(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByCategory(null);
         $this->AssertNull($empty);
         $category = $this->categoryRepository->findOneRandom();

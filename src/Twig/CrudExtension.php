@@ -40,12 +40,16 @@ class CrudExtension extends AbstractExtension
         return $contents[0];
     }
 
-    public function crudExist(object $entity, string $key): string
+    /**
+     * @param mixed $entity
+     */
+    public function crudExist($entity, string $key): string
     {
         $return  = '';
         $methods = get_class_methods($entity);
         foreach ($methods as $method) {
             if (strtolower($method) == strtolower('get'.$key)) {
+                /** @var mixed $return */
                 $return = $entity->{$method}();
                 if (is_object($return) && !($return instanceof DateTime)) {
                     $methods = get_class_methods($return);

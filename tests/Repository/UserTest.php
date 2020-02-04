@@ -49,6 +49,7 @@ class UserTest extends RepositoryTestLib
 
     public function testloginToken(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->loginToken(null);
         $this->AssertNull($empty);
         /** @var ?User $user */
@@ -69,6 +70,7 @@ class UserTest extends RepositoryTestLib
 
     public function testlogin(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->login(null);
         $this->AssertNull($empty);
         /** @var ?User $user */
