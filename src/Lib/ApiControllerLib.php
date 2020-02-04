@@ -69,6 +69,9 @@ abstract class ApiControllerLib extends ControllerLib
         );
     }
 
+    /**
+     * @param mixed $data
+     */
     private function serializerData($data): string
     {
         $this->setSerializer();

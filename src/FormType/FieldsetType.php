@@ -10,10 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FieldsetType extends AbstractType
 {
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [
@@ -30,7 +27,7 @@ class FieldsetType extends AbstractType
         );
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (!empty($options['fields']) && is_callable($options['fields'])) {
             $options['fields']($builder, $options);
@@ -41,7 +38,7 @@ class FieldsetType extends AbstractType
         FormView $view,
         FormInterface $form,
         array $options
-    )
+    ): void
     {
         if (false !== $options['legend']) {
             $view->vars['legend'] = $options['legend'];

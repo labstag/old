@@ -107,6 +107,11 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->twig('admin/crud/list.html.twig', $paramtwig);
     }
 
+    /**
+     * @throws HttpException
+     *
+     * @return RedirectResponse|Response
+     */
     protected function crudNewAction(array $data = [])
     {
         $tabDataCheck = [
@@ -161,7 +166,7 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->crudShowForm($params);
     }
 
-    protected function crudEditAction(array $data = [])
+    protected function crudEditAction(array $data = []): response
     {
         $tabDataCheck  = [
             'form',
@@ -253,7 +258,8 @@ abstract class AdminControllerLib extends ControllerLib
             }
         }
 
-        $data          = json_decode($this->request->getContent(), true);
+        $data = json_decode($this->request->getContent(), true);
+        /** @var mixed $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
         $restore       = 0;
         $routeRedirect = $route['url_trash'];
@@ -380,7 +386,10 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
-    private function generateLogs(&$params, $data, $entityManager): void
+    /**
+     * @param mixed $entityManager
+     */
+    private function generateLogs(array &$params, array $data, $entityManager): void
     {
         $repository = $entityManager->getRepository(LogEntry::class);
         if (is_array($data['entity'])) {
@@ -459,7 +468,10 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function dateInTrash(array &$paramtwig, string $dataInTrash, array $data): void
+    /**
+     * @param mixed $dataInTrash
+     */
+    private function dateInTrash(array &$paramtwig, $dataInTrash, array $data): void
     {
         $route                  = $this->request->attributes->get('_route');
         $paramtwig['url_trash'] = $data['url_trash'];
@@ -477,7 +489,10 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function findEntity(bool $trash, ServiceEntityRepositoryLib $repository, string $dataInTrash)
+    /**
+     * @return mixed|null
+     */
+    private function findEntity(int $trash, ServiceEntityRepositoryLib $repository, string $dataInTrash)
     {
         if (0 == $trash) {
             return $repository->find($dataInTrash);

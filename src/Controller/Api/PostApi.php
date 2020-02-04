@@ -8,7 +8,9 @@ use Labstag\Handler\PostPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\PostRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -42,7 +44,7 @@ class PostApi extends ApiControllerLib
     /**
      * @Route("/api/posts/trash", name="api_posttrash")
      */
-    public function trash(PostRepository $repository)
+    public function trash(PostRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -50,7 +52,7 @@ class PostApi extends ApiControllerLib
     /**
      * @Route("/api/posts/trash", name="api_posttrashdelete", methods={"DELETE"})
      */
-    public function delete(PostRepository $repository)
+    public function delete(PostRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -58,7 +60,7 @@ class PostApi extends ApiControllerLib
     /**
      * @Route("/api/posts/restore", name="api_postrestore", methods={"POST"})
      */
-    public function restore(PostRepository $repository)
+    public function restore(PostRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -66,7 +68,7 @@ class PostApi extends ApiControllerLib
     /**
      * @Route("/api/posts/empty", name="api_postempty", methods={"POST"})
      */
-    public function vider(PostRepository $repository)
+    public function vider(PostRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }
