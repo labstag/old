@@ -148,12 +148,13 @@ abstract class ControllerLib extends AbstractController
             $config[$key] = $value;
         }
 
-        if (isset($config['oauth'])) {
+        if (isset($config['oauth']) && is_array($config['oauth'])) {
             $oauth = [];
-            foreach ($config['oauth'] as $data) {
-                if (1 == $data['activate']) {
-                    $type         = $data['type'];
-                    $oauth[$type] = $data;
+            $data  = $config['oauth'];
+            foreach ($data as $row) {
+                if (1 == $row['activate']) {
+                    $type         = $row['type'];
+                    $oauth[$type] = $row;
                 }
             }
 
