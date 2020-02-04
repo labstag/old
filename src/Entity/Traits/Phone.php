@@ -2,12 +2,12 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Phone as PhoneEntity;
 
 trait Phone
 {
-    public function getPhones(): ArrayCollection
+    public function getPhones(): PersistentCollection
     {
         return $this->phones;
     }
