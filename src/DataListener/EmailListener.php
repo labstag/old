@@ -17,7 +17,7 @@ class EmailListener extends EventSubscriberLib
 {
 
     /**
-     * @var Router
+     * @var RouterInterface|Router
      */
     protected $router;
 
@@ -34,8 +34,6 @@ class EmailListener extends EventSubscriberLib
 
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
     public function getSubscribedEvents(): array
     {

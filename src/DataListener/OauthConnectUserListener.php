@@ -33,8 +33,6 @@ class OauthConnectUserListener extends EventSubscriberLib
 
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
     public function getSubscribedEvents(): array
     {
@@ -70,10 +68,11 @@ class OauthConnectUserListener extends EventSubscriberLib
         $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    private function setIdentity(OauthConnectUser $entity)
+    private function setIdentity(OauthConnectUser $entity): void
     {
-        $name     = $entity->getName();
-        $data     = $entity->getData();
+        $name = $entity->getName();
+        $data = $entity->getData();
+        /** @var string $identity */
         $identity = $this->oauthService->getIdentity($data, $name);
         $entity->setIdentity($identity);
     }

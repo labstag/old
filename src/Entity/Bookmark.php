@@ -96,7 +96,7 @@ class Bookmark implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
@@ -104,7 +104,7 @@ class Bookmark implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $name;
@@ -112,7 +112,7 @@ class Bookmark implements Translatable
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $slug;
@@ -120,7 +120,7 @@ class Bookmark implements Translatable
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url
-     * 
+     *
      * @var string
      */
     private $url;
@@ -134,12 +134,14 @@ class Bookmark implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $file;
@@ -154,21 +156,21 @@ class Bookmark implements Translatable
 
     /**
      * @ORM\Column(type="boolean")
-     * 
+     *
      * @var bool
      */
     private $enable;
 
     /**
      * @ORM\Column(type="text")
-     * 
+     *
      * @var string
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="bookmarks")
-     * 
+     *
      * @var User
      */
     private $refuser;
@@ -220,9 +222,11 @@ class Bookmark implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale)
+    public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
     }
 
     public function getRefuser(): ?User

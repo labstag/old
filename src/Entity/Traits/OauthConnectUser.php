@@ -3,7 +3,6 @@
 namespace Labstag\Entity\Traits;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\OauthConnectUser as OauthConnectUserEntity;
 
 trait OauthConnectUser
