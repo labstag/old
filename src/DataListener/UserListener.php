@@ -7,6 +7,8 @@ use Doctrine\ORM\Events;
 use Labstag\Entity\Templates;
 use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
+use Labstag\Repository\TemplatesRepository;
+use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -90,12 +92,14 @@ class UserListener extends EventSubscriberLib
             return;
         }
 
-        $manager    = $args->getEntityManager();
+        $manager = $args->getEntityManager();
+        /** @var TemplatesRepository $repository */
         $repository = $manager->getRepository(templates::class);
         $search     = ['code' => 'lost-password'];
-        $templates  = $repository->findOneBy($search);
-        $html       = $templates->getHtml();
-        $text       = $templates->getText();
+        /** @var Templates $templates */
+        $templates = $repository->findOneBy($search);
+        $html      = $templates->getHtml();
+        $text      = $templates->getText();
         $this->setConfigurationParam($args);
         $replace = [
             '%site%'     => $this->configParams['site_title'],
@@ -123,6 +127,7 @@ class UserListener extends EventSubscriberLib
         $message->setTo($this->configParams['site_no-reply']);
         $message->setBody($html, 'text/html');
         $message->addPart($text, 'text/plain');
+        /** @var Swift_Mailer $mailer */
         $mailer = $this->container->get('swiftmailer.mailer.default');
         $mailer->send($message);
     }
