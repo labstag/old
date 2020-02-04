@@ -42,10 +42,12 @@ class OauthTest extends ServiceTestLib
     public function testgetIdentity(): void
     {
         $service = $this->service;
-        $empty   = $service->getIdentity(null, null);
+        /** @var null $empty */
+        $empty = $service->getIdentity(null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         if ($random instanceof OauthConnectUser) {
+            /** @var null $identity */
             $identity = $service->getIdentity([], '');
             $this->AssertNull($identity);
         }
@@ -65,7 +67,8 @@ class OauthTest extends ServiceTestLib
     public function testsetProvider(): void
     {
         $service = $this->service;
-        $empty   = $service->setProvider(null);
+        /** @var null $empty */
+        $empty = $service->setProvider(null);
         $this->AssertNull($empty);
         /** @var GenericProviderLib $gitlab */
         $gitlab = $service->setProvider('gitlab');

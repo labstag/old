@@ -61,6 +61,7 @@ class OauthConnectUserTest extends RepositoryTestLib
 
     public function testfindOauthNotUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findOauthNotUser(null, null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
@@ -81,6 +82,7 @@ class OauthConnectUserTest extends RepositoryTestLib
 
     public function testfindOneOauthByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findOneOauthByUser(null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
@@ -100,6 +102,7 @@ class OauthConnectUserTest extends RepositoryTestLib
 
     public function testlogin(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->login(null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();

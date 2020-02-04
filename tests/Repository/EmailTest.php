@@ -62,6 +62,7 @@ class EmailTest extends RepositoryTestLib
 
     public function testfindEmailByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findEmailByUser(null);
         $this->AssertNull($empty);
         $user = $this->userRepository->findOneRandom();
