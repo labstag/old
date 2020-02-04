@@ -38,7 +38,7 @@ jobs:
         run: npm doctor
 
       - name: NPM install
-        run: npm clean-install
+        run: make npm-clean-install
 
       - name: Install BDD
         run: make bdd-dev

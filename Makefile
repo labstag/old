@@ -20,12 +20,21 @@ install-dev: ## install DEV
 	make build -i
 	make start -i
 	make composer-install-dev -i
-	npm install
+	make npm-install -i
 	make bdd-dev -i
 	make migrate -i
 	make fixtures -i
 	docker exec -it $(CONTAINER) npm run dev
 	make stop -i
+
+
+.PHONY: npm-clean-install
+npm-clean-install: ## install PROD
+	docker exec -it $(CONTAINER) npm clean-install
+
+.PHONY: npm-install
+npm-install: ## install PROD
+	docker exec -it $(CONTAINER) npm install
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -58,6 +67,10 @@ restart: ## restart docker
 .PHONY: logs
 logs: ## logs docker
 	docker-compose logs -f
+
+.PHONY: logs-mariadb
+logs-mariadb: ## logs docker mariadb
+	docker-compose logs -f labstag-mariadb
 
 .PHONY: composer-install-dev
 composer-install-dev: ## COMPOSER install DEV
