@@ -2,12 +2,12 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\OauthConnectUser as OauthConnectUserEntity;
 
 trait OauthConnectUser
 {
-    public function getOauthConnectUsers(): ArrayCollection
+    public function getOauthConnectUsers(): PersistentCollection
     {
         return $this->oauthConnectUsers;
     }

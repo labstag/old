@@ -2,12 +2,12 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Chapitre as ChapitreEntity;
 
 trait Chapitre
 {
-    public function getChapitres(): ArrayCollection
+    public function getChapitres(): PersistentCollection
     {
         return $this->chapitres;
     }

@@ -31,9 +31,6 @@ jobs:
       - name: Check running containers
         run: docker ps -a
 
-      - name: Validate composer
-        run: make composer-validate
-
       - name: Composer install
         run: make composer-install-dev
 

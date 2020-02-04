@@ -2,12 +2,12 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Post as PostEntity;
 
 trait Post
 {
-    public function getPosts(): ArrayCollection
+    public function getPosts(): PersistentCollection
     {
         return $this->posts;
     }

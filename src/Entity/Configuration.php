@@ -97,7 +97,7 @@ class Configuration
     /**
      * @ORM\Column(type="object", nullable=true)
      *
-     * @var string
+     * @var mixed
      */
     private $value;
 
@@ -118,12 +118,18 @@ class Configuration
         return $this;
     }
 
-    public function getValue(): string
+    /**
+     * @return mixed
+     */
+    public function getValue()
     {
         return $this->value;
     }
 
-    public function setValue(string $value): self
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value): self
     {
         $this->value = $value;
 

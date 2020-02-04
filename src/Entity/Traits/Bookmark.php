@@ -2,12 +2,12 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Bookmark as BookmarkEntity;
 
 trait Bookmark
 {
-    public function getBookmarks(): ArrayCollection
+    public function getBookmarks(): PersistentCollection
     {
         return $this->bookmarks;
     }
