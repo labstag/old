@@ -114,6 +114,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
                 $user->setImageFile($file);
             } catch (Exception $exception) {
+                echo $exception->getMessage();
             }
 
             $manager->persist($user);

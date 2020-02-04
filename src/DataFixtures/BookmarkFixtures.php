@@ -97,6 +97,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
 
                 $bookmark->setImageFile($file);
             } catch (Exception $exception) {
+                echo $exception->getMessage();
             }
 
             $manager->persist($bookmark);
