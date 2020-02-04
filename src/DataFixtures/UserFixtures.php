@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
 use Faker\Factory;
+use finfo;
 use Labstag\Entity\Email;
 use Labstag\Entity\Phone;
 use Labstag\Entity\User;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
@@ -27,10 +28,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
+        /** @var resource $finfo */
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $users = [
             [
                 'username' => 'admin',
@@ -97,13 +100,14 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                     $faker->hexColor
                 );
                 $content = file_get_contents($image);
+                /** @var resource $tmpfile */
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
                 file_put_contents($data['uri'], $content);
                 $file = new UploadedFile(
                     $data['uri'],
                     'image.jpg',
-                    filesize($data['uri']),
+                    (string) finfo_file($finfo, $data['uri']),
                     null,
                     true
                 );
