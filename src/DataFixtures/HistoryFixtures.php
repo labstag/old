@@ -88,6 +88,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
                 $history->setImageFile($file);
             } catch (Exception $exception) {
+                echo $exception->getMessage();
             }
 
             $manager->persist($history);

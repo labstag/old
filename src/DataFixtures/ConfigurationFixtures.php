@@ -89,12 +89,11 @@ class ConfigurationFixtures extends Fixture
         $oauth = [];
         foreach ($env as $key => $val) {
             if (0 != substr_count($key, 'OAUTH_')) {
-                $code = str_replace('OAUTH_', '', $key);
-                $code = strtolower($code);
-                [
-                    $type,
-                    $key,
-                ]     = explode('_', $code);
+                $code    = str_replace('OAUTH_', '', $key);
+                $code    = strtolower($code);
+                $explode = explode('_', $code);
+                $type    = $explode[0];
+                $key     = $explode[1];
                 if (!isset($oauth[$type])) {
                     $oauth[$type] = [
                         'activate' => $this->oauthService->getActivedProvider($type),
@@ -106,7 +105,6 @@ class ConfigurationFixtures extends Fixture
             }
         }
 
-        $dataAuth = [];
         /** @var mixed $row */
         foreach ($oauth as $row) {
             $data['oauth'][] = $row;

@@ -145,9 +145,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
             /** @var mixed $userOauth */
             $userOauth = $provider->getResourceOwner($tokenProvider);
 
-            $credentials['user'] = $userOauth;
-
-            return $credentials;
+            return ['user' => $userOauth];
         } catch (Exception $exception) {
             return [];
         }
