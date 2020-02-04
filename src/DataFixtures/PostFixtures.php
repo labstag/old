@@ -68,7 +68,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $post = new Post();
             $post->setName($faker->unique()->text(rand(5, 50)));
-            $post->setContent($faker->unique()->paragraphs(4, true));
+            $post->setContent((string) $faker->unique()->paragraphs(4, true));
             $user = rand(0, 1);
             if ($user) {
                 $tabIndex = array_rand($users);

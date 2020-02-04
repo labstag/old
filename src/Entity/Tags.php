@@ -104,7 +104,7 @@ class Tags implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
@@ -112,7 +112,7 @@ class Tags implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $name;
@@ -120,7 +120,7 @@ class Tags implements Translatable
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $slug;
@@ -129,20 +129,22 @@ class Tags implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Choice({"bookmark", "post"})
-     * 
+     *
      * @var string
      */
     private $type;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
-     * 
+     *
      * @var bool
      */
     private $temporary;
@@ -198,7 +200,7 @@ class Tags implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale): self
+    public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
 

@@ -12,8 +12,6 @@ class BookmarkListener extends EventSubscriberLib
 {
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
     public function getSubscribedEvents(): array
     {

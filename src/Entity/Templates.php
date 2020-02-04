@@ -90,35 +90,35 @@ class Templates
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $code;
 
     /**
      * @ORM\Column(type="text")
-     * 
+     *
      * @var string
      */
     private $html;
 
     /**
      * @ORM\Column(type="text")
-     * 
+     *
      * @var string
      */
     private $text;
