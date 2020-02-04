@@ -4,7 +4,10 @@ namespace Labstag\Service;
 
 class GeonameService
 {
-    public function astergdem(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function astergdem(?string $format, ?array $params = [])
     {
         $path    = 'astergdem';
         $aformat = [
@@ -16,7 +19,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function children(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function children(?string $format, ?array $params = [])
     {
         $path    = 'children';
         $aformat = [
@@ -27,7 +33,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function countains(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function countains(?string $format, ?array $params = [])
     {
         $path    = 'countains';
         $aformat = [
@@ -38,7 +47,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function countryCode(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function countryCode(?string $format, ?array $params = [])
     {
         $path    = 'countryCode';
         $aformat = [
@@ -50,7 +62,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function countryInfo(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function countryInfo(?string $format, ?array $params = [])
     {
         $path    = 'countryInfo';
         $aformat = [
@@ -62,7 +77,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function countrySubdivision(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function countrySubdivision(?string $format, ?array $params = [])
     {
         $path    = 'countrySubdivision';
         $aformat = [
@@ -73,7 +91,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function earthquakes(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function earthquakes(?string $format, ?array $params = [])
     {
         $path    = 'earthquakes';
         $aformat = [
@@ -84,7 +105,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function extentedFindNearby(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function extentedFindNearby(?string $format, ?array $params = [])
     {
         $path    = 'extendedFindNearby';
         $aformat = ['xml'];
@@ -92,7 +116,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearby(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearby(?string $format, ?array $params = [])
     {
         $path    = 'findNearby';
         $aformat = [
@@ -103,7 +130,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearbyPlaceName(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearbyPlaceName(?string $format, ?array $params = [])
     {
         $path    = 'findNearbyPlaceName';
         $aformat = [
@@ -114,7 +144,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearbyPostalCodes(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearbyPostalCodes(?string $format, ?array $params = [])
     {
         $path    = 'findNearbyPostalCodes';
         $aformat = [
@@ -125,7 +158,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearbyStreets(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearbyStreets(?string $format, ?array $params = [])
     {
         $path    = 'findNearbyStreets';
         $aformat = [
@@ -136,7 +172,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearbyStreetsoSM(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearbyStreetsoSM(?string $format, ?array $params = [])
     {
         $path    = 'findNearbyStreetsOSM';
         $aformat = [
@@ -147,7 +186,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearByWeather(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearByWeather(?string $format, ?array $params = [])
     {
         $path    = 'findNearByWeather';
         $aformat = [
@@ -158,7 +200,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearbyWikipedia(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearbyWikipedia(?string $format, ?array $params = [])
     {
         $path    = 'findNearbyWikipedia';
         $aformat = [
@@ -170,7 +215,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearestAddress(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearestAddress(?string $format, ?array $params = [])
     {
         $path    = 'findNearestAddress';
         $aformat = [
@@ -181,7 +229,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearestIntersection(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearestIntersection(?string $format, ?array $params = [])
     {
         $path    = 'findNearestIntersection';
         $aformat = [
@@ -192,7 +243,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function findNearbyPOIsOSM(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function findNearbyPOIsOSM(?string $format, ?array $params = [])
     {
         $path    = 'findNearbyPOIsOSM';
         $aformat = [
@@ -203,7 +257,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function address(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function address(?string $format, ?array $params = [])
     {
         $path    = 'address';
         $aformat = [
@@ -214,7 +271,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function geoCodeAddress(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function geoCodeAddress(?string $format, ?array $params = [])
     {
         $path    = 'geoCodeAddress';
         $aformat = [
@@ -225,7 +285,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function getStreetNameLookup(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function getStreetNameLookup(?string $format, ?array $params = [])
     {
         $path    = 'streetNameLookup';
         $aformat = [
@@ -236,7 +299,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function get(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function get(?string $format, ?array $params = [])
     {
         $path    = 'get';
         $aformat = [
@@ -247,7 +313,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function gtopo30(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function gtopo30(?string $format, ?array $params = [])
     {
         $path    = 'gtopo30';
         $aformat = [
@@ -259,7 +328,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function hierarchy(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function hierarchy(?string $format, ?array $params = [])
     {
         $path    = 'hierarchy';
         $aformat = [
@@ -270,7 +342,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function nNeighbourhood(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function nNeighbourhood(?string $format, ?array $params = [])
     {
         $path    = 'neighbourhood';
         $aformat = [
@@ -281,7 +356,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function neighbours(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function neighbours(?string $format, ?array $params = [])
     {
         $path    = 'neighbours';
         $aformat = [
@@ -292,7 +370,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function ocean(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function ocean(?string $format, ?array $params = [])
     {
         $path    = 'ocean';
         $aformat = [
@@ -303,7 +384,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function postalCodeCountryInfo(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function postalCodeCountryInfo(?string $format, ?array $params = [])
     {
         $path    = 'postalCodeCountryInfo';
         $aformat = [
@@ -314,7 +398,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function postalCodeLookup(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function postalCodeLookup(?string $format, ?array $params = [])
     {
         $path    = 'postalCodeLookup';
         $aformat = ['json'];
@@ -322,7 +409,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function postalCodeSearch(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function postalCodeSearch(?string $format, ?array $params = [])
     {
         $path    = 'postalCodeSearch';
         $aformat = [
@@ -333,7 +423,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function rssToGeo(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function rssToGeo(?string $format, ?array $params = [])
     {
         $path    = 'rssToGeo';
         $aformat = [
@@ -344,7 +437,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function search(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function search(?string $format, ?array $params = [])
     {
         $path    = 'search';
         $aformat = [
@@ -356,7 +452,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function siblings(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function siblings(?string $format, ?array $params = [])
     {
         $path    = 'siblings';
         $aformat = [
@@ -367,7 +466,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function srtm1(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function srtm1(?string $format, ?array $params = [])
     {
         $path    = 'srtm1';
         $aformat = [
@@ -379,7 +481,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function srtm3(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function srtm3(?string $format, ?array $params = [])
     {
         $path    = 'srtm3';
         $aformat = [
@@ -391,7 +496,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function timezone(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function timezone(?string $format, ?array $params = [])
     {
         $path    = 'timezone';
         $aformat = [
@@ -402,7 +510,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function weather(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function weather(?string $format, ?array $params = [])
     {
         $path    = 'weather';
         $aformat = [
@@ -413,7 +524,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function weatherIcao(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function weatherIcao(?string $format, ?array $params = [])
     {
         $path    = 'weatherIcao';
         $aformat = [
@@ -424,7 +538,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function wikipediaBoundingBox(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function wikipediaBoundingBox(?string $format, ?array $params = [])
     {
         $path    = 'wikipediaBoundingBox';
         $aformat = [
@@ -435,7 +552,10 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
-    public function wikipediaSearch(?string $format, ?array $params = []): ?array
+    /**
+     * @return array|void
+     */
+    public function wikipediaSearch(?string $format, ?array $params = [])
     {
         $path    = 'wikipediaSearch';
         $aformat = [
@@ -446,27 +566,30 @@ class GeonameService
         return $this->setTraitement($path, $aformat, $format, $params);
     }
 
+    /**
+     * @return array|void
+     */
     public function setTraitement(
         ?string $path,
         ?array $aformat,
         ?string $format,
         ?array $params = []
-    ): ?array
+    )
     {
         if (is_null($path)) {
-            return null;
+            return;
         }
 
         if (is_null($aformat)) {
-            return null;
+            return;
         }
 
         if (is_null($format)) {
-            return null;
+            return;
         }
 
         if (!in_array($format, $aformat)) {
-            return null;
+            return;
         }
 
         $url     = $this->setUrl($path, $format, $params);

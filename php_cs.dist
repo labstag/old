@@ -4,9 +4,7 @@
  * https://mlocati.github.io/php-cs-fixer-configurator/?version=2.14#configurator
  * you can change this configuration by importing this file.
  */
-
 return PhpCsFixer\Config::create()
-    ->setUsingCache(false)
     ->setRules([
         '@PSR1' => true,
         '@PSR2' => true,

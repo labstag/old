@@ -27,7 +27,7 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
     public function findOneDateInTrash(?string $guid)
     {
         if (is_null($guid)) {
-            return null;
+            return;
         }
 
         $entityManager = $this->getEntityManager();

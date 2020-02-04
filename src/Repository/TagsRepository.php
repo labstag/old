@@ -20,10 +20,13 @@ class TagsRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Tags::class);
     }
 
-    public function findTagsByTypeNotTemporary(?string $type): ?QueryBuilder
+    /**
+     * @return QueryBuilder|void
+     */
+    public function findTagsByTypeNotTemporary(?string $type)
     {
         if (is_null($type)) {
-            return null;
+            return;
         }
 
         $params = [
@@ -39,10 +42,13 @@ class TagsRepository extends ServiceEntityRepositoryLib
         return $query;
     }
 
-    public function findTagsByType(?string $type): ?QueryBuilder
+    /**
+     * @return QueryBuilder|void
+     */
+    public function findTagsByType(?string $type)
     {
         if (is_null($type)) {
-            return null;
+            return;
         }
 
         $params = ['type' => $type];
