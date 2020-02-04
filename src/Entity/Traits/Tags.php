@@ -2,12 +2,12 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Tags as TagsEntity;
 
 trait Tags
 {
-    public function getTags(): ArrayCollection
+    public function getTags(): PersistentCollection
     {
         return $this->tags;
     }

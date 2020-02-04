@@ -616,6 +616,6 @@ abstract class AdminControllerLib extends ControllerLib
         $explode     = explode('_', $actualroute);
         $controller2 = $explode[0];
 
-        return strcmp((string) $controller1, (string) $controller2) === 0;
+        return 0 === strcmp((string) $controller1, (string) $controller2);
     }
 }
