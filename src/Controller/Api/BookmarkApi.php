@@ -8,7 +8,9 @@ use Labstag\Handler\BookmarkPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\BookmarkRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -42,7 +44,7 @@ class BookmarkApi extends ApiControllerLib
     /**
      * @Route("/api/bookmarks/trash", name="api_bookmarktrash")
      */
-    public function trashBookmark(BookmarkRepository $repository)
+    public function trashBookmark(BookmarkRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -50,7 +52,7 @@ class BookmarkApi extends ApiControllerLib
     /**
      * @Route("/api/bookmarks/trash", name="api_bookmarktrashdelete", methods={"DELETE"})
      */
-    public function deleteBookmark(BookmarkRepository $repository)
+    public function deleteBookmark(BookmarkRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -58,7 +60,7 @@ class BookmarkApi extends ApiControllerLib
     /**
      * @Route("/api/bookmarks/restore", name="api_bookmarkrestore", methods={"POST"})
      */
-    public function restoreBookmark(BookmarkRepository $repository)
+    public function restoreBookmark(BookmarkRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -66,7 +68,7 @@ class BookmarkApi extends ApiControllerLib
     /**
      * @Route("/api/bookmarks/empty", name="api_bookmarkempty", methods={"POST"})
      */
-    public function viderBookmark(BookmarkRepository $repository)
+    public function viderBookmark(BookmarkRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }

@@ -82,16 +82,22 @@ class Configuration
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     *
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="object", nullable=true)
+     *
+     * @var string
      */
     private $value;
 
@@ -112,12 +118,12 @@ class Configuration
         return $this;
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
-    public function setValue($value): self
+    public function setValue(string $value): self
     {
         $this->value = $value;
 

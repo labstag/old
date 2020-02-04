@@ -2,20 +2,17 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Labstag\Entity\Chapitre as ChapitreEntity;
 
 trait Chapitre
 {
-    /**
-     * @return ChapitreEntity|Collection
-     */
-    public function getChapitres(): Collection
+    public function getChapitres(): ArrayCollection
     {
         return $this->chapitres;
     }
 
-    public function getChapitresEnabled()
+    public function getChapitresEnabled(): array
     {
         $chapitres = [];
         foreach ($this->chapitres as $chapitre) {

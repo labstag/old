@@ -20,12 +20,12 @@ class ConfigurationFixtures extends Fixture
         $this->oauthService = $oauthService;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $viewport = 'width=device-width, initial-scale=1, shrink-to-fit=no';
         $data     = [
@@ -75,7 +75,7 @@ class ConfigurationFixtures extends Fixture
             ],
         ];
 
-        $names = explode(',', getenv('SYMFONY_DOTENV_VARS'));
+        $names = explode(',', (string) getenv('SYMFONY_DOTENV_VARS'));
         $env   = [];
         foreach ($names as $name) {
             $env[$name] = getenv($name);
@@ -83,7 +83,7 @@ class ConfigurationFixtures extends Fixture
 
         ksort($env);
         if (array_key_exists('GEONAMES_ID', $env)) {
-            $data['geonames_id'] = explode(',', $env['GEONAMES_ID']);
+            $data['geonames_id'] = explode(',', (string) $env['GEONAMES_ID']);
         }
 
         $oauth = [];
@@ -106,8 +106,10 @@ class ConfigurationFixtures extends Fixture
             }
         }
 
+        $dataAuth = [];
+        /** @var mixed $row */
         foreach ($oauth as $row) {
-            array_push($data['oauth'], $row);
+            $data['oauth'][] = $row;
         }
 
         foreach ($data as $key => $value) {
