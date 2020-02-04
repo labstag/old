@@ -11,8 +11,6 @@ class ConfigurationListener extends EventSubscriberLib
 {
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
     public function getSubscribedEvents(): array
     {
@@ -42,7 +40,7 @@ class ConfigurationListener extends EventSubscriberLib
         $this->traitement($entity);
     }
 
-    private function traitement($entity)
+    private function traitement(Configuration $entity): void
     {
         $name  = $entity->getName();
         $value = $entity->getValue();

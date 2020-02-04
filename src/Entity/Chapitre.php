@@ -89,7 +89,7 @@ class Chapitre implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
@@ -97,7 +97,7 @@ class Chapitre implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $name;
@@ -105,7 +105,7 @@ class Chapitre implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
-     * 
+     *
      * @var string
      */
     private $content;
@@ -113,7 +113,7 @@ class Chapitre implements Translatable
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
-     * 
+     *
      * @var int
      */
     private $position;
@@ -121,18 +121,22 @@ class Chapitre implements Translatable
     /**
      * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\History", inversedBy="chapitres")
-     * 
+     *
      * @var History
      */
     private $refhistory;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true}))
+     *
+     * @var bool
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $status;
 
@@ -140,6 +144,8 @@ class Chapitre implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
@@ -178,7 +184,7 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function getRefhistory(): ?History
+    public function getRefhistory(): History
     {
         return $this->refhistory;
     }
@@ -226,7 +232,7 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale): self
+    public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
 

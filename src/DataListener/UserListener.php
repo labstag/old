@@ -18,7 +18,7 @@ class UserListener extends EventSubscriberLib
 {
 
     /**
-     * @var Router
+     * @var RouterInterface|Router
      */
     protected $router;
 

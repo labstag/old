@@ -10,7 +10,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -115,7 +114,7 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      * @Groups({"get"})
-     * 
+     *
      * @var string
      */
     private $id;
@@ -196,7 +195,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $posts;
@@ -205,7 +204,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
      * @ApiSubresource
      * @Groups({"get"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $oauthConnectUsers;
@@ -214,7 +213,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $histories;
@@ -223,7 +222,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $bookmarks;
@@ -232,7 +231,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
      * @Groups({"get"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $emails;
@@ -241,7 +240,7 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
      * @Groups({"get"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $phones;

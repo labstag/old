@@ -99,7 +99,7 @@ class History implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
-     * 
+     *
      * @var string
      */
     private $id;
@@ -107,21 +107,21 @@ class History implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
-     * 
+     *
      * @var string
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="histories")
-     * 
+     *
      * @var User
      */
     private $refuser;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true}))
-     * 
+     *
      * @var bool
      */
     private $enable;
@@ -129,14 +129,14 @@ class History implements Translatable
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * 
+     *
      * @var string|null
      */
     private $file;
@@ -153,14 +153,14 @@ class History implements Translatable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Chapitre", mappedBy="refhistory")
      * @ApiSubresource
      * @ORM\OrderBy({"position": "ASC"})
-     * 
+     *
      * @var ArrayCollection
      */
     private $chapitres;
 
     /**
      * @ORM\Column(type="boolean")
-     * 
+     *
      * @var bool
      */
     private $end;
@@ -168,7 +168,7 @@ class History implements Translatable
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
-     * 
+     *
      * @var string
      */
     private $resume;
@@ -177,6 +177,8 @@ class History implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
@@ -300,7 +302,7 @@ class History implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale): self
+    public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
 

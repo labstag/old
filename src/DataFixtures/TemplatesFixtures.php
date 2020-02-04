@@ -90,8 +90,8 @@ class TemplatesFixtures extends Fixture
             $templates->setName($faker->unique()->colorName);
             $templates->setCode($faker->unique()->word);
             $content = $faker->unique()->paragraphs(10, true);
-            $templates->setHtml($content);
-            $templates->setText($content);
+            $templates->setHtml((string) $content);
+            $templates->setText((string) $content);
             $manager->persist($templates);
         }
 
