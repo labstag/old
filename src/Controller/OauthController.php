@@ -4,8 +4,10 @@ namespace Labstag\Controller;
 
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
+use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
+use Labstag\Lib\GenericProviderLib;
 use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -62,9 +64,12 @@ class OauthController extends ControllerLib
             $referer = $url;
         }
 
+        /**
+         * @var OauthConnectUser $entity
+         */
         $entity  = $repository->findOneOauthByUser($oauthCode, $user);
         $manager = $this->getDoctrine()->getManager();
-        if ($entity) {
+        if ($entity instanceof OauthConnectUser) {
             $manager->remove($entity);
             $manager->flush();
             $this->addFlash('success', 'Connexion Oauh '.$oauthCode.' dissocié');
@@ -80,6 +85,7 @@ class OauthController extends ControllerLib
      */
     public function connectAction(Request $request, string $oauthCode): RedirectResponse
     {
+        /** @var GenericProviderLib $provider */
         $provider = $this->oauthService->setProvider($oauthCode);
         $session  = $request->getSession();
         /** @var string $referer */
@@ -91,7 +97,7 @@ class OauthController extends ControllerLib
             $referer = $url;
         }
 
-        if (is_null($provider)) {
+        if (!($provider instanceof GenericProviderLib)) {
             $this->addFlash('warning', 'Connexion Oauh impossible');
 
             return $this->redirect($referer);
@@ -115,6 +121,7 @@ class OauthController extends ControllerLib
      */
     public function connectCheckAction(Request $request, string $oauthCode): RedirectResponse
     {
+        /** @var GenericProviderLib $provider */
         $provider    = $this->oauthService->setProvider($oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
@@ -126,7 +133,7 @@ class OauthController extends ControllerLib
             $referer = $url;
         }
 
-        if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
+        if (!($provider instanceof GenericProviderLib) || !isset($query['code']) || $oauth2state !== $query['state']) {
             $session->remove('oauth2state');
             $session->remove('referer');
             $this->addFlash('warning', "Probleme d'identification");
