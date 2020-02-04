@@ -6,7 +6,10 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Email;
 use Labstag\Entity\Templates;
+use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
+use Labstag\Repository\TemplatesRepository;
+use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -59,13 +62,16 @@ class EmailListener extends EventSubscriberLib
             return;
         }
 
-        $search     = ['code' => 'checked-mail'];
-        $manager    = $args->getEntityManager();
+        $search  = ['code' => 'checked-mail'];
+        $manager = $args->getEntityManager();
+        /** @var TemplatesRepository $repository */
         $repository = $manager->getRepository(Templates::class);
-        $templates  = $repository->findOneBy($search);
-        $html       = $templates->getHtml();
-        $text       = $templates->getText();
-        $user       = $entity->getRefuser();
+        /** @var Templates $templates */
+        $templates = $repository->findOneBy($search);
+        $html      = $templates->getHtml();
+        $text      = $templates->getText();
+        /** @var User $user */
+        $user = $entity->getRefuser();
         $this->setConfigurationParam($args);
         $replace = [
             '%site%'     => $this->configParams['site_title'],
@@ -93,6 +99,7 @@ class EmailListener extends EventSubscriberLib
         $message->setTo($this->configParams['site_no-reply']);
         $message->setBody($html, 'text/html');
         $message->addPart($text, 'text/plain');
+        /** @var Swift_Mailer $mailer */
         $mailer = $this->container->get('swiftmailer.mailer.default');
         $mailer->send($message);
     }

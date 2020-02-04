@@ -128,7 +128,7 @@ class Templates
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -152,7 +152,7 @@ class Templates
         return $this;
     }
 
-    public function getHtml(): ?string
+    public function getHtml(): string
     {
         return $this->html;
     }
@@ -164,7 +164,7 @@ class Templates
         return $this;
     }
 
-    public function getText(): ?string
+    public function getText(): string
     {
         return $this->text;
     }
