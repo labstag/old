@@ -65,7 +65,7 @@ class OauthController extends ControllerLib
         }
 
         /**
-         * @var OauthConnectUser $entity
+         * @var OauthConnectUser
          */
         $entity  = $repository->findOneOauthByUser($oauthCode, $user);
         $manager = $this->getDoctrine()->getManager();
