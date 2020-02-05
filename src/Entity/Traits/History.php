@@ -7,7 +7,12 @@ use Labstag\Entity\History as HistoryEntity;
 
 trait History
 {
-    public function getHistories(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getHistories()
     {
         return $this->histories;
     }

@@ -7,7 +7,12 @@ use Labstag\Entity\Post as PostEntity;
 
 trait Post
 {
-    public function getPosts(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getPosts()
     {
         return $this->posts;
     }
