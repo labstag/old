@@ -28,6 +28,10 @@ install-dev: ## install DEV
 	make stop -i
 
 
+.PHONY: npm-doctor
+npm-doctor: ## doctor NPM
+	docker exec -it $(CONTAINER) npm doctor
+
 .PHONY: npm-clean-install
 npm-clean-install: ## install PROD
 	docker exec -it $(CONTAINER) npm clean-install
