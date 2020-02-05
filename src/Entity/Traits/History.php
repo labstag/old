@@ -2,14 +2,11 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\History as HistoryEntity;
 
 trait History
 {
     /**
-     * Undocumented function
-     *
      * @return mixed
      */
     public function getHistories()
