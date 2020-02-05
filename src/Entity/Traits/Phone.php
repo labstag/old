@@ -7,7 +7,12 @@ use Labstag\Entity\Phone as PhoneEntity;
 
 trait Phone
 {
-    public function getPhones(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getPhones()
     {
         return $this->phones;
     }

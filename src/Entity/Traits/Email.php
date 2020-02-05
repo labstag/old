@@ -7,7 +7,12 @@ use Labstag\Entity\Email as EmailEntity;
 
 trait Email
 {
-    public function getEmails(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getEmails()
     {
         return $this->emails;
     }

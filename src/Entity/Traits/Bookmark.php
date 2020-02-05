@@ -7,7 +7,12 @@ use Labstag\Entity\Bookmark as BookmarkEntity;
 
 trait Bookmark
 {
-    public function getBookmarks(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getBookmarks()
     {
         return $this->bookmarks;
     }

@@ -7,7 +7,12 @@ use Labstag\Entity\OauthConnectUser as OauthConnectUserEntity;
 
 trait OauthConnectUser
 {
-    public function getOauthConnectUsers(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getOauthConnectUsers()
     {
         return $this->oauthConnectUsers;
     }

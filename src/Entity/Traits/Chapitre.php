@@ -7,7 +7,12 @@ use Labstag\Entity\Chapitre as ChapitreEntity;
 
 trait Chapitre
 {
-    public function getChapitres(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getChapitres()
     {
         return $this->chapitres;
     }
