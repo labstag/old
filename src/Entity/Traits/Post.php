@@ -2,14 +2,11 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Post as PostEntity;
 
 trait Post
 {
     /**
-     * Undocumented function
-     *
      * @return mixed
      */
     public function getPosts()

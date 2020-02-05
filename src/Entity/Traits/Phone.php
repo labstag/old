@@ -2,14 +2,11 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Phone as PhoneEntity;
 
 trait Phone
 {
     /**
-     * Undocumented function
-     *
      * @return mixed
      */
     public function getPhones()
