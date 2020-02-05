@@ -2,14 +2,11 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Tags as TagsEntity;
 
 trait Tags
 {
     /**
-     * Undocumented function
-     *
      * @return mixed
      */
     public function getTags()
