@@ -270,7 +270,7 @@ export class datatables {
                 'class': 'img-thumbnail'
             };
 
-            this.setAttribute(link, data);
+            this.setAttribute(img, data);
             link.appendChild(img);
             return link.outerHTML;
         }
