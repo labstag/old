@@ -7,7 +7,12 @@ use Labstag\Entity\Tags as TagsEntity;
 
 trait Tags
 {
-    public function getTags(): PersistentCollection
+    /**
+     * Undocumented function
+     *
+     * @return mixed
+     */
+    public function getTags()
     {
         return $this->tags;
     }
