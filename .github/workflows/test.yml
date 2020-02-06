@@ -10,10 +10,17 @@ jobs:
               run: make help
             - name: Show HELP
               run: make
+            - uses: actions/upload-artifact@v1
+              with:
+                  name: makefile
+                  path: makefile
     launch:
         needs: makefile
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/download-artifact@v1
+              with:
+                  name: makefile
             - name: Build containers
               run: make build
             - name: Start containers
