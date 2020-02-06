@@ -11,6 +11,7 @@ jobs:
             - name: Show HELP
               run: make
     launch:
+        runs-on: ubuntu-latest
         need: makefile
         steps:
             - name: Build containers
@@ -20,6 +21,7 @@ jobs:
             - name: Check running containers
               run: docker ps -a
     stacks:
+        runs-on: ubuntu-latest
         need: launch
         steps:
             - name: Composer install
@@ -29,6 +31,7 @@ jobs:
             - name: NPM install
               run: make npm-install
     database:
+        runs-on: ubuntu-latest
         need: stacks
         steps:
             - name: Install BDD
