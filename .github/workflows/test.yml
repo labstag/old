@@ -18,11 +18,10 @@ jobs:
         needs: makefile
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
             - uses: actions/download-artifact@v1
               with:
                   name: makefile
+                  path: .
             - name: Build containers
               run: make build
             - name: Start containers
@@ -37,11 +36,10 @@ jobs:
         needs: launch
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
             - uses: actions/download-artifact@v1
               with:
                   name: launch
+                  path: .
             - name: Build containers
               run: make build
             - name: Start containers
@@ -52,10 +50,18 @@ jobs:
               run: make npm-doctor
             - name: NPM install
               run: make npm-install
+            - uses: actions/upload-artifact@v1
+              with:
+                  name: stacks
+                  path: .
     database:
         needs: stacks
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/download-artifact@v1
+              with:
+                  name: stacks
+                  path: .
             - name: Checkout
               uses: actions/checkout@v2
             - name: Build containers
