@@ -15,7 +15,7 @@ jobs:
         needs: makefile
         steps:
             - name: Checkout
-              uses: makefile
+              uses: actions/checkout@v2
             - name: Build containers
               run: make build
             - name: Start containers
@@ -27,7 +27,11 @@ jobs:
         needs: launch
         steps:
             - name: Checkout
-              uses: launch
+              uses: actions/checkout@v2
+            - name: Build containers
+              run: make build
+            - name: Start containers
+              run: make start
             - name: Composer install
               run: make composer-install-dev
             - name: NPM doctor
@@ -39,7 +43,13 @@ jobs:
         needs: stacks
         steps:
             - name: Checkout
-              uses: database
+              uses: actions/checkout@v2
+            - name: Build containers
+              run: make build
+            - name: Start containers
+              run: make start
+            - name: NPM install
+              run: make npm-install
             - name: Install BDD
               run: make bdd-dev
             - name: Add database
