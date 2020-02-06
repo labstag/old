@@ -12,7 +12,7 @@ jobs:
               run: make
     launch:
         runs-on: ubuntu-latest
-        need: makefile
+        needs: makefile
         steps:
             - name: Build containers
               run: make build
@@ -22,7 +22,7 @@ jobs:
               run: docker ps -a
     stacks:
         runs-on: ubuntu-latest
-        need: launch
+        needs: launch
         steps:
             - name: Composer install
               run: make composer-install-dev
@@ -32,7 +32,7 @@ jobs:
               run: make npm-install
     database:
         runs-on: ubuntu-latest
-        need: stacks
+        needs: stacks
         steps:
             - name: Install BDD
               run: make bdd-dev
