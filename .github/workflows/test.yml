@@ -18,6 +18,8 @@ jobs:
         needs: makefile
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout
+              uses: actions/checkout@v2
             - uses: actions/download-artifact@v1
               with:
                   name: makefile
@@ -27,12 +29,19 @@ jobs:
               run: make start
             - name: Check running containers
               run: docker ps -a
+            - uses: actions/upload-artifact@v1
+              with:
+                  name: launch
+                  path: .
     stacks:
         needs: launch
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v2
+            - uses: actions/download-artifact@v1
+              with:
+                  name: launch
             - name: Build containers
               run: make build
             - name: Start containers
