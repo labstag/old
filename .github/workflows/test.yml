@@ -13,7 +13,7 @@ jobs:
             - uses: actions/upload-artifact@v1
               with:
                   name: makefile
-                  path: /
+                  path: .
     launch:
         needs: makefile
         runs-on: ubuntu-latest
