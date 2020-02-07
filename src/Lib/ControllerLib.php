@@ -10,6 +10,7 @@ use Labstag\Entity\Configuration;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,7 @@ abstract class ControllerLib extends AbstractController
     private $paginator;
 
     /**
-     * @var Router|RouterInterface
+     * @var RouterInterface|Router
      */
     private $router;
 
@@ -79,12 +80,14 @@ abstract class ControllerLib extends AbstractController
      * @param string    $view       template
      * @param array     $parameters data
      * @param ?Response $response   ??
+     *
+     * @return RedirectResponse|Response
      */
     public function twig(
         string $view,
         array $parameters = [],
         Response $response = null
-    ): Response
+    )
     {
         $this->addParamViewsSite($parameters);
         if ($this->disclaimerActivate($parameters)) {
@@ -106,6 +109,9 @@ abstract class ControllerLib extends AbstractController
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
+    /**
+     * @param mixed $query
+     */
     protected function paginator($query): void
     {
         /** @var SlidingPagination $pagination */
@@ -135,19 +141,20 @@ abstract class ControllerLib extends AbstractController
         $repository = $manager->getRepository(Configuration::class);
         $data       = $repository->findAll();
         $config     = [];
-        /** @var configuration $row */
+        /** @var Configuration $row */
         foreach ($data as $row) {
             $key          = $row->getName();
             $value        = $row->getValue();
             $config[$key] = $value;
         }
 
-        if (isset($config['oauth'])) {
+        if (isset($config['oauth']) && is_array($config['oauth'])) {
             $oauth = [];
-            foreach ($config['oauth'] as $data) {
-                if (1 == $data['activate']) {
-                    $type         = $data['type'];
-                    $oauth[$type] = $data;
+            $data  = $config['oauth'];
+            foreach ($data as $row) {
+                if (1 == $row['activate']) {
+                    $type         = $row['type'];
+                    $oauth[$type] = $row;
                 }
             }
 
@@ -182,17 +189,19 @@ abstract class ControllerLib extends AbstractController
 
     private function setMetaWithEntity(array $parameters): void
     {
-        if (isset($parameters['setMeta'])) {
-            $entity = $parameters['setMeta'];
-
-            $this->paramViews['config']['meta'][0] = [
-                'article:published_time' => $entity->getCreatedAt()->format(
-                    DateTimeInterface::ATOM
-                ),
-                'article:modified_time'  => $entity->getUpdatedAt()->format(
-                    DateTimeInterface::ATOM
-                ),
-            ];
+        if (!isset($parameters['setMeta'])) {
+            return;
         }
+
+        $entity = $parameters['setMeta'];
+
+        $this->paramViews['config']['meta'][0] = [
+            'article:published_time' => $entity->getCreatedAt()->format(
+                DateTimeInterface::ATOM
+            ),
+            'article:modified_time'  => $entity->getUpdatedAt()->format(
+                DateTimeInterface::ATOM
+            ),
+        ];
     }
 }

@@ -97,9 +97,10 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         /** @var UserRepository $enm */
-        $enm  = $this->entityManager->getRepository(User::class);
+        $enm = $this->entityManager->getRepository(User::class);
+        /** @var User $user */
         $user = $enm->login($credentials['username']);
-        if (!$user) {
+        if (!($user instanceof User)) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
@@ -119,10 +120,14 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
+    /**
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         unset($token);
-        $getTargetPath = $this->getTargetPath(
+        $getTargetPath = (string) $this->getTargetPath(
             $request->getSession(),
             $providerKey
         );

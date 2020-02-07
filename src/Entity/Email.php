@@ -29,16 +29,22 @@ class Email
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="emails")
+     *
+     * @var User
      */
     private $refuser;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $adresse;
 
@@ -58,9 +64,9 @@ class Email
         $this->principal = false;
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
-        return $this->getAdresse();
+        return (string) $this->getAdresse();
     }
 
     public function getId(): ?string
@@ -73,7 +79,7 @@ class Email
         return $this->refuser;
     }
 
-    public function setRefuser(?User $refuser): self
+    public function setRefuser(User $refuser): self
     {
         $this->refuser = $refuser;
 

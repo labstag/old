@@ -6,7 +6,9 @@ use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use Faker\Factory;
+use finfo;
 use Labstag\Entity\History;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -25,12 +27,12 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         $this->userRepository = $userRepository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             FilesFixtures::class,
@@ -38,16 +40,18 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $users = $this->userRepository->findAll();
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
+        /** @var resource $finfo */
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $history = new History();
             $history->setName($faker->unique()->safeColorName);
             $history->setResume($faker->unique()->sentence);
-            $enable = rand(0, 1);
+            $enable = (bool) rand(0, 1);
             $history->setEnable($enable);
             $user = rand(0, 1);
             if ($user) {
@@ -55,7 +59,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                 $history->setRefuser($users[$tabIndex]);
             }
 
-            $end = rand(0, 1);
+            $end = (bool) rand(0, 1);
             $history->setEnd($end);
 
             try {
@@ -70,19 +74,21 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
                     $faker->hexColor
                 );
                 $content = file_get_contents($image);
+                /** @var resource $tmpfile */
                 $tmpfile = tmpfile();
                 $data    = stream_get_meta_data($tmpfile);
                 file_put_contents($data['uri'], $content);
                 $file = new UploadedFile(
                     $data['uri'],
                     'image.jpg',
-                    filesize($data['uri']),
+                    (string) finfo_file($finfo, $data['uri']),
                     null,
                     true
                 );
 
                 $history->setImageFile($file);
             } catch (Exception $exception) {
+                echo $exception->getMessage();
             }
 
             $manager->persist($history);

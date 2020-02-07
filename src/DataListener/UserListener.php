@@ -7,6 +7,8 @@ use Doctrine\ORM\Events;
 use Labstag\Entity\Templates;
 use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
+use Labstag\Repository\TemplatesRepository;
+use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,7 +20,7 @@ class UserListener extends EventSubscriberLib
 {
 
     /**
-     * @var Router
+     * @var RouterInterface|Router
      */
     protected $router;
 
@@ -34,7 +36,11 @@ class UserListener extends EventSubscriberLib
      */
     private $container;
 
-    public function __construct(ContainerInterface $container, RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(
+        ContainerInterface $container,
+        RouterInterface $router,
+        UserPasswordEncoderInterface $passwordEncoder
+    )
     {
         $this->container       = $container;
         $this->router          = $router;
@@ -43,10 +49,8 @@ class UserListener extends EventSubscriberLib
 
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::preUpdate,
@@ -54,7 +58,7 @@ class UserListener extends EventSubscriberLib
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
@@ -68,7 +72,7 @@ class UserListener extends EventSubscriberLib
         // $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
@@ -82,18 +86,20 @@ class UserListener extends EventSubscriberLib
         $manager->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $entity);
     }
 
-    private function lost(User $entity, $args)
+    private function lost(User $entity, LifecycleEventArgs $args): void
     {
         if (!$entity->isLost()) {
             return;
         }
 
-        $manager    = $args->getEntityManager();
+        $manager = $args->getEntityManager();
+        /** @var TemplatesRepository $repository */
         $repository = $manager->getRepository(templates::class);
         $search     = ['code' => 'lost-password'];
-        $templates  = $repository->findOneBy($search);
-        $html       = $templates->getHtml();
-        $text       = $templates->getText();
+        /** @var Templates $templates */
+        $templates = $repository->findOneBy($search);
+        $html      = $templates->getHtml();
+        $text      = $templates->getText();
         $this->setConfigurationParam($args);
         $replace = [
             '%site%'     => $this->configParams['site_title'],
@@ -121,11 +127,12 @@ class UserListener extends EventSubscriberLib
         $message->setTo($this->configParams['site_no-reply']);
         $message->setBody($html, 'text/html');
         $message->addPart($text, 'text/plain');
+        /** @var Swift_Mailer $mailer */
         $mailer = $this->container->get('swiftmailer.mailer.default');
         $mailer->send($message);
     }
 
-    private function plainPassword(User $entity)
+    private function plainPassword(User $entity): void
     {
         $plainPassword = $entity->getPlainPassword();
         if ('' === $plainPassword || is_null($plainPassword)) {
