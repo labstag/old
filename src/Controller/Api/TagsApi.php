@@ -8,26 +8,35 @@ use Labstag\Handler\TagsPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\TagsRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 class TagsApi extends ApiControllerLib
 {
+
+    /**
+     * @var TagsPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
-        TagsPublishingHandler $tagsPublishingHandler,
+        TagsPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->tagsPublishingHandler = $tagsPublishingHandler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Tags $data): Tags
     {
-        $this->tagsPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }
@@ -35,7 +44,7 @@ class TagsApi extends ApiControllerLib
     /**
      * @Route("/api/tags/trash", name="api_tagstrash")
      */
-    public function trash(TagsRepository $repository)
+    public function trash(TagsRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -43,7 +52,7 @@ class TagsApi extends ApiControllerLib
     /**
      * @Route("/api/tags/trash", name="api_tagstrashdelete", methods={"DELETE"})
      */
-    public function delete(TagsRepository $repository)
+    public function delete(TagsRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -51,7 +60,7 @@ class TagsApi extends ApiControllerLib
     /**
      * @Route("/api/tags/restore", name="api_tagsrestore", methods={"Tags"})
      */
-    public function restore(TagsRepository $repository)
+    public function restore(TagsRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -59,7 +68,7 @@ class TagsApi extends ApiControllerLib
     /**
      * @Route("/api/tags/empty", name="api_tagsempty", methods={"Tags"})
      */
-    public function vider(TagsRepository $repository)
+    public function vider(TagsRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }

@@ -29,43 +29,57 @@ class HistoryTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository     = $this->entityManager->getRepository(
+        /** @var HistoryRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             History::class
         );
-        $this->userRepository = $this->entityManager->getRepository(
+        $this->repository = $repository;
+        /** @var UserRepository $userRepository */
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
+        $this->userRepository = $userRepository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof History);
+            $this->assertSame(get_class($random), History::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByUser()
+    public function testfindAllActiveByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByUser(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $user = $this->userRepository->findOneRandom();
         if ($user instanceof User) {
+            /** @var Query $histories */
             $histories = $this->repository->findAllActiveByUser($user);
-            $this->assertTrue($histories instanceof Query);
+            $this->assertSame(get_class($histories), Query::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testfindAllActive()
+    public function testfindAllActive(): void
     {
         $histories = $this->repository->findAllActive();
-        $this->assertTrue($histories instanceof Query);
+        $this->assertSame(get_class($histories), Query::class);
     }
 }

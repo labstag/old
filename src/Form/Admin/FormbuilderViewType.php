@@ -23,21 +23,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FormbuilderViewType extends AbstractTypeLibAdmin
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         foreach ($options['data'] as $field) {
             $this->addField($field, $builder);
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             []
         );
     }
 
-    private function addText($field, $builder)
+    private function addText(array $field, FormBuilderInterface $builder): void
     {
         if ('text' != $field['type']) {
             return;
@@ -67,14 +67,14 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         }
     }
 
-    private function setPlaceholder(&$data, $field)
+    private function setPlaceholder(array &$data, array $field): void
     {
         if (isset($field['placeholder'])) {
             $data['placeholder'] = $field['placeholder'];
         }
     }
 
-    private function setClass(&$data, $field)
+    private function setClass(array &$data, array $field): void
     {
         $data['attr']['class'] = '';
         if (isset($field['className']) && ('textarea' != $field['type'] || ('textarea' == $field['type'] && 'textarea' == $field['subtype']))) {
@@ -82,21 +82,21 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         }
     }
 
-    private function setWidget(&$data, $field)
+    private function setWidget(array &$data, array $field): void
     {
         if ('date' == $field['type']) {
             $data['widget'] = 'single_text';
         }
     }
 
-    private function setHelp(&$data, $field)
+    private function setHelp(array &$data, array $field): void
     {
         if (isset($field['description']) && 'button' != $field['type']) {
             $data['help'] = $field['description'];
         }
     }
 
-    private function addButton($field, $builder)
+    private function addButton(array $field, FormBuilderInterface $builder): void
     {
         if ('button' != $field['type']) {
             return;
@@ -118,7 +118,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         }
     }
 
-    private function addTextarea($field, $builder)
+    private function addTextarea(array $field, FormBuilderInterface $builder): void
     {
         if ('textarea' != $field['type']) {
             return;
@@ -137,7 +137,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         }
     }
 
-    private function addAutocomplete($field, $builder)
+    private function addAutocomplete(array $field, FormBuilderInterface $builder): void
     {
         if ('autocomplete' != $field['type']) {
             return;
@@ -146,7 +146,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, TextType::class, $builder);
     }
 
-    private function addCheckboxGroup($field, $builder)
+    private function addCheckboxGroup(array $field, FormBuilderInterface $builder): void
     {
         if ('checkbox-group' != $field['type']) {
             return;
@@ -155,7 +155,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, ChoiceType::class, $builder);
     }
 
-    private function addDate($field, $builder)
+    private function addDate(array $field, FormBuilderInterface $builder): void
     {
         if ('date' != $field['type']) {
             return;
@@ -164,7 +164,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, DateType::class, $builder);
     }
 
-    private function addFile($field, $builder)
+    private function addFile(array $field, FormBuilderInterface $builder): void
     {
         if ('file' != $field['type']) {
             return;
@@ -173,7 +173,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, FileType::class, $builder);
     }
 
-    private function addHeader($field, $builder)
+    private function addHeader(array $field, FormBuilderInterface $builder): void
     {
         if ('header' != $field['type']) {
             return;
@@ -182,7 +182,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, TextType::class, $builder);
     }
 
-    private function addHidden($field, $builder)
+    private function addHidden(array $field, FormBuilderInterface $builder): void
     {
         if ('hidden' != $field['type']) {
             return;
@@ -191,7 +191,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, HiddenType::class, $builder);
     }
 
-    private function addNumber($field, $builder)
+    private function addNumber(array $field, FormBuilderInterface $builder): void
     {
         if ('number' != $field['type']) {
             return;
@@ -200,7 +200,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, IntegerType::class, $builder);
     }
 
-    private function addParagraph($field, $builder)
+    private function addParagraph(array $field, FormBuilderInterface $builder): void
     {
         if ('paragraph' != $field['type']) {
             return;
@@ -209,7 +209,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, TextType::class, $builder);
     }
 
-    private function addRadioGroup($field, $builder)
+    private function addRadioGroup(array $field, FormBuilderInterface $builder): void
     {
         if ('radio-group' != $field['type']) {
             return;
@@ -218,7 +218,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, ChoiceType::class, $builder);
     }
 
-    private function addSelect($field, $builder)
+    private function addSelect(array $field, FormBuilderInterface $builder): void
     {
         if ('select' != $field['type']) {
             return;
@@ -227,7 +227,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addType($field, ChoiceType::class, $builder);
     }
 
-    private function addField($field, $builder)
+    private function addField(array $field, FormBuilderInterface $builder): void
     {
         $this->addAutocomplete($field, $builder);
         $this->addCheckboxGroup($field, $builder);
@@ -244,14 +244,14 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         $this->addSelect($field, $builder);
     }
 
-    private function setButton(&$data, $field)
+    private function setButton(array &$data, array $field): void
     {
         if ('button' == $field['type']) {
             unset($data['required']);
         }
     }
 
-    private function setChoice(&$data, $field)
+    private function setChoice(array &$data, array $field): void
     {
         if ('checkbox-group' == $field['type'] || 'radio-group' == $field['type']) {
             $choices = [];
@@ -275,7 +275,7 @@ class FormbuilderViewType extends AbstractTypeLibAdmin
         }
     }
 
-    private function addType($field, $type, $builder)
+    private function addType(array $field, string $type, FormBuilderInterface $builder): void
     {
         if (!isset($field['name'], $field['label'])) {
             return;

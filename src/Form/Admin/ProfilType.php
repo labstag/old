@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfilType extends AbstractTypeLibAdmin
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('username');
         $builder->add('plainPassword');
@@ -56,7 +56,7 @@ class ProfilType extends AbstractTypeLibAdmin
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [

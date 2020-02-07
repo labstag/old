@@ -89,40 +89,54 @@ class Chapitre implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $name;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
+     *
+     * @var string
      */
     private $content;
 
     /**
      * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
+     *
+     * @var int
      */
     private $position;
 
     /**
      * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\History", inversedBy="chapitres")
+     *
+     * @var History
      */
     private $refhistory;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true}))
+     *
+     * @var bool
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $status;
 
@@ -130,6 +144,8 @@ class Chapitre implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
@@ -168,12 +184,12 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function getRefhistory(): ?History
+    public function getRefhistory(): History
     {
         return $this->refhistory;
     }
 
-    public function setRefhistory(?History $refhistory): self
+    public function setRefhistory(History $refhistory): self
     {
         $this->refhistory = $refhistory;
 
@@ -185,7 +201,7 @@ class Chapitre implements Translatable
         return $this->enable;
     }
 
-    public function setEnable(?bool $enable): self
+    public function setEnable(bool $enable): self
     {
         $this->enable = $enable;
 
@@ -216,8 +232,10 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale)
+    public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
     }
 }

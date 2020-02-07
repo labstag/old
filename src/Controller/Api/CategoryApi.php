@@ -8,26 +8,35 @@ use Labstag\Handler\CategoryPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\CategoryRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 class CategoryApi extends ApiControllerLib
 {
+
+    /**
+     * @var CategoryPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
-        CategoryPublishingHandler $categoryPublishingHandler,
+        CategoryPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->categoryPublishingHandler = $categoryPublishingHandler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Category $data): Category
     {
-        $this->categoryPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }
@@ -35,7 +44,7 @@ class CategoryApi extends ApiControllerLib
     /**
      * @Route("/api/categories/trash", name="api_categorytrash")
      */
-    public function trash(CategoryRepository $repository)
+    public function trash(CategoryRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -43,7 +52,7 @@ class CategoryApi extends ApiControllerLib
     /**
      * @Route("/api/categories/trash", name="api_categorytrashdelete", methods={"DELETE"})
      */
-    public function delete(CategoryRepository $repository)
+    public function delete(CategoryRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -51,7 +60,7 @@ class CategoryApi extends ApiControllerLib
     /**
      * @Route("/api/categories/restore", name="api_categoryrestore", methods={"POST"})
      */
-    public function restore(CategoryRepository $repository)
+    public function restore(CategoryRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -59,7 +68,7 @@ class CategoryApi extends ApiControllerLib
     /**
      * @Route("/api/categories/empty", name="api_categoryempty", methods={"POST"})
      */
-    public function vider(CategoryRepository $repository)
+    public function vider(CategoryRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }

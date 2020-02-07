@@ -21,56 +21,75 @@ class UserTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var UserRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             User::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof User);
+            $this->assertSame(get_class($random), User::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testloginToken()
+    public function testloginToken(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->loginToken(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
+        /** @var ?User $user */
         $user = $this->repository->findOneRandom(
             'e.apiKey IS NOT NULL AND e.apiKey!=:apikey',
-            [
-                'apikey' => ''
-            ]
+            ['apikey' => '']
         );
         if ($user instanceof User) {
+            /** @var User $user */
             $user = $this->repository->loginToken($user->getApiKey());
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($user), User::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testlogin()
+    public function testlogin(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->login(null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
+        /** @var ?User $user */
         $user = $this->repository->findOneRandom();
         if ($user instanceof User) {
-            $user = $this->repository->login(
+            /** @var User $login */
+            $login = $this->repository->login(
                 $user->getUsername()
             );
-            $this->assertTrue($user instanceof User);
-            $user = $this->repository->login(
+            $this->assertSame(get_class($login), User::class);
+            /** @var User $email */
+            $email = $this->repository->login(
                 $user->getEmail()
             );
-            $this->assertTrue($user instanceof User);
+            $this->assertSame(get_class($email), User::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }
