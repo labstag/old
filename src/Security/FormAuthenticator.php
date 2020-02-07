@@ -120,10 +120,14 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
+    /**
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         unset($token);
-        $getTargetPath = $this->getTargetPath(
+        $getTargetPath = (string) $this->getTargetPath(
             $request->getSession(),
             $providerKey
         );
