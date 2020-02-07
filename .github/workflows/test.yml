@@ -35,3 +35,5 @@ jobs:
               run: make fixtures
             - name: Run the test suite
               run: make phpunit
+            - name: Create assets
+              run: make create-asset
