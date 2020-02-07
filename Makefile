@@ -1,3 +1,5 @@
+user := $(shell id -u)
+group := $(shell id -g)
 .DEFAULT_GOAL := help
 EXEC_PHP = ./bin/
 PHPDOCUMENTORURL = https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
@@ -18,12 +20,25 @@ install-dev: ## install DEV
 	make build -i
 	make start -i
 	make composer-install-dev -i
-	npm install
+	make npm-install -i
 	make bdd-dev -i
 	make migrate -i
 	make fixtures -i
-	docker exec -it $(CONTAINER) npm run dev
+	docker exec $(CONTAINER) npm run dev
 	make stop -i
+
+
+.PHONY: npm-doctor
+npm-doctor: ## doctor NPM
+	docker exec $(CONTAINER) npm doctor
+
+.PHONY: npm-clean-install
+npm-clean-install: ## install PROD
+	docker exec $(CONTAINER) npm clean-install
+
+.PHONY: npm-install
+npm-install: ## install PROD
+	docker exec $(CONTAINER) npm install
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -33,7 +48,7 @@ install-prod: ## install PROD
 	npm install
 	make bdd-dev -i
 	make migrate -i
-	docker exec -it $(CONTAINER) npm run build
+	docker exec $(CONTAINER) npm run build
 	make stop -i
 
 .PHONY: migrate
@@ -56,6 +71,10 @@ restart: ## restart docker
 .PHONY: logs
 logs: ## logs docker
 	docker-compose logs -f
+
+.PHONY: logs-mariadb
+logs-mariadb: ## logs docker mariadb
+	docker-compose logs -f labstag-mariadb
 
 .PHONY: composer-install-dev
 composer-install-dev: ## COMPOSER install DEV
