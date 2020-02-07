@@ -2,12 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Email as EmailEntity;
 
 trait Email
 {
-    public function getEmails(): PersistentCollection
+    /**
+     * @return mixed
+     */
+    public function getEmails()
     {
         return $this->emails;
     }
