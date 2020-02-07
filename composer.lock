@@ -2686,34 +2686,39 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "v5.0.0",
+            "version": "v5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "dcbd60ebf494cc10cedcd65237edc8d632cf675b"
+                "reference": "086da9cd27262ba45bcaca3a6777e97068fce8de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/dcbd60ebf494cc10cedcd65237edc8d632cf675b",
-                "reference": "dcbd60ebf494cc10cedcd65237edc8d632cf675b",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/086da9cd27262ba45bcaca3a6777e97068fce8de",
+                "reference": "086da9cd27262ba45bcaca3a6777e97068fce8de",
                 "shasum": ""
             },
             "require": {
                 "knplabs/knp-components": "^2.0",
                 "php": "^7.2",
-                "symfony/framework-bundle": "^4.3 || ^5.0",
+                "symfony/config": "^4.3 || ^5.0",
+                "symfony/dependency-injection": "^4.3 || ^5.0",
+                "symfony/event-dispatcher": "^4.3 || ^5.0",
+                "symfony/http-foundation": "^4.3 || ^5.0",
+                "symfony/http-kernel": "^4.3 || ^5.0",
+                "symfony/routing": "^4.3 || ^5.0",
                 "symfony/translation": "^4.3 || ^5.0",
                 "twig/twig": "^2.0 || ^3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.5 || ^8.4",
+                "phpunit/phpunit": "^7.5 || ^8.5",
                 "symfony/expression-language": "^4.3 || ^5.0",
-                "symfony/templating": "^3.4 || ^4.0"
+                "symfony/templating": "^4.3 || ^5.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0.x-dev"
+                    "dev-master": "5.1.x-dev"
                 }
             },
             "autoload": {
@@ -2746,7 +2751,7 @@
                 "paginator",
                 "symfony"
             ],
-            "time": "2019-11-27T08:58:44+00:00"
+            "time": "2020-01-21T17:00:39+00:00"
         },
         {
             "name": "knplabs/knp-time-bundle",
@@ -10269,16 +10274,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "4.0.2",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "e610c15ebb73b56722c67e1c799bf0565f062899"
+                "reference": "ffc951ed077eb48203e033675d32e9b8dcd80fc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/e610c15ebb73b56722c67e1c799bf0565f062899",
-                "reference": "e610c15ebb73b56722c67e1c799bf0565f062899",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/ffc951ed077eb48203e033675d32e9b8dcd80fc7",
+                "reference": "ffc951ed077eb48203e033675d32e9b8dcd80fc7",
                 "shasum": ""
             },
             "require": {
@@ -10350,7 +10355,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2020-01-14T14:44:10+00:00"
+            "time": "2020-01-24T07:23:42+00:00"
         },
         {
             "name": "codeception/lib-asserts",
@@ -11454,16 +11459,16 @@
         },
         {
             "name": "pdepend/pdepend",
-            "version": "2.6.1",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pdepend/pdepend.git",
-                "reference": "395b0f356bc0881ef88864bffb4ba1423ca0d111"
+                "reference": "cba74e118ce806f97fcb108c00d61ebf2a5a936e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/395b0f356bc0881ef88864bffb4ba1423ca0d111",
-                "reference": "395b0f356bc0881ef88864bffb4ba1423ca0d111",
+                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/cba74e118ce806f97fcb108c00d61ebf2a5a936e",
+                "reference": "cba74e118ce806f97fcb108c00d61ebf2a5a936e",
                 "shasum": ""
             },
             "require": {
@@ -11497,7 +11502,7 @@
                 "BSD-3-Clause"
             ],
             "description": "Official version of pdepend to be handled with Composer",
-            "time": "2019-12-21T16:33:56+00:00"
+            "time": "2020-01-24T08:09:26+00:00"
         },
         {
             "name": "phan/phan",
