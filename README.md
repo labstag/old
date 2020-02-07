@@ -10,9 +10,13 @@
   <a href="https://github.com/labstag/labstag/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
+  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<a href="#-contributors"><img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" alt="All Contributors" /></a>
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="https://twitter.com/koromerzhin">
     <img alt="Twitter: koromerzhin" src="https://img.shields.io/twitter/follow/koromerzhin.svg?style=social" target="_blank" />
   </a>
+  ![Test suite](https://github.com/labstag/core/workflows/Test%20suite/badge.svg)
 </p>
 
 > Un site Internet sous Symfony
@@ -52,6 +56,28 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2019 [koromerzhin](https://github.com/koromerzhin).<br />
 This project is [MIT](https://github.com/labstag/core/blob/master/LICENSE) licensed.
+
+## ✨ Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/koromerzhin"><img src="https://avatars0.githubusercontent.com/u/308012?v=4" width="100px;" alt=""/><br /><sub><b>Le TOULLEC Martial</b></sub></a><br /><a href="https://github.com/labstag/core/commits?author=koromerzhin" title="Code">💻</a></td>
+    <td align="center"><a href="https://renovatebot.com"><img src="https://avatars0.githubusercontent.com/u/25180681?v=4" width="100px;" alt=""/><br /><sub><b>Renovate Bot</b></sub></a><br /><a href="#tool-renovate-bot" title="Tools">🔧</a></td>
+    <td align="center"><a href="https://github.com/apps/dependabot-preview"><img src="https://avatars3.githubusercontent.com/in/2141?v=4" width="100px;" alt=""/><br /><sub><b>dependabot-preview[bot]</b></sub></a><br /><a href="#tool-dependabot-preview[bot]" title="Tools">🔧</a></td>
+    <td align="center"><a href="https://github.com/apps/dependabot"><img src="https://avatars0.githubusercontent.com/in/29110?v=4" width="100px;" alt=""/><br /><sub><b>dependabot[bot]</b></sub></a><br /><a href="#tool-dependabot[bot]" title="Tools">🔧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

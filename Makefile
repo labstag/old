@@ -24,17 +24,21 @@ install-dev: ## install DEV
 	make bdd-dev -i
 	make migrate -i
 	make fixtures -i
-	docker exec -it $(CONTAINER) npm run dev
+	docker exec $(CONTAINER) npm run dev
 	make stop -i
 
 
+.PHONY: npm-doctor
+npm-doctor: ## doctor NPM
+	docker exec $(CONTAINER) npm doctor
+
 .PHONY: npm-clean-install
 npm-clean-install: ## install PROD
-	docker exec -it $(CONTAINER) npm clean-install
+	docker exec $(CONTAINER) npm clean-install
 
 .PHONY: npm-install
 npm-install: ## install PROD
-	docker exec -it $(CONTAINER) npm install
+	docker exec $(CONTAINER) npm install
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -44,7 +48,7 @@ install-prod: ## install PROD
 	npm install
 	make bdd-dev -i
 	make migrate -i
-	docker exec -it $(CONTAINER) npm run build
+	docker exec $(CONTAINER) npm run build
 	make stop -i
 
 .PHONY: migrate
