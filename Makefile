@@ -213,3 +213,7 @@ watch: ## watch JS / CSS DEV
 .PHONY: create-asset
 create-asset: ## create ASSET
 	docker exec $(CONTAINER) npm run dev
+
+.PHONY: git-author
+git-author: ## git author
+	@git log --pretty=%ae|sort|uniq -c
