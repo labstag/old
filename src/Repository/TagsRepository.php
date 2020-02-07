@@ -2,14 +2,14 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Tags;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method null|Tags find($id, $lockMode = null, $lockVersion = null)
- * @method null|Tags findOneBy(array $criteria, array $orderBy = null)
+ * @method Tags|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tags|null findOneBy(array $criteria, array $orderBy = null)
  * @method Tags[]    findAll()
  * @method Tags[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -20,10 +20,13 @@ class TagsRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Tags::class);
     }
 
-    public function findTagsByTypeNotTemporary(?string $type): ?QueryBuilder
+    /**
+     * @return QueryBuilder|void
+     */
+    public function findTagsByTypeNotTemporary(?string $type)
     {
         if (is_null($type)) {
-            return null;
+            return;
         }
 
         $params = [
@@ -39,10 +42,13 @@ class TagsRepository extends ServiceEntityRepositoryLib
         return $query;
     }
 
-    public function findTagsByType(?string $type): ?QueryBuilder
+    /**
+     * @return QueryBuilder|void
+     */
+    public function findTagsByType(?string $type)
     {
         if (is_null($type)) {
-            return null;
+            return;
         }
 
         $params = ['type' => $type];

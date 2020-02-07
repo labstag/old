@@ -90,26 +90,36 @@ class Templates
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $code;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @var string
      */
     private $html;
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @var string
      */
     private $text;
 
@@ -118,7 +128,7 @@ class Templates
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -142,7 +152,7 @@ class Templates
         return $this;
     }
 
-    public function getHtml(): ?string
+    public function getHtml(): string
     {
         return $this->html;
     }
@@ -154,7 +164,7 @@ class Templates
         return $this;
     }
 
-    public function getText(): ?string
+    public function getText(): string
     {
         return $this->text;
     }

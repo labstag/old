@@ -21,23 +21,29 @@ class FormbuilderTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var FormbuilderRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Formbuilder::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Formbuilder);
+            $this->assertSame(get_class($random), Formbuilder::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }

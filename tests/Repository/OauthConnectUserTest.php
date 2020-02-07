@@ -28,33 +28,42 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository     = $this->entityManager->getRepository(
+        /** @var OauthConnectUserRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             OauthConnectUser::class
         );
-        $this->userRepository = $this->entityManager->getRepository(
+        $this->repository = $repository;
+        /** @var UserRepository $userRepository */
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
+        $this->userRepository = $userRepository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof OauthConnectUser);
+            $this->assertSame(get_class($random), OauthConnectUser::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testfindOauthNotUser()
+    public function testfindOauthNotUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findOauthNotUser(null, null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         $user   = $this->userRepository->findOneRandom();
         if ($random instanceof OauthConnectUser && $user instanceof User) {
@@ -63,38 +72,56 @@ class OauthConnectUserTest extends RepositoryTestLib
                 $random->getIdentity(),
                 $random->getName()
             );
+            $this->assertTrue($oauth instanceof OauthConnectUser);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testfindOneOauthByUser()
+    public function testfindOneOauthByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findOneOauthByUser(null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         $user   = $this->userRepository->findOneRandom();
         if ($user instanceof User && $random instanceof OauthConnectUser) {
-            $user = $this->repository->findOneOauthByUser(
+            $oauth = $this->repository->findOneOauthByUser(
                 $random->getName(),
                 $user
             );
+            $this->assertTrue($oauth instanceof OauthConnectUser);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testlogin()
+    public function testlogin(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->login(null, null);
-        $this->assertTrue(is_null($empty));
+        $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         if ($random instanceof OauthConnectUser) {
             $oauth = $this->repository->login(
                 $random->getName(),
                 $random->getIdentity()
             );
+            $this->assertTrue($oauth instanceof OauthConnectUser);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 
-    public function testfindDistinctAllOauth()
+    public function testfindDistinctAllOauth(): void
     {
+        /** @var array $oauths */
         $oauths = $this->repository->findDistinctAllOauth();
         $this->assertTrue(is_array($oauths));
     }

@@ -2,6 +2,7 @@
 
 namespace Labstag\Controller;
 
+use Labstag\Entity\User;
 use Labstag\Form\Admin\ProfilType;
 use Labstag\Lib\AdminControllerLib;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +31,9 @@ class AdminController extends AdminControllerLib
      */
     public function profil(Request $request, Security $security): Response
     {
-        $manager = $this->getDoctrine()->getManager();
-        $user    = $security->getUser();
-        $form    = $this->createForm(
+        /** @var User $user */
+        $user = $security->getUser();
+        $form = $this->createForm(
             ProfilType::class,
             $user
         );
@@ -45,7 +46,8 @@ class AdminController extends AdminControllerLib
         }
 
         $this->setConfigurationParam();
-        $otherOauth        = $this->paramViews['oauth_activated'];
+        $otherOauth = $this->paramViews['oauth_activated'];
+        /** @var array $oauthConnectUsers */
         $oauthConnectUsers = $user->getOauthConnectUsers();
         foreach ($oauthConnectUsers as $oauth) {
             $type = $oauth->getName();
