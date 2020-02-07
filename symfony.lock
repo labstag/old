@@ -458,6 +458,9 @@
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },
+    "php-webdriver/webdriver": {
+        "version": "1.7.1"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
