@@ -2,17 +2,17 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tags;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method null|Post find($id, $lockMode = null, $lockVersion = null)
- * @method null|Post findOneBy(array $criteria, array $orderBy = null)
+ * @method Post|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Post|null findOneBy(array $criteria, array $orderBy = null)
  * @method Post[]    findAll()
  * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -23,10 +23,13 @@ class PostRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Post::class);
     }
 
-    public function findAllActiveByUser(?User $user): ?Query
+    /**
+     * @return Query|void
+     */
+    public function findAllActiveByUser(?User $user)
     {
         if (is_null($user)) {
-            return null;
+            return;
         }
 
         $dql = $this->createQueryBuilder('p');
@@ -44,10 +47,13 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActiveByTag(?Tags $tag): ?Query
+    /**
+     * @return Query|void
+     */
+    public function findAllActiveByTag(?Tags $tag)
     {
         if (is_null($tag)) {
-            return null;
+            return;
         }
 
         $dql = $this->createQueryBuilder('p');
@@ -65,10 +71,13 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery();
     }
 
-    public function findAllActiveByCategory(?Category $category): ?Query
+    /**
+     * @return Query|void
+     */
+    public function findAllActiveByCategory(?Category $category)
     {
         if (is_null($category)) {
-            return null;
+            return;
         }
 
         $dql = $this->createQueryBuilder('p');

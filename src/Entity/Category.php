@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -16,6 +15,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\CategoryApi;
+use Labstag\Entity\Traits\Post;
 
 /**
  * @ApiResource(
@@ -85,34 +85,45 @@ class Category implements Translatable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
+    use Post;
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
+     *
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
+     *
+     * @var bool
      */
     private $temporary;
 
     /**
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refcategory")
      * @ApiSubresource
+     *
+     * @var ArrayCollection
      */
     private $posts;
 
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
+     *
+     * @var string|null
      */
     private $slug;
 
@@ -120,6 +131,8 @@ class Category implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
@@ -129,9 +142,9 @@ class Category implements Translatable
         $this->posts     = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
-        return $this->getName();
+        return (string) $this->getName();
     }
 
     public function getId(): ?string
@@ -151,37 +164,6 @@ class Category implements Translatable
         return $this;
     }
 
-    /**
-     * @return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setRefcategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getRefcategory() === $this) {
-                $post->setRefcategory(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -194,9 +176,11 @@ class Category implements Translatable
         return $this;
     }
 
-    public function setTranslatableLocale($locale)
+    public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
     }
 
     public function isTemporary(): ?bool

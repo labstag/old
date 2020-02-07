@@ -5,15 +5,19 @@ namespace Labstag\Tests\Service;
 use Labstag\Lib\ServiceTestLib;
 use Labstag\Service\PhoneService;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class PhoneTest extends ServiceTestLib
 {
-
-
-    public function testPhone()
+    public function testPhone(): void
     {
         /** @var PhoneService */
         $service = self::$container->get(PhoneService::class);
-        $json    = $service->verif('0701010101', 'fr');
-        var_dump($json);
+        $data    = $service->verif('0606060606', 'FR');
+        $this->assertTrue(is_array($data));
+        $this->assertSame('+33606060606', $data['format']['e164']);
+        $this->assertSame('Europe/Paris', $data['timezones'][0]);
     }
 }
