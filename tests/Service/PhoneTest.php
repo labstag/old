@@ -11,7 +11,7 @@ use Labstag\Service\PhoneService;
  */
 class PhoneTest extends ServiceTestLib
 {
-    public function testPhone()
+    public function testPhone(): void
     {
         /** @var PhoneService */
         $service = self::$container->get(PhoneService::class);

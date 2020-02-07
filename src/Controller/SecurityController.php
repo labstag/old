@@ -9,15 +9,19 @@ use Labstag\Form\Security\LoginType;
 use Labstag\Form\Security\LostPasswordType;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\OauthConnectUserRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends ControllerLib
 {
     /**
      * @Route("/disclaimer", name="disclaimer")
+     *
+     * @return RedirectResponse|Response
      */
     public function disclaimer()
     {
@@ -107,7 +111,7 @@ class SecurityController extends ControllerLib
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout(): Response
+    public function logout(): void
     {
     }
 
@@ -116,7 +120,9 @@ class SecurityController extends ControllerLib
      */
     public function login(AuthenticationUtils $authenticationUtils, OauthConnectUserRepository $repository): Response
     {
-        $token = $this->get('security.token_storage')->getToken();
+        /** @var UsageTrackingTokenStorage $tokenStorage */
+        $tokenStorage = $this->get('security.token_storage');
+        $token        = $tokenStorage->getToken();
         if (!($token instanceof AnonymousToken)) {
             return $this->redirect($this->generateUrl('front'), 302);
         }
@@ -144,8 +150,10 @@ class SecurityController extends ControllerLib
         );
     }
 
-    private function postLostPassword($post)
+    private function postLostPassword(array $post): void
     {
+        $field = '';
+        $value = '';
         if (array_key_exists('username', $post)) {
             $field = 'username';
             $value = $post['username'];
@@ -154,14 +162,17 @@ class SecurityController extends ControllerLib
             $value = $post['email'];
         }
 
-        $manager = $this->getDoctrine()->getManager();
-
+        $manager    = $this->getDoctrine()->getManager();
         $repository = $manager->getRepository(User::class);
+        if ('' === $value || '' === $field) {
+            return;
+        }
+
         /** @var User $user */
         $user = $repository->findOneBy(
             [$field => $value]
         );
-        if (!$user) {
+        if (!($user instanceof User)) {
             return;
         }
 

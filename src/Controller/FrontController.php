@@ -57,14 +57,14 @@ class FrontController extends ControllerLib
                 '%message%' => $contact['content'],
             ];
 
-            $html    = strtr($html, $replace);
-            $text    = strtr($text, $replace);
+            $html    = strtr((string) $html, $replace);
+            $text    = strtr((string) $text, $replace);
             $message = new Swift_Message();
             $sujet   = $templates->getname();
             $sujet   = str_replace(
                 '%site%',
-                $this->paramViews['config']['site_title'],
-                $sujet
+                (string) $this->paramViews['config']['site_title'],
+                (string) $sujet
             );
             $message->setSubject($sujet);
             $message->setFrom($this->paramViews['config']['site_email']);

@@ -8,7 +8,9 @@ use Labstag\Handler\UserPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -42,7 +44,7 @@ class UserApi extends ApiControllerLib
     /**
      * @Route("/api/users/trash", name="api_usertrash")
      */
-    public function trash(UserRepository $repository)
+    public function trash(UserRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -50,7 +52,7 @@ class UserApi extends ApiControllerLib
     /**
      * @Route("/api/users/trash", name="api_usertrashdelete", methods={"DELETE"})
      */
-    public function delete(UserRepository $repository)
+    public function delete(UserRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -58,7 +60,7 @@ class UserApi extends ApiControllerLib
     /**
      * @Route("/api/users/restore", name="api_userrestore", methods={"POST"})
      */
-    public function restore(UserRepository $repository)
+    public function restore(UserRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -66,7 +68,7 @@ class UserApi extends ApiControllerLib
     /**
      * @Route("/api/users/empty", name="api_userempty", methods={"POST"})
      */
-    public function vider(UserRepository $repository)
+    public function vider(UserRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }

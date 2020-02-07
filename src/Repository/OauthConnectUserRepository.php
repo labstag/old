@@ -8,8 +8,8 @@ use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
- * @method null|OauthConnectUser find($id, $lockMode = null, $lockVersion = null)
- * @method null|OauthConnectUser findOneBy(array $criteria, array $orderBy = null)
+ * @method OauthConnectUser|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OauthConnectUser|null findOneBy(array $criteria, array $orderBy = null)
  * @method OauthConnectUser[]    findAll()
  * @method OauthConnectUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -20,6 +20,9 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, OauthConnectUser::class);
     }
 
+    /**
+     * @return OauthConnectUser|void
+     */
     public function findOauthNotUser(?User $user, ?string $identity, ?string $client)
     {
         if (is_null($identity) || is_null($user) || is_null($client)) {
@@ -27,7 +30,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         }
 
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.refuser=:iduser');
+        $dql->where('p.refuser!=:iduser');
         $dql->andWhere('p.identity=:identity');
         $dql->andWhere('p.name=:name');
         $dql->setParameters(
@@ -41,6 +44,9 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @return OauthConnectUser|void
+     */
     public function findOneOauthByUser(?string $oauthCode, ?User $user)
     {
         if (is_null($oauthCode) || is_null($user)) {
@@ -52,7 +58,7 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         $dql->andWhere('p.refuser=:iduser');
         $dql->setParameters(
             [
-                'iduser' => $user->getId(),
+                'iduser' => (string) $user->getId(),
                 'name'   => $oauthCode,
             ]
         );
@@ -89,6 +95,9 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
     }
     */
 
+    /**
+     * @return OauthConnectUser|void
+     */
     public function login(?string $identity, ?string $oauth)
     {
         if (is_null($identity) || is_null($oauth)) {
@@ -109,11 +118,11 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $builder->getQuery()->getOneOrNullResult();
     }
 
-    public function findDistinctAllOauth()
+    public function findDistinctAllOauth(): array
     {
         $builder = $this->createQueryBuilder('u');
         $builder->select('u.name');
-        $builder->distinct('u.name');
+        $builder->distinct();
         $builder->orderBy('u.name', 'ASC');
 
         return $builder->getQuery()->getResult();

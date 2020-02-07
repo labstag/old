@@ -2,15 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\Post as PostEntity;
 
 trait Post
 {
     /**
-     * @return Collection|PostEntity
+     * @return mixed
      */
-    public function getPosts(): Collection
+    public function getPosts()
     {
         return $this->posts;
     }
