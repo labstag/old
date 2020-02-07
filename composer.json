@@ -30,7 +30,7 @@
         "ramsey/uuid": "3.9.2",
         "ramsey/uuid-console": "1.1.2",
         "ramsey/uuid-doctrine": "1.6.0",
-        "scienta/doctrine-json-functions": "4.1.1",
+        "scienta/doctrine-json-functions": "4.1.2",
         "sensio/framework-extra-bundle": "5.5.3",
         "setasign/fpdi-fpdf": "2.2.0",
         "stevenmaguire/oauth2-dropbox": "3.0.1",
