@@ -73,7 +73,7 @@
         "friendsofphp/php-cs-fixer": "2.16.1",
         "friendsoftwig/twigcs": "3.2.2",
         "fzaninotto/faker": "1.9.1",
-        "maglnet/composer-require-checker": "2.0.0",
+        "maglnet/composer-require-checker": "2.1.0",
         "pdepend/pdepend": "2.7.0",
         "phan/phan": "2.4.8",
         "phploc/phploc": "5.0.0",
