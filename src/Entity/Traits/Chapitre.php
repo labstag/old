@@ -2,12 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\ORM\PersistentCollection;
 use Labstag\Entity\Chapitre as ChapitreEntity;
 
 trait Chapitre
 {
-    public function getChapitres(): PersistentCollection
+    /**
+     * @return mixed
+     */
+    public function getChapitres()
     {
         return $this->chapitres;
     }
