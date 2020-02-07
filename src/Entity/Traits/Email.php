@@ -2,15 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\Email as EmailEntity;
 
 trait Email
 {
     /**
-     * @return Collection|EmailEntity
+     * @return mixed
      */
-    public function getEmails(): Collection
+    public function getEmails()
     {
         return $this->emails;
     }

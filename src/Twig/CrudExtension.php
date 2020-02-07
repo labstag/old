@@ -28,24 +28,28 @@ class CrudExtension extends AbstractExtension
         ];
     }
 
-    public function pageDeletebreak($content)
+    public function pageDeletebreak(string $content): string
     {
         return str_replace('<p><!-- pagebreak --></p>', '', $content);
     }
 
-    public function pagebreak($content)
+    public function pagebreak(string $content): string
     {
         $contents = explode('<p><!-- pagebreak --></p>', $content);
 
         return $contents[0];
     }
 
-    public function crudExist($entity, $key)
+    /**
+     * @param mixed $entity
+     */
+    public function crudExist($entity, string $key): string
     {
         $return  = '';
         $methods = get_class_methods($entity);
         foreach ($methods as $method) {
             if (strtolower($method) == strtolower('get'.$key)) {
+                /** @var mixed $return */
                 $return = $entity->{$method}();
                 if (is_object($return) && !($return instanceof DateTime)) {
                     $methods = get_class_methods($return);

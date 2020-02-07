@@ -1,13 +1,13 @@
 FROM php:7.4-fpm
 RUN apt-get update
 RUN apt-get install -y git zip libzip-dev 
-RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev
+RUN apt-get install -y libfreetype6-dev libmcrypt-dev libjpeg-dev libjpeg62-turbo-dev libpng-dev
 RUN apt-get install -y zlib1g-dev libicu-dev g++
 RUN apt-get install -y libldap2-dev
 RUN apt-get install -y libxml++2.6-dev
 #  INSTALL FOR GD
 RUN apt-get install -y 
-RUN docker-php-ext-configure gd
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 # INSTALL FOR INTL
 RUN docker-php-ext-install intl

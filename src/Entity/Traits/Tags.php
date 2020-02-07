@@ -2,15 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\Tags as TagsEntity;
 
 trait Tags
 {
     /**
-     * @return Collection|TagsEntity[]
+     * @return mixed
      */
-    public function getTags(): Collection
+    public function getTags()
     {
         return $this->tags;
     }

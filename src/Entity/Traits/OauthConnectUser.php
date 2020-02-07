@@ -2,15 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\OauthConnectUser as OauthConnectUserEntity;
 
 trait OauthConnectUser
 {
     /**
-     * @return Collection|OauthConnectUserEntity
+     * @return mixed
      */
-    public function getOauthConnectUsers(): Collection
+    public function getOauthConnectUsers()
     {
         return $this->oauthConnectUsers;
     }

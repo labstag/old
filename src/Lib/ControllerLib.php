@@ -3,11 +3,14 @@
 namespace Labstag\Lib;
 
 use DateTimeInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Configuration;
+use Labstag\Repository\ConfigurationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +43,7 @@ abstract class ControllerLib extends AbstractController
     private $paginator;
 
     /**
-     * @var Router
+     * @var RouterInterface|Router
      */
     private $router;
 
@@ -66,7 +69,9 @@ abstract class ControllerLib extends AbstractController
         $this->paginator    = $paginator;
         $this->requestStack = $requestStack;
         $this->router       = $router;
-        $this->request      = $this->requestStack->getCurrentRequest();
+        /** @var Request $request */
+        $request       = $this->requestStack->getCurrentRequest();
+        $this->request = $request;
     }
 
     /**
@@ -75,12 +80,14 @@ abstract class ControllerLib extends AbstractController
      * @param string    $view       template
      * @param array     $parameters data
      * @param ?Response $response   ??
+     *
+     * @return RedirectResponse|Response
      */
     public function twig(
         string $view,
         array $parameters = [],
         Response $response = null
-    ): Response
+    )
     {
         $this->addParamViewsSite($parameters);
         if ($this->disclaimerActivate($parameters)) {
@@ -102,8 +109,12 @@ abstract class ControllerLib extends AbstractController
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
-    protected function paginator($query)
+    /**
+     * @param mixed $query
+     */
+    protected function paginator($query): void
     {
+        /** @var SlidingPagination $pagination */
         $pagination = $this->paginator->paginate(
             $query,
             // query NOT result
@@ -119,28 +130,31 @@ abstract class ControllerLib extends AbstractController
         $this->paramViews['pagination'] = $pagination;
     }
 
-    protected function setConfigurationParam()
+    protected function setConfigurationParam(): void
     {
         if (isset($this->paramViews['config'])) {
             return;
         }
 
-        $manager    = $this->getDoctrine()->getManager();
+        $manager = $this->getDoctrine()->getManager();
+        /** @var ConfigurationRepository $repository */
         $repository = $manager->getRepository(Configuration::class);
         $data       = $repository->findAll();
         $config     = [];
+        /** @var Configuration $row */
         foreach ($data as $row) {
             $key          = $row->getName();
             $value        = $row->getValue();
             $config[$key] = $value;
         }
 
-        if (isset($config['oauth'])) {
+        if (isset($config['oauth']) && is_array($config['oauth'])) {
             $oauth = [];
-            foreach ($config['oauth'] as $data) {
-                if (1 == $data['activate']) {
-                    $type         = $data['type'];
-                    $oauth[$type] = $data;
+            $data  = $config['oauth'];
+            foreach ($data as $row) {
+                if (1 == $row['activate']) {
+                    $type         = $row['type'];
+                    $oauth[$type] = $row;
                 }
             }
 
@@ -150,6 +164,9 @@ abstract class ControllerLib extends AbstractController
         $this->paramViews['config'] = $config;
     }
 
+    /**
+     * @param mixed $entity
+     */
     protected function persistAndFlush(&$entity): void
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -157,7 +174,7 @@ abstract class ControllerLib extends AbstractController
         $entityManager->flush();
     }
 
-    private function disclaimerActivate($parameters)
+    private function disclaimerActivate(array $parameters): bool
     {
         $session = $this->request->getSession();
         if (1 != $session->get('disclaimer') && !isset($parameters['disclaimer']) && true == $this->paramViews['config']['disclaimer'][0]['activate']) {
@@ -170,19 +187,21 @@ abstract class ControllerLib extends AbstractController
         return false;
     }
 
-    private function setMetaWithEntity($parameters)
+    private function setMetaWithEntity(array $parameters): void
     {
-        if (isset($parameters['setMeta'])) {
-            $entity = $parameters['setMeta'];
-
-            $this->paramViews['config']['meta'][0] = [
-                'article:published_time' => $entity->getCreatedAt()->format(
-                    DateTimeInterface::ATOM
-                ),
-                'article:modified_time'  => $entity->getUpdatedAt()->format(
-                    DateTimeInterface::ATOM
-                ),
-            ];
+        if (!isset($parameters['setMeta'])) {
+            return;
         }
+
+        $entity = $parameters['setMeta'];
+
+        $this->paramViews['config']['meta'][0] = [
+            'article:published_time' => $entity->getCreatedAt()->format(
+                DateTimeInterface::ATOM
+            ),
+            'article:modified_time'  => $entity->getUpdatedAt()->format(
+                DateTimeInterface::ATOM
+            ),
+        ];
     }
 }

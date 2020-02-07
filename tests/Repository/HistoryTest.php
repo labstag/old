@@ -29,21 +29,25 @@ class HistoryTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository     = $this->entityManager->getRepository(
+        /** @var HistoryRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             History::class
         );
-        $this->userRepository = $this->entityManager->getRepository(
+        $this->repository = $repository;
+        /** @var UserRepository $userRepository */
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
+        $this->userRepository = $userRepository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -56,12 +60,14 @@ class HistoryTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByUser()
+    public function testfindAllActiveByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByUser(null);
         $this->AssertNull($empty);
         $user = $this->userRepository->findOneRandom();
         if ($user instanceof User) {
+            /** @var Query $histories */
             $histories = $this->repository->findAllActiveByUser($user);
             $this->assertSame(get_class($histories), Query::class);
 
@@ -71,7 +77,7 @@ class HistoryTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActive()
+    public function testfindAllActive(): void
     {
         $histories = $this->repository->findAllActive();
         $this->assertSame(get_class($histories), Query::class);
