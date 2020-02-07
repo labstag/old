@@ -28,5 +28,6 @@ abstract class RepositoryTestLib extends KernelTestCase
     {
         parent::tearDown();
         $this->entityManager->close();
+        unset($this->entityManager);
     }
 }

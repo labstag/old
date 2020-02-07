@@ -14,7 +14,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractTypeLibAdmin
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('username');
         $builder->add('email');
@@ -47,7 +47,7 @@ class UserType extends AbstractTypeLibAdmin
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [

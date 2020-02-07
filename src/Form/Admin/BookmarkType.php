@@ -15,7 +15,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookmarkType extends AbstractTypeLibAdmin
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('name');
         $builder->add('url');
@@ -41,7 +41,7 @@ class BookmarkType extends AbstractTypeLibAdmin
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [

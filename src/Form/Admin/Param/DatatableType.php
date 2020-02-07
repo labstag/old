@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DatatableType extends AbstractTypeLibAdminParam
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $lang = $this->getFilesLang();
         $builder->add(
@@ -22,7 +22,7 @@ class DatatableType extends AbstractTypeLibAdminParam
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         // Configure your form options here
         $resolver->setDefaults(
@@ -30,14 +30,17 @@ class DatatableType extends AbstractTypeLibAdminParam
         );
     }
 
-    private function getFilesLang()
+    private function getFilesLang(): array
     {
         $tabLang = [];
-        $files   = glob('../node_modules/bootstrap-table/dist/locale/*');
+        /** @var array $files */
+        $files = glob('../node_modules/bootstrap-table/dist/locale/*');
         foreach ($files as $file) {
-            $code           = 'bootstrap-table-';
-            $lang           = substr($file, (strpos($file, $code) + strlen($code)));
-            $lang           = substr($lang, 0, strpos($lang, '.'));
+            $code = 'bootstrap-table-';
+            /** @var string $lang */
+            $lang = substr($file, (strpos($file, $code) + strlen($code)));
+            /** @var string $lang */
+            $lang           = substr($lang, 0, (int) strpos($lang, '.'));
             $tabLang[$lang] = $lang;
         }
 
