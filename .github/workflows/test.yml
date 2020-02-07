@@ -1,53 +1,37 @@
 name: Test suite
-
 on: [push]
-
 jobs:
-    makefile:
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v1
-
-            - name: Show HELP
-              run: make help
-
-            - name: Show HELP
-              run: make
-    stacks:
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v1
-
-            - name: Build containers
-              run: make build
-
-            - name: Start containers
-              run: make start
-
-            - name: Check running containers
-              run: docker ps -a
-
-            - name: Composer install
-              run: make composer-install-dev
-
-            - name: NPM doctor
-              run: make npm-doctor
-
-            - name: NPM install
-              run: make npm-install
-
-            - name: Install BDD
-              run: make bdd-dev
-
-            - name: Add database
-              run: make migrate
-
-            - name: Run the fixtures
-              run: make fixtures
-
-            - name: Run the test suite
-              run: make phpunit
+  makefile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Show HELP
+        run: make help
+      - name: Show HELP
+        run: make
+  launch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build containers
+        run: make build
+      - name: Start containers
+        run: make start
+      - name: Check running containers
+        run: docker ps -a
+      - name: Composer install
+        run: make composer-install-dev
+      - name: NPM doctor
+        run: make npm-doctor
+      - name: NPM install
+        run: make npm-install
+      - name: Install BDD
+        run: make bdd-dev
+      - name: Add database
+        run: make migrate
+      - name: Run the fixtures
+        run: make fixtures
+      - name: Run the test suite
+        run: make phpunit
