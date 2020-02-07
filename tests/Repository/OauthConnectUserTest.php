@@ -28,21 +28,25 @@ class OauthConnectUserTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository     = $this->entityManager->getRepository(
+        /** @var OauthConnectUserRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             OauthConnectUser::class
         );
-        $this->userRepository = $this->entityManager->getRepository(
+        $this->repository = $repository;
+        /** @var UserRepository $userRepository */
+        $userRepository       = $this->entityManager->getRepository(
             User::class
         );
+        $this->userRepository = $userRepository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -55,8 +59,9 @@ class OauthConnectUserTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindOauthNotUser()
+    public function testfindOauthNotUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findOauthNotUser(null, null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
@@ -75,8 +80,9 @@ class OauthConnectUserTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindOneOauthByUser()
+    public function testfindOneOauthByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findOneOauthByUser(null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
@@ -94,8 +100,9 @@ class OauthConnectUserTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testlogin()
+    public function testlogin(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->login(null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
@@ -112,8 +119,9 @@ class OauthConnectUserTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindDistinctAllOauth()
+    public function testfindDistinctAllOauth(): void
     {
+        /** @var array $oauths */
         $oauths = $this->repository->findDistinctAllOauth();
         $this->assertTrue(is_array($oauths));
     }

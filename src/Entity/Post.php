@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -96,17 +97,23 @@ class Post implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="string", length=255, unique=true)
+     *
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string|null
      */
     private $file;
 
@@ -114,24 +121,30 @@ class Post implements Translatable
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="file")
      * @Assert\File(mimeTypes={"image/*"})
      *
-     * @var File
+     * @var File|null
      */
     private $imageFile;
 
     /**
      * @Gedmo\Versioned
      * @ORM\Column(type="text")
+     *
+     * @var string
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
+     *
+     * @var User
      */
     private $refuser;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\Category", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @var Category
      */
     private $refcategory;
 
@@ -143,11 +156,15 @@ class Post implements Translatable
     /**
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string",   length=255, nullable=true)
+     *
+     * @var string|null
      */
     private $slug;
 
     /**
      * @ORM\Column(type="boolean", options={"default": true}))
+     *
+     * @var bool
      */
     private $enable;
 
@@ -155,6 +172,8 @@ class Post implements Translatable
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
+     *
+     * @var string
      */
     private $locale;
 
@@ -210,7 +229,7 @@ class Post implements Translatable
         return $this->refuser;
     }
 
-    public function setRefuser(?User $refuser): self
+    public function setRefuser(User $refuser): self
     {
         $this->refuser = $refuser;
 
@@ -222,7 +241,7 @@ class Post implements Translatable
         return $this->refcategory;
     }
 
-    public function setRefcategory(?Category $refcategory): self
+    public function setRefcategory(Category $refcategory): self
     {
         $this->refcategory = $refcategory;
 
@@ -241,14 +260,22 @@ class Post implements Translatable
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image = null): self
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new DateTimeImmutable();
+            $dateTimeImmutable = new DateTimeImmutable();
+            $dateTime          = new DateTime();
+            $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            $this->updatedAt = $dateTime;
         }
+
+        return $this;
     }
 
+    /**
+     * @return File|null
+     */
     public function getImageFile()
     {
         return $this->imageFile;
@@ -259,14 +286,14 @@ class Post implements Translatable
         return $this->enable;
     }
 
-    public function setEnable(?bool $enable): self
+    public function setEnable(bool $enable): self
     {
         $this->enable = $enable;
 
         return $this;
     }
 
-    public function setTranslatableLocale($locale)
+    public function setTranslatableLocale(string $locale): void
     {
         $this->locale = $locale;
     }

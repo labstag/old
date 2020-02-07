@@ -28,25 +28,32 @@ class OauthTest extends ServiceTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->service    = self::$container->get(OauthService::class);
-        $this->repository = $this->entityManager->getRepository(
+        /** @var OauthService $service */
+        $service       = self::$container->get(OauthService::class);
+        $this->service = $service;
+        /** @var OauthConnectUserRepository $repository */
+        $repository = $this->entityManager->getRepository(
             OauthConnectUser::class
         );
+
+        $this->repository = $repository;
     }
 
-    public function testgetIdentity()
+    public function testgetIdentity(): void
     {
         $service = $this->service;
-        $empty   = $service->getIdentity(null, null);
+        /** @var null $empty */
+        $empty = $service->getIdentity(null, null);
         $this->AssertNull($empty);
         $random = $this->repository->findOneRandom();
         if ($random instanceof OauthConnectUser) {
-            $identity = $service->getIdentity('', '');
+            /** @var null $identity */
+            $identity = $service->getIdentity([], '');
             $this->AssertNull($identity);
         }
     }
 
-    public function testgetActivedProvider()
+    public function testgetActivedProvider(): void
     {
         $service = $this->service;
         $empty   = $service->getActivedProvider(null);
@@ -57,11 +64,13 @@ class OauthTest extends ServiceTestLib
         $this->assertTrue($gitlab);
     }
 
-    public function testsetProvider()
+    public function testsetProvider(): void
     {
         $service = $this->service;
-        $empty   = $service->setProvider(null);
+        /** @var null $empty */
+        $empty = $service->setProvider(null);
         $this->AssertNull($empty);
+        /** @var GenericProviderLib $gitlab */
         $gitlab = $service->setProvider('gitlab');
         $this->assertSame(get_class($gitlab), GenericProviderLib::class);
     }

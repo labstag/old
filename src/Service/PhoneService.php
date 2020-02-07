@@ -26,6 +26,8 @@ class PhoneService
      *
      * @param string $numero Numéro de téléphone
      * @param string $locale code du pays
+     *
+     * @throws NumberParseException
      */
     public function verif(string $numero, string $locale): array
     {

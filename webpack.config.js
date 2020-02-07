@@ -1,6 +1,6 @@
-const Encore            = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const mode              = String((process.env.NODE_ENV != undefined) ? process.env.NODE_ENV : 'php').trim();
+const mode = String((process.env.NODE_ENV != undefined) ? process.env.NODE_ENV : 'php').trim();
 
 Encore.setOutputPath('public/build/');
 if (Encore.isProduction() || mode == 'php') {
@@ -10,7 +10,8 @@ if (Encore.isProduction() || mode == 'php') {
 }
 // Encore.addEntry('app', './assets/ts/app.ts');
 Encore.addEntry('app', [
-    './assets/js/app.js'
+    './assets/js/app.js',
+    './assets/scss/app.scss'
 ]);
 Encore.splitEntryChunks();
 Encore.enableSingleRuntimeChunk();
@@ -20,39 +21,39 @@ Encore.enableSourceMaps(!Encore.isProduction());
 Encore.enableVersioning(Encore.isProduction());
 Encore.configureBabel(() => {}, {
     'useBuiltIns': 'usage',
-    'corejs'     : 3
-} );
-Encore.configureUrlLoader( {
+    'corejs': 3
+});
+Encore.configureUrlLoader({
     'images': {
         'limit': 4096
     }
-} )
+})
 Encore.enableSassLoader();
 Encore.enableLessLoader();
 Encore.autoProvidejQuery();
-Encore.autoProvideVariables( {
-    'jsPDF'        : 'jspdf',
-    '$'            : 'jquery',
-    'jQuery'       : 'jquery',
+Encore.autoProvideVariables({
+    'jsPDF': 'jspdf',
+    '$': 'jquery',
+    'jQuery': 'jquery',
     '$.formBuilder': 'formBuilder',
     'window.jQuery': 'jquery'
-} );
+});
 Encore.configureBabel();
 Encore.addPlugin(new CopyWebpackPlugin([{
         'from': 'node_modules/tinymce/skins',
-        'to'  : 'skins'
+        'to': 'skins'
     },
     {
         'from': 'node_modules/tinymce-i18n/langs',
-        'to'  : 'langs'
+        'to': 'langs'
     },
     {
         'from': 'node_modules/tinymce/plugins',
-        'to'  : 'plugins'
+        'to': 'plugins'
     },
     {
         'from': 'node_modules/formbuilder-languages',
-        'to'  : 'formbuilder-lang'
+        'to': 'formbuilder-lang'
     }
 ]));
 // Encore.enableTypeScriptLoader();

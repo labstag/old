@@ -2,15 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\Phone as PhoneEntity;
 
 trait Phone
 {
     /**
-     * @return Collection|PhoneEntity[]
+     * @return mixed
      */
-    public function getPhones(): Collection
+    public function getPhones()
     {
         return $this->phones;
     }
