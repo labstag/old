@@ -74,7 +74,7 @@
         "friendsoftwig/twigcs": "3.2.2",
         "fzaninotto/faker": "1.9.1",
         "maglnet/composer-require-checker": "2.0.0",
-        "pdepend/pdepend": "2.6.1",
+        "pdepend/pdepend": "2.7.0",
         "phan/phan": "2.4.6",
         "phploc/phploc": "5.0.0",
         "phpmd/phpmd": "2.8.1",
