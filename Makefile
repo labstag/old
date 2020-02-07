@@ -15,6 +15,11 @@ help:
 commit: ## Commit data
 	npm run commit
 
+.PHONY: update-dev
+update-dev: ## update DEV
+	make composer-update -i
+	make npm-update -i
+
 .PHONY: install-dev
 install-dev: ## install DEV
 	make build -i
@@ -37,8 +42,12 @@ npm-clean-install: ## install PROD
 	docker exec $(CONTAINER) npm clean-install
 
 .PHONY: npm-install
-npm-install: ## install PROD
+npm-install: ## npm install PROD
 	docker exec $(CONTAINER) npm install
+
+.PHONY: npm-update
+npm-update: ## npm update PROD
+	docker exec $(CONTAINER) npm update
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -196,3 +205,7 @@ phpunit: ## PHPUnit
 .PHONY: bdd-dev
 bdd-dev: ## Install BDD DEV
 	docker exec $(CONTAINER) cp .env.dist .env
+
+.PHONY: watch
+watch: ## watch JS / CSS DEV
+	docker exec $(CONTAINER) npm run watch
