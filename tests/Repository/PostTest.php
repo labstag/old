@@ -43,27 +43,36 @@ class PostTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository         = $this->entityManager->getRepository(
+        /** @var PostRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Post::class
         );
-        $this->categoryRepository = $this->entityManager->getRepository(
+        $this->repository = $repository;
+        /** @var CategoryRepository $categoryRepository */
+        $categoryRepository       = $this->entityManager->getRepository(
             Category::class
         );
-        $this->tagsRepository     = $this->entityManager->getRepository(
+        $this->categoryRepository = $categoryRepository;
+        /** @var TagsRepository $tagsRepository */
+        $tagsRepository       = $this->entityManager->getRepository(
             Tags::class
         );
-        $this->userRepository     = $this->entityManager->getRepository(
+        $this->tagsRepository = $tagsRepository;
+        /** @var UserRepository $userRepository */
+        $userRepository = $this->entityManager->getRepository(
             User::class
         );
+
+        $this->userRepository = $userRepository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -76,12 +85,14 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByUser()
+    public function testfindAllActiveByUser(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByUser(null);
         $this->AssertNull($empty);
         $user = $this->tagsRepository->findOneRandom();
         if ($user instanceof User) {
+            /** @var Query $posts */
             $posts = $this->repository->findAllActiveByUser($user);
             $this->assertSame(get_class($posts), Query::class);
 
@@ -91,12 +102,14 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByTag()
+    public function testfindAllActiveByTag(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByTag(null);
         $this->AssertNull($empty);
         $tags = $this->tagsRepository->findOneRandom();
         if ($tags instanceof Tags) {
+            /** @var Query $posts */
             $posts = $this->repository->findAllActiveByTag($tags);
             $this->assertSame(get_class($posts), Query::class);
 
@@ -106,12 +119,14 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActiveByCategory()
+    public function testfindAllActiveByCategory(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findAllActiveByCategory(null);
         $this->AssertNull($empty);
         $category = $this->categoryRepository->findOneRandom();
         if ($category instanceof Category) {
+            /** @var Query $posts */
             $posts = $this->repository->findAllActiveByCategory($category);
             $this->assertSame(get_class($posts), Query::class);
 
@@ -121,8 +136,9 @@ class PostTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindAllActive()
+    public function testfindAllActive(): void
     {
+        /** @var Query $posts */
         $posts = $this->repository->findAllActive();
         $this->assertSame(get_class($posts), Query::class);
     }

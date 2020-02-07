@@ -20,12 +20,12 @@ class ConfigurationFixtures extends Fixture
         $this->oauthService = $oauthService;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $viewport = 'width=device-width, initial-scale=1, shrink-to-fit=no';
         $data     = [
@@ -75,7 +75,7 @@ class ConfigurationFixtures extends Fixture
             ],
         ];
 
-        $names = explode(',', getenv('SYMFONY_DOTENV_VARS'));
+        $names = explode(',', (string) getenv('SYMFONY_DOTENV_VARS'));
         $env   = [];
         foreach ($names as $name) {
             $env[$name] = getenv($name);
@@ -83,18 +83,17 @@ class ConfigurationFixtures extends Fixture
 
         ksort($env);
         if (array_key_exists('GEONAMES_ID', $env)) {
-            $data['geonames_id'] = explode(',', $env['GEONAMES_ID']);
+            $data['geonames_id'] = explode(',', (string) $env['GEONAMES_ID']);
         }
 
         $oauth = [];
         foreach ($env as $key => $val) {
             if (0 != substr_count($key, 'OAUTH_')) {
-                $code = str_replace('OAUTH_', '', $key);
-                $code = strtolower($code);
-                [
-                    $type,
-                    $key,
-                ]     = explode('_', $code);
+                $code    = str_replace('OAUTH_', '', $key);
+                $code    = strtolower($code);
+                $explode = explode('_', $code);
+                $type    = $explode[0];
+                $key     = $explode[1];
                 if (!isset($oauth[$type])) {
                     $oauth[$type] = [
                         'activate' => $this->oauthService->getActivedProvider($type),
@@ -106,8 +105,9 @@ class ConfigurationFixtures extends Fixture
             }
         }
 
+        /** @var mixed $row */
         foreach ($oauth as $row) {
-            array_push($data['oauth'], $row);
+            $data['oauth'][] = $row;
         }
 
         foreach ($data as $key => $value) {

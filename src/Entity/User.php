@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -113,6 +114,8 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $id;
 
@@ -120,6 +123,8 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $username;
 
@@ -131,12 +136,16 @@ class User implements UserInterface, \Serializable
      *     checkMX=true
      * )
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
      * @Groups({"get"})
+     *
+     * @var array
      */
     private $roles = [];
 
@@ -147,11 +156,16 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var string|null
+     */
     private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
      * @Groups({"write"})
+     *
+     * @var string
      */
     private $apiKey;
 
@@ -164,6 +178,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $avatar;
 
@@ -171,7 +187,7 @@ class User implements UserInterface, \Serializable
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
      * @Assert\File(mimeTypes={"image/*"})
      *
-     * @var File
+     * @var File|null
      */
     private $imageFile;
 
@@ -179,6 +195,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $posts;
 
@@ -186,6 +204,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $oauthConnectUsers;
 
@@ -193,6 +213,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $histories;
 
@@ -200,6 +222,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $bookmarks;
 
@@ -207,6 +231,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $emails;
 
@@ -214,6 +240,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $phones;
 
@@ -235,19 +263,27 @@ class User implements UserInterface, \Serializable
         $this->phones            = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getUsername();
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image = null): self
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new DateTimeImmutable();
+            $dateTimeImmutable = new DateTimeImmutable();
+            $dateTime          = new DateTime();
+            $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            $this->updatedAt = $dateTime;
         }
+
+        return $this;
     }
 
+    /**
+     * @return File|null
+     */
     public function getImageFile()
     {
         return $this->imageFile;
@@ -258,7 +294,7 @@ class User implements UserInterface, \Serializable
         return $this->avatar;
     }
 
-    public function setAvatar($avatar): self
+    public function setAvatar(string $avatar): self
     {
         $this->avatar = $avatar;
 
@@ -316,6 +352,9 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @param mixed $role
+     */
     public function addRole($role): self
     {
         $roles       = $this->roles;
@@ -364,7 +403,7 @@ class User implements UserInterface, \Serializable
         return (string) $this->apiKey;
     }
 
-    public function setApiKey($apiKey): self
+    public function setApiKey(string $apiKey): self
     {
         $this->apiKey = $apiKey;
 
@@ -373,14 +412,19 @@ class User implements UserInterface, \Serializable
 
     /**
      * @see UserInterface
+     *
+     * @return string|null
      */
     public function getSalt()
     {
+        return '';
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
+     *
+     * @return mixed;
      */
     public function eraseCredentials()
     {
@@ -405,6 +449,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * {@inheritdoc}
+     *
+     * @param string $serialized
      */
     public function unserialize($serialized): void
     {
@@ -419,15 +465,20 @@ class User implements UserInterface, \Serializable
         );
     }
 
+    /**
+     * @return string|null
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->setPassword('');
         $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 
     public function isLost(): ?bool

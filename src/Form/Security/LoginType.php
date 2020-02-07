@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LoginType extends AbstractTypeLibSecurity
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'username',
@@ -40,7 +40,7 @@ class LoginType extends AbstractTypeLibSecurity
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         // Configure your form options here
         $resolver->setDefaults(

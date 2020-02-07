@@ -17,7 +17,7 @@ class OauthService
     protected $configProvider;
 
     /**
-     * @var Router
+     * @var Router|RouterInterface
      */
     protected $router;
 
@@ -32,27 +32,31 @@ class OauthService
         $this->setConfigProvider();
     }
 
-    public function getIdentity(?array $data, ?string $oauth): ?string
+    /**
+     * @param mixed|null $data
+     *
+     * @return mixed|void
+     */
+    public function getIdentity($data, ?string $oauth)
     {
         $entity = null;
         if (is_null($oauth)) {
-            return $entity;
+            return;
         }
 
         switch ($oauth) {
             case 'gitlab':
             case 'github':
             case 'discord':
-                $entity = $data['id'];
+                $this->caseDiscord($data, $entity);
 
                 break;
             case 'google':
-                $entity = $data['sub'];
+                $this->caseGoogle($data, $entity);
 
                 break;
             case 'bitbucket':
-                $entity = $data['uuid'];
-
+                $this->caseBitbucket($data, $entity);
                 break;
             default:
                 break;
@@ -61,21 +65,30 @@ class OauthService
         return $entity;
     }
 
-    public function setProvider($clientName): ?GenericProviderLib
+    /**
+     * @return GenericProviderLib|void
+     */
+    public function setProvider(?string $clientName)
     {
+        if (is_null($clientName)) {
+            return;
+        }
+
         if (isset($this->configProvider[$clientName])) {
             return $this->initProvider($clientName);
         }
-
-        return null;
     }
 
-    public function getActivedProvider($clientName)
+    public function getActivedProvider(?string $clientName): bool
     {
+        if (is_null($clientName)) {
+            return false;
+        }
+
         return array_key_exists($clientName, $this->configProvider);
     }
 
-    protected function setConfigProvider()
+    protected function setConfigProvider(): void
     {
         $this->configProvider = [
             'gitlab'    => [
@@ -134,7 +147,7 @@ class OauthService
         ];
     }
 
-    protected function initProvider($clientName)
+    protected function initProvider(string $clientName): GenericProviderLib
     {
         $config = (isset($this->configProvider[$clientName])) ? $this->configProvider[$clientName] : [];
         if (isset($config['redirect'])) {
@@ -161,5 +174,41 @@ class OauthService
         }
 
         return $provider;
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    private function caseBitbucket(array $data, &$entity): void
+    {
+        if (!isset($data['uuid'])) {
+            return;
+        }
+
+        $entity = $data['uuid'];
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    private function caseGoogle(array $data, &$entity): void
+    {
+        if (!isset($data['sub'])) {
+            return;
+        }
+
+        $entity = $data['sub'];
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    private function caseDiscord(array $data, &$entity): void
+    {
+        if (!isset($data['id'])) {
+            return;
+        }
+
+        $entity = $data['id'];
     }
 }

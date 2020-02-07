@@ -2,15 +2,14 @@
 
 namespace Labstag\Entity\Traits;
 
-use Doctrine\Common\Collections\Collection;
 use Labstag\Entity\Bookmark as BookmarkEntity;
 
 trait Bookmark
 {
     /**
-     * @return BookmarkEntity|Collection
+     * @return mixed
      */
-    public function getBookmarks(): Collection
+    public function getBookmarks()
     {
         return $this->bookmarks;
     }
