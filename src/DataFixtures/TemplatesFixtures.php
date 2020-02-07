@@ -29,7 +29,7 @@ class TemplatesFixtures extends Fixture
         $this->repository = $repository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
         $this->addContactEmail($manager);
@@ -38,7 +38,7 @@ class TemplatesFixtures extends Fixture
         $this->addLostPassword($manager);
     }
 
-    private function addLostPassword(ObjectManager $manager)
+    private function addLostPassword(ObjectManager $manager): void
     {
         $templates = new Templates();
         $templates->setName('Changement de password %site%');
@@ -49,7 +49,7 @@ class TemplatesFixtures extends Fixture
         $manager->flush();
     }
 
-    private function addCheckedPhone(ObjectManager $manager)
+    private function addCheckedPhone(ObjectManager $manager): void
     {
         $templates = new Templates();
         $templates->setName('Validation du téléphone %site%');
@@ -60,7 +60,7 @@ class TemplatesFixtures extends Fixture
         $manager->flush();
     }
 
-    private function addCheckedEmail(ObjectManager $manager)
+    private function addCheckedEmail(ObjectManager $manager): void
     {
         $templates = new Templates();
         $templates->setName('Validation de mail %site%');
@@ -71,7 +71,7 @@ class TemplatesFixtures extends Fixture
         $manager->flush();
     }
 
-    private function addContactEmail(ObjectManager $manager)
+    private function addContactEmail(ObjectManager $manager): void
     {
         $templates = new Templates();
         $templates->setName('Contact %site%');
@@ -82,13 +82,14 @@ class TemplatesFixtures extends Fixture
         $manager->flush();
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $templates = new Templates();
             $templates->setName($faker->unique()->colorName);
             $templates->setCode($faker->unique()->word);
+            /** @var string $content */
             $content = $faker->unique()->paragraphs(10, true);
             $templates->setHtml($content);
             $templates->setText($content);

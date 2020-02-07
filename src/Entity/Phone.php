@@ -31,21 +31,29 @@ class Phone
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     *
+     * @var string
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="phones")
+     *
+     * @var User
      */
     private $refuser;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $numero;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
      */
     private $type;
 
@@ -59,9 +67,9 @@ class Phone
         $this->checked = false;
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
-        return $this->getNumero();
+        return (string) $this->getNumero();
     }
 
     public function getId(): ?string
@@ -74,7 +82,7 @@ class Phone
         return $this->refuser;
     }
 
-    public function setRefuser(?User $refuser): self
+    public function setRefuser(User $refuser): self
     {
         $this->refuser = $refuser;
 

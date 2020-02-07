@@ -22,18 +22,20 @@ class TagsTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var TagsRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Tags::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -46,27 +48,33 @@ class TagsTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindTagsByTypeNotTemporary()
+    public function testfindTagsByTypeNotTemporary(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findTagsByTypeNotTemporary(null);
         $this->AssertNull($empty);
+        /** @var QueryBuilder $tags */
         $tags = $this->repository->findTagsByTypeNotTemporary('');
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
-        $tags   = $this->repository->findTagsByTypeNotTemporary(
+        /** @var QueryBuilder $tags */
+        $tags = $this->repository->findTagsByTypeNotTemporary(
             $random->getType()
         );
         $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 
-    public function testfindTagsByType()
+    public function testfindTagsByType(): void
     {
+        /** @var null $empty */
         $empty = $this->repository->findTagsByType(null);
         $this->AssertNull($empty);
+        /** @var QueryBuilder $tags */
         $tags = $this->repository->findTagsByType('');
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
-        $tags   = $this->repository->findTagsByType($random->getType());
+        /** @var QueryBuilder $tags */
+        $tags = $this->repository->findTagsByType($random->getType());
         $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 }

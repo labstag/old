@@ -22,18 +22,20 @@ class CategoryTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var CategoryRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Category::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -46,7 +48,7 @@ class CategoryTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindForForm()
+    public function testfindForForm(): void
     {
         $entities = $this->repository->findForForm();
         $this->assertSame(get_class($entities), QueryBuilder::class);

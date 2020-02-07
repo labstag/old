@@ -5,6 +5,7 @@ namespace Labstag\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Generator;
 use Labstag\Entity\Tags;
 use Labstag\Repository\TagsRepository;
 
@@ -22,7 +23,7 @@ class TagsFixtures extends Fixture
         $this->repository = $repository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
         $this->add($manager, 'post', $faker);
@@ -30,9 +31,8 @@ class TagsFixtures extends Fixture
         $this->delete($manager);
     }
 
-    private function add(ObjectManager $manager, string $type, &$faker)
+    private function add(ObjectManager $manager, string $type, Generator &$faker): void
     {
-        $faker = Factory::create('fr_FR');
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $tags = new Tags();
             $tags->setType($type);
@@ -43,9 +43,11 @@ class TagsFixtures extends Fixture
         $manager->flush();
     }
 
-    private function delete(ObjectManager $manager)
+    private function delete(ObjectManager $manager): void
     {
-        $tags     = $this->repository->findAll();
+        /** @var array $tags */
+        $tags = $this->repository->findAll();
+        /** @var int $tabIndex */
         $tabIndex = array_rand($tags, 1);
         $manager->remove($tags[$tabIndex]);
         $manager->flush();

@@ -7,8 +7,8 @@ use Labstag\Entity\Bookmark;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
- * @method null|Bookmark find($id, $lockMode = null, $lockVersion = null)
- * @method null|Bookmark findOneBy(array $criteria, array $orderBy = null)
+ * @method Bookmark|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Bookmark|null findOneBy(array $criteria, array $orderBy = null)
  * @method Bookmark[]    findAll()
  * @method Bookmark[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
