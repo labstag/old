@@ -63,7 +63,9 @@ class ExceptionController extends ControllerLib
      */
     public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
     {
-        $currentContent = $this->getAndCleanOutputBuffering($request->headers->get('X-Php-Ob-Level', -1));
+        /** @var mixed $xPOhpObLevel */
+        $xPOhpObLevel   = -1;
+        $currentContent = $this->getAndCleanOutputBuffering((int) $request->headers->get('X-Php-Ob-Level', $xPOhpObLevel));
         $showException  = $request->attributes->get('showException', $this->debug);
         // As opposed to an additional parameter, this maintains BC
         $code = $exception->getStatusCode();
@@ -71,29 +73,31 @@ class ExceptionController extends ControllerLib
         $parameters = [
             'class_body'     => 'ErrorPage',
             'status_code'    => $code,
-            'status_text'    => isset(Response::$statusTexts[$code]) ? Response::$statusTexts[$code] : '',
+            'status_text'    => '',
             'exception'      => $exception,
             'logger'         => $logger,
             'currentContent' => $currentContent,
         ];
         $this->addParamViewsSite($parameters);
 
+        $templates   = $this->findTemplate($request, (string) $request->getRequestFormat(), $code, $showException);
+        $contentType = (string) $request->getMimeType((string) $request->getRequestFormat());
+        $contentType = !empty($contentType) ? $contentType : 'text/html';
+
         return new Response(
             $this->twig->render(
-                (string) $this->findTemplate($request, $request->getRequestFormat(), $code, $showException),
+                $templates,
                 $this->paramViews
             ),
             200,
-            ['Content-Type' => $request->getMimeType($request->getRequestFormat()) ?: 'text/html']
+            ['Content-Type' => $contentType]
         );
     }
 
     /**
-     * @param int $startObLevel
-     *
-     * @return string
+     * @return string|false
      */
-    protected function getAndCleanOutputBuffering($startObLevel)
+    protected function getAndCleanOutputBuffering(int $startObLevel)
     {
         if (ob_get_level() <= $startObLevel) {
             return '';
@@ -138,11 +142,14 @@ class ExceptionController extends ControllerLib
         return sprintf('exception/%s.html.twig', $showException ? 'exception_full' : $name);
     }
 
-    // to be removed when the minimum required version of Twig is >= 3.0
-    protected function templateExists($template)
+    /**
+     * to be removed when the minimum required version of Twig is >= 3.0.
+     *
+     * @return string|bool
+     */
+    protected function templateExists(string $template)
     {
-        $template = (string) $template;
-        $loader   = $this->twig->getLoader();
+        $loader = $this->twig->getLoader();
         if ($loader instanceof ExistsLoaderInterface || method_exists($loader, 'exists')) {
             return $loader->exists($template);
         }
@@ -154,7 +161,5 @@ class ExceptionController extends ControllerLib
         } catch (LoaderError $error) {
             return $error->getMessage();
         }
-
-        return false;
     }
 }

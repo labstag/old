@@ -2,10 +2,13 @@
 
 namespace Labstag\DataFixtures;
 
+use bheller\ImagesGenerator\ImagesGeneratorProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use Faker\Factory;
+use finfo;
 use Labstag\Entity\Post;
 use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\TagsRepository;
@@ -38,12 +41,12 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $this->tagsRepository     = $tagsRepository;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             FilesFixtures::class,
@@ -53,16 +56,21 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
         $users      = $this->userRepository->findAll();
         $categories = $this->categoryRepository->findAll();
         $tags       = $this->tagsRepository->findBy(['type' => 'post']);
         $faker      = Factory::create('fr_FR');
+        $faker->addProvider(new ImagesGeneratorProvider($faker));
+        /** @var resource $finfo */
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $post = new Post();
             $post->setName($faker->unique()->text(rand(5, 50)));
-            $post->setContent($faker->unique()->paragraphs(4, true));
+            /** @var string $content */
+            $content = $faker->unique()->paragraphs(4, true);
+            $post->setContent($content);
             $user = rand(0, 1);
             if ($user) {
                 $tabIndex = array_rand($users);
@@ -71,27 +79,43 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
             $post->setRefcategory($categories[array_rand($categories)]);
             $this->addTags($post, $tags);
-            $image   = $faker->unique()->imageUrl(1920, 1920);
-            $content = file_get_contents($image);
-            $tmpfile = tmpfile();
-            $data    = stream_get_meta_data($tmpfile);
-            file_put_contents($data['uri'], $content);
-            $file = new UploadedFile(
-                $data['uri'],
-                'image.jpg',
-                filesize($data['uri']),
-                null,
-                true
-            );
 
-            $post->setImageFile($file);
+            try {
+                $image   = $faker->imageGenerator(
+                    null,
+                    1920,
+                    1920,
+                    'jpg',
+                    true,
+                    $faker->word,
+                    $faker->hexColor,
+                    $faker->hexColor
+                );
+                $content = file_get_contents($image);
+                /** @var resource $tmpfile */
+                $tmpfile = tmpfile();
+                $data    = stream_get_meta_data($tmpfile);
+                file_put_contents($data['uri'], $content);
+                $file = new UploadedFile(
+                    $data['uri'],
+                    'image.jpg',
+                    (string) finfo_file($finfo, $data['uri']),
+                    null,
+                    true
+                );
+
+                $post->setImageFile($file);
+            } catch (Exception $exception) {
+                echo $exception->getMessage();
+            }
+
             $manager->persist($post);
         }
 
         $manager->flush();
     }
 
-    private function addTags($post, $tags)
+    private function addTags(Post $post, array $tags): void
     {
         $nbr = rand(0, count($tags));
         if (0 == $nbr) {

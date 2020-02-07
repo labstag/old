@@ -1,0 +1,8 @@
+FROM httpd
+
+
+RUN apt-get update
+
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+
+WORKDIR /usr/local/apache2/htdocs
