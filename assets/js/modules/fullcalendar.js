@@ -13,10 +13,13 @@ export class fullCalendar {
     }
 
     domContentLoaded() {
-        if ($('#' + this.emplacement).length == 0) {
+        let emplacement = document.querySelectorAll('#' + this.emplacement);
+
+        if (emplacement.length == 0) {
             return;
         }
         let calendarEl   = document.getElementById(this.emplacement);
+        let html         = document.querySelector('html');
         let dataCalendar = {
             'header': {
                 'left'  : 'prev,next today',
@@ -24,7 +27,7 @@ export class fullCalendar {
                 'right' : 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
             },
             'locales'    : allLocales,
-            'locale'     : $('html').attr('lang'),
+            'locale'     : html.getAttribute('lang'),
             'plugins'    : [dayGridPlugin, timeGridPlugin, listPlugin],
             'defaultView': 'dayGridMonth'
         };

@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class HistoryType extends AbstractTypeLibAdmin
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('name');
         $builder->add('slug');
@@ -25,7 +25,7 @@ class HistoryType extends AbstractTypeLibAdmin
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [

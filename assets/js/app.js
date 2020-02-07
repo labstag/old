@@ -29,30 +29,36 @@ import {
     selectize
 } from './modules/selectize';
 import 'whatwg-fetch';
-global.$      = $;
+global.$ = $;
 global.Jquery = $;
 class Site {
     /**
      * TODO: Test
      */
     launch() {
-        this.admin        = new admin();
-        this.selectize    = new selectize();
-        this.form         = new form();
-        this.prismjs      = new prismjs();
-        this.builderform  = new builderform('formBuilder');
-        this.wysiwyg      = new wysiwyg();
-        this.datatables   = new datatables();
+        this.admin = new admin();
+        this.selectize = new selectize();
+        this.form = new form();
+        this.prismjs = new prismjs();
+        this.builderform = new builderform('formBuilder');
+        this.wysiwyg = new wysiwyg();
+        this.datatables = new datatables();
         this.fullcalendar = new fullCalendar('fullCalendar');
         this.login();
     }
 
     login() {
-        $('#login_username').trigger('focus');
+        let event = document.createEvent('HTMLEvents');
+        let elements = document.querySelectorAll('#login_username');
+
+        event.initEvent('focus', true, false);
+        elements.forEach(
+            (element) => element.dispatchEvent(event)
+        );
     }
 }
 (($) => {
     const site = new Site();
 
     site.launch();
-} )(jQuery);
+})(jQuery);

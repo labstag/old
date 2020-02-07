@@ -21,23 +21,29 @@ class BookmarkTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var BookmarkRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Bookmark::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Bookmark);
+            $this->assertSame(get_class($random), Bookmark::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }

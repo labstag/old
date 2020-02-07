@@ -2,6 +2,7 @@ import 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
 export class wysiwyg {
     constructor() {
+        let body        = document.querySelector('body');
         var dataTinymce = {
             'branding'            : false,
             'selector'            : '.wysiwyg',
@@ -37,7 +38,7 @@ export class wysiwyg {
             'relative_urls': false,
             'plugins'      : 'code emoticons visualblocks print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
             'toolbar'      : 'formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | removeformat | addcomment',
-            'language'     : $('body').attr('data-wysiwyglang'),
+            'language'     : body.getAttribute('data-wysiwyglang'),
             'images_upload_handler'(blobInfo, success, failure) {}
         };
 

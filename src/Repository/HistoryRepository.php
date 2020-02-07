@@ -2,29 +2,32 @@
 
 namespace Labstag\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Labstag\Entity\History;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method null|History find($id, $lockMode = null, $lockVersion = null)
- * @method null|History findOneBy(array $criteria, array $orderBy = null)
+ * @method History|null find($id, $lockMode = null, $lockVersion = null)
+ * @method History|null findOneBy(array $criteria, array $orderBy = null)
  * @method History[]    findAll()
  * @method History[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class HistoryRepository extends ServiceEntityRepositoryLib
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, History::class);
     }
 
-    public function findAllActiveByUser(?User $user): ?Query
+    /**
+     * @return Query|void
+     */
+    public function findAllActiveByUser(?User $user)
     {
         if (is_null($user)) {
-            return null;
+            return;
         }
 
         $dql = $this->createQueryBuilder('p');

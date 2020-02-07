@@ -4,6 +4,7 @@ namespace Labstag\Security;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Labstag\Entity\User;
+use Labstag\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,19 +96,17 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $enm  = $this->entityManager->getRepository(User::class);
+        /** @var UserRepository $enm */
+        $enm = $this->entityManager->getRepository(User::class);
+        /** @var User $user */
         $user = $enm->login($credentials['username']);
-        if (!$user) {
+        if (!($user instanceof User)) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException(
-                'Username could not be found.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
 
         if (!$user->isEnable()) {
-            throw new CustomUserMessageAuthenticationException(
-                'Username not activate.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username not activate.');
         }
 
         return $user;
@@ -121,10 +120,14 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
         );
     }
 
+    /**
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         unset($token);
-        $getTargetPath = $this->getTargetPath(
+        $getTargetPath = (string) $this->getTargetPath(
             $request->getSession(),
             $providerKey
         );

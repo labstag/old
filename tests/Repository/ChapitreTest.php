@@ -21,23 +21,29 @@ class ChapitreTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var ChapitreRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Chapitre::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Chapitre);
+            $this->assertSame(get_class($random), Chapitre::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }

@@ -6,7 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Labstag\Entity\OauthConnectUser;
 use Labstag\Entity\User;
+use Labstag\Lib\GenericProviderLib;
+use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
+use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +68,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @var OauthService
      */
-    private $OauthService;
+    private $oauthService;
 
     /**
      * @var string
@@ -78,11 +81,20 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
     private $requestStack;
 
     /**
-     * @var TokenStorage
+     * @var TokenStorage|TokenStorageInterface
      */
     private $tokenStorage;
 
-    public function __construct(ContainerInterface $container, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, OauthService $OauthService, RequestStack $requestStack, TokenStorageInterface $tokenStorage)
+    public function __construct(
+        ContainerInterface $container,
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        OauthService $oauthService,
+        RequestStack $requestStack,
+        TokenStorageInterface $tokenStorage
+    )
     {
         $this->container        = $container;
         $this->entityManager    = $entityManager;
@@ -90,10 +102,16 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder  = $passwordEncoder;
         $this->requestStack     = $requestStack;
-        $this->request          = $this->requestStack->getCurrentRequest();
-        $this->OauthService    = $OauthService;
-        $this->tokenStorage     = $tokenStorage;
-        $this->oauthCode        = $this->request->attributes->get('oauthCode');
+        /** @var Request $request */
+        $request = $this->requestStack->getCurrentRequest();
+
+        $this->request      = $request;
+        $this->oauthService = $oauthService;
+        $this->tokenStorage = $tokenStorage;
+
+        $attributes      = $this->request->attributes;
+        $oauthCode       = $attributes->has('oauthCode') ? $attributes->get('oauthCode') : '';
+        $this->oauthCode = $oauthCode;
     }
 
     public function supports(Request $request)
@@ -107,59 +125,61 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getCredentials(Request $request)
     {
-        $provider    = $this->OauthService->setProvider($this->oauthCode);
+        /** @var GenericProviderLib $provider */
+        $provider    = $this->oauthService->setProvider($this->oauthCode);
         $query       = $request->query->all();
         $session     = $request->getSession();
         $oauth2state = $session->get('oauth2state');
-        if (is_null($provider) || !isset($query['code']) || $oauth2state !== $query['state']) {
+        if (!($provider instanceof GenericProviderLib) || !isset($query['code']) || $oauth2state !== $query['state']) {
             return [];
         }
 
         try {
+            /** @var AccessToken $tokenProvider */
             $tokenProvider = $provider->getAccessToken(
                 'authorization_code',
                 [
                     'code' => $query['code'],
                 ]
             );
-            $userOauth     = $provider->getResourceOwner($tokenProvider);
+            /** @var mixed $userOauth */
+            $userOauth = $provider->getResourceOwner($tokenProvider);
 
-            $credentials['user'] = $userOauth;
-
-            return $credentials;
-        } catch (Exception $e) {
+            return ['user' => $userOauth];
+        } catch (Exception $exception) {
             return [];
         }
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    /**
+     * @param mixed $credentials credentials
+     *
+     * @throws CustomUserMessageAuthenticationException
+     */
+    public function getUser($credentials, UserProviderInterface $userProvider): User
     {
         unset($userProvider);
         if (!isset($credentials['user'])) {
-            throw new CustomUserMessageAuthenticationException(
-                'Connexion impossible avec ce service.'
-            );
+            throw new CustomUserMessageAuthenticationException('Connexion impossible avec ce service.');
         }
 
+        /** @var OauthConnectUserRepository $enm */
         $enm = $this->entityManager->getRepository(OauthConnectUser::class);
 
-        $identity         = $this->OauthService->getIdentity(
+        $identity = $this->oauthService->getIdentity(
             $credentials['user']->toArray(),
             $this->oauthCode
         );
+        /** @var OauthConnectUser $oauthConnectUser */
         $oauthConnectUser = $enm->login($identity, $this->oauthCode);
-        if (!$oauthConnectUser || '' == $identity) {
+        if (!($oauthConnectUser instanceof OauthConnectUser) || '' == $identity) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException(
-                'Username could not be found.'
-            );
+            throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
 
         $user = $oauthConnectUser->getRefuser();
-        if (!$user->isEnable()) {
-            throw new CustomUserMessageAuthenticationException(
-                'Username not activate.'
-            );
+        if (!($user instanceof User) || !$user->isEnable()) {
+            throw new CustomUserMessageAuthenticationException('Username not activate.');
         }
 
         return $user;
@@ -172,10 +192,14 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         return true;
     }
 
+    /**
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         unset($token);
-        $getTargetPath = $this->getTargetPath(
+        $getTargetPath = (string) $this->getTargetPath(
             $request->getSession(),
             $providerKey
         );

@@ -8,26 +8,35 @@ use Labstag\Handler\ChapitrePublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\ChapitreRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 class ChapitreApi extends ApiControllerLib
 {
+
+    /**
+     * @var ChapitrePublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
-        ChapitrePublishingHandler $chapitrePublishingHandler,
+        ChapitrePublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->chapitrePublishingHandler = $chapitrePublishingHandler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Chapitre $data): Chapitre
     {
-        $this->chapitrePublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }
@@ -35,7 +44,7 @@ class ChapitreApi extends ApiControllerLib
     /**
      * @Route("/api/chapitres/trash", name="api_chapitretrash")
      */
-    public function trash(ChapitreRepository $repository)
+    public function trash(ChapitreRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -43,7 +52,7 @@ class ChapitreApi extends ApiControllerLib
     /**
      * @Route("/api/chapitres/trash", name="api_chapitretrashdelete", methods={"DELETE"})
      */
-    public function delete(ChapitreRepository $repository)
+    public function delete(ChapitreRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -51,7 +60,7 @@ class ChapitreApi extends ApiControllerLib
     /**
      * @Route("/api/chapitres/restore", name="api_chapitrerestore", methods={"POST"})
      */
-    public function restore(ChapitreRepository $repository)
+    public function restore(ChapitreRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -59,7 +68,7 @@ class ChapitreApi extends ApiControllerLib
     /**
      * @Route("/api/chapitres/empty", name="api_chapitreempty", methods={"POST"})
      */
-    public function vider(ChapitreRepository $repository)
+    public function vider(ChapitreRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }
