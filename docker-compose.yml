@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   labstag-mariadb:
-    image: mariadb:10.4.11
+    image: mariadb:10.4.12
     container_name: labstag-mariadb
     restart: "no"
     environment:
