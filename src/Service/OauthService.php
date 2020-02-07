@@ -48,28 +48,15 @@ class OauthService
             case 'gitlab':
             case 'github':
             case 'discord':
-                if (!isset($data['id'])) {
-                    return;
-                }
-
-                $entity = $data['id'];
+                $this->caseDiscord($data, $entity);
 
                 break;
             case 'google':
-                if (!isset($data['sub'])) {
-                    return;
-                }
-
-                $entity = $data['sub'];
+                $this->caseGoogle($data, $entity);
 
                 break;
             case 'bitbucket':
-                if (!isset($data['uuid'])) {
-                    return;
-                }
-
-                $entity = $data['uuid'];
-
+                $this->caseBitbucket($data, $entity);
                 break;
             default:
                 break;
@@ -187,5 +174,41 @@ class OauthService
         }
 
         return $provider;
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    private function caseBitbucket(array $data, &$entity): void
+    {
+        if (!isset($data['uuid'])) {
+            return;
+        }
+
+        $entity = $data['uuid'];
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    private function caseGoogle(array $data, &$entity): void
+    {
+        if (!isset($data['sub'])) {
+            return;
+        }
+
+        $entity = $data['sub'];
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    private function caseDiscord(array $data, &$entity): void
+    {
+        if (!isset($data['id'])) {
+            return;
+        }
+
+        $entity = $data['id'];
     }
 }

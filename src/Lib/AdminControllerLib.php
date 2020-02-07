@@ -107,6 +107,11 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->twig('admin/crud/list.html.twig', $paramtwig);
     }
 
+    /**
+     * @throws HttpException
+     *
+     * @return RedirectResponse|Response
+     */
     protected function crudNewAction(array $data = [])
     {
         $tabDataCheck = [
@@ -161,7 +166,7 @@ abstract class AdminControllerLib extends ControllerLib
         return $this->crudShowForm($params);
     }
 
-    protected function crudEditAction(array $data = [])
+    protected function crudEditAction(array $data = []): response
     {
         $tabDataCheck  = [
             'form',
@@ -253,7 +258,8 @@ abstract class AdminControllerLib extends ControllerLib
             }
         }
 
-        $data          = json_decode($this->request->getContent(), true);
+        $data = json_decode($this->request->getContent(), true);
+        /** @var mixed $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
         $restore       = 0;
         $routeRedirect = $route['url_trash'];
@@ -380,7 +386,10 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
-    private function generateLogs(&$params, $data, $entityManager): void
+    /**
+     * @param mixed $entityManager
+     */
+    private function generateLogs(array &$params, array $data, $entityManager): void
     {
         $repository = $entityManager->getRepository(LogEntry::class);
         if (is_array($data['entity'])) {
@@ -438,28 +447,34 @@ abstract class AdminControllerLib extends ControllerLib
 
     private function setDatatable(array &$data): void
     {
-        foreach ($data['datatable'] as &$row) {
+        /** @var array $row */
+        foreach ($data['datatable'] as $id => $row) {
+            $newrow = $row;
             if (in_array($row['field'], ['updatedAt', 'createdAt'])) {
-                $row['align'] = 'right';
+                $newrow['align'] = 'right';
             }
 
             if (isset($row['formatter']) && in_array($row['formatter'], ['dataTotalFormatter'])) {
-                $row['align'] = 'right';
+                $newrow['align'] = 'right';
             }
 
             if (isset($row['formatter']) && in_array($row['formatter'], ['enableFormatter', 'imageFormatter'])) {
-                $row['align'] = 'center';
+                $newrow['align'] = 'center';
             }
 
             if (!isset($row['valign'])) {
-                $row['valign'] = 'top';
+                $newrow['valign'] = 'top';
             }
 
-            $row['sortable'] = true;
+            $newrow['sortable']     = true;
+            $data['datatable'][$id] = $newrow;
         }
     }
 
-    private function dateInTrash(array &$paramtwig, string $dataInTrash, array $data): void
+    /**
+     * @param mixed $dataInTrash
+     */
+    private function dateInTrash(array &$paramtwig, $dataInTrash, array $data): void
     {
         $route                  = $this->request->attributes->get('_route');
         $paramtwig['url_trash'] = $data['url_trash'];
@@ -477,7 +492,10 @@ abstract class AdminControllerLib extends ControllerLib
         }
     }
 
-    private function findEntity(bool $trash, ServiceEntityRepositoryLib $repository, string $dataInTrash)
+    /**
+     * @return mixed|null
+     */
+    private function findEntity(int $trash, ServiceEntityRepositoryLib $repository, string $dataInTrash)
     {
         if (0 == $trash) {
             return $repository->find($dataInTrash);
@@ -574,12 +592,16 @@ abstract class AdminControllerLib extends ControllerLib
 
     private function setMenuActualRoute(array &$menuadmin, string $actualroute): void
     {
-        foreach ($menuadmin as &$menu) {
+        /** @var array $menu */
+        foreach ($menuadmin as $id => $menu) {
+            $newmenu = $menu;
             if (isset($menu['child'])) {
-                $this->setMenuActualRoute($menu['child'], $actualroute);
+                $this->setMenuActualRoute($newmenu['child'], $actualroute);
             } elseif ($this->isActualRoute($menu['url'], $actualroute)) {
-                $menu['current'] = true;
+                $newmenu['current'] = true;
             }
+
+            $menuadmin[$id] = $newmenu;
         }
     }
 
@@ -589,16 +611,11 @@ abstract class AdminControllerLib extends ControllerLib
             return true;
         }
 
-        [
-            $controller1,
-            $route1,
-        ] = explode('_', $url);
-        [
-            $controller2,
-            $route2,
-        ] = explode('_', $actualroute);
-        unset($route1, $route2);
+        $explode     = explode('_', $url);
+        $controller1 = $explode[0];
+        $explode     = explode('_', $actualroute);
+        $controller2 = $explode[0];
 
-        return $controller1 == $controller2;
+        return 0 === strcmp((string) $controller1, (string) $controller2);
     }
 }

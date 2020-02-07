@@ -6,7 +6,10 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Phone;
 use Labstag\Entity\Templates;
+use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
+use Labstag\Repository\TemplatesRepository;
+use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -17,7 +20,7 @@ class PhoneListener extends EventSubscriberLib
 {
 
     /**
-     * @var Router
+     * @var RouterInterface|Router
      */
     protected $router;
 
@@ -34,17 +37,15 @@ class PhoneListener extends EventSubscriberLib
 
     /**
      * Sur quoi écouter.
-     *
-     * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::postPersist,
         ];
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if (!$entity instanceof Phone) {
@@ -54,20 +55,23 @@ class PhoneListener extends EventSubscriberLib
         $this->checkPhone($entity, $args);
     }
 
-    private function checkPhone(Phone $entity, $args)
+    private function checkPhone(Phone $entity, LifecycleEventArgs $args): void
     {
         $check = $entity->isChecked();
         if (true === $check) {
             return;
         }
 
-        $search     = ['code' => 'checked-phone'];
-        $manager    = $args->getEntityManager();
+        $search  = ['code' => 'checked-phone'];
+        $manager = $args->getEntityManager();
+        /** @var TemplatesRepository $repository */
         $repository = $manager->getRepository(Templates::class);
-        $templates  = $repository->findOneBy($search);
-        $html       = $templates->getHtml();
-        $text       = $templates->getText();
-        $user       = $entity->getRefuser();
+        /** @var Templates $templates */
+        $templates = $repository->findOneBy($search);
+        $html      = $templates->getHtml();
+        $text      = $templates->getText();
+        /** @var User $user */
+        $user = $entity->getRefuser();
         $this->setConfigurationParam($args);
         $replace = [
             '%site%'     => $this->configParams['site_title'],
@@ -95,6 +99,7 @@ class PhoneListener extends EventSubscriberLib
         $message->setTo($this->configParams['site_no-reply']);
         $message->setBody($html, 'text/html');
         $message->addPart($text, 'text/plain');
+        /** @var Swift_Mailer $mailer */
         $mailer = $this->container->get('swiftmailer.mailer.default');
         $mailer->send($message);
     }
