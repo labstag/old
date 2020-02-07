@@ -2480,16 +2480,16 @@
         },
         {
             "name": "knplabs/knp-components",
-            "version": "v2.3.0",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/knp-components.git",
-                "reference": "d61c56ff4d427a14f0c308ee388fb75e94d01a7c"
+                "reference": "024d538ee9150689da35c0cd54403606ecef0ff4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/d61c56ff4d427a14f0c308ee388fb75e94d01a7c",
-                "reference": "d61c56ff4d427a14f0c308ee388fb75e94d01a7c",
+                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/024d538ee9150689da35c0cd54403606ecef0ff4",
+                "reference": "024d538ee9150689da35c0cd54403606ecef0ff4",
                 "shasum": ""
             },
             "require": {
@@ -2551,7 +2551,7 @@
                 "pager",
                 "paginator"
             ],
-            "time": "2019-11-25T10:00:08+00:00"
+            "time": "2019-12-21T12:59:35+00:00"
         },
         {
             "name": "knplabs/knp-menu",
