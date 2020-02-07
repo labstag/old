@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b61707d3c00ccfa4507ed4951257ff7a",
+    "content-hash": "40a065e5bdc23bbc9ef8d3366e36d283",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -5437,16 +5437,16 @@
         },
         {
             "name": "scienta/doctrine-json-functions",
-            "version": "4.1.1",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ScientaNL/DoctrineJsonFunctions.git",
-                "reference": "34502880cef2eb06f62e381e71cc1e1f245dc2c9"
+                "reference": "6cab3f93a7415dbc889da15336c7605efbfe7bd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/34502880cef2eb06f62e381e71cc1e1f245dc2c9",
-                "reference": "34502880cef2eb06f62e381e71cc1e1f245dc2c9",
+                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/6cab3f93a7415dbc889da15336c7605efbfe7bd4",
+                "reference": "6cab3f93a7415dbc889da15336c7605efbfe7bd4",
                 "shasum": ""
             },
             "require": {
@@ -5495,7 +5495,7 @@
                 "postgresql",
                 "sqlite"
             ],
-            "time": "2019-12-13T10:04:29+00:00"
+            "time": "2020-02-07T11:05:21+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
