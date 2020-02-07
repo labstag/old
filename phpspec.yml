@@ -1,0 +1,4 @@
+suites:
+    default:
+        namespace: Labstag
+        psr4_prefix: Labstag

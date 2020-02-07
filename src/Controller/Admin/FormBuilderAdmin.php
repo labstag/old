@@ -82,6 +82,8 @@ class FormBuilderAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashview/{id}", name="adminformbuilder_trashview")
+     *
+     * @param mixed $id
      */
     public function trashView(ConfigurationRepository $repository, $id): Response
     {
@@ -100,6 +102,8 @@ class FormBuilderAdmin extends AdminControllerLib
 
     /**
      * @Route("/trashedit/{id}", name="adminformbuilder_trashedit", methods={"GET", "POST"})
+     *
+     * @param mixed $id
      */
     public function trashEdit(ConfigurationRepository $repository, $id): Response
     {
@@ -175,7 +179,7 @@ class FormBuilderAdmin extends AdminControllerLib
         );
     }
 
-    private function viewForm(Formbuilder $formbuilder)
+    private function viewForm(Formbuilder $formbuilder): Response
     {
         $route   = $this->request->attributes->get('_route');
         $urlList = 'adminformbuilder_list';
@@ -185,7 +189,8 @@ class FormBuilderAdmin extends AdminControllerLib
             $urlList = 'adminformbuilder_trashedit';
         }
 
-        $data = json_decode($formbuilder->getFormbuilder(), true);
+        /** @var array $data */
+        $data = json_decode((string) $formbuilder->getFormbuilder(), true);
         $form = $this->createForm(
             FormbuilderViewType::class,
             [],

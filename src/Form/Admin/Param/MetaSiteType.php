@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MetaSiteType extends AbstractTypeLibAdminParam
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('theme-color', ColorType::class);
         $builder->add('viewport', TextType::class, ['required' => false]);
@@ -19,7 +19,7 @@ class MetaSiteType extends AbstractTypeLibAdminParam
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         // Configure your form options here
         $resolver->setDefaults(

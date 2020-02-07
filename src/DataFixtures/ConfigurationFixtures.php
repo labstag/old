@@ -13,21 +13,22 @@ class ConfigurationFixtures extends Fixture
     /**
      * @var OauthService
      */
-    private $OauthService;
+    private $oauthService;
 
-    public function __construct(OauthService $OauthService)
+    public function __construct(OauthService $oauthService)
     {
-        $this->OauthService = $OauthService;
+        $this->oauthService = $oauthService;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->add($manager);
     }
 
-    private function add(ObjectManager $manager)
+    private function add(ObjectManager $manager): void
     {
-        $data  = [
+        $viewport = 'width=device-width, initial-scale=1, shrink-to-fit=no';
+        $data     = [
             'languagedefault' => 'fr',
             'language'        => [
                 'en',
@@ -37,10 +38,12 @@ class ConfigurationFixtures extends Fixture
             'site_no-reply'   => 'no-reply@labstag.fr',
             'site_title'      => 'labstag',
             'site_copyright'  => 'Copyright '.date('Y'),
+            'geonames_id'     => [],
+            'geonames_count'  => [],
             'oauth'           => [],
             'meta'            => [
                 [
-                    'viewport'    => 'width=device-width, initial-scale=1, shrink-to-fit=no',
+                    'viewport'    => $viewport,
                     'author'      => 'koromerzhin',
                     'theme-color' => '#ff0000',
                     'description' => '',
@@ -71,19 +74,29 @@ class ConfigurationFixtures extends Fixture
                 ],
             ],
         ];
-        $param = $_SERVER;
+
+        $names = explode(',', (string) getenv('SYMFONY_DOTENV_VARS'));
+        $env   = [];
+        foreach ($names as $name) {
+            $env[$name] = getenv($name);
+        }
+
+        ksort($env);
+        if (array_key_exists('GEONAMES_ID', $env)) {
+            $data['geonames_id'] = explode(',', (string) $env['GEONAMES_ID']);
+        }
+
         $oauth = [];
-        foreach ($param as $key => $val) {
+        foreach ($env as $key => $val) {
             if (0 != substr_count($key, 'OAUTH_')) {
-                $code = str_replace('OAUTH_', '', $key);
-                $code = strtolower($code);
-                [
-                    $type,
-                    $key,
-                ]     = explode('_', $code);
+                $code    = str_replace('OAUTH_', '', $key);
+                $code    = strtolower($code);
+                $explode = explode('_', $code);
+                $type    = $explode[0];
+                $key     = $explode[1];
                 if (!isset($oauth[$type])) {
                     $oauth[$type] = [
-                        'activate' => $this->OauthService->getActivedProvider($type),
+                        'activate' => $this->oauthService->getActivedProvider($type),
                         'type'     => $type,
                     ];
                 }
@@ -92,8 +105,9 @@ class ConfigurationFixtures extends Fixture
             }
         }
 
+        /** @var mixed $row */
         foreach ($oauth as $row) {
-            array_push($data['oauth'], $row);
+            $data['oauth'][] = $row;
         }
 
         foreach ($data as $key => $value) {

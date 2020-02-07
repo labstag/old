@@ -21,23 +21,29 @@ class PhoneTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var PhoneRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Phone::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertTrue($random instanceof Phone);
+            $this->assertSame(get_class($random), Phone::class);
+
+            return;
         }
+
+        $this->assertTrue(true);
     }
 }
