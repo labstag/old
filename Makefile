@@ -209,3 +209,7 @@ bdd-dev: ## Install BDD DEV
 .PHONY: watch
 watch: ## watch JS / CSS DEV
 	docker exec $(CONTAINER) npm run watch
+
+.PHONY: create-asset
+create-asset: ## create ASSET
+	docker exec $(CONTAINER) npm run dev
