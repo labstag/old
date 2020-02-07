@@ -3,10 +3,14 @@
 namespace Labstag\Service;
 
 use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberToCarrierMapper;
+use libphonenumber\PhoneNumberToTimeZonesMapper;
 use libphonenumber\PhoneNumberUtil;
 
 class PhoneService
 {
+
     /**
      * @var PhoneNumberUtil
      */
@@ -23,30 +27,47 @@ class PhoneService
      * @param string $numero Numéro de téléphone
      * @param string $locale code du pays
      *
-     * @return array
+     * @throws NumberParseException
      */
     public function verif(string $numero, string $locale): array
     {
-        $numero      = str_replace([' ', '-', '.'], '', $numero);
+        $numero         = str_replace([' ', '-', '.'], '', $numero);
+        $data           = [];
+        $timeZoneMapper = PhoneNumberToTimeZonesMapper::getInstance();
+        $carrier        = PhoneNumberToCarrierMapper::getInstance();
+
         try {
-            $numberProto = $this->phoneUtil->parseAndKeepRawInput(
+            $parse   = $this->phoneUtil->parse(
                 $numero,
                 strtoupper($locale)
             );
+            $isvalid = $this->phoneUtil->isValidNumber($parse);
 
-            $CountryCodeSource = $numberProto->getCountryCodeSource();
-            $nationalNumber    = $numberProto->getNationalNumber();
-            $json              = [
-                'country'       => $this->phoneUtil->getRegionCodeForNumber(
-                    $numberProto
+            $data['isvalid']   = $isvalid;
+            $data['format']    = [
+                'e164'          => $this->phoneUtil->format(
+                    $parse,
+                    PhoneNumberFormat::E164
                 ),
-                'international' => '+' . $numberProto->getNationalNumber(),
-                'num'           => $CountryCodeSource . $nationalNumber,
+                'national'      => $this->phoneUtil->format(
+                    $parse,
+                    PhoneNumberFormat::NATIONAL
+                ),
+                'international' => $this->phoneUtil->format(
+                    $parse,
+                    PhoneNumberFormat::INTERNATIONAL
+                ),
             ];
+            $data['timezones'] = $timeZoneMapper->getTimeZonesForNumber($parse);
+            $data['carrier']   = $carrier->getNameForNumber(
+                $parse,
+                strtoupper($locale)
+            );
+            $data['parse']     = $parse;
         } catch (NumberParseException $e) {
-            $json['error'] = $e->__toString();
+            $data['error'] = $e->__toString();
         }
 
-        return $json;
+        return $data;
     }
 }

@@ -1,3 +1,5 @@
+user := $(shell id -u)
+group := $(shell id -g)
 .DEFAULT_GOAL := help
 EXEC_PHP = ./bin/
 PHPDOCUMENTORURL = https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
@@ -12,14 +14,41 @@ help:
 .PHONY: commit
 commit: ## Commit data
 	npm run commit
-	
-.PHONY: install
-install: ## install
+
+.PHONY: install-dev
+install-dev: ## install DEV
 	make build -i
 	make start -i
-	make composer-install -i
-	npm install
+	make composer-install-dev -i
+	make npm-install -i
+	make bdd-dev -i
 	make migrate -i
+	make fixtures -i
+	docker exec $(CONTAINER) npm run dev
+	make stop -i
+
+
+.PHONY: npm-doctor
+npm-doctor: ## doctor NPM
+	docker exec $(CONTAINER) npm doctor
+
+.PHONY: npm-clean-install
+npm-clean-install: ## install PROD
+	docker exec $(CONTAINER) npm clean-install
+
+.PHONY: npm-install
+npm-install: ## install PROD
+	docker exec $(CONTAINER) npm install
+
+.PHONY: install-prod
+install-prod: ## install PROD
+	make build -i
+	make start -i
+	make composer-install-prod -i
+	npm install
+	make bdd-dev -i
+	make migrate -i
+	docker exec $(CONTAINER) npm run build
 	make stop -i
 
 .PHONY: migrate
@@ -43,9 +72,17 @@ restart: ## restart docker
 logs: ## logs docker
 	docker-compose logs -f
 
-.PHONY: composer-install
-composer-install: ## COMPOSER install
+.PHONY: logs-mariadb
+logs-mariadb: ## logs docker mariadb
+	docker-compose logs -f labstag-mariadb
+
+.PHONY: composer-install-dev
+composer-install-dev: ## COMPOSER install DEV
 	docker exec $(CONTAINER) composer install
+
+.PHONY: composer-install-prod
+composer-install-prod: ## COMPOSER install PROD
+	docker exec $(CONTAINER) composer install --no-dev
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
@@ -57,7 +94,7 @@ composer-validate: ## COMPOSER validate
 
 .PHONY: ssh
 ssh: ## SSH
-	docker exec -it $(CONTAINER) /bin/bash
+	docker-compose exec $(CONTAINER) /bin/bash
 
 .PHONY: stop
 stop: ## Stop docker
@@ -75,7 +112,7 @@ licenses: ## Show licenses
 	
 .PHONY: licensesPHP
 licensesPHP: ## Show licenses PHP
-	composer licenses
+	docker exec $(CONTAINER) composer licenses
 	
 .PHONY: licensesJSCSS
 licensesJSCSS: ## Show licenses JS / CSS
@@ -95,40 +132,48 @@ watch-localhost: ## WEBPACK DEV
 	
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
-	composer php-cs-fixer
+	docker exec $(CONTAINER) composer php-cs-fixer
 	
 .PHONY: phpcbf
 phpcbf: ## PHPCBF
-	composer phpcbf
+	docker exec $(CONTAINER) composer phpcbf
 	
 .PHONY: phpmd
 phpmd: ## PHPMD
-	composer phpmd
+	docker exec $(CONTAINER) composer phpmd
 	
 .PHONY: phpcs
 phpcs: ## PHPCS
-	composer phpcs
+	docker exec $(CONTAINER) composer phpcs
 	
 .PHONY: phpstan
 phpstan: ## PHPSTAN
-	composer phpstan
+	docker exec $(CONTAINER) composer phpstan
 	
 .PHONY: phpcpd
 phpcpd: ## PHPCPD
-	composer phpcpd
+	docker exec $(CONTAINER) composer phpcpd
 	
 .PHONY: phpmnd
 phpmnd: ## PHPMND
-	composer phpmnd
+	docker exec $(CONTAINER) composer phpmnd
 	
 .PHONY: twigcs
 twigcs: ## TWIGCS
-	composer twigcs
+	docker exec $(CONTAINER) composer twigcs
+
+.PHONY: fix
+fix: ## FIX CODE PHP
+	make phpcsfixer -i
+	make phpcbf -i
+
+.PHONY: fixaudit
+fixaudit: ## Fix and audit file
+	make fix -i
+	make audit -i
 
 .PHONY: audit
 audit: ## AUDIT CODE PHP
-	make phpcsfixer -i
-	make phpcbf -i
 	make phpmd -i
 	make phpcs -i
 	make phpstan -i
@@ -136,8 +181,18 @@ audit: ## AUDIT CODE PHP
 	make phpmnd -i
 	make twigcs -i
 
+.PHONY: fixtures
+fixtures: ## PHPUnit
+	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
+
+.PHONY: tests
+tests: ## tests
+	make phpunit -i
+
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 	docker exec $(CONTAINER) composer phpunit
-	make stop -i
+
+.PHONY: bdd-dev
+bdd-dev: ## Install BDD DEV
+	docker exec $(CONTAINER) cp .env.dist .env

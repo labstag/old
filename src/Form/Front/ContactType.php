@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractTypeLibFront
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('sujet', TextType::class);
         $builder->add('email', EmailType::class);
@@ -22,7 +22,7 @@ class ContactType extends AbstractTypeLibFront
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         // Configure your form options here
         $resolver->setDefaults(

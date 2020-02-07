@@ -8,26 +8,35 @@ use Labstag\Handler\ConfigurationPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\ConfigurationRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 class ConfigurationApi extends ApiControllerLib
 {
+
+    /**
+     * @var ConfigurationPublishingHandler
+     */
+    protected $publishingHandler;
+
     public function __construct(
-        ConfigurationPublishingHandler $configurationPublishingHandler,
+        ConfigurationPublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
         RouterInterface $router
     )
     {
-        $this->configurationPublishingHandler = $configurationPublishingHandler;
+        parent::__construct($container, $paginator, $requestStack, $router);
+        $this->publishingHandler = $handler;
     }
 
     public function __invoke(Configuration $data): Configuration
     {
-        $this->configurationPublishingHandler->handle($data);
+        $this->publishingHandler->handle($data);
 
         return $data;
     }
@@ -35,7 +44,7 @@ class ConfigurationApi extends ApiControllerLib
     /**
      * @Route("/api/configurations/trash", name="api_configurationtrash")
      */
-    public function trash(ConfigurationRepository $repository)
+    public function trash(ConfigurationRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
@@ -43,7 +52,7 @@ class ConfigurationApi extends ApiControllerLib
     /**
      * @Route("/api/configurations/trash", name="api_configurationtrashdelete", methods={"DELETE"})
      */
-    public function delete(ConfigurationRepository $repository)
+    public function delete(ConfigurationRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
@@ -51,7 +60,7 @@ class ConfigurationApi extends ApiControllerLib
     /**
      * @Route("/api/configurations/restore", name="api_configurationrestore", methods={"POST"})
      */
-    public function restore(ConfigurationRepository $repository)
+    public function restore(ConfigurationRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
@@ -59,7 +68,7 @@ class ConfigurationApi extends ApiControllerLib
     /**
      * @Route("/api/configurations/empty", name="api_configurationempty", methods={"POST"})
      */
-    public function vider(ConfigurationRepository $repository)
+    public function vider(ConfigurationRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }

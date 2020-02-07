@@ -7,14 +7,20 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Labstag\Controller\Api\UserApi;
+use Labstag\Entity\Traits\Bookmark;
+use Labstag\Entity\Traits\Email;
+use Labstag\Entity\Traits\History;
+use Labstag\Entity\Traits\OauthConnectUser;
+use Labstag\Entity\Traits\Phone;
+use Labstag\Entity\Traits\Post;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -96,12 +102,20 @@ class User implements UserInterface, \Serializable
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
+    use Bookmark;
+    use Email;
+    use History;
+    use OauthConnectUser;
+    use Phone;
+    use Post;
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $id;
 
@@ -109,6 +123,8 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $username;
 
@@ -120,12 +136,16 @@ class User implements UserInterface, \Serializable
      *     checkMX=true
      * )
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
      * @Groups({"get"})
+     *
+     * @var array
      */
     private $roles = [];
 
@@ -136,11 +156,16 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var string|null
+     */
     private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
      * @Groups({"write"})
+     *
+     * @var string
      */
     private $apiKey;
 
@@ -153,6 +178,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"get"})
+     *
+     * @var string
      */
     private $avatar;
 
@@ -160,7 +187,7 @@ class User implements UserInterface, \Serializable
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
      * @Assert\File(mimeTypes={"image/*"})
      *
-     * @var File
+     * @var File|null
      */
     private $imageFile;
 
@@ -168,6 +195,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $posts;
 
@@ -175,6 +204,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $oauthConnectUsers;
 
@@ -182,6 +213,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $histories;
 
@@ -189,6 +222,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $bookmarks;
 
@@ -196,6 +231,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $emails;
 
@@ -203,6 +240,8 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
      * @Groups({"get"})
+     *
+     * @var ArrayCollection
      */
     private $phones;
 
@@ -224,19 +263,27 @@ class User implements UserInterface, \Serializable
         $this->phones            = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getUsername();
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $image = null): self
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new DateTimeImmutable();
+            $dateTimeImmutable = new DateTimeImmutable();
+            $dateTime          = new DateTime();
+            $dateTime->setTimestamp($dateTimeImmutable->getTimestamp());
+            $this->updatedAt = $dateTime;
         }
+
+        return $this;
     }
 
+    /**
+     * @return File|null
+     */
     public function getImageFile()
     {
         return $this->imageFile;
@@ -247,7 +294,7 @@ class User implements UserInterface, \Serializable
         return $this->avatar;
     }
 
-    public function setAvatar($avatar): self
+    public function setAvatar(string $avatar): self
     {
         $this->avatar = $avatar;
 
@@ -305,6 +352,9 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @param mixed $role
+     */
     public function addRole($role): self
     {
         $roles       = $this->roles;
@@ -353,7 +403,7 @@ class User implements UserInterface, \Serializable
         return (string) $this->apiKey;
     }
 
-    public function setApiKey($apiKey): self
+    public function setApiKey(string $apiKey): self
     {
         $this->apiKey = $apiKey;
 
@@ -362,14 +412,19 @@ class User implements UserInterface, \Serializable
 
     /**
      * @see UserInterface
+     *
+     * @return string|null
      */
     public function getSalt()
     {
+        return '';
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
+     *
+     * @return mixed;
      */
     public function eraseCredentials()
     {
@@ -394,6 +449,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * {@inheritdoc}
+     *
+     * @param string $serialized
      */
     public function unserialize($serialized): void
     {
@@ -408,199 +465,18 @@ class User implements UserInterface, \Serializable
         );
     }
 
+    /**
+     * @return string|null
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->setPassword('');
         $this->plainPassword = $plainPassword;
-    }
-
-    /**
-     * @return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getRefuser() === $this) {
-                $post->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OauthConnectUser[]
-     */
-    public function getOauthConnectUsers(): Collection
-    {
-        return $this->oauthConnectUsers;
-    }
-
-    public function addOauthConnectUser(OauthConnectUser $oauthConnectUser): self
-    {
-        if (!$this->oauthConnectUsers->contains($oauthConnectUser)) {
-            $this->oauthConnectUsers[] = $oauthConnectUser;
-            $oauthConnectUser->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOauthConnectUser(OauthConnectUser $oauthConnectUser): self
-    {
-        if ($this->oauthConnectUsers->contains($oauthConnectUser)) {
-            $this->oauthConnectUsers->removeElement($oauthConnectUser);
-            // set the owning side to null (unless already changed)
-            if ($oauthConnectUser->getRefuser() === $this) {
-                $oauthConnectUser->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|History[]
-     */
-    public function getHistories(): Collection
-    {
-        return $this->histories;
-    }
-
-    public function addHistory(History $history): self
-    {
-        if (!$this->histories->contains($history)) {
-            $this->histories[] = $history;
-            $history->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHistory(History $history): self
-    {
-        if ($this->histories->contains($history)) {
-            $this->histories->removeElement($history);
-            // set the owning side to null (unless already changed)
-            if ($history->getRefuser() === $this) {
-                $history->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Bookmark[]|Collection
-     */
-    public function getBookmarks(): Collection
-    {
-        return $this->bookmarks;
-    }
-
-    public function addBookmark(Bookmark $bookmark): self
-    {
-        if (!$this->bookmarks->contains($bookmark)) {
-            $this->bookmarks[] = $bookmark;
-            $bookmark->setRefuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBookmark(Bookmark $bookmark): self
-    {
-        if ($this->bookmarks->contains($bookmark)) {
-            $this->bookmarks->removeElement($bookmark);
-            // set the owning side to null (unless already changed)
-            if ($bookmark->getRefuser() === $this) {
-                $bookmark->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Email[]
-     */
-    public function getEmails(): Collection
-    {
-        return $this->emails;
-    }
-
-    public function addEmail(Email $email): self
-    {
-        if (!$this->emails->contains($email)) {
-            $email->setRefuser($this);
-            $this->emails[] = $email;
-        }
-
-        return $this;
-    }
-
-    public function removeEmail(Email $email): self
-    {
-        if ($this->emails->contains($email)) {
-            $this->emails->removeElement($email);
-            // set the owning side to null (unless already changed)
-            if ($email->getRefuser() === $this) {
-                $email->setRefuser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Phone[]
-     */
-    public function getPhones(): Collection
-    {
-        return $this->phones;
-    }
-
-    public function addPhone(Phone $phone): self
-    {
-        if (!$this->phones->contains($phone)) {
-            $phone->setRefuser($this);
-            $this->phones[] = $phone;
-        }
-
-        return $this;
-    }
-
-    public function removePhone(Phone $phone): self
-    {
-        if ($this->phones->contains($phone)) {
-            $this->phones->removeElement($phone);
-            // set the owning side to null (unless already changed)
-            if ($phone->getRefuser() === $this) {
-                $phone->setRefuser(null);
-            }
-        }
 
         return $this;
     }

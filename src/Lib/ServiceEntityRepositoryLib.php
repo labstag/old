@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
 {
+    /**
+     * @return mixed
+     */
     public function findDataInTrash()
     {
         $entityManager = $this->getEntityManager();
@@ -18,10 +21,13 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         return $dql->getQuery()->getResult();
     }
 
+    /**
+     * @return mixed|null
+     */
     public function findOneDateInTrash(?string $guid)
     {
         if (is_null($guid)) {
-            return null;
+            return;
         }
 
         $entityManager = $this->getEntityManager();
@@ -35,6 +41,9 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         return $dql->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @return mixed|null
+     */
     public function findOneRandom(string $where = '', array $params = [])
     {
         $entityManager = $this->getEntityManager();
@@ -51,5 +60,10 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         $dql->setMaxResults(1);
 
         return $dql->getQuery()->getOneOrNullResult();
+    }
+
+    public function getDataArray(): array
+    {
+        return $this->createQueryBuilder('c')->getQuery()->getScalarResult();
     }
 }
