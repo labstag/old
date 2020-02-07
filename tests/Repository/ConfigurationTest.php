@@ -21,18 +21,20 @@ class ConfigurationTest extends RepositoryTestLib
     public function setUp(): void
     {
         parent::setUp();
-        $this->repository = $this->entityManager->getRepository(
+        /** @var ConfigurationRepository $repository */
+        $repository       = $this->entityManager->getRepository(
             Configuration::class
         );
+        $this->repository = $repository;
     }
 
-    public function testFindAll()
+    public function testFindAll(): void
     {
         $all = $this->repository->findAll();
         $this->assertTrue(is_array($all));
     }
 
-    public function testfindOneRandom()
+    public function testfindOneRandom(): void
     {
         $all = $this->repository->findAll();
         if (0 != count($all)) {
@@ -45,7 +47,7 @@ class ConfigurationTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testgetDataArray()
+    public function testgetDataArray(): void
     {
         $entities = $this->repository->getDataArray();
         $this->assertTrue(is_array($entities));

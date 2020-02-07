@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class WysiwygType extends AbstractTypeLibAdminParam
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $lang = $this->getFilesLang();
         $builder->add(
@@ -20,7 +20,7 @@ class WysiwygType extends AbstractTypeLibAdminParam
         unset($options);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         // Configure your form options here
         $resolver->setDefaults(
@@ -28,10 +28,11 @@ class WysiwygType extends AbstractTypeLibAdminParam
         );
     }
 
-    private function getFilesLang()
+    private function getFilesLang(): array
     {
         $tabLang = [];
-        $files   = glob('../node_modules/tinymce-i18n/langs/*');
+        /** @var array $files */
+        $files = glob('../node_modules/tinymce-i18n/langs/*');
         foreach ($files as $file) {
             $pathfile           = pathinfo($file);
             $filename           = $pathfile['filename'];

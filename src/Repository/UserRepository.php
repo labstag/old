@@ -7,8 +7,8 @@ use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
- * @method null|User find($id, $lockMode = null, $lockVersion = null)
- * @method null|User findOneBy(array $criteria, array $orderBy = null)
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -36,6 +36,9 @@ class UserRepository extends ServiceEntityRepositoryLib
     }
     */
 
+    /**
+     * @return User|void
+     */
     public function loginToken(?string $token)
     {
         if (is_null($token)) {
@@ -56,6 +59,9 @@ class UserRepository extends ServiceEntityRepositoryLib
         return $builder->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @return User|void
+     */
     public function login(?string $login)
     {
         if (is_null($login)) {

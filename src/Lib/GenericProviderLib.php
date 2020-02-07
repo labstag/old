@@ -7,30 +7,36 @@ use League\OAuth2\Client\Provider\GenericProvider;
 class GenericProviderLib extends GenericProvider
 {
 
+    /**
+     * @var array
+     */
     protected $scopes;
 
+    /**
+     * @var string
+     */
     protected $scopeSeparator;
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultScopes($scopes)
+    public function setDefaultScopes(array $scopes): void
     {
         $this->scopes = $scopes;
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return $this->scopes;
     }
 
-    public function setScopeSeparator($scopeSeparator)
+    public function setScopeSeparator(string $scopeSeparator): void
     {
         $this->scopeSeparator = $scopeSeparator;
     }
 
-    public function getScopeSeparator()
+    public function getScopeSeparator(): string
     {
-        return (!is_null($this->scopeSeparator)) ? $this->scopeSeparator : parent::getScopeSeparator();
+        return (!empty($this->scopeSeparator)) ? $this->scopeSeparator : parent::getScopeSeparator();
     }
 }
