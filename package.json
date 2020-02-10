@@ -84,7 +84,7 @@
     "sass-loader": "7.3.1",
     "semantic-git-commit-cli": "3.5.0",
     "stylelint": "13.0.0",
-    "stylelint-config-standard": "19.0.0",
+    "stylelint-config-standard": "20.0.0",
     "ts-loader": "6.2.1",
     "typescript": "3.7.5",
     "url-loader": "2.0.1",
