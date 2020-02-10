@@ -216,4 +216,4 @@ create-asset: ## create ASSET
 
 .PHONY: git-author
 git-author: ## git author
-	@git log --pretty=%ae|sort|uniq -c
+	@git log --pretty=%an\ \<%ae\>|sort|uniq -c
