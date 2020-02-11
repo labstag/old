@@ -37,6 +37,7 @@ services:
             - labstag-mariadb
         image: koromerzhin/phpfpm:7.4
         container_name: labstag-phpfpm7
+        restart: 'no'
         volumes:
             - ${PWD}/:/usr/local/apache2/htdocs
         links:
