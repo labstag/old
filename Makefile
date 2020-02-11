@@ -221,4 +221,5 @@ git-author: ## git author
 .PHONY: git-check
 git-check: ## CHECK git
 	@git prune
+	@git gc
 	@git fetch
