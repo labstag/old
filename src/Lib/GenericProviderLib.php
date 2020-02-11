@@ -8,9 +8,9 @@ class GenericProviderLib extends GenericProvider
 {
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $scopes;
+    protected $scopes = null;
 
     /**
      * @var string
@@ -25,7 +25,10 @@ class GenericProviderLib extends GenericProvider
         $this->scopes = $scopes;
     }
 
-    public function getDefaultScopes(): array
+    /**
+     * @return array|null
+     */
+    public function getDefaultScopes()
     {
         return $this->scopes;
     }
