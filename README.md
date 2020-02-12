@@ -16,6 +16,7 @@
   <a href="https://twitter.com/koromerzhin">
     <img alt="Twitter: koromerzhin" src="https://img.shields.io/twitter/follow/koromerzhin.svg?style=social" target="_blank" />
   </a>
+	
   ![Test suite](https://github.com/labstag/core/workflows/Test%20suite/badge.svg)
 </p>
 
