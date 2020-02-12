@@ -30,25 +30,25 @@ install-dev: ## install DEV
 	@make bdd-dev -i
 	@make migrate -i
 	@make fixtures -i
-	@docker-compose exec $(CONTAINER) npm run dev
+	docker-compose exec $(CONTAINER) npm run dev
 	@make stop -i
 
 
 .PHONY: npm-doctor
 npm-doctor: ## doctor NPM
-	@docker-compose exec $(CONTAINER) npm doctor
+	docker-compose exec $(CONTAINER) npm doctor
 
 .PHONY: npm-clean-install
 npm-clean-install: ## install PROD
-	@docker-compose exec $(CONTAINER) npm clean-install
+	docker-compose exec $(CONTAINER) npm clean-install
 
 .PHONY: npm-install
 npm-install: ## npm install PROD
-	@docker-compose exec $(CONTAINER) npm install
+	docker-compose exec $(CONTAINER) npm install
 
 .PHONY: npm-update
 npm-update: ## npm update PROD
-	@docker-compose exec $(CONTAINER) npm update
+	docker-compose exec $(CONTAINER) npm update
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -58,33 +58,33 @@ install-prod: ## install PROD
 	@npm install
 	@make bdd-dev -i
 	@make migrate -i
-	@docker-compose exec $(CONTAINER) npm run build
+	docker-compose exec $(CONTAINER) npm run build
 	@make stop -i
 
 .PHONY: migrate
 migrate: ## migrate database
-	@docker-compose exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
+	docker-compose exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
 
 .PHONY: build
 build: ## build docker
-	@docker-compose build
+	docker-compose build
 
 .PHONY: start
 start: ## Start docker
-	@docker-compose up -d
+	docker-compose up -d
 
 .PHONY: restart
 restart: ## restart docker
-	@docker-compose stop
-	@docker-compose up -d
+	docker-compose stop
+	docker-compose up -d
 
 .PHONY: logs
 logs: ## logs docker
-	@docker-compose logs -f
+	docker-compose logs -f
 
 .PHONY: logs-mariadb
 logs-mariadb: ## logs docker mariadb
-	@docker-compose logs -f labstag-mariadb
+	docker-compose logs -f labstag-mariadb
 
 .PHONY: composer-install-dev
 composer-install-dev: ## COMPOSER install DEV
