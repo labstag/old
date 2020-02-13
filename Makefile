@@ -30,25 +30,25 @@ install-dev: ## install DEV
 	@make bdd-dev -i
 	@make migrate -i
 	@make fixtures -i
-	docker-compose exec $(CONTAINER) npm run dev
+	docker exec $(CONTAINER) npm run dev
 	@make stop -i
 
 
 .PHONY: npm-doctor
 npm-doctor: ## doctor NPM
-	docker-compose exec $(CONTAINER) npm doctor
+	docker exec $(CONTAINER) npm doctor
 
 .PHONY: npm-clean-install
 npm-clean-install: ## install PROD
-	docker-compose exec $(CONTAINER) npm clean-install
+	docker exec $(CONTAINER) npm clean-install
 
 .PHONY: npm-install
 npm-install: ## npm install PROD
-	docker-compose exec $(CONTAINER) npm install
+	docker exec $(CONTAINER) npm install
 
 .PHONY: npm-update
 npm-update: ## npm update PROD
-	docker-compose exec $(CONTAINER) npm update
+	docker exec $(CONTAINER) npm update
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -58,12 +58,12 @@ install-prod: ## install PROD
 	@npm install
 	@make bdd-dev -i
 	@make migrate -i
-	docker-compose exec $(CONTAINER) npm run build
+	docker exec $(CONTAINER) npm run build
 	@make stop -i
 
 .PHONY: migrate
 migrate: ## migrate database
-	docker-compose exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
+	docker exec $(CONTAINER) php bin/console doctrine:migrations:migrate -n
 
 .PHONY: build
 build: ## build docker
@@ -88,23 +88,23 @@ logs-mariadb: ## logs docker mariadb
 
 .PHONY: composer-install-dev
 composer-install-dev: ## COMPOSER install DEV
-	docker-compose exec $(CONTAINER) composer install
+	docker exec $(CONTAINER) composer install
 
 .PHONY: composer-install-prod
 composer-install-prod: ## COMPOSER install PROD
-	docker-compose exec $(CONTAINER) composer install --no-dev
+	docker exec $(CONTAINER) composer install --no-dev
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
-	docker-compose exec $(CONTAINER) composer update
+	docker exec $(CONTAINER) composer update
 
 .PHONY: composer-validate
 composer-validate: ## COMPOSER validate
-	docker-compose exec $(CONTAINER) composer validate
+	docker exec $(CONTAINER) composer validate
 
 .PHONY: ssh
 ssh: ## SSH
-	docker-compose exec $(CONTAINER) /bin/bash
+	docker exec $(CONTAINER) /bin/bash
 
 .PHONY: stop
 stop: ## Stop docker
@@ -122,7 +122,7 @@ licenses: ## Show licenses
 	
 .PHONY: licensesPHP
 licensesPHP: ## Show licenses PHP
-	docker-compose exec $(CONTAINER) composer licenses
+	docker exec $(CONTAINER) composer licenses
 	
 .PHONY: licensesJSCSS
 licensesJSCSS: ## Show licenses JS / CSS
@@ -142,35 +142,35 @@ watch-localhost: ## WEBPACK DEV
 	
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
-	docker-compose exec $(CONTAINER) composer php-cs-fixer
+	docker exec $(CONTAINER) composer php-cs-fixer
 	
 .PHONY: phpcbf
 phpcbf: ## PHPCBF
-	docker-compose exec $(CONTAINER) composer phpcbf
+	docker exec $(CONTAINER) composer phpcbf
 	
 .PHONY: phpmd
 phpmd: ## PHPMD
-	docker-compose exec $(CONTAINER) composer phpmd
+	docker exec $(CONTAINER) composer phpmd
 	
 .PHONY: phpcs
 phpcs: ## PHPCS
-	docker-compose exec $(CONTAINER) composer phpcs
+	docker exec $(CONTAINER) composer phpcs
 	
 .PHONY: phpstan
 phpstan: ## PHPSTAN
-	docker-compose exec $(CONTAINER) composer phpstan
+	docker exec $(CONTAINER) composer phpstan
 	
 .PHONY: phpcpd
 phpcpd: ## PHPCPD
-	docker-compose exec $(CONTAINER) composer phpcpd
+	docker exec $(CONTAINER) composer phpcpd
 	
 .PHONY: phpmnd
 phpmnd: ## PHPMND
-	docker-compose exec $(CONTAINER) composer phpmnd
+	docker exec $(CONTAINER) composer phpmnd
 	
 .PHONY: twigcs
 twigcs: ## TWIGCS
-	docker-compose exec $(CONTAINER) composer twigcs
+	docker exec $(CONTAINER) composer twigcs
 
 .PHONY: fix
 fix: ## FIX CODE PHP
@@ -193,7 +193,7 @@ audit: ## AUDIT CODE PHP
 
 .PHONY: fixtures
 fixtures: ## PHPUnit
-	docker-compose exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
+	docker exec $(CONTAINER) php bin/console doctrine:fixtures:load -n
 
 .PHONY: tests
 tests: ## tests
@@ -201,19 +201,19 @@ tests: ## tests
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	docker-compose exec $(CONTAINER) composer phpunit
+	docker exec $(CONTAINER) composer phpunit
 
 .PHONY: bdd-dev
 bdd-dev: ## Install BDD DEV
-	docker-compose exec $(CONTAINER) cp .env.dist .env
+	docker exec $(CONTAINER) cp .env.dist .env
 
 .PHONY: watch
 watch: ## watch JS / CSS DEV
-	docker-compose exec $(CONTAINER) npm run watch
+	docker exec $(CONTAINER) npm run watch
 
 .PHONY: create-asset
 create-asset: ## create ASSET
-	docker-compose exec $(CONTAINER) npm run dev
+	docker exec $(CONTAINER) npm run dev
 
 .PHONY: git-author
 git-author: ## git author
