@@ -88,7 +88,7 @@ logs-mariadb: ## logs docker mariadb
 
 .PHONY: composer-install-dev
 composer-install-dev: ## COMPOSER install DEV
-	docker exec $(CONTAINER) composer install
+	docker exec -it $(CONTAINER) composer install
 
 .PHONY: composer-install-prod
 composer-install-prod: ## COMPOSER install PROD
@@ -96,7 +96,7 @@ composer-install-prod: ## COMPOSER install PROD
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
-	docker exec $(CONTAINER) composer update
+	docker exec -it $(CONTAINER) composer update
 
 .PHONY: composer-validate
 composer-validate: ## COMPOSER validate
@@ -104,7 +104,7 @@ composer-validate: ## COMPOSER validate
 
 .PHONY: ssh
 ssh: ## SSH
-	docker exec $(CONTAINER) /bin/bash
+	docker exec -it $(CONTAINER) /bin/bash
 
 .PHONY: stop
 stop: ## Stop docker

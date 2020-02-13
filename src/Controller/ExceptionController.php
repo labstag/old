@@ -12,6 +12,7 @@ namespace Labstag\Controller;
 
 use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Lib\ControllerLib;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,9 +42,22 @@ class ExceptionController extends ControllerLib
     protected $debug;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param bool $debug Show error (false) or exception (true) pages by default
      */
-    public function __construct(Environment $twig, ContainerInterface $container, PaginatorInterface $paginator, RequestStack $requestStack, RouterInterface $router, bool $debug)
+    public function __construct(
+        Environment $twig,
+        ContainerInterface $container,
+        PaginatorInterface $paginator,
+        RequestStack $requestStack,
+        RouterInterface $router,
+        bool $debug,
+        LoggerInterface $logger
+    )
     {
         parent::__construct($container, $paginator, $requestStack, $router);
         $this->twig  = $twig;
@@ -158,8 +172,8 @@ class ExceptionController extends ControllerLib
             $loader->getSourceContext($template)->getCode();
 
             return true;
-        } catch (LoaderError $error) {
-            return $error->getMessage();
+        } catch (LoaderError $exception) {
+            return $exception->getMessage();
         }
     }
 }
