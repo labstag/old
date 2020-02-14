@@ -13,6 +13,7 @@ use Labstag\Entity\Post;
 use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\TagsRepository;
 use Labstag\Repository\UserRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
@@ -34,8 +35,19 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
      */
     private $tagsRepository;
 
-    public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, TagsRepository $tagsRepository)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(
+        UserRepository $userRepository,
+        CategoryRepository $categoryRepository,
+        TagsRepository $tagsRepository,
+        LoggerInterface $logger
+    )
     {
+        $this->logger             = $logger;
         $this->userRepository     = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagsRepository     = $tagsRepository;
@@ -106,6 +118,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
                 $post->setImageFile($file);
             } catch (Exception $exception) {
+                $this->logger->error($exception->getMessage());
                 echo $exception->getMessage();
             }
 

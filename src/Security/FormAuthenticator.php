@@ -122,6 +122,7 @@ class FormAuthenticator extends AbstractFormLoginAuthenticator
 
     /**
      * @param string $providerKey
+     *
      * @return RedirectResponse
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)

@@ -13,16 +13,16 @@ use Labstag\Service\OauthService;
 use League\OAuth2\Client\Provider\GenericResourceOwner;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
-use League\OAuth2\Client\Token\AccessTokenInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 
 class OauthController extends ControllerLib
@@ -38,10 +38,11 @@ class OauthController extends ControllerLib
         OauthService $oauthService,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
-        RouterInterface $router
+        RouterInterface $router,
+        LoggerInterface $logger
     )
     {
-        parent::__construct($container, $paginator, $requestStack, $router);
+        parent::__construct($container, $paginator, $requestStack, $router, $logger);
         $this->oauthService = $oauthService;
     }
 
@@ -160,21 +161,23 @@ class OauthController extends ControllerLib
             /** @var UsageTrackingTokenStorage $tokenStorage */
             $tokenStorage = $this->get('security.token_storage');
             /** @var TokenInterface $token */
-            $token        = $tokenStorage->getToken();
+            $token = $tokenStorage->getToken();
             if (!($token instanceof AnonymousToken)) {
                 $userOauth = $provider->getResourceOwner($tokenProvider);
                 $user      = $token->getUser();
                 if (!is_object($user) || !($user instanceof User)) {
                     $this->addFlash('warning', "Probleme d'identification");
+
                     return $this->redirect($referer);
                 }
 
-                /** @var User $user */
+                /* @var User $user */
                 $this->addOauthToUser($oauthCode, $user, $userOauth);
             }
 
             return $this->redirect($referer);
         } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
             $this->addFlash('warning', "Probleme d'identification");
 
             return $this->redirect($referer);
@@ -194,6 +197,7 @@ class OauthController extends ControllerLib
         }
 
         $oauthConnect = null;
+
         return false;
     }
 
@@ -229,6 +233,7 @@ class OauthController extends ControllerLib
             $manager->persist($oauthConnect);
             $manager->flush();
             $this->addFlash('success', 'Compte associé');
+
             return;
         }
 

@@ -10,6 +10,7 @@ use Labstag\Lib\GenericProviderLib;
 use Labstag\Repository\OauthConnectUserRepository;
 use Labstag\Service\OauthService;
 use League\OAuth2\Client\Token\AccessToken;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,6 +86,11 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $tokenStorage;
 
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     public function __construct(
         ContainerInterface $container,
         EntityManagerInterface $entityManager,
@@ -93,9 +99,11 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
         UserPasswordEncoderInterface $passwordEncoder,
         OauthService $oauthService,
         RequestStack $requestStack,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        LoggerInterface $logger
     )
     {
+        $this->logger           = $logger;
         $this->container        = $container;
         $this->entityManager    = $entityManager;
         $this->urlGenerator     = $urlGenerator;
@@ -147,6 +155,8 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
             return ['user' => $userOauth];
         } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+
             return [];
         }
     }
@@ -194,6 +204,7 @@ class OauthAuthenticator extends AbstractFormLoginAuthenticator
 
     /**
      * @param string $providerKey
+     *
      * @return RedirectResponse
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)

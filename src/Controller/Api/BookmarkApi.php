@@ -7,6 +7,7 @@ use Labstag\Entity\Bookmark;
 use Labstag\Handler\BookmarkPublishingHandler;
 use Labstag\Lib\ApiControllerLib;
 use Labstag\Repository\BookmarkRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -27,10 +28,11 @@ class BookmarkApi extends ApiControllerLib
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
-        RouterInterface $router
+        RouterInterface $router,
+        LoggerInterface $logger
     )
     {
-        parent::__construct($container, $paginator, $requestStack, $router);
+        parent::__construct($container, $paginator, $requestStack, $router, $logger);
         $this->publishingHandler = $handler;
     }
 

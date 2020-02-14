@@ -10,7 +10,7 @@ class GenericProviderLib extends GenericProvider
     /**
      * @var array|null
      */
-    protected $scopes = null;
+    protected $scopes;
 
     /**
      * @var string

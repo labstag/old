@@ -11,6 +11,7 @@ use Faker\Factory;
 use finfo;
 use Labstag\Entity\History;
 use Labstag\Repository\UserRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HistoryFixtures extends Fixture implements DependentFixtureInterface
@@ -22,8 +23,14 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(UserRepository $userRepository, LoggerInterface $logger)
     {
+        $this->logger         = $logger;
         $this->userRepository = $userRepository;
     }
 
@@ -88,6 +95,7 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
                 $history->setImageFile($file);
             } catch (Exception $exception) {
+                $this->logger->error($exception->getMessage());
                 echo $exception->getMessage();
             }
 
