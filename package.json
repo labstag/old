@@ -2,92 +2,29 @@
   "name": "@labstag/core",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "license": "MIT",
-  "directories": {
-    "test": "tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/labstag/core.git"
-  },
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/labstag/core/issues"
-  },
-  "homepage": "https://github.com/labstag/core#readme",
   "scripts": {
+    "licenses": "license-checker",
     "contributors": "all-contributors",
     "changelog": "gitmoji-changelog",
     "readme": "readme",
-    "stylelint": "stylelint assets/scss/**/*.scss",
-    "commit": "sgc",
-    "licenses": "license-checker",
-    "dev-server": "encore dev-server",
-    "dev": "encore dev",
-    "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "commit": "sgc"
   },
-  "dependencies": {
-    "@fancyapps/fancybox": "^3.5.7",
-    "@fortawesome/fontawesome-free": "^5.12.1",
-    "@fullcalendar/core": "^4.3.0",
-    "@fullcalendar/daygrid": "^4.3.0",
-    "@fullcalendar/list": "^4.3.0",
-    "@fullcalendar/timegrid": "^4.3.0",
-    "bootstrap": "^4.3.1",
-    "bootstrap-datepicker": "^1.8.0",
-    "bootstrap-select": "^1.13.10",
-    "bootstrap-table": "^1.15.4",
-    "chart.js": "^2.8.0",
-    "detect-mobile-browser": "^5.0.0",
-    "formBuilder": "^3.4.0",
-    "formbuilder-languages": "^1.0.0",
-    "fullcalendar": "^3.10.1",
-    "jquery": "^3.4.1",
-    "jquery-resizable-columns": "^0.2.3",
-    "jquery-ui": "^1.12.1",
-    "jsplumb": "^2.12.9",
-    "moment": "^2.24.0",
-    "npm-check": "^5.9.0",
-    "pdfmake": "^0.1.64",
-    "prismjs": "^1.19.0",
-    "selectize": "^0.12.6",
-    "selectize.js": "^0.12.12",
-    "tableexport.jquery.plugin": "^1.10.15",
-    "tinymce": "^5.1.6",
-    "tinymce-i18n": "^19.4.15",
-    "whatwg-fetch": "^3.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koromerzhin/new-project-php.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koromerzhin/new-project-php/issues"
+  },
+  "homepage": "https://github.com/koromerzhin/new-project-php#readme",
   "devDependencies": {
-    "@babel/preset-env": "7.8.4",
-    "@symfony/webpack-encore": "0.28.2",
-    "@types/tinymce": "4.5.23",
     "all-contributors-cli": "6.13.0",
-    "babel-loader": "8.0.6",
-    "copy-webpack-plugin": "5.1.1",
-    "core-js": "3.6.4",
-    "eslint": "6.8.0",
-    "eslint-plugin-dollar-sign": "1.0.2",
-    "eslint-plugin-varspacing": "1.2.1",
-    "fork-ts-checker-webpack-plugin": "4.0.4",
     "gitmoji-changelog": "2.1.0",
-    "jscpd": "2.0.16",
-    "jspdf": "1.5.3",
-    "jszip": "3.2.2",
-    "less-loader": "4.1.0",
     "license-checker": "25.0.1",
-    "mini-css-extract-plugin": "0.9.0",
-    "node-sass": "4.13.1",
-    "popper.js": "1.16.1",
     "readme-md-generator": "1.0.0",
-    "sass-loader": "7.3.1",
-    "semantic-git-commit-cli": "3.5.0",
-    "stylelint": "13.2.0",
-    "stylelint-config-standard": "20.0.0",
-    "ts-loader": "6.2.1",
-    "typescript": "3.7.5",
-    "url-loader": "2.0.1",
-    "webpack-notifier": "1.8.0"
+    "semantic-git-commit-cli": "3.5.0"
   }
 }
