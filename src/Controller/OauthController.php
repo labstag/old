@@ -174,7 +174,7 @@ class OauthController extends ControllerLib
             }
 
             return $this->redirect($referer);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->addFlash('warning', "Probleme d'identification");
 
             return $this->redirect($referer);
