@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8213c15bc57d2c1ac00fa256246af9e",
+    "content-hash": "daee455b76096d206fcf6f5b7f2ba619",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -11441,16 +11441,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "2.4.8",
+            "version": "2.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "dc94f53f651bfb32766902e5d4198780245d8382"
+                "reference": "3b1e93023599b56568147761d94260443800a19f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/dc94f53f651bfb32766902e5d4198780245d8382",
-                "reference": "dc94f53f651bfb32766902e5d4198780245d8382",
+                "url": "https://api.github.com/repos/phan/phan/zipball/3b1e93023599b56568147761d94260443800a19f",
+                "reference": "3b1e93023599b56568147761d94260443800a19f",
                 "shasum": ""
             },
             "require": {
@@ -11468,7 +11468,7 @@
                 "symfony/polyfill-mbstring": "^1.11.0"
             },
             "require-dev": {
-                "brianium/paratest": "^3.1.2",
+                "brianium/paratest": "^4.0.0",
                 "phpunit/phpunit": "^7.5.0"
             },
             "suggest": {
@@ -11510,7 +11510,7 @@
                 "php",
                 "static"
             ],
-            "time": "2020-01-25T17:22:42+00:00"
+            "time": "2020-02-13T14:52:18+00:00"
         },
         {
             "name": "phar-io/manifest",
