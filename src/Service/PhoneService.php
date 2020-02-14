@@ -64,8 +64,8 @@ class PhoneService
                 strtoupper($locale)
             );
             $data['parse']     = $parse;
-        } catch (NumberParseException $e) {
-            $data['error'] = $e->__toString();
+        } catch (NumberParseException $exception) {
+            $data['error'] = $exception->__toString();
         }
 
         return $data;
