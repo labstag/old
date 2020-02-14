@@ -16,8 +16,9 @@ help:
 commit: ## Commit data
 	@npm run commit
 
-.PHONY: update-dev
-update-dev: ## update DEV
+.PHONY: update
+update: ## update DEPEDENCIES
+	npm update
 	@make composer-update -i
 	@make npm-update -i
 
