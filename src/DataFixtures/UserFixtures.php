@@ -12,10 +12,22 @@ use finfo;
 use Labstag\Entity\Email;
 use Labstag\Entity\Phone;
 use Labstag\Entity\User;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $this->add($manager);
@@ -114,6 +126,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
                 $user->setImageFile($file);
             } catch (Exception $exception) {
+                $this->logger->error($exception->getMessage());
                 echo $exception->getMessage();
             }
 

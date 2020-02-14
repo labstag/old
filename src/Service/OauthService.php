@@ -77,8 +77,6 @@ class OauthService
         if (isset($this->configProvider[$clientName])) {
             return $this->initProvider($clientName);
         }
-
-        return;
     }
 
     public function getActivedProvider(?string $clientName): bool

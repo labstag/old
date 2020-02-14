@@ -7,6 +7,7 @@ use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberToCarrierMapper;
 use libphonenumber\PhoneNumberToTimeZonesMapper;
 use libphonenumber\PhoneNumberUtil;
+use Psr\Log\LoggerInterface;
 
 class PhoneService
 {
@@ -16,8 +17,14 @@ class PhoneService
      */
     private $phoneUtil;
 
-    public function __construct()
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
+        $this->logger    = $logger;
         $this->phoneUtil = PhoneNumberUtil::getInstance();
     }
 
@@ -65,7 +72,8 @@ class PhoneService
             );
             $data['parse']     = $parse;
         } catch (NumberParseException $exception) {
-            $data['error'] = $exception->__toString();
+            $this->logger->error($exception->getMessage());
+            $data['error'] = $exception->getMessage();
         }
 
         return $data;

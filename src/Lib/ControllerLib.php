@@ -8,6 +8,7 @@ use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Labstag\Entity\Configuration;
 use Labstag\Repository\ConfigurationRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,6 +39,11 @@ abstract class ControllerLib extends AbstractController
     protected $container;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @var PaginatorInterface
      */
     private $paginator;
@@ -61,9 +67,11 @@ abstract class ControllerLib extends AbstractController
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
-        RouterInterface $router
+        RouterInterface $router,
+        LoggerInterface $logger
     )
     {
+        $this->logger       = $logger;
         $this->paramViews   = [];
         $this->container    = $container;
         $this->paginator    = $paginator;

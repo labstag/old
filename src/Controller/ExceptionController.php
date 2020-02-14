@@ -42,11 +42,6 @@ class ExceptionController extends ControllerLib
     protected $debug;
 
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * @param bool $debug Show error (false) or exception (true) pages by default
      */
     public function __construct(
@@ -59,7 +54,7 @@ class ExceptionController extends ControllerLib
         LoggerInterface $logger
     )
     {
-        parent::__construct($container, $paginator, $requestStack, $router);
+        parent::__construct($container, $paginator, $requestStack, $router, $logger);
         $this->twig  = $twig;
         $this->debug = $debug;
     }
@@ -173,6 +168,8 @@ class ExceptionController extends ControllerLib
 
             return true;
         } catch (LoaderError $exception) {
+            $this->logger->error($exception->getMessage());
+
             return $exception->getMessage();
         }
     }
