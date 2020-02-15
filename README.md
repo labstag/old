@@ -28,14 +28,24 @@
 
 ```sh
 make install-dev
-make start
 ```
 
 ## Install prod 
 
 ```sh
 make install-prod
+```
+
+## start
+
+```sh
 make start
+```
+
+## stop
+
+```sh
+make stop
 ```
 
 ## Author

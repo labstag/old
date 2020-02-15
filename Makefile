@@ -16,13 +16,15 @@ help:
 commit: ## Commit data
 	@npm run commit
 
-.PHONY: update-dev
-update-dev: ## update DEV
+.PHONY: update
+update: ## update DEPEDENCIES
+	npm update
 	@make composer-update -i
 	@make npm-update -i
 
 .PHONY: install-dev
 install-dev: ## install DEV
+	npm install
 	@make build -i
 	@make start -i
 	@make composer-install-dev -i
@@ -52,10 +54,11 @@ npm-update: ## npm update PROD
 
 .PHONY: install-prod
 install-prod: ## install PROD
+	npm install
 	@make build -i
 	@make start -i
 	@make composer-install-prod -i
-	@npm install
+	@make npm-install -i
 	@make bdd-dev -i
 	@make migrate -i
 	docker exec $(CONTAINER) npm run build
