@@ -1,16 +1,16 @@
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/.env
-/public/bundles/
-/var/
-/vendor/
+/apps/.env.local
+/apps/.env.local.php
+/apps/.env.*.local
+/apps/.env
+/apps/public/bundles/
+/apps/var/
+/apps/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit
-/phpunit.xml
+apps/.phpunit
+/apps/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/web-server-bundle ###
@@ -23,33 +23,34 @@
 ###< friendsofphp/php-cs-fixer ###
 
 ###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
+/apps/.phpcs-cache
+/apps/phpcs.xml
 ###< squizlabs/php_codesniffer ###
 
-/bin
-!/bin/console
+/apps/bin
+!/apps/bin/console
 /phpDocumentor.phar
 /output
 /phpdoc
 /jdepend.svg
 /pyramid.svg
 /summary.xml
-public/file
+apps/public/file
 
 ###> phpunit/phpunit ###
-/phpunit.xml
+/apps/phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 ###> symfony/webpack-encore-bundle ###
+/apps/node_modules/
 /node_modules/
-/public/build/
+/apps/public/build/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-public/robots.txt
+apps/public/robots.txt
 ###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
+/apps/config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 /.history
 /mariadb

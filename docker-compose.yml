@@ -24,7 +24,7 @@ services:
         container_name: labstag-aphp7
         restart: 'no'
         volumes:
-            - ${PWD}/:/usr/local/apache2/htdocs/
+            - ${PWD}/apps:/usr/local/apache2/htdocs/
         ports:
             - 8087:80
         links:
@@ -39,7 +39,7 @@ services:
         container_name: labstag-phpfpm7
         restart: 'no'
         volumes:
-            - ${PWD}/:/usr/local/apache2/htdocs
+            - ${PWD}/apps:/usr/local/apache2/htdocs
         links:
             - labstag-mariadb:mariadb
         networks:
