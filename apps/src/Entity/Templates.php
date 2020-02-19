@@ -130,7 +130,7 @@ class Templates
 
     public function getName(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function setName(string $name): self
@@ -154,7 +154,7 @@ class Templates
 
     public function getHtml(): string
     {
-        return $this->html;
+        return (string) $this->html;
     }
 
     public function setHtml(string $html): self
@@ -166,7 +166,7 @@ class Templates
 
     public function getText(): string
     {
-        return $this->text;
+        return (string) $this->text;
     }
 
     public function setText(string $text): self

@@ -184,7 +184,7 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function getRefhistory(): History
+    public function getRefhistory(): ?History
     {
         return $this->refhistory;
     }
