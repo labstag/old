@@ -68,8 +68,8 @@ class EmailListener extends EventSubscriberLib
         $repository = $manager->getRepository(Template::class);
         /** @var Template $template */
         $template = $repository->findOneBy($search);
-        $html      = $template->getHtml();
-        $text      = $template->getText();
+        $html     = $template->getHtml();
+        $text     = $template->getText();
         /** @var User $user */
         $user = $entity->getRefuser();
         $this->setConfigurationParam($args);

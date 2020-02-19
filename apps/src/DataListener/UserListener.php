@@ -98,8 +98,8 @@ class UserListener extends EventSubscriberLib
         $search     = ['code' => 'lost-password'];
         /** @var Template $template */
         $template = $repository->findOneBy($search);
-        $html      = $template->getHtml();
-        $text      = $template->getText();
+        $html     = $template->getHtml();
+        $text     = $template->getText();
         $this->setConfigurationParam($args);
         $replace = [
             '%site%'     => $this->configParams['site_title'],
