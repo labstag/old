@@ -3,10 +3,10 @@
 namespace Labstag\Controller\Api;
 
 use Knp\Component\Pager\PaginatorInterface;
-use Labstag\Entity\Templates;
-use Labstag\Handler\TemplatesPublishingHandler;
+use Labstag\Entity\Template;
+use Labstag\Handler\TemplatePublishingHandler;
 use Labstag\Lib\ApiControllerLib;
-use Labstag\Repository\TemplatesRepository;
+use Labstag\Repository\TemplateRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,16 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-class TemplatesApi extends ApiControllerLib
+class TemplateApi extends ApiControllerLib
 {
 
     /**
-     * @var TemplatesPublishingHandler
+     * @var TemplatePublishingHandler
      */
     protected $publishingHandler;
 
     public function __construct(
-        TemplatesPublishingHandler $handler,
+        TemplatePublishingHandler $handler,
         ContainerInterface $container,
         PaginatorInterface $paginator,
         RequestStack $requestStack,
@@ -36,7 +36,7 @@ class TemplatesApi extends ApiControllerLib
         $this->publishingHandler = $handler;
     }
 
-    public function __invoke(Templates $data): Templates
+    public function __invoke(Template $data): Template
     {
         $this->publishingHandler->handle($data);
 
@@ -44,33 +44,33 @@ class TemplatesApi extends ApiControllerLib
     }
 
     /**
-     * @Route("/api/templates/trash", name="api_templatestrash")
+     * @Route("/api/template/trash", name="api_templatetrash")
      */
-    public function trash(TemplatesRepository $repository): Response
+    public function trash(TemplateRepository $repository): Response
     {
         return $this->trashAction($repository);
     }
 
     /**
-     * @Route("/api/templates/trash", name="api_templatestrashdelete", methods={"DELETE"})
+     * @Route("/api/template/trash", name="api_templatetrashdelete", methods={"DELETE"})
      */
-    public function delete(TemplatesRepository $repository): JsonResponse
+    public function delete(TemplateRepository $repository): JsonResponse
     {
         return $this->deleteAction($repository);
     }
 
     /**
-     * @Route("/api/templates/restore", name="api_templatesrestore", methods={"POST"})
+     * @Route("/api/template/restore", name="api_templaterestore", methods={"POST"})
      */
-    public function restore(TemplatesRepository $repository): JsonResponse
+    public function restore(TemplateRepository $repository): JsonResponse
     {
         return $this->restoreAction($repository);
     }
 
     /**
-     * @Route("/api/templates/empty", name="api_templatesempty", methods={"POST"})
+     * @Route("/api/template/empty", name="api_templateempty", methods={"POST"})
      */
-    public function vider(TemplatesRepository $repository): JsonResponse
+    public function vider(TemplateRepository $repository): JsonResponse
     {
         return $this->emptyAction($repository);
     }

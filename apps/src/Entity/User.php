@@ -3,6 +3,7 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -35,6 +36,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "email": "partial",
  *     "enable": "exact"
  * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -91,7 +93,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "denormalization_context": {"groups": {"get"}},
  *     }
  * )
- * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Username déjà pris")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
@@ -113,6 +114,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * @ApiProperty(iri="https://schema.org/identifier")
      * @Groups({"get"})
      *
      * @var string
@@ -152,12 +154,12 @@ class User implements UserInterface, \Serializable
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"write"})
      */
     private $password;
 
     /**
      * @var string|null
+     * @Groups({"get"})
      */
     private $plainPassword;
 

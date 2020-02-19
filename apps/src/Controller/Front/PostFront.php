@@ -4,7 +4,7 @@ namespace Labstag\Controller\Front;
 
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Entity\User;
 use Labstag\Lib\ControllerLib;
 use Labstag\Repository\PostRepository;
@@ -42,7 +42,7 @@ class PostFront extends ControllerLib
     /**
      * @Route("/tags/{slug}", name="posts_tag")
      */
-    public function postTags(Tags $tag, PostRepository $repository): Response
+    public function postTag(Tag $tag, PostRepository $repository): Response
     {
         $posts = $repository->findAllActiveByTag($tag);
         $this->paginator($posts);

@@ -2,11 +2,11 @@
 
 namespace Labstag\Handler;
 
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 
-class TagsPublishingHandler
+class TagPublishingHandler
 {
-    public function handle(Tags $entity): void
+    public function handle(Tag $entity): void
     {
         unset($entity);
         // your logic for publishing book or/and eg. return your custom data

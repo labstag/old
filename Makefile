@@ -16,6 +16,10 @@ help:
 commit: ## Commit data
 	@npm run commit
 
+.PHONY: cache-clear
+cache-clear: ## Cache clear
+	docker exec $(CONTAINER) php bin/console c:c
+
 .PHONY: update
 update: ## update DEPEDENCIES
 	npm update

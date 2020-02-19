@@ -11,7 +11,7 @@ use Faker\Factory;
 use finfo;
 use Labstag\Entity\Post;
 use Labstag\Repository\CategoryRepository;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Labstag\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -31,7 +31,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     private $categoryRepository;
 
     /**
-     * @var TagsRepository
+     * @var TagRepository
      */
     private $tagsRepository;
 
@@ -43,7 +43,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     public function __construct(
         UserRepository $userRepository,
         CategoryRepository $categoryRepository,
-        TagsRepository $tagsRepository,
+        TagRepository $tagsRepository,
         LoggerInterface $logger
     )
     {
@@ -62,7 +62,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             FilesFixtures::class,
-            TagsFixtures::class,
+            TagFixtures::class,
             CategoryFixtures::class,
             UserFixtures::class,
         ];
@@ -90,7 +90,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $post->setRefcategory($categories[array_rand($categories)]);
-            $this->addTags($post, $tags);
+            $this->addTag($post, $tags);
 
             try {
                 $image   = $faker->imageGenerator(
@@ -128,7 +128,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function addTags(Post $post, array $tags): void
+    private function addTag(Post $post, array $tags): void
     {
         $nbr = rand(0, count($tags));
         if (0 == $nbr) {
