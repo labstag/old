@@ -4,11 +4,11 @@ namespace Labstag\Form\Admin;
 
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\FormType\WysiwygType;
 use Labstag\Lib\AbstractTypeLibAdmin;
 use Labstag\Repository\CategoryRepository;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,7 +30,6 @@ class PostType extends AbstractTypeLibAdmin
             EntityType::class,
             [
                 'class'         => Category::class,
-                'multiple'      => true,
                 'query_builder' => function (CategoryRepository $repository) {
                     return $repository->findForForm();
                 },
@@ -39,15 +38,14 @@ class PostType extends AbstractTypeLibAdmin
                 ],
             ]
         );
-        // $builder->add('refcategory');
         $builder->add(
             'tags',
             EntityType::class,
             [
-                'class'         => Tags::class,
+                'class'         => Tag::class,
                 'multiple'      => true,
-                'query_builder' => function (TagsRepository $repository) {
-                    return $repository->findTagsByTypeNotTemporary('post');
+                'query_builder' => function (TagRepository $repository) {
+                    return $repository->findTagByTypeNotTemporary('post');
                 },
                 'attr'          => [
                     'data-url' => $this->router->generate('admintemporary_tags', ['type' => 'post']),

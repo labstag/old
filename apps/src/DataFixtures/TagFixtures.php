@@ -6,19 +6,19 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use Labstag\Entity\Tags;
-use Labstag\Repository\TagsRepository;
+use Labstag\Entity\Tag;
+use Labstag\Repository\TagRepository;
 
-class TagsFixtures extends Fixture
+class TagFixtures extends Fixture
 {
     private const NUMBER = 10;
 
     /**
-     * @var TagsRepository
+     * @var TagRepository
      */
     private $repository;
 
-    public function __construct(TagsRepository $repository)
+    public function __construct(TagRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -34,7 +34,7 @@ class TagsFixtures extends Fixture
     private function add(ObjectManager $manager, string $type, Generator &$faker): void
     {
         for ($index = 0; $index < self::NUMBER; ++$index) {
-            $tags = new Tags();
+            $tags = new Tag();
             $tags->setType($type);
             $tags->setName($faker->unique()->colorName);
             $manager->persist($tags);

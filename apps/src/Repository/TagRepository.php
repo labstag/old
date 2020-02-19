@@ -4,26 +4,26 @@ namespace Labstag\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
 /**
- * @method Tags|null find($id, $lockMode = null, $lockVersion = null)
- * @method Tags|null findOneBy(array $criteria, array $orderBy = null)
- * @method Tags[]    findAll()
- * @method Tags[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Tag[]    findAll()
+ * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagsRepository extends ServiceEntityRepositoryLib
+class TagRepository extends ServiceEntityRepositoryLib
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Tags::class);
+        parent::__construct($registry, Tag::class);
     }
 
     /**
      * @return QueryBuilder|void
      */
-    public function findTagsByTypeNotTemporary(?string $type)
+    public function findTagByTypeNotTemporary(?string $type)
     {
         if (is_null($type)) {
             return;
@@ -45,7 +45,7 @@ class TagsRepository extends ServiceEntityRepositoryLib
     /**
      * @return QueryBuilder|void
      */
-    public function findTagsByType(?string $type)
+    public function findTagByType(?string $type)
     {
         if (is_null($type)) {
             return;
@@ -62,7 +62,7 @@ class TagsRepository extends ServiceEntityRepositoryLib
     }
 
     // /**
-    //  * @return Tags[] Returns an array of Tags objects
+    //  * @return Tag[] Returns an array of Tag objects
     //  */
     /*
     public function findByExampleField($value)
@@ -79,7 +79,7 @@ class TagsRepository extends ServiceEntityRepositoryLib
     */
 
     /*
-    public function findOneBySomeField($value): ?Tags
+    public function findOneBySomeField($value): ?Tag
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

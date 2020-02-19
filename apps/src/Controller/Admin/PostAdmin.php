@@ -4,14 +4,14 @@ namespace Labstag\Controller\Admin;
 
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Form\Admin\CategoryType;
 use Labstag\Form\Admin\PostType;
-use Labstag\Form\Admin\TagsType;
+use Labstag\Form\Admin\TagType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\PostRepository;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -333,7 +333,7 @@ class PostAdmin extends AdminControllerLib
      * @Route("/tags/", name="adminposttags_list", methods={"GET"})
      * @Route("/tags/trash", name="adminposttags_trash", methods={"GET"})
      */
-    public function listTags(TagsRepository $repository): Response
+    public function listTag(TagRepository $repository): Response
     {
         $datatable = [
             'Name'      => [
@@ -354,7 +354,7 @@ class PostAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'           => 'Tags list',
+            'title'           => 'Tag list',
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
@@ -379,12 +379,12 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/new", name="adminposttags_new", methods={"GET", "POST"})
      */
-    public function newTags(): Response
+    public function newTag(): Response
     {
         return $this->crudNewAction(
             [
-                'entity'   => new Tags(),
-                'form'     => TagsType::class,
+                'entity'   => new Tag(),
+                'form'     => TagType::class,
                 'url_edit' => 'adminposttags_edit',
                 'url_list' => 'adminposttags_list',
                 'title'    => 'Add new tag',
@@ -397,13 +397,13 @@ class PostAdmin extends AdminControllerLib
      *
      * @param mixed $id
      */
-    public function trashEditTags(TagsRepository $repository, $id): Response
+    public function trashEditTag(TagRepository $repository, $id): Response
     {
         $tag = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
-                'form'       => TagsType::class,
+                'form'       => TagType::class,
                 'entity'     => $tag,
                 'url_list'   => 'adminposttags_trash',
                 'url_edit'   => 'adminposttags_trashedit',
@@ -416,11 +416,11 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/edit/{id}", name="adminposttags_edit", methods={"GET", "POST"})
      */
-    public function editTags(Tags $tag): Response
+    public function editTag(Tag $tag): Response
     {
         return $this->crudEditAction(
             [
-                'form'       => TagsType::class,
+                'form'       => TagType::class,
                 'entity'     => $tag,
                 'url_list'   => 'adminposttags_list',
                 'url_edit'   => 'adminposttags_edit',
@@ -433,7 +433,7 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/empty", name="adminposttags_empty")
      */
-    public function emptyTags(TagsRepository $repository): JsonResponse
+    public function emptyTag(TagRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminposttags_list');
     }
@@ -442,7 +442,7 @@ class PostAdmin extends AdminControllerLib
      * @Route("/tags/", name="adminposttags_delete", methods={"DELETE"})
      * @Route("/tags/trash", name="adminposttags_deletetrash", methods={"DELETE"})
      */
-    public function deleteTags(TagsRepository $repository): JsonResponse
+    public function deleteTag(TagRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
             $repository,
@@ -456,7 +456,7 @@ class PostAdmin extends AdminControllerLib
     /**
      * @Route("/tags/restore", name="adminposttags_restore")
      */
-    public function restoreTags(TagsRepository $repository): JsonResponse
+    public function restoreTag(TagRepository $repository): JsonResponse
     {
         return $this->crudRestoreAction(
             $repository,

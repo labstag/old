@@ -5,12 +5,12 @@ namespace Labstag\Tests\Repository;
 use Doctrine\ORM\Query;
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Entity\User;
 use Labstag\Lib\RepositoryTestLib;
 use Labstag\Repository\CategoryRepository;
 use Labstag\Repository\PostRepository;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Labstag\Repository\UserRepository;
 
 /**
@@ -31,7 +31,7 @@ class PostTest extends RepositoryTestLib
     private $categoryRepository;
 
     /**
-     * @var TagsRepository
+     * @var TagRepository
      */
     private $tagsRepository;
 
@@ -53,9 +53,9 @@ class PostTest extends RepositoryTestLib
             Category::class
         );
         $this->categoryRepository = $categoryRepository;
-        /** @var TagsRepository $tagsRepository */
+        /** @var TagRepository $tagsRepository */
         $tagsRepository       = $this->entityManager->getRepository(
-            Tags::class
+            Tag::class
         );
         $this->tagsRepository = $tagsRepository;
         /** @var UserRepository $userRepository */
@@ -108,7 +108,7 @@ class PostTest extends RepositoryTestLib
         $empty = $this->repository->findAllActiveByTag(null);
         $this->AssertNull($empty);
         $tags = $this->tagsRepository->findOneRandom();
-        if ($tags instanceof Tags) {
+        if ($tags instanceof Tag) {
             /** @var Query $posts */
             $posts = $this->repository->findAllActiveByTag($tags);
             $this->assertSame(get_class($posts), Query::class);

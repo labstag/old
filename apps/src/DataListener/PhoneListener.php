@@ -5,10 +5,10 @@ namespace Labstag\DataListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Phone;
-use Labstag\Entity\Templates;
+use Labstag\Entity\Template;
 use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
-use Labstag\Repository\TemplatesRepository;
+use Labstag\Repository\TemplateRepository;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -64,12 +64,12 @@ class PhoneListener extends EventSubscriberLib
 
         $search  = ['code' => 'checked-phone'];
         $manager = $args->getEntityManager();
-        /** @var TemplatesRepository $repository */
-        $repository = $manager->getRepository(Templates::class);
-        /** @var Templates $templates */
-        $templates = $repository->findOneBy($search);
-        $html      = $templates->getHtml();
-        $text      = $templates->getText();
+        /** @var TemplateRepository $repository */
+        $repository = $manager->getRepository(Template::class);
+        /** @var Template $template */
+        $template = $repository->findOneBy($search);
+        $html     = $template->getHtml();
+        $text     = $template->getText();
         /** @var User $user */
         $user = $entity->getRefuser();
         $this->setConfigurationParam($args);
@@ -92,7 +92,7 @@ class PhoneListener extends EventSubscriberLib
         $sujet   = str_replace(
             '%site%',
             $this->configParams['site_title'],
-            $templates->getname()
+            $template->getname()
         );
         $message->setSubject($sujet);
         $message->setFrom($user->getEmail());
