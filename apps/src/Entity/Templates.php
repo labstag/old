@@ -69,11 +69,6 @@ use Labstag\Controller\Api\TemplatesApi;
  *                 "parameters": {}
  *             }
  *         }
- *     },
- *     attributes={
- *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *         "normalization_context": {"groups": {"get"}},
- *         "denormalization_context": {"groups": {"get"}},
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\TemplatesRepository")
