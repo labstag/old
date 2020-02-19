@@ -536,7 +536,7 @@ abstract class AdminControllerLib extends ControllerLib
                 'title' => 'Workflow',
             ],
             [
-                'url'   => 'admintemplates_list',
+                'url'   => 'admintemplate_list',
                 'title' => 'Templates',
             ],
             [

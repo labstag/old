@@ -2,28 +2,28 @@
 
 namespace Labstag\Tests\Repository;
 
-use Labstag\Entity\Templates;
+use Labstag\Entity\Template;
 use Labstag\Lib\RepositoryTestLib;
-use Labstag\Repository\TemplatesRepository;
+use Labstag\Repository\TemplateRepository;
 
 /**
  * @internal
  * @coversNothing
  */
-class TemplatesTest extends RepositoryTestLib
+class TemplateTest extends RepositoryTestLib
 {
 
     /**
-     * @var TemplatesRepository
+     * @var TemplateRepository
      */
     private $repository;
 
     public function setUp(): void
     {
         parent::setUp();
-        /** @var TemplatesRepository $repository */
+        /** @var TemplateRepository $repository */
         $repository       = $this->entityManager->getRepository(
-            Templates::class
+            Template::class
         );
         $this->repository = $repository;
     }
@@ -39,7 +39,7 @@ class TemplatesTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertSame(get_class($random), Templates::class);
+            $this->assertSame(get_class($random), Template::class);
 
             return;
         }

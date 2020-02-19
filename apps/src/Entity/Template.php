@@ -9,9 +9,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Labstag\Controller\Api\TemplatesApi;
+use Labstag\Controller\Api\TemplateApi;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
@@ -31,7 +32,7 @@ use Labstag\Controller\Api\TemplatesApi;
  *             "method": "GET",
  *             "path": "/templates/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TemplatesApi::class,
+ *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Corbeille",
@@ -42,7 +43,7 @@ use Labstag\Controller\Api\TemplatesApi;
  *             "method": "DELETE",
  *             "path": "/templates/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TemplatesApi::class,
+ *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Remove",
@@ -53,7 +54,7 @@ use Labstag\Controller\Api\TemplatesApi;
  *             "method": "POST",
  *             "path": "/templates/restore",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TemplatesApi::class,
+ *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Restore",
@@ -64,7 +65,7 @@ use Labstag\Controller\Api\TemplatesApi;
  *             "method": "POST",
  *             "path": "/templates/empty",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TemplatesApi::class,
+ *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Empty",
@@ -73,11 +74,12 @@ use Labstag\Controller\Api\TemplatesApi;
  *         }
  *     }
  * )
- * @ORM\Entity(repositoryClass="Labstag\Repository\TemplatesRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\TemplateRepository")
+ * @UniqueEntity(fields="name", message="Name déjà pris")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
  */
-class Templates
+class Template
 {
     use BlameableEntity;
     use SoftDeleteableEntity;

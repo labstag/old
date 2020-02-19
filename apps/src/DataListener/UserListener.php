@@ -4,10 +4,10 @@ namespace Labstag\DataListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Labstag\Entity\Templates;
+use Labstag\Entity\Template;
 use Labstag\Entity\User;
 use Labstag\Lib\EventSubscriberLib;
-use Labstag\Repository\TemplatesRepository;
+use Labstag\Repository\TemplateRepository;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -93,13 +93,13 @@ class UserListener extends EventSubscriberLib
         }
 
         $manager = $args->getEntityManager();
-        /** @var TemplatesRepository $repository */
-        $repository = $manager->getRepository(templates::class);
+        /** @var TemplateRepository $repository */
+        $repository = $manager->getRepository(Template::class);
         $search     = ['code' => 'lost-password'];
-        /** @var Templates $templates */
-        $templates = $repository->findOneBy($search);
-        $html      = $templates->getHtml();
-        $text      = $templates->getText();
+        /** @var Template $template */
+        $template = $repository->findOneBy($search);
+        $html      = $template->getHtml();
+        $text      = $template->getText();
         $this->setConfigurationParam($args);
         $replace = [
             '%site%'     => $this->configParams['site_title'],
@@ -120,7 +120,7 @@ class UserListener extends EventSubscriberLib
         $sujet   = str_replace(
             '%site%',
             $this->configParams['site_title'],
-            $templates->getname()
+            $template->getname()
         );
         $message->setSubject($sujet);
         $message->setFrom($entity->getEmail());
