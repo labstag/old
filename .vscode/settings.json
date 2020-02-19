@@ -20,15 +20,15 @@
     "phpfmt.passes": [
         "AlignDoubleArrow"
     ],
-    "phpcs.standard": "phpcs.xml.dist",
-    "phpcbf.standard": "phpcs.xml.dist",
-    "phpmd.rules": "phpmd.xml",
-    "php-cs-fixer.config": "php_cs.dist",
+    "phpcs.standard": "apps/phpcs.xml.dist",
+    "phpcbf.standard": "apps/phpcs.xml.dist",
+    "phpmd.rules": "apps/phpmd.xml",
+    "php-cs-fixer.config": "apps/php_cs.dist",
     "php-cs-fixer.onsave": true,
     "eslint.options": {
-        "configFile": ".eslintrc.json"
+        "configFile": "apps/.eslintrc.json"
     },
-    "jshint.config": ".jshintrc",
+    "jshint.config": "apps/.jshintrc",
     "eslint.nodePath": "node_modules",
     "[scss]": {
         "editor.tabSize": 2

@@ -5,7 +5,7 @@ namespace Labstag\DataListener;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Labstag\Entity\Bookmark;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Lib\EventSubscriberLib;
 
 class BookmarkListener extends EventSubscriberLib
@@ -32,7 +32,7 @@ class BookmarkListener extends EventSubscriberLib
 
             $tags = $entity->getTags();
             foreach ($tags as $tag) {
-                /** @var Tags $tag */
+                /** @var Tag $tag */
                 if ($tag->isTemporary()) {
                     $tag->setTemporary(false);
                     $manager->persist($tag);

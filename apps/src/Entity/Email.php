@@ -3,7 +3,9 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,9 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "id": "exact",
  *     "adresse": "partial"
  * })
- * @ApiResource(
- *     attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"},
- * )
+ * @ApiFilter(OrderFilter::class, properties={"id", "adresse"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\EmailRepository")
  * @ORM\Table(
  *     uniqueConstraints={
@@ -29,6 +30,7 @@ class Email
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * @ApiProperty(iri="https://schema.org/identifier")
      *
      * @var string
      */

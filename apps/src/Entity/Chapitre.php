@@ -3,6 +3,7 @@
 namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -15,6 +16,15 @@ use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\ChapitreApi;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "content": "partial",
+ *     "position": "exact",
+ *     "enable": "exact",
+ *     "status": "exact"
+ * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -66,15 +76,6 @@ use Labstag\Controller\Api\ChapitreApi;
  *         }
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={
- *     "id": "exact",
- *     "name": "partial",
- *     "content": "partial",
- *     "position": "exact",
- *     "enable": "exact",
- *     "status": "exact"
- * })
- * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ChapitreRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
@@ -89,6 +90,7 @@ class Chapitre implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
+     * @ApiProperty(iri="https://schema.org/identifier")
      *
      * @var string
      */
@@ -184,7 +186,7 @@ class Chapitre implements Translatable
         return $this;
     }
 
-    public function getRefhistory(): History
+    public function getRefhistory(): ?History
     {
         return $this->refhistory;
     }

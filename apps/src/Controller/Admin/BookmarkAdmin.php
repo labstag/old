@@ -4,12 +4,12 @@ namespace Labstag\Controller\Admin;
 
 use DateTime;
 use Labstag\Entity\Bookmark;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Form\Admin\BookmarkType;
-use Labstag\Form\Admin\TagsType;
+use Labstag\Form\Admin\TagType;
 use Labstag\Lib\AdminControllerLib;
 use Labstag\Repository\BookmarkRepository;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -176,7 +176,7 @@ class BookmarkAdmin extends AdminControllerLib
      * @Route("/tags/", name="adminbookmarktags_list", methods={"GET"})
      * @Route("/tags/trash", name="adminbookmarktags_trash", methods={"GET"})
      */
-    public function listTags(TagsRepository $repository): Response
+    public function listTag(TagRepository $repository): Response
     {
         $datatable = [
             'Name'      => [
@@ -197,7 +197,7 @@ class BookmarkAdmin extends AdminControllerLib
             ],
         ];
         $data      = [
-            'title'           => 'Tags list',
+            'title'           => 'Tag list',
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_tags_get_collection',
@@ -222,12 +222,12 @@ class BookmarkAdmin extends AdminControllerLib
     /**
      * @Route("/tags/new", name="adminbookmarktags_new", methods={"GET", "POST"})
      */
-    public function newTags(): Response
+    public function newTag(): Response
     {
         return $this->crudNewAction(
             [
-                'entity'   => new Tags(),
-                'form'     => TagsType::class,
+                'entity'   => new Tag(),
+                'form'     => TagType::class,
                 'url_edit' => 'adminbookmarktags_edit',
                 'url_list' => 'adminbookmarktags_list',
                 'title'    => 'Add new tag',
@@ -240,13 +240,13 @@ class BookmarkAdmin extends AdminControllerLib
      *
      * @param mixed $id
      */
-    public function trashEditTags(TagsRepository $repository, $id): Response
+    public function trashEditTag(TagRepository $repository, $id): Response
     {
         $tag = $repository->findOneDateInTrash($id);
 
         return $this->crudEditAction(
             [
-                'form'       => TagsType::class,
+                'form'       => TagType::class,
                 'entity'     => $tag,
                 'url_list'   => 'adminbookmarktags_trash',
                 'url_edit'   => 'adminbookmarktags_trashedit',
@@ -259,11 +259,11 @@ class BookmarkAdmin extends AdminControllerLib
     /**
      * @Route("/tags/edit/{id}", name="adminbookmarktags_edit", methods={"GET", "POST"})
      */
-    public function editTags(Tags $tag): Response
+    public function editTag(Tag $tag): Response
     {
         return $this->crudEditAction(
             [
-                'form'       => TagsType::class,
+                'form'       => TagType::class,
                 'entity'     => $tag,
                 'url_list'   => 'adminbookmarktags_list',
                 'url_edit'   => 'adminbookmarktags_edit',
@@ -276,7 +276,7 @@ class BookmarkAdmin extends AdminControllerLib
     /**
      * @Route("/tags/empty", name="adminbookmarktags_empty")
      */
-    public function emptyTags(TagsRepository $repository): JsonResponse
+    public function emptyTag(TagRepository $repository): JsonResponse
     {
         return $this->crudEmptyAction($repository, 'adminbookmarktags_list');
     }
@@ -285,7 +285,7 @@ class BookmarkAdmin extends AdminControllerLib
      * @Route("/tags/", name="adminbookmarktags_delete", methods={"DELETE"})
      * @Route("/tags/trash", name="adminbookmarktags_deletetrash", methods={"DELETE"})
      */
-    public function deleteTags(TagsRepository $repository): JsonResponse
+    public function deleteTag(TagRepository $repository): JsonResponse
     {
         return $this->crudDeleteAction(
             $repository,
@@ -299,7 +299,7 @@ class BookmarkAdmin extends AdminControllerLib
     /**
      * @Route("/tags/restore", name="adminbookmarktags_restore")
      */
-    public function restoreTags(TagsRepository $repository): JsonResponse
+    public function restoreTag(TagRepository $repository): JsonResponse
     {
         return $this->crudRestoreAction(
             $repository,
