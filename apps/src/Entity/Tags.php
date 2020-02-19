@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "type": "partial",
  *     "temporary": "exact"
  * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -76,12 +77,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         }
  *     }
- * )
- * @ApiFilter(
- *     OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"}
- * )
- * @ApiFilter(
- *     SearchFilter::class, properties={"type"}
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\TagsRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

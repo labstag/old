@@ -13,6 +13,12 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Labstag\Controller\Api\ConfigurationApi;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "value": "partial"
+ * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -64,12 +70,6 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         }
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={
- *     "id": "exact",
- *     "name": "partial",
- *     "value": "partial"
- * })
- * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ConfigurationRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */

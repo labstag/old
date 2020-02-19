@@ -35,6 +35,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "email": "partial",
  *     "enable": "exact"
  * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -91,7 +92,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "denormalization_context": {"groups": {"get"}},
  *     }
  * )
- * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Username déjà pris")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

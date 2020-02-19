@@ -15,6 +15,15 @@ use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\ChapitreApi;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "content": "partial",
+ *     "position": "exact",
+ *     "enable": "exact",
+ *     "status": "exact"
+ * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -66,15 +75,6 @@ use Labstag\Controller\Api\ChapitreApi;
  *         }
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={
- *     "id": "exact",
- *     "name": "partial",
- *     "content": "partial",
- *     "position": "exact",
- *     "enable": "exact",
- *     "status": "exact"
- * })
- * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\ChapitreRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable

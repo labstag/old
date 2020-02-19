@@ -23,6 +23,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "enable": "exact",
+ *     "slug": "partial",
+ *     "end": "exact",
+ *     "resume": "partial"
+ * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -74,15 +83,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         }
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={
- *     "id": "exact",
- *     "name": "partial",
- *     "enable": "exact",
- *     "slug": "partial",
- *     "end": "exact",
- *     "resume": "partial"
- * })
- * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\HistoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable

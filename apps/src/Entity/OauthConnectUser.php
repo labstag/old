@@ -4,6 +4,7 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,9 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "id": "exact",
  *     "name": "partial"
  * })
- * @ApiResource(
- *     attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"},
- * )
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\OauthConnectUserRepository")
  */
 class OauthConnectUser

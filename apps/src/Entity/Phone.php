@@ -4,6 +4,7 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,9 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "type": "partial",
  *     "checked": "exact"
  * })
- * @ApiResource(
- *     attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"},
- * )
+ * @ApiFilter(OrderFilter::class, properties={"id", "numero"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
  * @ORM\Table(
  *     uniqueConstraints={

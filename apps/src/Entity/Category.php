@@ -18,6 +18,13 @@ use Labstag\Controller\Api\CategoryApi;
 use Labstag\Entity\Traits\Post;
 
 /**
+ * @ApiFilter(SearchFilter::class, properties={
+ *     "id": "exact",
+ *     "name": "partial",
+ *     "temporary": "exact",
+ *     "slug": "partial"
+ * })
+ * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -69,13 +76,6 @@ use Labstag\Entity\Traits\Post;
  *         }
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={
- *     "id": "exact",
- *     "name": "partial",
- *     "temporary": "exact",
- *     "slug": "partial"
- * })
- * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\CategoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
