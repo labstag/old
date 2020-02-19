@@ -43,7 +43,7 @@ class CrudExtension extends AbstractExtension
     /**
      * @param mixed $entity
      */
-    public function crudExist($entity, string $key): string
+    public function crudExist($entity, string $key)
     {
         $return  = '';
         $methods = get_class_methods($entity);

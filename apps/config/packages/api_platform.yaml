@@ -2,7 +2,7 @@ api_platform:
   collection:
     order_parameter_name: order
     pagination:
-      items_per_page: 5
+      items_per_page: 10
       maximum_items_per_page: 40
       client_enabled: true
       enabled_parameter_name: pagination

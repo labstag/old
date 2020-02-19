@@ -152,12 +152,12 @@ class User implements UserInterface, \Serializable
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"write"})
      */
     private $password;
 
     /**
      * @var string|null
+     * @Groups({"get"})
      */
     private $plainPassword;
 
