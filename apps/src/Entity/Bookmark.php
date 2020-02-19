@@ -16,7 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\BookmarkApi;
-use Labstag\Entity\Traits\Tags;
+use Labstag\Entity\Traits\Tag;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -92,7 +92,7 @@ class Bookmark implements Translatable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
-    use Tags;
+    use Tag;
 
     /**
      * @ORM\Id
@@ -128,7 +128,7 @@ class Bookmark implements Translatable
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tags", inversedBy="bookmarks")
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tag", inversedBy="bookmarks")
      */
     private $tags;
 

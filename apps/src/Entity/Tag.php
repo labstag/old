@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
-use Labstag\Controller\Api\TagsApi;
+use Labstag\Controller\Api\TagApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "method": "GET",
  *             "path": "/tags/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TagsApi::class,
+ *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Corbeille",
@@ -47,7 +47,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "method": "DELETE",
  *             "path": "/tags/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TagsApi::class,
+ *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Remove",
@@ -58,7 +58,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "method": "POST",
  *             "path": "/tags/restore",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TagsApi::class,
+ *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Restore",
@@ -69,7 +69,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "method": "POST",
  *             "path": "/tags/empty",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *             "controller": TagsApi::class,
+ *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
  *                 "summary": "Empty",
@@ -78,7 +78,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *         }
  *     }
  * )
- * @ORM\Entity(repositoryClass="Labstag\Repository\TagsRepository")
+ * @ORM\Entity(repositoryClass="Labstag\Repository\TagRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable
  * @ORM\Table(
@@ -87,7 +87,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  */
-class Tags implements Translatable
+class Tag implements Translatable
 {
     use BlameableEntity;
     use SoftDeleteableEntity;

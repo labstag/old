@@ -3,9 +3,9 @@
 namespace Labstag\Controller\Admin;
 
 use Doctrine\ORM\QueryBuilder;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Lib\AdminControllerLib;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,7 +17,7 @@ class TemporaryAdmin extends AdminControllerLib
     /**
      * @Route("/tags/{type}", name="admintemporary_tags")
      */
-    public function tags(TagsRepository $repository, string $type): JsonResponse
+    public function tags(TagRepository $repository, string $type): JsonResponse
     {
         $tabs = [
             'data' => [],
@@ -30,7 +30,7 @@ class TemporaryAdmin extends AdminControllerLib
             ];
             $tag    = $repository->findOneBy($search);
             if (!$tag) {
-                $tags = new Tags();
+                $tags = new Tag();
                 $tags->setType($type);
                 $tags->setName($post['req']);
                 $tags->setTemporary(true);
@@ -39,7 +39,7 @@ class TemporaryAdmin extends AdminControllerLib
         }
 
         /** @var QueryBuilder $data */
-        $data    = $repository->findTagsByType($type);
+        $data    = $repository->findTagByType($type);
         $query   = $data->getQuery();
         $results = $query->getResult();
         foreach ($results as $row) {

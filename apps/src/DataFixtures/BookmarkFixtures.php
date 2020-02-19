@@ -10,7 +10,7 @@ use Exception;
 use Faker\Factory;
 use finfo;
 use Labstag\Entity\Bookmark;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Labstag\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -25,7 +25,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
     private $userRepository;
 
     /**
-     * @var TagsRepository
+     * @var TagRepository
      */
     private $tagsRepository;
 
@@ -34,7 +34,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
      */
     private $logger;
 
-    public function __construct(UserRepository $userRepository, TagsRepository $tagsRepository, LoggerInterface $logger)
+    public function __construct(UserRepository $userRepository, TagRepository $tagsRepository, LoggerInterface $logger)
     {
         $this->logger         = $logger;
         $this->userRepository = $userRepository;
@@ -50,7 +50,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             FilesFixtures::class,
-            TagsFixtures::class,
+            TagFixtures::class,
             UserFixtures::class,
         ];
     }
@@ -76,7 +76,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
                 $bookmark->setRefuser($users[$tabIndex]);
             }
 
-            $this->addTags($bookmark, $tags);
+            $this->addTag($bookmark, $tags);
 
             try {
                 $image   = $faker->imageGenerator(
@@ -114,7 +114,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    private function addTags(Bookmark $bookmark, array $tags): void
+    private function addTag(Bookmark $bookmark, array $tags): void
     {
         $nbr = rand(0, count($tags));
         if (0 == $nbr) {

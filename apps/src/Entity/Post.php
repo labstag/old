@@ -16,7 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\PostApi;
-use Labstag\Entity\Traits\Tags;
+use Labstag\Entity\Traits\Tag;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -91,7 +91,7 @@ class Post implements Translatable
     use BlameableEntity;
     use SoftDeleteableEntity;
     use TimestampableEntity;
-    use Tags;
+    use Tag;
 
     /**
      * @ORM\Id
@@ -149,7 +149,7 @@ class Post implements Translatable
     private $refcategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tags", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tag", inversedBy="posts")
      */
     private $tags;
 
