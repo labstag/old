@@ -4,7 +4,7 @@ namespace Labstag\Controller;
 
 use Labstag\Form\Front\ContactType;
 use Labstag\Lib\ControllerLib;
-use Labstag\Repository\TemplatesRepository;
+use Labstag\Repository\TemplateRepository;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,7 +28,7 @@ class FrontController extends ControllerLib
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(TemplatesRepository $repository, Swift_Mailer $mailer): Response
+    public function contact(TemplateRepository $repository, Swift_Mailer $mailer): Response
     {
         $search    = ['code' => 'contact'];
         $templates = $repository->findOneBy($search);

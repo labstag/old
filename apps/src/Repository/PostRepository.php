@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
@@ -50,7 +50,7 @@ class PostRepository extends ServiceEntityRepositoryLib
     /**
      * @return Query|void
      */
-    public function findAllActiveByTag(?Tags $tag)
+    public function findAllActiveByTag(?Tag $tag)
     {
         if (is_null($tag)) {
             return;

@@ -2,11 +2,11 @@
 
 namespace Labstag\Handler;
 
-use Labstag\Entity\Templates;
+use Labstag\Entity\Template;
 
-class TemplatesPublishingHandler
+class TemplatePublishingHandler
 {
-    public function handle(Templates $entity): void
+    public function handle(Template $entity): void
     {
         unset($entity);
         // your logic for publishing book or/and eg. return your custom data

@@ -3,28 +3,28 @@
 namespace Labstag\Tests\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\Lib\RepositoryTestLib;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 
 /**
  * @internal
  * @coversNothing
  */
-class TagsTest extends RepositoryTestLib
+class TagTest extends RepositoryTestLib
 {
 
     /**
-     * @var TagsRepository
+     * @var TagRepository
      */
     private $repository;
 
     public function setUp(): void
     {
         parent::setUp();
-        /** @var TagsRepository $repository */
+        /** @var TagRepository $repository */
         $repository       = $this->entityManager->getRepository(
-            Tags::class
+            Tag::class
         );
         $this->repository = $repository;
     }
@@ -40,7 +40,7 @@ class TagsTest extends RepositoryTestLib
         $all = $this->repository->findAll();
         if (0 != count($all)) {
             $random = $this->repository->findOneRandom();
-            $this->assertSame(get_class($random), Tags::class);
+            $this->assertSame(get_class($random), Tag::class);
 
             return;
         }
@@ -48,33 +48,33 @@ class TagsTest extends RepositoryTestLib
         $this->assertTrue(true);
     }
 
-    public function testfindTagsByTypeNotTemporary(): void
+    public function testfindTagByTypeNotTemporary(): void
     {
         /** @var null $empty */
-        $empty = $this->repository->findTagsByTypeNotTemporary(null);
+        $empty = $this->repository->findTagByTypeNotTemporary(null);
         $this->AssertNull($empty);
         /** @var QueryBuilder $tags */
-        $tags = $this->repository->findTagsByTypeNotTemporary('');
+        $tags = $this->repository->findTagByTypeNotTemporary('');
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
         /** @var QueryBuilder $tags */
-        $tags = $this->repository->findTagsByTypeNotTemporary(
+        $tags = $this->repository->findTagByTypeNotTemporary(
             $random->getType()
         );
         $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 
-    public function testfindTagsByType(): void
+    public function testfindTagByType(): void
     {
         /** @var null $empty */
-        $empty = $this->repository->findTagsByType(null);
+        $empty = $this->repository->findTagByType(null);
         $this->AssertNull($empty);
         /** @var QueryBuilder $tags */
-        $tags = $this->repository->findTagsByType('');
+        $tags = $this->repository->findTagByType('');
         $this->assertSame(get_class($tags), QueryBuilder::class);
         $random = $this->repository->findOneRandom();
         /** @var QueryBuilder $tags */
-        $tags = $this->repository->findTagsByType($random->getType());
+        $tags = $this->repository->findTagByType($random->getType());
         $this->assertSame(get_class($tags), QueryBuilder::class);
     }
 }

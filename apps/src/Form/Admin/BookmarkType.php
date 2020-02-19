@@ -3,10 +3,10 @@
 namespace Labstag\Form\Admin;
 
 use Labstag\Entity\Bookmark;
-use Labstag\Entity\Tags;
+use Labstag\Entity\Tag;
 use Labstag\FormType\WysiwygType;
 use Labstag\Lib\AbstractTypeLibAdmin;
-use Labstag\Repository\TagsRepository;
+use Labstag\Repository\TagRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,10 +27,10 @@ class BookmarkType extends AbstractTypeLibAdmin
             'tags',
             EntityType::class,
             [
-                'class'         => Tags::class,
+                'class'         => Tag::class,
                 'multiple'      => true,
-                'query_builder' => function (TagsRepository $repository) {
-                    return $repository->findTagsByTypeNotTemporary('bookmark');
+                'query_builder' => function (TagRepository $repository) {
+                    return $repository->findTagByTypeNotTemporary('bookmark');
                 },
                 'attr'          => [
                     'data-url' => $this->router->generate('admintemporary_tags', ['type' => 'bookmark']),

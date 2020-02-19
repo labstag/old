@@ -2,9 +2,9 @@
 
 namespace Labstag\Entity\Traits;
 
-use Labstag\Entity\Tags as TagsEntity;
+use Labstag\Entity\Tag as TagEntity;
 
-trait Tags
+trait Tag
 {
     /**
      * @return mixed
@@ -14,7 +14,7 @@ trait Tags
         return $this->tags;
     }
 
-    public function addTag(TagsEntity $tag): self
+    public function addTag(TagEntity $tag): self
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
@@ -23,7 +23,7 @@ trait Tags
         return $this;
     }
 
-    public function removeTag(TagsEntity $tag): self
+    public function removeTag(TagEntity $tag): self
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
