@@ -26,13 +26,19 @@ update: ## update DEPEDENCIES
 	@make composer-update -i
 	@make npm-update -i
 
+.PHONY: pull
+pull: ## Update repository
+	npm install
+	@make composer-install-dev -i
+	@make npm-install-dev -i
+
 .PHONY: install-dev
 install-dev: ## install DEV
 	npm install
 	@make build -i
 	@make start -i
 	@make composer-install-dev -i
-	@make npm-install -i
+	@make npm-install-dev -i
 	@make bdd-dev -i
 	@make migrate -i
 	@make fixtures -i
@@ -48,8 +54,12 @@ npm-doctor: ## doctor NPM
 npm-clean-install: ## install PROD
 	docker exec $(CONTAINER) npm clean-install
 
-.PHONY: npm-install
-npm-install: ## npm install PROD
+.PHONY: npm-install-dev
+npm-install-dev: ## npm install PROD
+	docker exec $(CONTAINER) npm install
+
+.PHONY: npm-install-prod
+npm-install-prod: ## npm install PROD
 	docker exec $(CONTAINER) npm install
 
 .PHONY: npm-update
@@ -62,7 +72,7 @@ install-prod: ## install PROD
 	@make build -i
 	@make start -i
 	@make composer-install-prod -i
-	@make npm-install -i
+	@make npm-install-prod -i
 	@make bdd-dev -i
 	@make migrate -i
 	docker exec $(CONTAINER) npm run build
