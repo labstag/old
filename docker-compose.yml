@@ -22,7 +22,7 @@ services:
         volumes:
             - ${PWD}/mariadb:/var/lib/mysql
         ports:
-            - 3307:3306
+            - 3306:3306
         networks:
             - net
     aphp7:
@@ -32,7 +32,7 @@ services:
             - ${PWD}/apps:/usr/local/apache2/htdocs/
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
         ports:
-            - 8087:80
+            - 80:80
         networks:
             - net
     phpfpm:
