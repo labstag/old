@@ -14,8 +14,6 @@ jobs:
               run: make
             - name: Build containers
               run: make deploy
-            - name: Start containers
-              run: make start
             - name: Check running containers
               run: docker ps -a
             - name: Composer install
