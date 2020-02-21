@@ -2,10 +2,10 @@ name: Test suite
 on: [push]
 jobs:
     makefile:
-        runs-on: sagebind/docker-swarm-deploy-action@v2
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: sagebind/docker-swarm-deploy-action@v2
             - name: Show HELP
               run: make help
             - name: Show HELP
