@@ -85,7 +85,7 @@
         "phpstan/phpstan-phpunit": "0.12.6",
         "phpstan/phpstan-symfony": "0.12.4",
         "povils/phpmnd": "2.2.0",
-        "sebastian/phpcpd": "4.1.0",
+        "sebastian/phpcpd": "5.0.1",
         "sensiolabs/security-checker": "6.0.3",
         "squizlabs/php_codesniffer": "3.5.4",
         "symfony/browser-kit": "4.4.4",
