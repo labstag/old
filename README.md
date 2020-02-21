@@ -18,6 +18,7 @@
   </a>
 	
   ![Test suite](https://github.com/labstag/core/workflows/Test%20suite/badge.svg)
+  [![DepShield Badge](https://depshield.sonatype.org/badges/labstag/core/depshield.svg)](https://depshield.github.io)
 </p>
 
 > Un site Internet sous Symfony
