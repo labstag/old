@@ -168,6 +168,18 @@ class Tag implements Translatable
         return (string) $this->getName();
     }
 
+    public function isTemporary(): ?bool
+    {
+        return $this->temporary;
+    }
+
+    public function setTemporary(bool $temporary): self
+    {
+        $this->temporary = $temporary;
+
+        return $this;
+    }
+
     public function getId(): ?string
     {
         return $this->id;
@@ -212,18 +224,6 @@ class Tag implements Translatable
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function isTemporary(): ?bool
-    {
-        return $this->temporary;
-    }
-
-    public function setTemporary(bool $temporary): self
-    {
-        $this->temporary = $temporary;
 
         return $this;
     }
