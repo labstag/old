@@ -8,7 +8,6 @@ CONTAINER         := labstag_phpfpm
 STACK             := labstag
 CONTAINERFULLNAME := $(CONTAINER).1.$$(docker service ps -f 'name=$(CONTAINER)' $(CONTAINER) -q --no-trunc | head -n1)
 ARGS              := $(filter-out $@,$(MAKECMDGOALS))
-DOCKERCOMPOSE     := USER_ID=$(USER) GROUP_ID=$(GROUP) docker-compose
 	
 .PHONY: help
 help:
@@ -42,14 +41,12 @@ pull: ## Update repository
 install-dev: ## install DEV
 	npm install
 	@make deploy -i
-	@make start -i
 	@make composer-install-dev -i
 	@make npm-install-dev -i
 	@make bdd-dev -i
 	@make migrate -i
 	@make fixtures -i
 	docker exec $(CONTAINERFULLNAME) npm run dev
-	@make stop -i
 
 
 .PHONY: npm-doctor
@@ -76,26 +73,15 @@ npm-update: ## npm update PROD
 install-prod: ## install PROD
 	npm install
 	@make deploy -i
-	@make start -i
 	@make composer-install-prod -i
 	@make npm-install-prod -i
 	@make bdd-dev -i
 	@make migrate -i
 	docker exec $(CONTAINERFULLNAME) npm run build
-	@make stop -i
 
 .PHONY: migrate
 migrate: ## migrate database
 	docker exec $(CONTAINERFULLNAME) php bin/console doctrine:migrations:migrate -n
-
-.PHONY: start
-start: ## Start docker
-	docker-compose up -d
-
-.PHONY: restart
-restart: ## restart docker
-	docker-compose stop
-	docker-compose up -d
 
 .PHONY: logs
 logs: ## logs docker
@@ -127,7 +113,7 @@ ssh: ## ssh
 
 .PHONY: stop
 stop: ## Stop docker
-	docker-compose stop
+	docker stack rm $(STACK)
 
 .PHONY: docker-recreate
 docker-recreate: ## RECREATE docker
