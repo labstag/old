@@ -16,6 +16,10 @@ jobs:
               run: make deploy
             - name: Check running stack
               run: docker stack ls
+            - name: Sleep
+              uses: jakejarvis/wait-action@master
+              with:
+                  time: '30s'
             - name: Check running containers
               run: docker service ls
             - name: Composer install
