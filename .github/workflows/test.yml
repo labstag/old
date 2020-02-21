@@ -24,7 +24,7 @@ jobs:
             - name: Composer install
               run: make composer-install-dev
             - name: NPM install
-              run: make npm-install
+              run: make npm-install-dev
             - name: Install BDD
               run: make bdd-dev
             - name: Add database
