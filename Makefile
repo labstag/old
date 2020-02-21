@@ -109,7 +109,7 @@ composer-validate: ## COMPOSER validate
 
 .PHONY: ssh
 ssh: ## ssh
-	docker exec -ti $(CONTAINERFULLNAMEFULLNAME) /bin/bash
+	docker exec -ti $(CONTAINERFULLNAME) /bin/bash
 
 .PHONY: stop
 stop: ## Stop docker
