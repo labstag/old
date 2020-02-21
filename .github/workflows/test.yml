@@ -10,13 +10,8 @@ jobs:
               run: make help
             - name: Show HELP
               run: make
-    launch:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
             - name: Build containers
-              run: make build
+              run: make deploy
             - name: Start containers
               run: make start
             - name: Check running containers
