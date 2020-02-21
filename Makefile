@@ -4,7 +4,7 @@ GROUP             := $(shell id -g)
 EXEC_PHP          := ./bin/
 PHPDOCUMENTORURL  := https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 PHPDOCUMENTORFILE := phpDocumentor.phar
-CONTAINER         := labstag-phpfpm7
+CONTAINER         := labstag_phpfpm
 ARGS              := $(filter-out $@,$(MAKECMDGOALS))
 DOCKERCOMPOSE     := USER_ID=$(USER) GROUP_ID=$(GROUP) docker-compose
 	
@@ -19,6 +19,10 @@ commit: ## Commit data
 .PHONY: cache-clear
 cache-clear: ## Cache clear
 	docker exec $(CONTAINER) php bin/console c:c
+
+.PHONY: deploy
+deploy: ## deploy
+	docker stack deploy -c docker-compose labstag
 
 .PHONY: update
 update: ## update DEPEDENCIES
