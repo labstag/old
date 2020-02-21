@@ -162,18 +162,25 @@
             "@auto-scripts"
         ]
     },
-    "conflict": {
-        "symfony/symfony": "*"
+    "post-install-cmd": [
+      "@auto-scripts"
+    ],
+    "post-update-cmd": [
+      "@auto-scripts"
+    ]
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "phpstan": {
+      "includes": [
+        "extension.neon"
+      ]
     },
-    "extra": {
-        "phpstan": {
-            "includes": [
-                "extension.neon"
-            ]
-        },
-        "symfony": {
-            "allow-contrib": false,
-            "require": "4.4.4"
-        }
+    "symfony": {
+      "allow-contrib": false,
+      "require": "4.4.4"
     }
+  }
 }
