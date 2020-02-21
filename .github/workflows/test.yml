@@ -22,6 +22,8 @@ jobs:
                   time: '45s'
             - name: Check running containers
               run: docker service ls
+            - name: Logs mariadb
+              run: make logs-mariadb
             - name: Composer install
               run: make composer-install-dev
             - name: NPM install
