@@ -76,7 +76,7 @@
         "maglnet/composer-require-checker": "2.0.0",
         "pdepend/pdepend": "2.7.1",
         "phan/phan": "2.4.9",
-        "phploc/phploc": "5.0.0",
+        "phploc/phploc": "6.0.0",
         "phpmd/phpmd": "2.8.1",
         "phpro/grumphp": "0.17.2",
         "phpstan/extension-installer": "1.0.3",
