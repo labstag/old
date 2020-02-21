@@ -6,6 +6,8 @@ jobs:
         steps:
             - name: Checkout
               uses: sagebind/docker-swarm-deploy-action@v2
+            - name: Docker swarm init
+              run: docker swarm init --default-addr-pool 10.20.0.0/16
             - name: Show HELP
               run: make help
             - name: Show HELP
