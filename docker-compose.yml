@@ -12,7 +12,6 @@ volumes:
 services:
     mariadb:
         image: mariadb:10.5.1
-        container_name: labstag_mariadb
         environment:
             MYSQL_ROOT_PASSWORD: example
             MYSQL_DATABASE: core
@@ -27,7 +26,6 @@ services:
             - net
     aphp7:
         image: httpd
-        container_name: labstag_aphp7
         volumes:
             - ${PWD}/apps:/usr/local/apache2/htdocs/
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
@@ -37,7 +35,6 @@ services:
             - net
     phpfpm:
         image: koromerzhin/phpfpm:7.4
-        container_name: labstag_phpfpm
         volumes:
             - ${PWD}/apps:/usr/local/apache2/htdocs
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
