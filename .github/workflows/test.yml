@@ -19,7 +19,7 @@ jobs:
             - name: Sleep
               uses: jakejarvis/wait-action@master
               with:
-                  time: '30s'
+                  time: '60s'
             - name: Check running containers
               run: docker service ls
             - name: Composer install
