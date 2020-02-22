@@ -4,12 +4,13 @@ GROUP             := $(shell id -g)
 EXEC_PHP          := ./bin/
 PHPDOCUMENTORURL  := https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 PHPDOCUMENTORFILE := phpDocumentor.phar
-CONTAINER         := labstag_phpfpm
 PHPFPM            := labstag_phpfpm
 MARIADB           := labstag_mariadb
+APACHE            := labstag_apache
 STACK             := labstag
 PHPFPMFULLNAME    := $(PHPFPM).1.$$(docker service ps -f 'name=$(PHPFPM)' $(PHPFPM) -q --no-trunc | head -n1)
 MARIADBFULLNAME   := $(MARIADB).1.$$(docker service ps -f 'name=$(MARIADB)' $(MARIADB) -q --no-trunc | head -n1)
+APACHEFULLNAME    := $(APACHE).1.$$(docker service ps -f 'name=$(APACHE)' $(APACHE) -q --no-trunc | head -n1)
 ARGS              := $(filter-out $@,$(MAKECMDGOALS))
 	
 .PHONY: help
