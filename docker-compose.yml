@@ -4,6 +4,7 @@ networks:
     net:
         driver: overlay
         attachable: true
+        external: true
 
 volumes:
     mariadb:
