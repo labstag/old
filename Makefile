@@ -5,8 +5,11 @@ EXEC_PHP          := ./bin/
 PHPDOCUMENTORURL  := https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 PHPDOCUMENTORFILE := phpDocumentor.phar
 CONTAINER         := labstag_phpfpm
+PHPFPM            := labstag_phpfpm
+MARIADB           := labstag_mariadb
 STACK             := labstag
-CONTAINERFULLNAME := $(CONTAINER).1.$$(docker service ps -f 'name=$(CONTAINER)' $(CONTAINER) -q --no-trunc | head -n1)
+PHPFPMFULLNAME    := $(PHPFPM).1.$$(docker service ps -f 'name=$(PHPFPM)' $(PHPFPM) -q --no-trunc | head -n1)
+MARIADBFULLNAME   := $(MARIADB).1.$$(docker service ps -f 'name=$(MARIADB)' $(MARIADB) -q --no-trunc | head -n1)
 ARGS              := $(filter-out $@,$(MAKECMDGOALS))
 	
 .PHONY: help
@@ -19,7 +22,7 @@ commit: ## Commit data
 
 .PHONY: cache-clear
 cache-clear: ## Cache clear
-	docker exec $(CONTAINERFULLNAME) php bin/console c:c
+	docker exec $(PHPFPMFULLNAME) php bin/console c:c
 
 .PHONY: deploy
 deploy: ## deploy
@@ -46,28 +49,28 @@ install-dev: ## install DEV
 	@make bdd-dev -i
 	@make migrate -i
 	@make fixtures -i
-	docker exec $(CONTAINERFULLNAME) npm run dev
+	docker exec $(PHPFPMFULLNAME) npm run dev
 
 
 .PHONY: npm-doctor
 npm-doctor: ## doctor NPM
-	docker exec $(CONTAINERFULLNAME) npm doctor
+	docker exec $(PHPFPMFULLNAME) npm doctor
 
 .PHONY: npm-clean-install
 npm-clean-install: ## install PROD
-	docker exec $(CONTAINERFULLNAME) npm clean-install
+	docker exec $(PHPFPMFULLNAME) npm clean-install
 
 .PHONY: npm-install-dev
 npm-install-dev: ## npm install PROD
-	docker exec $(CONTAINERFULLNAME) npm install
+	docker exec $(PHPFPMFULLNAME) npm install
 
 .PHONY: npm-install-prod
 npm-install-prod: ## npm install PROD
-	docker exec $(CONTAINERFULLNAME) npm install
+	docker exec $(PHPFPMFULLNAME) npm install
 
 .PHONY: npm-update
 npm-update: ## npm update PROD
-	docker exec $(CONTAINERFULLNAME) npm update
+	docker exec $(PHPFPMFULLNAME) npm update
 
 .PHONY: install-prod
 install-prod: ## install PROD
@@ -77,11 +80,11 @@ install-prod: ## install PROD
 	@make npm-install-prod -i
 	@make bdd-dev -i
 	@make migrate -i
-	docker exec $(CONTAINERFULLNAME) npm run build
+	docker exec $(PHPFPMFULLNAME) npm run build
 
 .PHONY: migrate
 migrate: ## migrate database
-	docker exec $(CONTAINERFULLNAME) php bin/console doctrine:migrations:migrate -n
+	docker exec $(PHPFPMFULLNAME) php bin/console doctrine:migrations:migrate -n
 
 .PHONY: logs
 logs: ## logs docker
@@ -93,23 +96,23 @@ logs-mariadb: ## logs docker mariadb
 
 .PHONY: composer-install-dev
 composer-install-dev: ## COMPOSER install DEV
-	docker exec $(CONTAINERFULLNAME) composer install
+	docker exec $(PHPFPMFULLNAME) composer install
 
 .PHONY: composer-install-prod
 composer-install-prod: ## COMPOSER install PROD
-	docker exec $(CONTAINERFULLNAME) composer install --no-dev
+	docker exec $(PHPFPMFULLNAME) composer install --no-dev
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
-	docker exec $(CONTAINERFULLNAME) composer update
+	docker exec $(PHPFPMFULLNAME) composer update
 
 .PHONY: composer-validate
 composer-validate: ## COMPOSER validate
-	docker exec $(CONTAINERFULLNAME) composer validate
+	docker exec $(PHPFPMFULLNAME) composer validate
 
 .PHONY: ssh
 ssh: ## ssh
-	docker exec -ti $(CONTAINERFULLNAME) /bin/bash
+	docker exec -ti $(PHPFPMFULLNAME) /bin/bash
 
 .PHONY: stop
 stop: ## Stop docker
@@ -127,7 +130,7 @@ licenses: ## Show licenses
 	
 .PHONY: licensesPHP
 licensesPHP: ## Show licenses PHP
-	docker exec $(CONTAINERFULLNAME) composer licenses
+	docker exec $(PHPFPMFULLNAME) composer licenses
 	
 .PHONY: licensesJSCSS
 licensesJSCSS: ## Show licenses JS / CSS
@@ -147,35 +150,35 @@ watch-localhost: ## WEBPACK DEV
 	
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
-	docker exec $(CONTAINERFULLNAME) composer php-cs-fixer
+	docker exec $(PHPFPMFULLNAME) composer php-cs-fixer
 	
 .PHONY: phpcbf
 phpcbf: ## PHPCBF
-	docker exec $(CONTAINERFULLNAME) composer phpcbf
+	docker exec $(PHPFPMFULLNAME) composer phpcbf
 	
 .PHONY: phpmd
 phpmd: ## PHPMD
-	docker exec $(CONTAINERFULLNAME) composer phpmd
+	docker exec $(PHPFPMFULLNAME) composer phpmd
 	
 .PHONY: phpcs
 phpcs: ## PHPCS
-	docker exec $(CONTAINERFULLNAME) composer phpcs
+	docker exec $(PHPFPMFULLNAME) composer phpcs
 	
 .PHONY: phpstan
 phpstan: ## PHPSTAN
-	docker exec $(CONTAINERFULLNAME) composer phpstan
+	docker exec $(PHPFPMFULLNAME) composer phpstan
 	
 .PHONY: phpcpd
 phpcpd: ## PHPCPD
-	docker exec $(CONTAINERFULLNAME) composer phpcpd
+	docker exec $(PHPFPMFULLNAME) composer phpcpd
 	
 .PHONY: phpmnd
 phpmnd: ## PHPMND
-	docker exec $(CONTAINERFULLNAME) composer phpmnd
+	docker exec $(PHPFPMFULLNAME) composer phpmnd
 	
 .PHONY: twigcs
 twigcs: ## TWIGCS
-	docker exec $(CONTAINERFULLNAME) composer twigcs
+	docker exec $(PHPFPMFULLNAME) composer twigcs
 
 .PHONY: fix
 fix: ## FIX CODE PHP
@@ -198,7 +201,7 @@ audit: ## AUDIT CODE PHP
 
 .PHONY: fixtures
 fixtures: ## PHPUnit
-	docker exec $(CONTAINERFULLNAME) php bin/console doctrine:fixtures:load -n
+	docker exec $(PHPFPMFULLNAME) php bin/console doctrine:fixtures:load -n
 
 .PHONY: tests
 tests: ## tests
@@ -206,19 +209,19 @@ tests: ## tests
 
 .PHONY: phpunit
 phpunit: ## PHPUnit
-	docker exec $(CONTAINERFULLNAME) composer phpunit
+	docker exec $(PHPFPMFULLNAME) composer phpunit
 
 .PHONY: bdd-dev
 bdd-dev: ## Install BDD DEV
-	docker exec $(CONTAINERFULLNAME) cp .env.dist .env
+	docker exec $(PHPFPMFULLNAME) cp .env.dist .env
 
 .PHONY: watch
 watch: ## watch JS / CSS DEV
-	docker exec $(CONTAINERFULLNAME) npm run watch
+	docker exec $(PHPFPMFULLNAME) npm run watch
 
 .PHONY: create-asset
 create-asset: ## create ASSET
-	docker exec $(CONTAINERFULLNAME) npm run dev
+	docker exec $(PHPFPMFULLNAME) npm run dev
 
 .PHONY: git-author
 git-author: ## git author
