@@ -24,7 +24,7 @@ services:
             - 3306:3306
         networks:
             - net
-    aphp7:
+    apache:
         image: httpd
         volumes:
             - ${PWD}/apps:/usr/local/apache2/htdocs/
