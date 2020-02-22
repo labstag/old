@@ -19,9 +19,11 @@ jobs:
             - name: Sleep
               uses: jakejarvis/wait-action@master
               with:
-                  time: '60s'
+                  time: '5m'
             - name: Check running containers
               run: docker service ls
+            - name: Logs mariadb
+              run: make logs-mariadb
             - name: Composer install
               run: make composer-install-dev
             - name: NPM install
