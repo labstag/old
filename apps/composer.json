@@ -61,6 +61,7 @@
         "symfony/validator": "4.4.4",
         "symfony/var-dumper": "4.4.4",
         "symfony/web-link": "4.4.4",
+        "symfony/web-server-bundle": "4.4.4",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/workflow": "4.4.4",
         "symfony/yaml": "4.4.4",
@@ -97,8 +98,7 @@
         "symfony/phpunit-bridge": "5.0.4",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "1.0.6",
-        "symfony/thanks": "1.2.5",
-        "symfony/web-server-bundle": "4.4.4"
+        "symfony/thanks": "1.2.5"
     },
     "config": {
         "process-timeout": 0,
