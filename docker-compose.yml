@@ -1,10 +1,5 @@
 version: '3.4'
 
-networks:
-    net:
-        driver: overlay
-        attachable: true
-
 volumes:
     mariadb:
         driver: local
@@ -22,8 +17,6 @@ services:
             - ${PWD}/mariadb:/var/lib/mysql
         ports:
             - 3306:3306
-        networks:
-            - net
     aphp7:
         image: httpd
         volumes:
@@ -31,12 +24,8 @@ services:
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
         ports:
             - 80:80
-        networks:
-            - net
     phpfpm:
         image: koromerzhin/phpfpm:7.4
         volumes:
             - ${PWD}/apps:/usr/local/apache2/htdocs
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
-        networks:
-            - net
