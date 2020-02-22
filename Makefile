@@ -38,14 +38,14 @@ update: ## update DEPEDENCIES
 .PHONY: pull
 pull: ## Update repository
 	npm install
-	@make composer-install-dev -i
+	@make composer-install -i
 	@make npm-install-dev -i
 
 .PHONY: install-dev
 install-dev: ## install DEV
 	npm install
 	@make deploy -i
-	@make composer-install-dev -i
+	@make composer-install -i
 	@make npm-install-dev -i
 	@make bdd-dev -i
 	@make migrate -i
@@ -77,7 +77,7 @@ npm-update: ## npm update PROD
 install-prod: ## install PROD
 	npm install
 	@make deploy -i
-	@make composer-install-prod -i
+	@make composer-install -i
 	@make npm-install-prod -i
 	@make bdd-dev -i
 	@make migrate -i
@@ -95,13 +95,9 @@ logs: ## logs docker
 logs-mariadb: ## logs docker mariadb
 	docker-compose logs -f labstag-mariadb
 
-.PHONY: composer-install-dev
-composer-install-dev: ## COMPOSER install DEV
+.PHONY: composer-install
+composer-install: ## COMPOSER install DEV
 	docker exec $(PHPFPMFULLNAME) composer install
-
-.PHONY: composer-install-prod
-composer-install-prod: ## COMPOSER install PROD
-	docker exec $(PHPFPMFULLNAME) composer install --no-dev
 
 .PHONY: composer-update
 composer-update: ## COMPOSER update
