@@ -40,6 +40,11 @@ class ConfigurationAdmin extends AdminControllerLib
             'repository'      => $repository,
             'datatable'       => $datatable,
             'api'             => 'api_configurations_get_collection',
+            'graphql_query'   => [
+                'table'  => 'configurations',
+                'node'   => 'id _id name createdAt updatedAt',
+                'params' => '',
+            ],
             'url_new'         => 'adminconfiguration_new',
             'url_delete'      => 'adminconfiguration_delete',
             'url_deletetrash' => 'adminconfiguration_deletetrash',
