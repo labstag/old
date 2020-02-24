@@ -10,6 +10,7 @@ use Labstag\Lib\AbstractTypeLibAdmin;
 use Labstag\Repository\EmailRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,10 @@ class ProfilType extends AbstractTypeLibAdmin
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('username');
-        $builder->add('plainPassword');
+        $builder->add(
+            'plainPassword',
+            PasswordType::class
+        );
         $builder->add(
             'emails',
             CollectionType::class,
