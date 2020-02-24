@@ -167,7 +167,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
      * @Groups({"write"})
      *
-     * @var string
+     * @var null|string
      */
     private $apiKey;
 
@@ -400,12 +400,12 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getApiKey(): string
+    public function getApiKey(): ?string
     {
         return (string) $this->apiKey;
     }
 
-    public function setApiKey(string $apiKey): self
+    public function setApiKey(?string $apiKey): self
     {
         $this->apiKey = $apiKey;
 
