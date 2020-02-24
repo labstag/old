@@ -18,4 +18,21 @@ export class xhr {
         }
       });
   }
+  empty(url) {
+    window
+      .fetch(url, {
+        method: "GET"
+      })
+      .then(response => {
+        return response.text();
+      })
+      .then(text => {
+        return JSON.parse(text);
+      })
+      .then(json => {
+        if (json.redirect != undefined) {
+          window.location.replace(json.redirect);
+        }
+      });
+  }
 }

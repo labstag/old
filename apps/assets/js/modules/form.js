@@ -8,6 +8,7 @@ export class form {
     this.session();
     this.save();
     this.btndelete();
+    this.btnEmpty();
     this.minimize();
   }
 
@@ -36,6 +37,28 @@ export class form {
         $minimize.addClass("d-none");
       }
     });
+  }
+
+  confirmEmpty(event) {
+    event.preventDefault();
+    let data = [];
+    let url = $(".BtnemptyModalConfirm").attr("href");
+    this.xhr.empty(url);
+  }
+
+  btnEmptyOnClick(event) {
+    event.preventDefault();
+    $(".BtnemptyModalConfirm").attr(
+      "href",
+      $(event.currentTarget).attr("href")
+    );
+    $(".BtnemptyModalConfirm").off("click");
+    $(".BtnemptyModalConfirm").on("click", this.confirmEmpty.bind(this));
+    $("#emptyModal").modal();
+  }
+
+  btnEmpty() {
+    $(".BtnActionEmpty").on("click", this.btnEmptyOnClick.bind(this));
   }
 
   confirmDelete(event) {
