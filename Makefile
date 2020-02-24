@@ -39,19 +39,37 @@ update: ## update DEPEDENCIES
 pull: ## Update repository
 	npm install
 	@make composer-install -i
-	@make npm-install-dev -i
+	@make npm-install -i
 
-.PHONY: install-dev
-install-dev: ## install DEV
+.PHONY: install
+install: ## install DEV
 	npm install
 	@make deploy -i
+
+.PHONY: showstack
+showstack: ## Show stack
+	@docker stack ps $(STACK)
+	@docker service ls
+
+.PHONY: install-dev
+install-dev: ## continue-install-dev
 	@make composer-install -i
-	@make npm-install-dev -i
-	@make bdd-dev -i
+	@make npm-install -i
 	@make migrate -i
 	@make fixtures -i
 	docker exec $(PHPFPMFULLNAME) npm run dev
 
+.PHONY: install-prod
+install-prod: ## continue-install-prod
+	@make composer-install -i
+	@make npm-install -i
+	docker exec $(PHPFPMFULLNAME) sed -i 's/APP_ENV=dev/APP_ENV=prod/g'   .env
+	@make migrate -i
+	docker exec $(PHPFPMFULLNAME) npm run build
+
+.PHONY: setenv
+setenv: ## Install BDD DEV
+	cp apps/.env.dist apps/.env
 
 .PHONY: npm-doctor
 npm-doctor: ## doctor NPM
@@ -61,27 +79,13 @@ npm-doctor: ## doctor NPM
 npm-clean-install: ## install PROD
 	docker exec $(PHPFPMFULLNAME) npm clean-install
 
-.PHONY: npm-install-dev
-npm-install-dev: ## npm install PROD
-	docker exec $(PHPFPMFULLNAME) npm install
-
-.PHONY: npm-install-prod
-npm-install-prod: ## npm install PROD
+.PHONY: npm-install
+npm-install: ## npm install
 	docker exec $(PHPFPMFULLNAME) npm install
 
 .PHONY: npm-update
 npm-update: ## npm update PROD
 	docker exec $(PHPFPMFULLNAME) npm update
-
-.PHONY: install-prod
-install-prod: ## install PROD
-	npm install
-	@make deploy -i
-	@make composer-install -i
-	@make npm-install-prod -i
-	@make bdd-dev -i
-	@make migrate -i
-	docker exec $(PHPFPMFULLNAME) npm run build
 
 .PHONY: migrate
 migrate: ## migrate database
@@ -89,11 +93,11 @@ migrate: ## migrate database
 
 .PHONY: logs
 logs: ## logs docker
-	docker-compose logs -f
+	docker service logs -f --tail 100 --raw $(STACK)
 
 .PHONY: logs-mariadb
 logs-mariadb: ## logs docker mariadb
-	docker-compose logs -f labstag-mariadb
+	docker service logs -f --tail 100 --raw $(MARIADBFULLNAME)
 
 .PHONY: composer-install
 composer-install: ## COMPOSER install DEV
@@ -207,10 +211,6 @@ tests: ## tests
 .PHONY: phpunit
 phpunit: ## PHPUnit
 	docker exec $(PHPFPMFULLNAME) composer phpunit
-
-.PHONY: bdd-dev
-bdd-dev: ## Install BDD DEV
-	docker exec $(PHPFPMFULLNAME) cp .env.dist .env
 
 .PHONY: watch
 watch: ## watch JS / CSS DEV
