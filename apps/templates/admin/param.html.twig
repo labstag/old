@@ -3,8 +3,12 @@
 {% block content_title %}{{ title }}{% endblock %}
 
 {% block bodyAdmin %}
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
 

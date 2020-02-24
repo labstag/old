@@ -71,12 +71,17 @@ abstract class AdminControllerLib extends ControllerLib
 
         $this->setDatatable($data);
         $paramtwig = [
-            'datatable' => $data['datatable'],
-            'title'     => $data['title'],
-            'operation' => true,
-            'select'    => true,
-            'api'       => $data['api'],
-            'api_param' => [],
+            'datatable'     => $data['datatable'],
+            'title'         => $data['title'],
+            'operation'     => true,
+            'select'        => true,
+            'api'           => $data['api'],
+            'api_param'     => [],
+            'graphql_query' => [
+                'table'  => '',
+                'node'   => '',
+                'params' => '',
+            ],
         ];
         if (isset($data['api_param'])) {
             $paramtwig['api_param'] = $data['api_param'];
@@ -437,6 +442,7 @@ abstract class AdminControllerLib extends ControllerLib
             'url_edit',
             'url_enable',
             'url_custom',
+            'graphql_query',
         ];
         foreach ($tabDataCheck as $key) {
             if (isset($data[$key])) {
