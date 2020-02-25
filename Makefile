@@ -57,7 +57,7 @@ install-dev: ## continue-install-dev
 	@make npm-install -i
 	@make migrate -i
 	@make fixtures -i
-	docker exec $(PHPFPMFULLNAME) npm run dev
+	@make create-asset -i
 
 .PHONY: install-prod
 install-prod: ## continue-install-prod
