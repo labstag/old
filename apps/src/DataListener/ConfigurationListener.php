@@ -6,8 +6,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Exception;
 use Labstag\Entity\Configuration;
-use Psr\Log\LoggerInterface;
 use Labstag\Lib\EventSubscriberLib;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -24,11 +24,10 @@ class ConfigurationListener extends EventSubscriberLib
      */
     private $session;
 
-
     public function __construct(LoggerInterface $logger, SessionInterface $session)
     {
         $this->logger = $logger;
-        /** @var Session $session */
+        /* @var Session $session */
         $this->session = $session;
     }
 
