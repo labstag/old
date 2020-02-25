@@ -1,75 +1,93 @@
-import { workflow } from "./workflow";
-import { xhr } from "./xhr";
+import {
+    workflow
+} from "./workflow";
+import {
+    xhr
+} from "./xhr";
 export class admin {
-  constructor() {
-    this.userList();
-    this.btndelete();
-    this.sortable();
-    this.workflow = new workflow();
-    this.xhr = new xhr();
-  }
+    constructor() {
+        this.userList();
+        this.btndelete();
+        this.btnRestore();
+        this.sortable();
+        this.workflow = new workflow();
+        this.xhr = new xhr();
+    }
 
-  sortable() {
-    $("#sortable").sortable({
-      stop: this.positionChange
-    });
-  }
+    sortable() {
+        $("#sortable").sortable({
+            stop: this.positionChange
+        });
+    }
 
-  positionChange(event, ui) {
-    $("#sortable")
-      .find("input")
-      .each(function(index) {
-        $(this).val(index);
-      });
-  }
-  btndelete() {
-    $(document).on(
-      "click",
-      ".OperationLinkDelete",
-      this.btndeleteOnClick.bind(this)
-    );
-  }
+    positionChange(event, ui) {
+        $("#sortable")
+            .find("input")
+            .each(function (index) {
+                $(this).val(index);
+            });
+    }
+    btndelete() {
+        $(document).on(
+            "click",
+            ".OperationLinkDelete",
+            this.btndeleteOnClick.bind(this)
+        );
+    }
 
-  btndeleteOnClick(event) {
-    event.preventDefault();
-    $(".BtnDeleteModalConfirm").attr(
-      "href",
-      $(event.currentTarget).attr("href")
-    );
-    $(".BtnDeleteModalConfirm").attr(
-      "data-id",
-      $(event.currentTarget).attr("data-id")
-    );
-    $(".BtnDeleteModalConfirm").off("click");
-    $(".BtnDeleteModalConfirm").on("click", this.confirmDelete.bind(this));
-    $("#deleteModal").modal();
-  }
+    btndeleteOnClick(event) {
+        event.preventDefault();
+        $(".BtnDeleteModalConfirm").attr(
+            "href",
+            $(event.currentTarget).attr("href")
+        );
+        $(".BtnDeleteModalConfirm").attr(
+            "data-id",
+            $(event.currentTarget).attr("data-id")
+        );
+        $(".BtnDeleteModalConfirm").off("click");
+        $(".BtnDeleteModalConfirm").on("click", this.confirmDelete.bind(this));
+        $("#deleteModal").modal();
+    }
 
-  confirmDelete(event) {
-    event.preventDefault();
-    let data = [];
-    let url = $(".BtnDeleteModalConfirm").attr("href");
-    let id = $(".BtnDeleteModalConfirm").attr("data-id");
+    btnRestore() {
+        $(document).on(
+            "click",
+            ".OperationLinkRestore",
+            this.btnRestoreOnclick.bind(this)
+        )
+    }
 
-    data.push(id);
-    this.xhr.delete(url, data);
-  }
+    btnRestoreOnclick(event) {
+        event.preventDefault();
+        $("#restoreModal").modal();
+    }
 
-  userList() {
-    window.rolesFormatter = this.rolesFormatter;
-  }
+    confirmDelete(event) {
+        event.preventDefault();
+        let data = [];
+        let url = $(".BtnDeleteModalConfirm").attr("href");
+        let id = $(".BtnDeleteModalConfirm").attr("data-id");
 
-  rolesFormatter(roles, row) {
-    let ul = document.createElement("ul");
+        data.push(id);
+        this.xhr.delete(url, data);
+    }
 
-    $(roles).each(function(value) {
-      let li = document.createElement("li");
+    userList() {
+        window.rolesFormatter = this.rolesFormatter;
+    }
 
-      li.innerHTML = roles[value];
+    rolesFormatter(roles, row) {
+        let ul = document.createElement("ul");
 
-      ul.append(li);
-    });
+        $(roles).each(function (value) {
+            let li = document.createElement("li");
 
-    return ul.outerHTML;
-  }
+            li.innerHTML = roles[value];
+
+            ul.append(li);
+        });
+
+        return ul.outerHTML;
+    }
 }

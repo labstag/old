@@ -98,6 +98,10 @@ abstract class AdminControllerLib extends ControllerLib
             $this->dateInTrash($paramtwig, $dataInTrash, $data);
         }
 
+        if ($route != $data['url_trash'] && isset($paramtwig['url_restore'])) {
+            unset($paramtwig['url_restore']);
+        }
+
         if (0 == count($dataInTrash) && $route == $data['url_trash']) {
             $this->addFlash('info', 'Aucune donnée dans la corbeille');
 
@@ -419,6 +423,7 @@ abstract class AdminControllerLib extends ControllerLib
             'url_edit',
             'url_view',
             'url_custom',
+            'url_restore',
             'url_duplicate',
         ];
         $paramtwig['operation_link'] = [];
@@ -436,6 +441,7 @@ abstract class AdminControllerLib extends ControllerLib
     private function setParamTwig(array &$paramtwig, array $data): void
     {
         $tabDataCheck = [
+            'url_restore',
             'url_new',
             'url_view',
             'url_delete',
