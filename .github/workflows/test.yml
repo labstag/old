@@ -30,7 +30,7 @@ jobs:
               run: make composer-install
             - name: NPM install
               run: make npm-install
-            - name: Add database
+            - name: BDD MIGRATE
               run: make migrate
             - name: Run the fixtures
               run: make fixtures
