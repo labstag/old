@@ -22,7 +22,6 @@
 	<rule ref="rulesets/codesize.xml">
 		<exclude name="TooManyPublicMethods" />
 		<exclude name="TooManyMethods" />
-		<exclude name="ExcessiveClassLength" />
 		<exclude name="ExcessiveClassComplexity" />
 	</rule>
 	<rule ref="rulesets/controversial.xml" />

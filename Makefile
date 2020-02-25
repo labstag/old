@@ -212,10 +212,6 @@ tests: ## tests
 phpunit: ## PHPUnit
 	docker exec $(PHPFPMFULLNAME) composer phpunit
 
-.PHONY: watch
-watch: ## watch JS / CSS DEV
-	docker exec $(PHPFPMFULLNAME) npm run watch
-
 .PHONY: create-asset
 create-asset: ## create ASSET
 	docker exec $(PHPFPMFULLNAME) npm run dev

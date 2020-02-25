@@ -3,17 +3,17 @@
 namespace Labstag\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Timestampable Trait, usable with PHP >= 5.4
+ * Timestampable Trait, usable with PHP >= 5.4.
  *
- * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 trait Timestampable
 {
+
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
@@ -33,7 +33,6 @@ trait Timestampable
     /**
      * Sets createdAt.
      *
-     * @param  \DateTime $createdAt
      * @return $this
      */
     public function setCreatedAt(\DateTime $createdAt)
@@ -56,7 +55,6 @@ trait Timestampable
     /**
      * Sets updatedAt.
      *
-     * @param  \DateTime $updatedAt
      * @return $this
      */
     public function setUpdatedAt(\DateTime $updatedAt)

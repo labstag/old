@@ -112,6 +112,7 @@ abstract class AdminControllerLib extends ControllerLib
         }
 
         $this->setOperationLink($paramtwig);
+        $this->setParamDatatable($paramtwig);
 
         return $this->twig('admin/crud/list.html.twig', $paramtwig);
     }
@@ -393,6 +394,72 @@ abstract class AdminControllerLib extends ControllerLib
     {
         $this->setMenuAdmin();
         $this->paramViews = array_merge($parameters, $this->paramViews);
+    }
+
+    private function setParamDatatable(array &$paramtwig): void
+    {
+        $this->setConfigurationParam();
+        $attr = [
+            'class' => 'table table-border table-hover table-striped table-sm thead-light',
+            'id'    => 'CrudList',
+        ];
+        $data = [
+            'toolbar'                 => '#toolbar',
+            'resizable'               => 'true',
+            'query-params'            => 'queryParams',
+            'page-size'               => '10',
+            'ajax-options'            => 'ajaxOptions',
+            'moment'                  => $this->paramViews['config']['moment'][0]['format'],
+            'files'                   => $this->generateUrl('front', [], UrlGeneratorInterface::ABSOLUTE_URL).'/file/',
+            'toggle'                  => 'table',
+            'locale'                  => $this->paramViews['config']['datatable'][0]['lang'],
+            'total-field'             => 'count',
+            'show-refresh'            => 'true',
+            'show-columns'            => 'true',
+            'show-fullscreen'         => 'true',
+            'sortable'                => 'true',
+            'sort-class'              => 'table-active',
+            'side-pagination'         => 'server',
+            'sort-stable'             => 'true',
+            'search'                  => 'true',
+            'advanced-search'         => 'true',
+            'id-table'                => 'advancedTable',
+            'show-jump-to'            => 'true',
+            'mobile-responsive'       => 'true',
+            'page-list'               => $this->paramViews['config']['datatable'][0]['pagelist'],
+            'show-toggle'             => 'true',
+            'id-field'                => 'id',
+            'pagination'              => 'true',
+            'show-export'             => 'true',
+            'show-columns-toggle-all' => 'true',
+            'cookie'                  => 'true',
+            'cookie-id-table'         => 'saveId',
+        ];
+        if (isset($paramtwig['url_enable'])) {
+            foreach ($paramtwig['url_enable'] as $key => $value) {
+                $data['enableurl-'.$key] = $value;
+            }
+        }
+
+        if (isset($paramtwig['graphql_query']) && '' != $paramtwig['graphql_query']['table']) {
+            foreach ($paramtwig['graphql_query'] as $key => $value) {
+                $data['graphql-'.$key] = $value;
+            }
+        }
+
+        if (isset($paramtwig['api'], $paramtwig['api_param'])) {
+            $data['url'] = $this->generateUrl($paramtwig['api'], $paramtwig['api_param']);
+        }
+
+        dump($data);
+
+        foreach ($data as $key => $value) {
+            $attr['data-'.$key] = $value;
+        }
+
+        ksort($attr);
+
+        $paramtwig['attrdatatable'] = $attr;
     }
 
     /**
