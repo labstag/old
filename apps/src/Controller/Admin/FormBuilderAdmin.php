@@ -40,6 +40,11 @@ class FormBuilderAdmin extends AdminControllerLib
             'url_enable'      => ['enable' => 'adminformbuilder_enable'],
             'api'             => 'api_formbuilders_get_collection',
             'url_new'         => 'adminformbuilder_new',
+            'graphql_query'   => [
+                'table'  => 'formbuilders',
+                'node'   => 'id _id name createdAt updatedAt',
+                'params' => '',
+            ],
             'url_delete'      => 'adminformbuilder_delete',
             'url_deletetrash' => 'adminformbuilder_deletetrash',
             'url_trash'       => 'adminformbuilder_trash',

@@ -70,6 +70,11 @@ class HistoryAdmin extends AdminControllerLib
             'url_delete'      => 'adminhistory_delete',
             'url_deletetrash' => 'adminhistory_deletetrash',
             'url_trash'       => 'adminhistory_trash',
+            'graphql_query'   => [
+                'table'  => 'histories',
+                'node'   => 'id _id name refuser{id _id avatar username} chapitres{totalCount} file end enable file enable createdAt updatedAt',
+                'params' => 'type: "bookmark"',
+            ],
             'url_restore'     => 'adminhistory_restore',
             'url_empty'       => 'adminhistory_empty',
             'url_list'        => 'adminhistory_list',
@@ -284,6 +289,11 @@ class HistoryAdmin extends AdminControllerLib
             'url_delete'      => 'adminhistorychapitre_delete',
             'url_deletetrash' => 'adminhistorychapitre_deletetrash',
             'url_trash'       => 'adminhistorychapitre_trash',
+            'graphql_query'   => [
+                'table'  => 'chapitres',
+                'node'   => 'id _id name refhistory{id _id name} position enable createdAt updatedAt',
+                'params' => 'type: "bookmark"',
+            ],
             'url_restore'     => 'adminhistorychapitre_restore',
             'url_empty'       => 'adminhistorychapitre_empty',
             'url_list'        => 'adminhistorychapitre_list',
