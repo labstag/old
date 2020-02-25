@@ -68,7 +68,7 @@ install-prod: ## continue-install-prod
 	docker exec $(PHPFPMFULLNAME) npm run build
 
 .PHONY: setenv
-setenv: ## Install BDD DEV
+setenv: ## Install .env
 	cp apps/.env.dist apps/.env
 
 .PHONY: npm-doctor

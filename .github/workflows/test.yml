@@ -18,20 +18,18 @@ jobs:
               run: make deploy
             - name: Check running stack
               run: docker stack ls
+            - name: Set env
+              run: make setenv
             - name: Sleep
               uses: jakejarvis/wait-action@master
               with:
                   time: '2m'
-            - name: Set env
-              run: make setenv
             - name: Check running containers
               run: docker service ls
             - name: Composer install
               run: make composer-install
             - name: NPM install
               run: make npm-install
-            - name: Install BDD
-              run: make bdd-dev
             - name: Add database
               run: make migrate
             - name: Run the fixtures
