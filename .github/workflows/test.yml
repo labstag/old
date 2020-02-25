@@ -8,6 +8,8 @@ jobs:
               uses: actions/checkout@v2
             - name: Docker swarm init
               run: docker swarm init --default-addr-pool 10.20.0.0/16
+            - name: Create proxy network
+              run: docker network create --driver=overlay proxy
             - name: Show HELP
               run: make help
             - name: Show HELP
