@@ -22,6 +22,8 @@ jobs:
               uses: jakejarvis/wait-action@master
               with:
                   time: '2m'
+            - name: Set env
+              run: make setenv
             - name: Check running containers
               run: docker service ls
             - name: Composer install
