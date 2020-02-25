@@ -27,9 +27,9 @@ jobs:
             - name: Check running containers
               run: docker service ls
             - name: Composer install
-              run: make composer-install-dev
+              run: make composer-install
             - name: NPM install
-              run: make npm-install-dev
+              run: make npm-install
             - name: Install BDD
               run: make bdd-dev
             - name: Add database
