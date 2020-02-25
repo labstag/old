@@ -2,7 +2,7 @@
 {% import "admin/macro.html.twig" as macroAdmin %}
 {% block bodyAdmin %}
     {% if graphql_query is defined and graphql_query['table'] != '' %}
-        {{ dump(graphql_query) }}
+        {{ graphqlQuery(graphql_query) }}
     {% endif %}
     <div class="row">
         <div class="col-xl-12">
