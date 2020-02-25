@@ -80,7 +80,6 @@
         "phan/phan": "2.4.9",
         "phploc/phploc": "5.0.0",
         "phpmd/phpmd": "2.8.1",
-        "phpro/grumphp": "0.17.2",
         "phpstan/extension-installer": "1.0.3",
         "phpstan/phpstan": "0.12.11",
         "phpstan/phpstan-mockery": "0.12.3",
