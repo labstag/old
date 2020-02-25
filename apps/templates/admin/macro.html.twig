@@ -26,6 +26,11 @@
             <i class="far fa-copy"></i>
         </a>
     {% endif %}
+    {% if operation_link['url_restore'] is defined %}
+        <a class="OperationLinkRestore btn btn-success btn-sm" href="{{ path(operation_link['url_restore'], {'id': code}) }}" title="Dupliquer">
+            <i class="fas fa-trash-restore"></i>
+        </a>
+    {% endif %}
 {% endmacro %}
 {% macro logs(logs) %}
     {% if logs is defined and logs|length != 0 %}

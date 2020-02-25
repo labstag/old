@@ -141,6 +141,9 @@
     {% if url_delete is defined %}
         {% include "admin/modal/delete.html.twig" %}
     {% endif %}
+    {% if url_restore is defined %}
+        {% include "admin/modal/restore.html.twig" %}
+    {% endif %}
     {% if url_empty is defined %}
         {% include "admin/modal/empty.html.twig" %}
     {% endif %}
