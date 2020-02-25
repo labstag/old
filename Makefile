@@ -145,8 +145,8 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	@php phpDocumentor.phar
 	@rm -rf output
 	
-.PHONY: watch-localhost
-watch-localhost: ## WEBPACK DEV
+.PHONY: watch
+watch: ## WEBPACK watch
 	docker exec -it $(PHPFPMFULLNAME) npm run watch
 	
 .PHONY: phpcsfixer
