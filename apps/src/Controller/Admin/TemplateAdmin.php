@@ -36,6 +36,11 @@ class TemplateAdmin extends AdminControllerLib
             'url_enable'      => ['enable' => 'admintemplate_enable'],
             'api'             => 'api_templates_get_collection',
             'url_new'         => 'admintemplate_new',
+            'graphql_query'   => [
+                'table'  => 'templates',
+                'node'   => 'id _id name code',
+                'params' => '',
+            ],
             'url_delete'      => 'admintemplate_delete',
             'url_deletetrash' => 'admintemplate_deletetrash',
             'url_trash'       => 'admintemplate_trash',

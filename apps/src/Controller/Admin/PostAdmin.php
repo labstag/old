@@ -62,6 +62,11 @@ class PostAdmin extends AdminControllerLib
             'title'           => 'Post list',
             'datatable'       => $datatable,
             'repository'      => $repository,
+            'graphql_query'   => [
+                'table'  => 'posts',
+                'node'   => 'id _id name refuser{id _id avatar username} refcategory{id _id name} file enable createdAt updatedAt',
+                'params' => 'type: "bookmark"',
+            ],
             'api'             => 'api_posts_get_collection',
             'url_delete'      => 'adminpost_delete',
             'url_deletetrash' => 'adminpost_deletetrash',
@@ -224,6 +229,11 @@ class PostAdmin extends AdminControllerLib
             'datatable'       => $datatable,
             'repository'      => $repository,
             'api'             => 'api_categories_get_collection',
+            'graphql_query'   => [
+                'table'  => 'categories',
+                'node'   => 'id _id name name posts{totalCount} createdAt updatedAt',
+                'params' => 'type: "post"',
+            ],
             'url_new'         => 'adminpostcategory_new',
             'url_delete'      => 'adminpostcategory_delete',
             'url_deletetrash' => 'adminpostcategory_deletetrash',
@@ -361,6 +371,11 @@ class PostAdmin extends AdminControllerLib
             'api_param'       => [
                 'type'      => 'post',
                 'temporary' => false,
+            ],
+            'graphql_query'   => [
+                'table'  => 'tags',
+                'node'   => 'id _id name name posts{totalCount} createdAt updatedAt',
+                'params' => 'type: "post"',
             ],
             'url_new'         => 'adminposttags_new',
             'url_delete'      => 'adminposttags_delete',

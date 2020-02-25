@@ -57,6 +57,11 @@ class BookmarkAdmin extends AdminControllerLib
             'repository'      => $repository,
             'api'             => 'api_bookmarks_get_collection',
             'url_new'         => 'adminbookmark_new',
+            'graphql_query'   => [
+                'table'  => 'bookmarks',
+                'node'   => 'id _id name refuser{id _id username avatar} file enable createdAt updatedAt',
+                'params' => '',
+            ],
             'url_delete'      => 'adminbookmark_delete',
             'url_deletetrash' => 'adminbookmark_deletetrash',
             'url_trash'       => 'adminbookmark_trash',
@@ -206,6 +211,11 @@ class BookmarkAdmin extends AdminControllerLib
                 'temporary' => false,
             ],
             'url_new'         => 'adminbookmarktags_new',
+            'graphql_query'   => [
+                'table'  => 'tags',
+                'node'   => 'id _id name name bookmarks{totalCount} createdAt updatedAt',
+                'params' => 'type: "bookmark"',
+            ],
             'url_delete'      => 'adminbookmarktags_delete',
             'url_deletetrash' => 'adminbookmarktags_deletetrash',
             'url_trash'       => 'adminbookmarktags_trash',

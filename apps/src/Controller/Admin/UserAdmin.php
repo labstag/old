@@ -55,6 +55,11 @@ class UserAdmin extends AdminControllerLib
             'repository'      => $repository,
             'url_enable'      => ['enable' => 'adminuser_enable'],
             'api'             => 'api_users_get_collection',
+            'graphql_query'   => [
+                'table'  => 'users',
+                'node'   => 'id _id username email roles avatar enable createdAt updatedAt',
+                'params' => '',
+            ],
             'url_new'         => 'adminuser_new',
             'url_delete'      => 'adminuser_delete',
             'url_deletetrash' => 'adminuser_deletetrash',
