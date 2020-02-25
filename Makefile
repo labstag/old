@@ -147,7 +147,7 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	
 .PHONY: watch-localhost
 watch-localhost: ## WEBPACK DEV
-	@export NODE_ENV=localhost && npm run watch
+	docker exec -it $(PHPFPMFULLNAME) npm run watch
 	
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
