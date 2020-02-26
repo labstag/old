@@ -458,7 +458,6 @@ abstract class AdminControllerLib extends ControllerLib
         foreach ($paramtwig['url_enable'] as $key => $value) {
             $data['enableurl-'.$key] = $value;
         }
-
     }
 
     private function setParamDatatable(array &$paramtwig): void
