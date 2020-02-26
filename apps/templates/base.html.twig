@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|split('_')|first|default('en') }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block page_title %}{{ block('content_title')|striptags|raw }}{% endblock %}</title>
+        {% if config.meta is defined %}
+            {% for key, value in config.meta[0] %}
+                {% if value|trim != '' %}
+                    <meta name="{{ key }}" content="{{ value|trim }}">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {{ encore_entry_link_tags('app') }}
+        {% block stylesheets %}{% endblock %}
+		{% if pagination is defined %}
+			{% if pagination.getPageCount >= 2 %}
+				{% set prev = pagination.getPage - 1 %}
+				{% set next = pagination.getPage + 1 %}
+				{% if prev >= 1 %}
+					<link rel="prev" href="{{ path(pagination.getRoute, pagination.getParams|merge({'page': prev})) }}"/>
+				{% endif %}
+				{% if next <= pagination.getPageCount %}
+					<link rel="next" href="{{ path(pagination.getRoute, pagination.getParams|merge({'page': next})) }}"/>
+				{% endif %}
+			{% endif %}
+		{% endif %}
+    </head>
+    <body{% if class_body is defined %} class="{{ class_body }}"{% endif %} data-momentlang="{{ config.moment[0]['lang'] }}" data-wysiwyglang="{{ config.wysiwyg[0]['lang'] }}">
+        {% block body %}{% endblock %}
+        {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

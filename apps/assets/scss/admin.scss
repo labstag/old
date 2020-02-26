@@ -1,0 +1,145 @@
+@import "~jquery-resizable-columns/dist/jquery.resizableColumns.css";
+@import "~@fancyapps/fancybox/dist/jquery.fancybox.css";
+
+.AdminPages {
+
+  main {
+    padding-top: 5px;
+  }
+
+  .access-wrap {
+    display: none;
+  }
+
+  header {
+    .dropdown-menu {
+      background-color: #343a40;
+    }
+  }
+
+  aside {
+    .nav-link[data-toggle].collapsed {
+      &::after {
+        float: right;
+        content: "▾";
+      }
+    }
+
+    .nav-link[data-toggle] {
+      &:not(.collapsed) {
+        &::after {
+          float: right;
+          content: "▴";
+        }
+      }
+    }
+  }
+
+  legend {
+    .btn {
+      margin-right: 10px;
+    }
+  }
+
+  .FieldCollection {
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+
+    legend {
+      width: 30%;
+      padding-left: 10px;
+      border: 1px solid #000;
+      border-radius: 0 5px 5px 0;
+    }
+  }
+
+  .FieldCollections {
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+
+    legend {
+      width: 30%;
+      padding-left: 10px;
+      border: 1px solid #000;
+      border-radius: 0 5px 5px 0;
+    }
+  }
+
+  #CrudList {
+    .btn {
+      margin: 1px;
+    }
+  }
+
+  form {
+    margin: 10px;
+    padding: 5px;
+  }
+
+  .alert {
+    margin-top: 10px;
+  }
+
+  .bs-checkbox {
+    vertical-align: top;
+  }
+
+  .user-menu {
+    padding-top: 0;
+    width: 200px;
+
+    .user-header {
+      background-color: #343a40;
+      color: white;
+      height: 175px;
+      padding: 10px;
+      text-align: center;
+
+      .img-circle {
+        border-radius: 50%;
+        border: 3px solid;
+        height: 90px;
+        width: 90px;
+      }
+    }
+
+    .user-body {
+      padding: 15px;
+      border-bottom: 1px solid #f4f4f4;
+      border-top: 1px solid #ddd;
+    }
+
+    .user-footer {
+      padding: 10px;
+    }
+  }
+
+  .user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .access-wrap {
+    display: none;
+  }
+
+  table {
+    .img-thumbnail {
+      max-width: 200px;
+    }
+
+    li {
+      white-space: nowrap;
+    }
+  }
+
+  button[type=submit] {
+    display: none;
+  }
+}

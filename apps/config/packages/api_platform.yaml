@@ -1,0 +1,28 @@
+api_platform:
+  collection:
+    order_parameter_name: order
+    pagination:
+      items_per_page: 10
+      maximum_items_per_page: 40
+      client_enabled: true
+      enabled_parameter_name: pagination
+      client_items_per_page: true
+      items_per_page_parameter_name: limit
+  swagger:
+    versions: 3
+    api_keys:
+      apiKey:
+        name: X-AUTH-TOKEN
+        type: header
+  mapping:
+    paths:
+      - "%kernel.project_dir%/src/Entity"
+  formats:
+    jsonld: ["application/ld+json"]
+    jsonhal: ["application/hal+json"]
+    jsonapi: ["application/vnd.api+json"]
+    json: ["application/json"]
+    xml: ["application/xml", "text/xml"]
+    yaml: ["application/x-yaml"]
+    csv: ["text/csv"]
+    html: ["text/html"]

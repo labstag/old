@@ -1,0 +1,33 @@
+<?php
+/*
+ * This document has been generated with
+ * https://mlocati.github.io/php-cs-fixer-configurator/?version=2.14#configurator
+ * you can change this configuration by importing this file.
+ */
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR1' => true,
+        '@PSR2' => true,
+        '@PhpCsFixer' => true,
+        '@DoctrineAnnotation' => true,
+        '@Symfony' => true,
+        'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
+        'no_superfluous_phpdoc_tags' => ['allow_mixed'=>true],
+        'backtick_to_shell_exec' => true,
+        'general_phpdoc_annotation_remove' => ['annotations' => ['author']],
+        'linebreak_after_opening_tag' => true,
+        'list_syntax' => ['syntax' => 'short'],
+        'simplified_null_return' => true,
+        'ternary_to_null_coalescing' => true,
+    ])
+    ->setFinder(PhpCsFixer\Finder::create()
+        ->exclude('vendor')
+        ->exclude(
+            [
+                'src/Migrations',
+                'src/Kernel.php'
+            ]
+        )
+        ->in(__DIR__)
+    )
+;

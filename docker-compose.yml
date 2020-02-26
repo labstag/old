@@ -1,9 +1,18 @@
 version: '3.4'
+
+networks:
+    net:
+        driver: overlay
+        attachable: true    
+    proxy:
+        external: true
+
+volumes:
+    mariadb:
+
 services:
-    labstag-mariadb:
-        image: mariadb:10.4.12
-        container_name: labstag-mariadb
-        restart: 'no'
+    mariadb:
+        image: mariadb:10.5.1
         environment:
             MYSQL_ROOT_PASSWORD: example
             MYSQL_DATABASE: core
@@ -11,42 +20,27 @@ services:
             MYSQL_PASSWORD: password
             TZ: Europe/Paris
         volumes:
-            - ${PWD}/mariadb:/var/lib/mysql
-        ports:
-            - 3307:3306
+            - mariadb:/var/lib/mysql
         networks:
-            - labstag-network
-    labstag-aphp7:
-        depends_on:
-            - labstag-phpfpm7
-            - labstag-mariadb
-        build: docker/aphp7
-        container_name: labstag-aphp7
-        restart: 'no'
+            - net
+    apache:
+        image: httpd
         volumes:
-            - ${PWD}/:/usr/local/apache2/htdocs/
-        ports:
-            - 8087:80
-        links:
-            - labstag-phpfpm7:phpfpm
-            - labstag-mariadb:mariadb
+            - ${PWD}/apps:/usr/local/apache2/htdocs/
+            - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
         networks:
-            - labstag-network
-    labstag-phpfpm7:
-        depends_on:
-            - labstag-mariadb
+            - net
+            - proxy
+        deploy:
+            labels:
+                - "traefik.enable=true"
+                - "traefik.http.routers.labstag.rule=Host(`labstag.lxc`, `www.labstag.lxc`)"
+                - "traefik.http.routers.labstag.entrypoints=web"
+                - "traefik.http.services.labstag.loadbalancer.server.port=80"
+    phpfpm:
         image: koromerzhin/phpfpm:7.4
-        container_name: labstag-phpfpm7
         volumes:
-            - ${PWD}/:/usr/local/apache2/htdocs
-        links:
-            - labstag-mariadb:mariadb
+            - ${PWD}/apps:/usr/local/apache2/htdocs
+            - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
         networks:
-            - labstag-network
-networks:
-    labstag-network:
-        driver: bridge
-
-volumes:
-    mariadb:
-        driver: local
+            - net

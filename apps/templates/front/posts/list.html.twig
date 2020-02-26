@@ -1,0 +1,7 @@
+{% extends 'site.html.twig' %}
+{% block page_title %}Weblog{% endblock %}
+{% block bodySite %}
+    {% for post in pagination %}
+        {% include "front/posts/post.html.twig" with {'more': true } %}
+    {% endfor %}
+{% endblock %}

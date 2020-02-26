@@ -1,0 +1,6 @@
+#index:
+#    path: /
+#    controller: Labstag\Controller\DefaultController::index
+app_logout:
+    path: /logout
+    methods: GET

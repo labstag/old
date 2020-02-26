@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block content_title %}{{ title }}{% endblock %}
+
+{% block bodyAdmin %}
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            {{ form_start(form) }}
+            {{ form_end(form) }}
+            {% if entity.oauthconnectusers|length != 0 %}
+                Dissocier :
+                <div class="row">
+                    {% for oauth in entity.oauthconnectusers %}
+                        <div class="col-md-4 itemConnect">
+                            <a href="{{ path('connect_lost', {'oauthCode': oauth.name}) }}" title="{{ oauth.name|e }}">
+                                <i class="fab fa-{{ oauth.name }}"></i>
+                                {{ oauth.name }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if otherOauth|length != 0 %}
+                Se connecter avec :
+                <div class="row">
+                {% for oauth in otherOauth %}
+                    <div class="col-md-4 itemConnect">
+                        <a href="{{ path('connect_start', {'oauthCode': oauth.type}) }}" title="{{ oauth.type|e }}">
+                            <i class="fab fa-{{ oauth.type }}"></i>
+                            {{ oauth.type }}
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
