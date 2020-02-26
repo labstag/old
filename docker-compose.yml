@@ -4,7 +4,7 @@ networks:
     net:
         driver: overlay
         attachable: true    
-    proxy:
+    proxylabstag:
         external: true
 
 volumes:
@@ -30,7 +30,7 @@ services:
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
         networks:
             - net
-            - proxy
+            - proxylabstag
         deploy:
             labels:
                 - "traefik.enable=true"
