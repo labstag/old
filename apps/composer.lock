@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "645def96bc656108c97b5a14b33c855e",
-=======
-    "content-hash": "14a6403f8582964669d955b6ba62c91f",
->>>>>>> Update dependency symfony/panther to v0.7.0
     "packages": [
         {
             "name": "api-platform/api-pack",
