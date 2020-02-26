@@ -8,6 +8,7 @@ PHPFPM            := labstag_phpfpm
 MARIADB           := labstag_mariadb
 APACHE            := labstag_apache
 STACK             := labstag
+NETWORK           := labstag
 PHPFPMFULLNAME    := $(PHPFPM).1.$$(docker service ps -f 'name=$(PHPFPM)' $(PHPFPM) -q --no-trunc | head -n1)
 MARIADBFULLNAME   := $(MARIADB).1.$$(docker service ps -f 'name=$(MARIADB)' $(MARIADB) -q --no-trunc | head -n1)
 APACHEFULLNAME    := $(APACHE).1.$$(docker service ps -f 'name=$(APACHE)' $(APACHE) -q --no-trunc | head -n1)
@@ -20,6 +21,10 @@ help:
 .PHONY: commit
 commit: ## Commit data
 	@npm run commit
+
+.PHONY: create-network
+create-network: ## create network
+	docker network create --driver=overlay $(NETWORK)
 
 .PHONY: cache-clear
 cache-clear: ## Cache clear
