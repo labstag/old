@@ -1,4 +1,4 @@
 framework:
-    assets:
-        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
-    error_controller: Labstag\Controller\ExceptionController::showAction
+  assets:
+    json_manifest_path: "%kernel.project_dir%/public/build/manifest.json"
+  error_controller: Labstag\Controller\ExceptionController::showAction

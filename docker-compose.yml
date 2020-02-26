@@ -1,46 +1,46 @@
-version: '3.4'
+version: "3.4"
 
 networks:
-    net:
-        driver: overlay
-        attachable: true    
-    proxylabstag:
-        external: true
+  net:
+    driver: overlay
+    attachable: true
+  proxylabstag:
+    external: true
 
 volumes:
-    mariadb:
+  mariadb:
 
 services:
-    mariadb:
-        image: mariadb:10.5.1
-        environment:
-            MYSQL_ROOT_PASSWORD: example
-            MYSQL_DATABASE: core
-            MYSQL_USER: labstag
-            MYSQL_PASSWORD: password
-            TZ: Europe/Paris
-        volumes:
-            - mariadb:/var/lib/mysql
-        networks:
-            - net
-    apache:
-        image: httpd
-        volumes:
-            - ${PWD}/apps:/usr/local/apache2/htdocs/
-            - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
-        networks:
-            - net
-            - proxylabstag
-        deploy:
-            labels:
-                - "traefik.enable=true"
-                - "traefik.http.routers.labstag.rule=Host(`labstag.lxc`, `www.labstag.lxc`)"
-                - "traefik.http.routers.labstag.entrypoints=web"
-                - "traefik.http.services.labstag.loadbalancer.server.port=80"
-    phpfpm:
-        image: koromerzhin/phpfpm:7.4
-        volumes:
-            - ${PWD}/apps:/usr/local/apache2/htdocs
-            - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
-        networks:
-            - net
+  mariadb:
+    image: mariadb:10.5.1
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: core
+      MYSQL_USER: labstag
+      MYSQL_PASSWORD: password
+      TZ: Europe/Paris
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - net
+  apache:
+    image: httpd
+    volumes:
+      - ${PWD}/apps:/usr/local/apache2/htdocs/
+      - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    networks:
+      - net
+      - proxylabstag
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.labstag.rule=Host(`labstag.lxc`, `www.labstag.lxc`)"
+        - "traefik.http.routers.labstag.entrypoints=web"
+        - "traefik.http.services.labstag.loadbalancer.server.port=80"
+  phpfpm:
+    image: koromerzhin/phpfpm:7.4
+    volumes:
+      - ${PWD}/apps:/usr/local/apache2/htdocs
+      - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    networks:
+      - net
