@@ -2,10 +2,7 @@ export class xhr {
   constructor() {}
   delete(url, data) {
     window
-      .fetch(url, {
-        method: "DELETE",
-        body: JSON.stringify(data)
-      })
+      .fetch(url, { method: "DELETE", body: JSON.stringify(data) })
       .then(response => {
         return response.text();
       })
@@ -20,9 +17,7 @@ export class xhr {
   }
   empty(url) {
     window
-      .fetch(url, {
-        method: "GET"
-      })
+      .fetch(url, { method: "GET" })
       .then(response => {
         return response.text();
       })
