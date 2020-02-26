@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+{% import "admin/macro.html.twig" as macro %}
+{% block bodyAdmin %}
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            {{ form_start(form) }}
+            {{ form_end(form) }}
+            {{ macro.logs(logs) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{
+    "phpfmt.indent_with_space": 4,
+    "phpfmt.psr2": true,
+    "phpfmt.psr1": true,
+    "phpfmt.passes": [
+        "AlignDoubleArrow"
+    ],
+    "phpcs.standard": "apps/phpcs.xml.dist",
+    "phpcbf.standard": "apps/phpcs.xml.dist",
+    "phpmd.rules": "apps/phpmd.xml",
+    "php-cs-fixer.config": "apps/php_cs.dist",
+    "php-cs-fixer.onsave": true,
+    "eslint.options": {
+        "configFile": "apps/.eslintrc.json"
+    },
+    "jshint.config": "apps/.jshintrc",
+    "eslint.nodePath": "node_modules",
+    "[scss]": {
+        "editor.tabSize": 2
+    },
+    "[css]": {
+        "editor.tabSize": 2
+    }
+}

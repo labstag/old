@@ -1,0 +1,73 @@
+{% extends 'admin.html.twig' %}
+{% import "admin/macro.html.twig" as macroAdmin %}
+{% block thfieldattr -%}
+    {%- for attrname, attrvalue in attrthfields[name] -%}
+        {% if loop.first == false %}
+            {{- " " -}}
+        {% endif %}
+        {{- attrname }}="{{ attrvalue|e }}"
+    {%- endfor -%}
+{% endblock thfieldattr %}
+{% block thoperationattr -%}
+    {%- for attrname, attrvalue in attrthoperation -%}
+        {% if loop.first == false %}
+            {{- " " -}}
+        {% endif %}
+        {{- attrname }}="{{ attrvalue|e }}"
+    {%- endfor -%}
+{% endblock thoperationattr %}
+{% block datatableattr -%}
+    {%- for attrname, attrvalue in attrdatatable -%}
+        {% if loop.first == false %}
+            {{- " " -}}
+        {% endif %}
+        {{- attrname }}="{{ attrvalue|e }}"
+    {%- endfor -%}
+{%- endblock datatableattr -%}
+{% block bodyAdmin %}
+    <div class="row">
+        <div class="col-xl-12">
+            <table {{ block('datatableattr') }}>
+                <thead>
+                    <tr>
+                        {% if select is defined and dataInTrash is not defined %}
+                            <th data-checkbox="true"></th>
+                        {% endif %}
+                        {% for name, row in datatable %}
+                            <th {{ block('thfieldattr') }}>{{ name }}</th>
+                        {% endfor %}
+                        {% if operation is defined %}
+                            <th {{ block('thoperationattr') }}>Opérations</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% if dataInTrash is defined %}
+                    <tbody>
+                        {% for data in dataInTrash %}
+                            <tr>
+                                {% for name, row in datatable %}
+                                    <td>
+                                        {% set field = row.field %}
+                                        {% if field == 'updatedAt' or field == 'createdAt' or field == 'deletedAt' %}
+                                            {{ data|crudExist(field)|date("Y-m-d\\TH:i:sP") }}
+                                        {% else %}
+                                            {{ data|crudExist(field) }}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                                {% if operation is defined %}
+                                    <td>
+                                        {{ data.id }}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+    <div class="d-none OperationCrud">
+        {{ macroAdmin.operation('code', operation_link) }}
+    </div>
+{% endblock %}

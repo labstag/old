@@ -1,0 +1,56 @@
+###> symfony/framework-bundle ###
+/apps/.env.local
+/apps/.env.local.php
+/apps/.env.*.local
+/apps/.env
+/apps/public/bundles/
+/apps/var/
+/apps/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+apps/.phpunit
+/apps/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> squizlabs/php_codesniffer ###
+/apps/.phpcs-cache
+/apps/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+/apps/bin
+!/apps/bin/console
+/phpDocumentor.phar
+/output
+/phpdoc
+/jdepend.svg
+/pyramid.svg
+/summary.xml
+apps/public/file
+
+###> phpunit/phpunit ###
+/apps/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+###> symfony/webpack-encore-bundle ###
+/apps/node_modules/
+/node_modules/
+/apps/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+apps/public/robots.txt
+###> lexik/jwt-authentication-bundle ###
+/apps/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+/.history
+/mariadb

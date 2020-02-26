@@ -1,0 +1,8 @@
+twig:
+  exception_controller: null
+  default_path: "%kernel.project_dir%/templates"
+  debug: "%kernel.debug%"
+  strict_variables: "%kernel.debug%"
+  form_themes: ["form_themes.html.twig"]
+  globals:
+    uri_path: "%app.path.files%"

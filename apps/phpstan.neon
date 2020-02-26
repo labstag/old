@@ -1,0 +1,15 @@
+parameters:
+  level: 8
+  checkMissingIterableValueType: false
+  inferPrivatePropertyTypeFromConstructor: true
+  checkGenericClassInNonGenericObjectType: false
+  paths:
+    - src
+    - tests
+  excludes_analyse:
+    - tests/bootstrap.php
+    - src/Migrations/*
+  ignoreErrors:
+    - '#Call to an undefined method [a-zA-Z0-9\\_]+::__toString\(\)#'
+    - '#Call to an undefined method Faker\\Generator::imageGenerator\(\)#'
+    - '#Call to an undefined method Faker\\Generator::e164PhoneNumber\(\)#'

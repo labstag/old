@@ -1,0 +1,21 @@
+{% extends 'admin.html.twig' %}
+
+{% block content_title %}{{ title }}{% endblock %}
+
+{% block bodyAdmin %}
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+            {{ form_start(form) }}
+            <ul id="sortable">
+            {% for row in data %}
+                <li class="ui-state-default">
+                    <input type="hidden" value="{{ row.position }}" name="position[{{ row.id }}]" id="position_{{ row.id }}" />
+                    <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                    {{ row.name }}
+                </li>
+            {% endfor %}
+            </ul>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

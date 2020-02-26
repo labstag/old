@@ -1,0 +1,5 @@
+{% extends 'site.html.twig' %}
+{% block page_title %}{{ entity.name }}{% endblock %}
+{% block bodySite %}
+    {% include "front/posts/post.html.twig" with {'post': entity} %}
+{% endblock %}
