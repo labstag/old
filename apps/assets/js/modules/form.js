@@ -1,5 +1,5 @@
 import "whatwg-fetch";
-import {xhr} from "./xhr";
+import { xhr } from "./xhr";
 export class form {
   constructor() {
     this.xhr = new xhr();
@@ -16,8 +16,12 @@ export class form {
     $(".ToggleFieldset").on("click", function() {
       let $maximize = $(this).find(".fa-window-maximize");
       let $minimize = $(this).find(".fa-window-minimize");
-      let $table = $(this).closest("fieldset").find("table");
-      let $row = $(this).closest("fieldset").find(".row");
+      let $table = $(this)
+        .closest("fieldset")
+        .find("table");
+      let $row = $(this)
+        .closest("fieldset")
+        .find(".row");
 
       if ($table.length == 0) {
         $row.toggle("blind");
@@ -44,8 +48,10 @@ export class form {
 
   btnEmptyOnClick(event) {
     event.preventDefault();
-    $(".BtnemptyModalConfirm")
-        .attr("href", $(event.currentTarget).attr("href"));
+    $(".BtnemptyModalConfirm").attr(
+      "href",
+      $(event.currentTarget).attr("href")
+    );
     $(".BtnemptyModalConfirm").off("click");
     $(".BtnemptyModalConfirm").on("click", this.confirmEmpty.bind(this));
     $("#emptyModal").modal();
@@ -61,13 +67,17 @@ export class form {
     let url = $(".BtnDeleteModalConfirm").attr("href");
 
     if ($("main").find("form").length == 1) {
-      let id = $("main").find("form").attr("data-id");
+      let id = $("main")
+        .find("form")
+        .attr("data-id");
 
       data.push(id);
     } else if ($("#CrudList").length == 1) {
       let json = $("#CrudList").bootstrapTable("getSelections");
 
-      $(json).each(function(index, row) { data.push(row.id); });
+      $(json).each(function(index, row) {
+        data.push(row.id);
+      });
     }
 
     this.xhr.delete(url, data);
@@ -75,8 +85,10 @@ export class form {
 
   btndeleteOnClick(event) {
     event.preventDefault();
-    $(".BtnDeleteModalConfirm")
-        .attr("href", $(event.currentTarget).attr("href"));
+    $(".BtnDeleteModalConfirm").attr(
+      "href",
+      $(event.currentTarget).attr("href")
+    );
     $(".BtnDeleteModalConfirm").off("click");
     $(".BtnDeleteModalConfirm").on("click", this.confirmDelete.bind(this));
     if ($("main").find("form").length == 1) {
@@ -110,7 +122,9 @@ export class form {
     $(".BtnActionSave").on("click", function(event) {
       $(event.currentTarget).attr("disable", true);
       event.preventDefault();
-      $("main").find("form").trigger("submit");
+      $("main")
+        .find("form")
+        .trigger("submit");
     });
   }
 
@@ -143,7 +157,10 @@ export class form {
     });
   }
   delete() {
-    $(document).on("click", ".BtnCollectionDelete",
-                   function() { $(this).closest(".CollectionRow").remove(); });
+    $(document).on("click", ".BtnCollectionDelete", function() {
+      $(this)
+        .closest(".CollectionRow")
+        .remove();
+    });
   }
 }
