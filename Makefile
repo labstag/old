@@ -8,7 +8,7 @@ PHPFPM            := labstag_phpfpm
 MARIADB           := labstag_mariadb
 APACHE            := labstag_apache
 STACK             := labstag
-NETWORK           := proxylabstag
+NETWORK           := netlabstag
 PHPFPMFULLNAME    := $(PHPFPM).1.$$(docker service ps -f 'name=$(PHPFPM)' $(PHPFPM) -q --no-trunc | head -n1)
 MARIADBFULLNAME   := $(MARIADB).1.$$(docker service ps -f 'name=$(MARIADB)' $(MARIADB) -q --no-trunc | head -n1)
 APACHEFULLNAME    := $(APACHE).1.$$(docker service ps -f 'name=$(APACHE)' $(APACHE) -q --no-trunc | head -n1)
