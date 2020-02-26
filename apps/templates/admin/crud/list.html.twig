@@ -1,34 +1,43 @@
 {% extends 'admin.html.twig' %}
 {% import "admin/macro.html.twig" as macroAdmin %}
-{% block attrdatatable -%}
-    {%- for attrname, attrvalue in attrdatatable -%}
-        {{- " " -}}
-        {{- attrname }}="{{ attrvalue }}"
+{% block thfieldattr -%}
+    {%- for attrname, attrvalue in attrthfields[name] -%}
+        {% if loop.first == false %}
+            {{- " " -}}
+        {% endif %}
+        {{- attrname }}="{{ attrvalue|e }}"
     {%- endfor -%}
-{%- endblock attrdatatable -%}
+{% endblock thfieldattr %}
+{% block thoperationattr -%}
+    {%- for attrname, attrvalue in attrthoperation -%}
+        {% if loop.first == false %}
+            {{- " " -}}
+        {% endif %}
+        {{- attrname }}="{{ attrvalue|e }}"
+    {%- endfor -%}
+{% endblock thoperationattr %}
+{% block datatableattr -%}
+    {%- for attrname, attrvalue in attrdatatable -%}
+        {% if loop.first == false %}
+            {{- " " -}}
+        {% endif %}
+        {{- attrname }}="{{ attrvalue|e }}"
+    {%- endfor -%}
+{%- endblock datatableattr -%}
 {% block bodyAdmin %}
     <div class="row">
         <div class="col-xl-12">
-            <table {{ block('attrdatatable') }}>
+            <table {{ block('datatableattr') }}>
                 <thead>
                     <tr>
                         {% if select is defined and dataInTrash is not defined %}
                             <th data-checkbox="true"></th>
                         {% endif %}
                         {% for name, row in datatable %}
-                            <th{% for key, val in row %}
-                                data-{{ key }}="{% if val == 'true' %}true{% elseif val == 'false' %}false{% else %}{{ val|e }}{% endif %}"
-                            {% endfor %} data-sortable="true">{{ name }}</th>
+                            <th {{ block('thfieldattr') }}>{{ name }}</th>
                         {% endfor %}
                         {% if operation is defined %}
-                            <th
-                                data-formatter="operationDatatable"
-                                data-align="center"
-                                data-sortable="true"
-                                data-valign="top"
-                                data-switchable="false"
-                                data-searchable="false"
-                            >Opérations</th>
+                            <th {{ block('thoperationattr') }}>Opérations</th>
                         {% endif %}
                     </tr>
                 </thead>
