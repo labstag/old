@@ -25,7 +25,7 @@
 
 ### 🏠 [Homepage](https://github.com/labstag/core#readme)
 
-## Install dev 
+## Install dev
 
 ```sh
 make create network
@@ -34,7 +34,7 @@ make setenv
 make install-dev
 ```
 
-## Install prod 
+## Install prod
 
 ```sh
 make create network
@@ -52,12 +52,13 @@ make showstack
 
 👤 **koromerzhin**
 
-* Twitter: [@koromerzhin](https://twitter.com/koromerzhin)
-* Github: [@koromerzhin](https://github.com/koromerzhin)
+- Twitter: [@koromerzhin](https://twitter.com/koromerzhin)
+- Github: [@koromerzhin](https://github.com/koromerzhin)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/labstag/core/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check
+[issues page](https://github.com/labstag/core/issues).
 
 ## Show your support
 
@@ -65,12 +66,13 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2019 [koromerzhin](https://github.com/koromerzhin).<br />
-This project is [MIT](https://github.com/labstag/core/blob/master/LICENSE) licensed.
+Copyright © 2019 [koromerzhin](https://github.com/koromerzhin).<br /> This
+project is [MIT](https://github.com/labstag/core/blob/master/LICENSE) licensed.
 
 ## ✨ Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people
+([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -86,9 +88,14 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!
 
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+---
+
+_This README was generated with ❤️ by
+[readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
