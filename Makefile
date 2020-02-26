@@ -13,11 +13,11 @@ PHPFPMFULLNAME    := $(PHPFPM).1.$$(docker service ps -f 'name=$(PHPFPM)' $(PHPF
 MARIADBFULLNAME   := $(MARIADB).1.$$(docker service ps -f 'name=$(MARIADB)' $(MARIADB) -q --no-trunc | head -n1)
 APACHEFULLNAME    := $(APACHE).1.$$(docker service ps -f 'name=$(APACHE)' $(APACHE) -q --no-trunc | head -n1)
 ARGS              := $(filter-out $@,$(MAKECMDGOALS))
-	
+
 .PHONY: help
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
-	
+
 .PHONY: commit
 commit: ## Commit data
 	@npm run commit
@@ -128,60 +128,60 @@ stop: ## Stop docker
 docker-recreate: ## RECREATE docker
 	@make docker-stop -i
 	@make docker-start -i
-	
+
 .PHONY: licenses
 licenses: ## Show licenses
 	@make licensesPHP -i
 	@make licensesJSCSS -i
-	
+
 .PHONY: licensesPHP
 licensesPHP: ## Show licenses PHP
 	docker exec $(PHPFPMFULLNAME) composer licenses
-	
+
 .PHONY: licensesJSCSS
 licensesJSCSS: ## Show licenses JS / CSS
 	@npm run licenses
-	
+
 .PHONY: phpdoc
 phpdoc: phpdoc.dist.xml ## PHPDoc
-	@rm -rf public/docs/api 
+	@rm -rf public/docs/api
 	@rm -rf output
 	@wget -nc $(PHPDOCUMENTORURL)
 	@php phpDocumentor.phar
 	@rm -rf output
-	
+
 .PHONY: watch
 watch: ## WEBPACK watch
 	docker exec -it $(PHPFPMFULLNAME) npm run watch
-	
+
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
 	docker exec $(PHPFPMFULLNAME) composer php-cs-fixer
-	
+
 .PHONY: phpcbf
 phpcbf: ## PHPCBF
 	docker exec $(PHPFPMFULLNAME) composer phpcbf
-	
+
 .PHONY: phpmd
 phpmd: ## PHPMD
 	docker exec $(PHPFPMFULLNAME) composer phpmd
-	
+
 .PHONY: phpcs
 phpcs: ## PHPCS
 	docker exec $(PHPFPMFULLNAME) composer phpcs
-	
+
 .PHONY: phpstan
 phpstan: ## PHPSTAN
 	docker exec $(PHPFPMFULLNAME) composer phpstan
-	
+
 .PHONY: phpcpd
 phpcpd: ## PHPCPD
 	docker exec $(PHPFPMFULLNAME) composer phpcpd
-	
+
 .PHONY: phpmnd
 phpmnd: ## PHPMND
 	docker exec $(PHPFPMFULLNAME) composer phpmnd
-	
+
 .PHONY: twigcs
 twigcs: ## TWIGCS
 	docker exec $(PHPFPMFULLNAME) composer twigcs
