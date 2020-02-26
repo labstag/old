@@ -28,25 +28,24 @@
 ## Install dev 
 
 ```sh
+make create network
+make install
+make setenv
 make install-dev
 ```
 
 ## Install prod 
 
 ```sh
+make create network
+make install
 make install-prod
 ```
 
-## start
+## Show stack
 
 ```sh
-make start
-```
-
-## stop
-
-```sh
-make stop
+make showstack
 ```
 
 ## Author
