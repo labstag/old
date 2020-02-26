@@ -396,6 +396,71 @@ abstract class AdminControllerLib extends ControllerLib
         $this->paramViews = array_merge($parameters, $this->paramViews);
     }
 
+    private function setAttrThOperation(array &$paramtwig): void
+    {
+        $paramtwig['attrthoperation'] = [];
+        $data                         = [
+            'formatter'  => 'operationDatatable',
+            'align'      => 'center',
+            'sortable'   => 'true',
+            'valign'     => 'top',
+            'switchable' => 'false',
+            'searchable' => 'false',
+        ];
+        foreach ($data as $key => $value) {
+            $paramtwig['attrthoperation']['data-'.$key] = $value;
+        }
+
+        ksort($paramtwig['attrthoperation']);
+    }
+
+    private function setAttrhField(array &$paramtwig): void
+    {
+        $paramtwig['attrthfields'] = [];
+        if (!isset($paramtwig['datatable'])) {
+            return;
+        }
+
+        foreach ($paramtwig['datatable'] as $name => $row) {
+            $data = ['data-sortable' => 'true'];
+            foreach ($row as $key => $value) {
+                if (true === $value) {
+                    $value = 'true';
+                } elseif (false === $value) {
+                    $value = 'false';
+                }
+
+                $data['data-'.$key] = $value;
+            }
+
+            ksort($data);
+            $paramtwig['attrthfields'][$name] = $data;
+        }
+    }
+
+    private function setDataGraphqlQuery(array $paramtwig, array &$data): void
+    {
+        if (!(isset($paramtwig['graphql_query']) && '' != $paramtwig['graphql_query']['table'])) {
+            return;
+        }
+
+        foreach ($paramtwig['graphql_query'] as $key => $value) {
+            $data['graphql-'.$key] = $value;
+        }
+    }
+
+    private function setDataUrlEnable(array $paramtwig, array &$data): void
+    {
+        if (!isset($paramtwig['url_enable'])) {
+            return;
+        }
+
+        foreach ($paramtwig['url_enable'] as $key => $value) {
+            $data['enableurl-'.$key] = $value;
+        }
+
+    }
+
     private function setParamDatatable(array &$paramtwig): void
     {
         $this->setConfigurationParam();
@@ -435,18 +500,8 @@ abstract class AdminControllerLib extends ControllerLib
             'cookie'                  => 'true',
             'cookie-id-table'         => 'saveId',
         ];
-        if (isset($paramtwig['url_enable'])) {
-            foreach ($paramtwig['url_enable'] as $key => $value) {
-                $data['enableurl-'.$key] = $value;
-            }
-        }
-
-        if (isset($paramtwig['graphql_query']) && '' != $paramtwig['graphql_query']['table']) {
-            foreach ($paramtwig['graphql_query'] as $key => $value) {
-                $data['graphql-'.$key] = $value;
-            }
-        }
-
+        $this->setDataUrlEnable($paramtwig, $data);
+        $this->setDataGraphqlQuery($paramtwig, $data);
         if (isset($paramtwig['api'], $paramtwig['api_param'])) {
             $data['url'] = $this->generateUrl($paramtwig['api'], $paramtwig['api_param']);
         }
@@ -460,6 +515,8 @@ abstract class AdminControllerLib extends ControllerLib
         ksort($attr);
 
         $paramtwig['attrdatatable'] = $attr;
+        $this->setAttrThOperation($paramtwig);
+        $this->setAttrhField($paramtwig);
     }
 
     /**
