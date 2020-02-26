@@ -28,7 +28,7 @@
 ## Install dev
 
 ```sh
-make create network
+make create-network
 make install
 make setenv
 make install-dev
@@ -37,7 +37,7 @@ make install-dev
 ## Install prod
 
 ```sh
-make create network
+make create-network
 make install
 make install-prod
 ```
