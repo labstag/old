@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d927467a395ce50c128ff98f959c115",
+    "content-hash": "14a6403f8582964669d955b6ba62c91f",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -13729,21 +13729,21 @@
         },
         {
             "name": "symfony/panther",
-            "version": "v0.6.1",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/panther.git",
-                "reference": "e774e332bd5ec1d31c774fc4b2a6a72627c37921"
+                "reference": "ca2432d240e8d3b9a496fb70a79b4fe981a013ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/panther/zipball/e774e332bd5ec1d31c774fc4b2a6a72627c37921",
-                "reference": "e774e332bd5ec1d31c774fc4b2a6a72627c37921",
+                "url": "https://api.github.com/repos/symfony/panther/zipball/ca2432d240e8d3b9a496fb70a79b4fe981a013ff",
+                "reference": "ca2432d240e8d3b9a496fb70a79b4fe981a013ff",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1",
-                "php-webdriver/webdriver": "^1.7.1",
+                "php-webdriver/webdriver": "^1.8.1",
                 "symfony/browser-kit": "^4.3 || ^5.0",
                 "symfony/dom-crawler": "^4.3 || ^5.0",
                 "symfony/http-client": "^4.3 || ^5.0",
@@ -13758,6 +13758,7 @@
                 "guzzlehttp/guzzle": "^6.3",
                 "symfony/css-selector": "^3.4 || ^4.0 || ^5.0",
                 "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
+                "symfony/mime": "^4.3 || ^5.0",
                 "symfony/phpunit-bridge": "^4.3.3 || ^5.0"
             },
             "type": "library",
@@ -13796,7 +13797,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2020-01-20T15:24:48+00:00"
+            "time": "2020-02-20T11:29:31+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
