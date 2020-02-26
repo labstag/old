@@ -13,7 +13,7 @@ jobs:
             - {name: 'Build containers', run: 'make deploy'}
             - {name: 'Check running stack', run: 'docker stack ls'}
             - {name: 'Set env', run: 'make setenv'}
-            - {name: Sleep, uses: jakejarvis/wait-action@master, with: {time: 1m}}
+            - {name: Sleep, uses: jakejarvis/wait-action@master, with: {time: 30s}}
             - {name: 'Check running containers', run: 'docker service ls'}
             - {name: 'Composer install', run: 'make composer-install'}
             - {name: 'NPM install', run: 'make npm-install'}
