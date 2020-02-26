@@ -17,8 +17,9 @@
     <img alt="Twitter: koromerzhin" src="https://img.shields.io/twitter/follow/koromerzhin.svg?style=social" target="_blank" />
   </a>
 
-  ![Test suite](https://github.com/labstag/core/workflows/Test%20suite/badge.svg)
-  [![DepShield Badge](https://depshield.sonatype.org/badges/labstag/core/depshield.svg)](https://depshield.github.io)
+![Test suite](https://github.com/labstag/core/workflows/Test%20suite/badge.svg)
+[![DepShield Badge](https://depshield.sonatype.org/badges/labstag/core/depshield.svg)](https://depshield.github.io)
+
 </p>
 
 > Un site Internet sous Symfony
