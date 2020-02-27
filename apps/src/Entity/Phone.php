@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "checked": "exact"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "numero"}, arguments={"orderParameterName": "order"})
- * @ApiResource(attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\PhoneRepository")
  * @ORM\Table(
  *     uniqueConstraints={

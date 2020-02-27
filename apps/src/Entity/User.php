@@ -37,6 +37,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "enable": "exact"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={
+ *    "access_control": "is_granted('ROLE_ADMIN')",
+ *    "normalization_context": {"groups": {"get"}},
+ *    "denormalization_context": {"groups": {"get"}}
+ * })
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -45,7 +50,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_usertrash": {
  *             "method": "GET",
  *             "path": "/users/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -56,7 +60,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_usertrashdelete": {
  *             "method": "DELETE",
  *             "path": "/users/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -67,7 +70,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_userrestore": {
  *             "method": "POST",
  *             "path": "/users/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -78,7 +80,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_userempty": {
  *             "method": "POST",
  *             "path": "/users/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -86,11 +87,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *                 "parameters": {}
  *             }
  *         }
- *     },
- *     attributes={
- *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
- *         "normalization_context": {"groups": {"get"}},
- *         "denormalization_context": {"groups": {"get"}},
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")

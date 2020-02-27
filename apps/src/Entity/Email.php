@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "adresse": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "adresse"}, arguments={"orderParameterName": "order"})
- * @ApiResource(attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\EmailRepository")
  * @ORM\Table(
  *     uniqueConstraints={

@@ -32,6 +32,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "content": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -40,7 +41,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarktrash": {
  *             "method": "GET",
  *             "path": "/bookmarks/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -51,7 +51,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarktrashdelete": {
  *             "method": "DELETE",
  *             "path": "/bookmarks/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -62,7 +61,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarkrestore": {
  *             "method": "POST",
  *             "path": "/bookmarks/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -73,7 +71,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarkempty": {
  *             "method": "POST",
  *             "path": "/bookmarks/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {

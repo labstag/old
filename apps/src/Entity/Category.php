@@ -16,6 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\CategoryApi;
+use Labstag\CollectionResolver\TrashCollectionResolver;
 use Labstag\Entity\Traits\Post;
 
 /**
@@ -27,14 +28,25 @@ use Labstag\Entity\Traits\Post;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+ *     graphql={
+ *       "trashCollectionQuery"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
  *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
+ *         "get": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "put": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "delete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
  *         "api_categorytrash": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "GET",
  *             "path": "/categories/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": CategoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -43,9 +55,9 @@ use Labstag\Entity\Traits\Post;
  *             }
  *         },
  *         "api_categorytrashdelete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "DELETE",
  *             "path": "/categories/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": CategoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -54,9 +66,9 @@ use Labstag\Entity\Traits\Post;
  *             }
  *         },
  *         "api_categoryrestore": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "POST",
  *             "path": "/categories/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": CategoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -65,9 +77,9 @@ use Labstag\Entity\Traits\Post;
  *             }
  *         },
  *         "api_categoryempty": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "POST",
  *             "path": "/categories/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": CategoryApi::class,
  *             "read": false,
  *             "swagger_context": {

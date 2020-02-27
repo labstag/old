@@ -31,6 +31,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "enable": "exact"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -39,7 +40,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_posttrash": {
  *             "method": "GET",
  *             "path": "/posts/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -50,7 +50,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_posttrashdelete": {
  *             "method": "DELETE",
  *             "path": "/posts/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -61,7 +60,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_postrestore": {
  *             "method": "POST",
  *             "path": "/posts/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -72,7 +70,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_postempty": {
  *             "method": "POST",
  *             "path": "/posts/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
