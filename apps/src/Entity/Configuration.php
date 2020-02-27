@@ -2,6 +2,7 @@
 
 namespace Labstag\Entity;
 
+use Labstag\CollectionResolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -20,8 +21,15 @@ use Labstag\Controller\Api\ConfigurationApi;
  *     "value": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
- * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
+ *     attributes={
+ *         "access_control": "is_granted('ROLE_ADMIN')"
+ *     },
+ *     graphql={
+ *       "trashCollectionQuery"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
  *     itemOperations={
  *         "get",
  *         "put",

@@ -40,6 +40,8 @@ doctrine:
                 prefix: 'Labstag\Entity'
                 alias: Labstag
         filters:
+            labstag_trash:
+                class: Labstag\Filter\TrashFilter
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true

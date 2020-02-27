@@ -2,6 +2,7 @@
 
 namespace Labstag\Entity;
 
+use Labstag\CollectionResolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -24,10 +25,21 @@ use Labstag\Controller\Api\FormbuilderApi;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
+ *     graphql={
+ *       "trashCollectionQuery"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
  *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
+ *         "get": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "put": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "delete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
  *         "api_formbuildertrash": {
  *             "method": "GET",
  *             "path": "/formbuilders/trash",
