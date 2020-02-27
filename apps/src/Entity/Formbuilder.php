@@ -26,7 +26,7 @@ use Labstag\Controller\Api\FormbuilderApi;
  * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
  *     graphql={
- *       "trashCollectionQuery"={
+ *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },
