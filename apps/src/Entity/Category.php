@@ -29,7 +29,7 @@ use Labstag\Entity\Traits\Post;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *       "trashCollectionQuery"={
+ *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },

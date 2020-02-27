@@ -26,7 +26,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "access_control": "is_granted('ROLE_ADMIN')"
  *     },
  *     graphql={
- *       "trashCollectionQuery"={
+ *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },

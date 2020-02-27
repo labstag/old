@@ -45,7 +45,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *       "denormalization_context": {"groups": {"get"}}
  *     },
  *     graphql={
- *       "trashCollectionQuery"={
+ *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },

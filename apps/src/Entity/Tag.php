@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *       "trashCollectionQuery"={
+ *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },
