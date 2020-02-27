@@ -18,6 +18,7 @@ use Labstag\Controller\Api\TagApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
 use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,6 +32,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
+ *       "trash"={
+ *         "item_query"=TrashResolver::class
+ *       },
  *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
