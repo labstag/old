@@ -16,7 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\CategoryApi;
-use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
 use Labstag\Entity\Traits\Post;
 
 /**
@@ -28,10 +28,13 @@ use Labstag\Entity\Traits\Post;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+ *     attributes={
+ *          "access_control": "is_granted('ROLE_ADMIN')"
+ *     },
  *     graphql={
- *       "trashCollection"={
+ *          "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
- *       }
+ *          }
  *     },
  *     itemOperations={
  *         "get": {

@@ -17,8 +17,10 @@ use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\TagApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
-use Labstag\CollectionResolver\TrashCollectionResolver;
 use Labstag\Resolver\TrashResolver;
+use Labstag\Resolver\CollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
+use Labstag\Resolver\EntityResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,6 +36,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     graphql={
  *       "trash"={
  *         "item_query"=TrashResolver::class
+ *       },
+ *       "entity"={
+ *            "item_query"=EntityResolver::class
+ *       },
+ *       "collection"={
+ *            "collection_query"=CollectionResolver::class
  *       },
  *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class

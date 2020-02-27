@@ -2,7 +2,7 @@
 
 namespace Labstag\Entity;
 
-use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -61,7 +61,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_posttrashdelete": {
  *             "method": "DELETE",
  *             "path": "/posts/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -72,7 +72,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_postrestore": {
  *             "method": "POST",
  *             "path": "/posts/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -83,7 +83,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_postempty": {
  *             "method": "POST",
  *             "path": "/posts/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
