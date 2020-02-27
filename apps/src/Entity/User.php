@@ -2,6 +2,7 @@
 
 namespace Labstag\Entity;
 
+use Labstag\CollectionResolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -37,12 +38,17 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "enable": "exact"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
- * @ApiResource(attributes={
- *    "access_control": "is_granted('ROLE_ADMIN')",
- *    "normalization_context": {"groups": {"get"}},
- *    "denormalization_context": {"groups": {"get"}}
- * })
  * @ApiResource(
+ *     attributes={
+ *       "access_control": "is_granted('ROLE_ADMIN')",
+ *       "normalization_context": {"groups": {"get"}},
+ *       "denormalization_context": {"groups": {"get"}}
+ *     },
+ *     graphql={
+ *       "trashCollectionQuery"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
  *     itemOperations={
  *         "get",
  *         "put",

@@ -22,18 +22,16 @@ final class TrashCollectionResolver implements QueryCollectionResolverInterface
 
 
     /**
-     * @param iterable<> $collection
+     * @param iterable $collection
      *
-     * @return iterable<>
+     * @return iterable
      */
     public function __invoke(iterable $collection, array $context): iterable
     {
-        $this->entityManager->getFilters()->disable('softdeleteable');
-        // Query arguments are in $context['args'].
-
-        foreach ($collection as $iter => $category) {
-            // Do something with the book.
-        }
+        unset($content);
+        $filters = $this->entityManager->getFilters();
+        $filters->disable('softdeleteable');
+        $filters->enable('labstag_trash');
 
         return $collection;
     }

@@ -505,8 +505,6 @@ abstract class AdminControllerLib extends ControllerLib
             $data['url'] = $this->generateUrl($paramtwig['api'], $paramtwig['api_param']);
         }
 
-        dump($data);
-
         foreach ($data as $key => $value) {
             $attr['data-'.$key] = $value;
         }
