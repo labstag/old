@@ -4,96 +4,96 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'fr'
-    app.path.files: /file/
+  locale: "fr"
+  app.path.files: /file/
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    Labstag\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Labstag\:
+    resource: "../src/*"
+    exclude: "../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}"
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    Labstag\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  Labstag\Controller\:
+    resource: "../src/Controller"
+    tags: ["controller.service_arguments"]
 
-    Labstag\CollectionResolver\:
-        resource: '../src/CollectionResolver'
-        tags:
-            - { name: api_platform.graphql.query_resolver }
+  Labstag\CollectionResolver\:
+    resource: "../src/CollectionResolver"
+    tags:
+      - { name: api_platform.graphql.query_resolver }
 
-    Labstag\Service\:
-        resource: '../src/Service'
-        autowire: true
-        public: true
+  Labstag\Service\:
+    resource: "../src/Service"
+    autowire: true
+    public: true
 
-    Labstag\DataListener\:
-        resource: '../src/DataListener'
-        autowire: true
-        tags:
-            - { name: doctrine.event_subscriber }
+  Labstag\DataListener\:
+    resource: "../src/DataListener"
+    autowire: true
+    tags:
+      - { name: doctrine.event_subscriber }
 
-    Labstag\Controller\ExceptionController:
-        public: true
-        arguments:
-            $debug: '%kernel.debug%'
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  Labstag\Controller\ExceptionController:
+    public: true
+    arguments:
+      $debug: "%kernel.debug%"
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
 
-    # Doctrine Extension listeners to handle behaviors
-    gedmo.listener.tree:
-        class: Gedmo\Tree\TreeListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
+  # Doctrine Extension listeners to handle behaviors
+  gedmo.listener.tree:
+    class: Gedmo\Tree\TreeListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
 
-    gedmo.listener.translatable:
-        class: Gedmo\Translatable\TranslatableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
-            - [setDefaultLocale, ['%locale%']]
-            - [setTranslationFallback, [false]]
+  gedmo.listener.translatable:
+    class: Gedmo\Translatable\TranslatableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
+      - [setDefaultLocale, ["%locale%"]]
+      - [setTranslationFallback, [false]]
 
-    gedmo.listener.timestampable:
-        class: Gedmo\Timestampable\TimestampableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
+  gedmo.listener.timestampable:
+    class: Gedmo\Timestampable\TimestampableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
 
-    gedmo.listener.sluggable:
-        class: Gedmo\Sluggable\SluggableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
+  gedmo.listener.sluggable:
+    class: Gedmo\Sluggable\SluggableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
 
-    gedmo.listener.sortable:
-        class: Gedmo\Sortable\SortableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
+  gedmo.listener.sortable:
+    class: Gedmo\Sortable\SortableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
 
-    gedmo.listener.loggable:
-        class: Gedmo\Loggable\LoggableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
+  gedmo.listener.loggable:
+    class: Gedmo\Loggable\LoggableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
 
-    gedmo.listener.blameable:
-        class: Gedmo\Blameable\BlameableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [setAnnotationReader, ['@annotation_reader']]
+  gedmo.listener.blameable:
+    class: Gedmo\Blameable\BlameableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [setAnnotationReader, ["@annotation_reader"]]
