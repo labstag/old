@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "name": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
- * @ApiResource(attributes={"access_control": "is_granted('ROLE_SUPER_ADMIN')"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ORM\Entity(repositoryClass="Labstag\Repository\OauthConnectUserRepository")
  */
 class OauthConnectUser
