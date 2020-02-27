@@ -17,6 +17,7 @@ use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\TagApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
+use Labstag\CollectionResolver\TrashCollectionResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,14 +30,25 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+ *     graphql={
+ *       "trashCollectionQuery"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
  *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
+ *         "get": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "put": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "delete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
  *         "api_usertrash": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "GET",
  *             "path": "/tags/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -45,9 +57,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         },
  *         "api_usertrashdelete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "DELETE",
  *             "path": "/tags/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -56,9 +68,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         },
  *         "api_userrestore": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "POST",
  *             "path": "/tags/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -67,9 +79,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         },
  *         "api_userempty": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "method": "POST",
  *             "path": "/tags/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {

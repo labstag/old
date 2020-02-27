@@ -24,6 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     "text": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -32,7 +33,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatestrash": {
  *             "method": "GET",
  *             "path": "/templates/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -43,7 +43,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatestrashdelete": {
  *             "method": "DELETE",
  *             "path": "/templates/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -54,7 +53,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatesrestore": {
  *             "method": "POST",
  *             "path": "/templates/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -65,7 +63,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatesempty": {
  *             "method": "POST",
  *             "path": "/templates/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {

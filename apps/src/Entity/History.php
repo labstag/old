@@ -33,6 +33,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     "resume": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
+ * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -41,7 +42,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historytrash": {
  *             "method": "GET",
  *             "path": "/histories/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -52,7 +52,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historytrashdelete": {
  *             "method": "DELETE",
  *             "path": "/histories/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -63,7 +62,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historyrestore": {
  *             "method": "POST",
  *             "path": "/histories/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -74,7 +72,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historyempty": {
  *             "method": "POST",
  *             "path": "/histories/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
