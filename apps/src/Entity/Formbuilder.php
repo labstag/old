@@ -2,10 +2,7 @@
 
 namespace Labstag\Entity;
 
-<<<<<<< HEAD
-=======
 use Labstag\CollectionResolver\TrashCollectionResolver;
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -26,7 +23,6 @@ use Labstag\Controller\Api\FormbuilderApi;
  *     "slug": "partial"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
-<<<<<<< HEAD
  * @ApiResource(
  *     itemOperations={
  *         "get",
@@ -36,28 +32,6 @@ use Labstag\Controller\Api\FormbuilderApi;
  *             "method": "GET",
  *             "path": "/formbuilders/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
- * @ApiResource(attributes={"access_control": "is_granted('ROLE_ADMIN')"})
- * @ApiResource(
- *     graphql={
- *       "trashCollection"={
- *            "collection_query"=TrashCollectionResolver::class
- *       }
- *     },
- *     itemOperations={
- *         "get": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "put": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "delete": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "api_formbuildertrash": {
- *             "method": "GET",
- *             "path": "/formbuilders/trash",
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -68,10 +42,7 @@ use Labstag\Controller\Api\FormbuilderApi;
  *         "api_formbuildertrashdelete": {
  *             "method": "DELETE",
  *             "path": "/formbuilders/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -82,10 +53,7 @@ use Labstag\Controller\Api\FormbuilderApi;
  *         "api_formbuilderrestore": {
  *             "method": "POST",
  *             "path": "/formbuilders/restore",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -96,10 +64,7 @@ use Labstag\Controller\Api\FormbuilderApi;
  *         "api_formbuilderempty": {
  *             "method": "POST",
  *             "path": "/formbuilders/empty",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": FormbuilderApi::class,
  *             "read": false,
  *             "swagger_context": {

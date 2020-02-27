@@ -2,10 +2,7 @@
 
 namespace Labstag\Entity;
 
-<<<<<<< HEAD
-=======
 use Labstag\CollectionResolver\TrashCollectionResolver;
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -37,14 +34,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
-<<<<<<< HEAD
-=======
  *     graphql={
  *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *     itemOperations={
  *         "get",
  *         "put",
@@ -52,10 +46,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarktrash": {
  *             "method": "GET",
  *             "path": "/bookmarks/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -66,10 +57,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarktrashdelete": {
  *             "method": "DELETE",
  *             "path": "/bookmarks/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -80,10 +68,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarkrestore": {
  *             "method": "POST",
  *             "path": "/bookmarks/restore",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -94,10 +79,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarkempty": {
  *             "method": "POST",
  *             "path": "/bookmarks/empty",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {

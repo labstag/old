@@ -2,10 +2,7 @@
 
 namespace Labstag\Entity;
 
-<<<<<<< HEAD
-=======
 use Labstag\CollectionResolver\TrashCollectionResolver;
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -29,16 +26,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
-<<<<<<< HEAD
- *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
- *         "api_templatestrash": {
- *             "method": "GET",
- *             "path": "/templates/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
  *     graphql={
  *         "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
@@ -57,7 +44,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatestrash": {
  *             "method": "GET",
  *             "path": "/templates/trash",
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -68,10 +54,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatestrashdelete": {
  *             "method": "DELETE",
  *             "path": "/templates/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -82,10 +65,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatesrestore": {
  *             "method": "POST",
  *             "path": "/templates/restore",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -96,10 +76,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatesempty": {
  *             "method": "POST",
  *             "path": "/templates/empty",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {

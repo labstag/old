@@ -2,13 +2,7 @@
 
 namespace Labstag\Entity;
 
-<<<<<<< HEAD
-=======
-use Labstag\CollectionResolver\TrashCollectionResolver;
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
-use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Labstag\Controller\Api\ChapitreApi;
 
 /**
@@ -30,16 +26,6 @@ use Labstag\Controller\Api\ChapitreApi;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
-<<<<<<< HEAD
- *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
- *         "api_chapitretrash": {
- *             "method": "GET",
- *             "path": "/chapitres/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
  *     graphql={
  *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
@@ -58,7 +44,6 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitretrash": {
  *             "method": "GET",
  *             "path": "/chapitres/trash",
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -69,10 +54,7 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitretrashdelete": {
  *             "method": "DELETE",
  *             "path": "/chapitres/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -83,10 +65,7 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitrerestore": {
  *             "method": "POST",
  *             "path": "/chapitres/restore",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -97,10 +76,7 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitreempty": {
  *             "method": "POST",
  *             "path": "/chapitres/empty",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {
