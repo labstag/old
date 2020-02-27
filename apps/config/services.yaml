@@ -23,6 +23,14 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+<<<<<<< HEAD
+=======
+    Labstag\CollectionResolver\:
+        resource: '../src/CollectionResolver'
+        tags:
+            - { name: api_platform.graphql.query_resolver }
+
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
     Labstag\Service\:
         resource: '../src/Service'
         autowire: true

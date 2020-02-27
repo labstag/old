@@ -2,6 +2,10 @@
 
 namespace Labstag\Entity;
 
+<<<<<<< HEAD
+=======
+use Labstag\CollectionResolver\TrashCollectionResolver;
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -34,6 +38,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+<<<<<<< HEAD
  *     itemOperations={
  *         "get",
  *         "put",
@@ -42,6 +47,26 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *             "method": "GET",
  *             "path": "/histories/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+ *     graphql={
+ *       "trashCollection"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
+ *     itemOperations={
+ *         "get": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "put": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "delete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "api_historytrash": {
+ *             "method": "GET",
+ *             "path": "/histories/trash",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -52,7 +77,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historytrashdelete": {
  *             "method": "DELETE",
  *             "path": "/histories/trash",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -63,7 +91,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historyrestore": {
  *             "method": "POST",
  *             "path": "/histories/restore",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -74,7 +105,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_historyempty": {
  *             "method": "POST",
  *             "path": "/histories/empty",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": HistoryApi::class,
  *             "read": false,
  *             "swagger_context": {

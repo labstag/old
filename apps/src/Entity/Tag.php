@@ -17,6 +17,11 @@ use Gedmo\Translatable\Translatable;
 use Labstag\Controller\Api\TagApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
+<<<<<<< HEAD
+=======
+use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashResolver;
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,6 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+<<<<<<< HEAD
  *     itemOperations={
  *         "get",
  *         "put",
@@ -37,6 +43,30 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "method": "GET",
  *             "path": "/tags/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+ *     graphql={
+ *       "trash"={
+ *         "item_query"=TrashResolver::class
+ *       },
+ *       "trashCollection"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
+ *     itemOperations={
+ *         "get": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "put": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "delete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "api_usertrash": {
+ *             "access_control": "is_granted('ROLE_ADMIN')",
+ *             "method": "GET",
+ *             "path": "/tags/trash",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -45,9 +75,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         },
  *         "api_usertrashdelete": {
+<<<<<<< HEAD
  *             "method": "DELETE",
  *             "path": "/tags/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+ *             "access_control": "is_granted('ROLE_ADMIN')",
+ *             "method": "DELETE",
+ *             "path": "/tags/trash",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -56,9 +92,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         },
  *         "api_userrestore": {
+<<<<<<< HEAD
  *             "method": "POST",
  *             "path": "/tags/restore",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+ *             "access_control": "is_granted('ROLE_ADMIN')",
+ *             "method": "POST",
+ *             "path": "/tags/restore",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -67,9 +109,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             }
  *         },
  *         "api_userempty": {
+<<<<<<< HEAD
  *             "method": "POST",
  *             "path": "/tags/empty",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+ *             "access_control": "is_granted('ROLE_ADMIN')",
+ *             "method": "POST",
+ *             "path": "/tags/empty",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": TagApi::class,
  *             "read": false,
  *             "swagger_context": {

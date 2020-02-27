@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 nelmio_cors:
     defaults:
         origin_regex: true
@@ -8,3 +9,15 @@ nelmio_cors:
         max_age: 3600
     paths:
         '^/': ~
+=======
+nelmio_cors:
+    defaults:
+        origin_regex: true
+        allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
+        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
+        allow_headers: ['Content-Type', 'Authorization']
+        expose_headers: ['Link']
+        max_age: 3600
+    paths:
+        '^/': ~
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b

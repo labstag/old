@@ -20,7 +20,11 @@ class FrontController extends ControllerLib
     public function index(): RedirectResponse
     {
         return $this->redirect(
+<<<<<<< HEAD
             $this->generateUrl('posts_list'),
+=======
+            $this->generateUrl('api_entrypoint'),
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
             301
         );
     }

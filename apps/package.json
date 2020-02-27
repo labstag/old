@@ -55,7 +55,11 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@babel/preset-env": "7.8.4",
+=======
+    "@babel/preset-env": "7.8.6",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
     "@symfony/webpack-encore": "0.28.3",
     "@types/tinymce": "4.5.23",
     "babel-loader": "8.0.6",
