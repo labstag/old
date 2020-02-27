@@ -2,7 +2,7 @@
 
 namespace Labstag\Entity;
 
-use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -54,7 +54,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatestrashdelete": {
  *             "method": "DELETE",
  *             "path": "/templates/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -65,7 +65,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatesrestore": {
  *             "method": "POST",
  *             "path": "/templates/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -76,7 +76,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *         "api_templatesempty": {
  *             "method": "POST",
  *             "path": "/templates/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": TemplateApi::class,
  *             "read": false,
  *             "swagger_context": {

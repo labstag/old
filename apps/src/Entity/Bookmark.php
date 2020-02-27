@@ -2,7 +2,8 @@
 
 namespace Labstag\Entity;
 
-use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
+use Labstag\Resolver\EntityResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -35,6 +36,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
+ *       "entity"={
+ *            "item_query"=EntityResolver::class
+ *       },
  *       "trashCollection"={
  *            "collection_query"=TrashCollectionResolver::class
  *       }
@@ -46,7 +50,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarktrash": {
  *             "method": "GET",
  *             "path": "/bookmarks/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -57,7 +61,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarktrashdelete": {
  *             "method": "DELETE",
  *             "path": "/bookmarks/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -68,7 +72,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarkrestore": {
  *             "method": "POST",
  *             "path": "/bookmarks/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -79,7 +83,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_bookmarkempty": {
  *             "method": "POST",
  *             "path": "/bookmarks/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": BookmarkApi::class,
  *             "read": false,
  *             "swagger_context": {

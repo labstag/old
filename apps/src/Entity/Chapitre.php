@@ -54,7 +54,7 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitretrashdelete": {
  *             "method": "DELETE",
  *             "path": "/chapitres/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -65,7 +65,7 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitrerestore": {
  *             "method": "POST",
  *             "path": "/chapitres/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -76,7 +76,7 @@ use Labstag\Controller\Api\ChapitreApi;
  *         "api_chapitreempty": {
  *             "method": "POST",
  *             "path": "/chapitres/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ChapitreApi::class,
  *             "read": false,
  *             "swagger_context": {

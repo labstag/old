@@ -2,7 +2,7 @@
 
 namespace Labstag\Entity;
 
-use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -37,7 +37,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationtrash": {
  *             "method": "GET",
  *             "path": "/configurations/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -48,7 +48,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationtrashdelete": {
  *             "method": "DELETE",
  *             "path": "/configurations/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -59,7 +59,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationrestore": {
  *             "method": "POST",
  *             "path": "/configurations/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -70,7 +70,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationempty": {
  *             "method": "POST",
  *             "path": "/configurations/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {

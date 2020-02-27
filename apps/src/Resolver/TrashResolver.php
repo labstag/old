@@ -25,10 +25,10 @@ final class TrashResolver implements QueryItemResolverInterface
      */
     public function __invoke($item, array $context)
     {
-        unset($content);
         $filters = $this->entityManager->getFilters();
         $filters->disable('softdeleteable');
         $filters->enable('labstag_trash');
+        
         // Query arguments are in $context['args'].
 
         // Do something with the book.

@@ -2,7 +2,7 @@
 
 namespace Labstag\Entity;
 
-use Labstag\CollectionResolver\TrashCollectionResolver;
+use Labstag\Resolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -56,7 +56,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_usertrash": {
  *             "method": "GET",
  *             "path": "/users/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -67,7 +67,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_usertrashdelete": {
  *             "method": "DELETE",
  *             "path": "/users/trash",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -78,7 +78,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_userrestore": {
  *             "method": "POST",
  *             "path": "/users/restore",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -89,7 +89,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_userempty": {
  *             "method": "POST",
  *             "path": "/users/empty",
- *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "access_control": "is_granted('ROLE_ADMIN')",
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
