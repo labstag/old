@@ -2,6 +2,10 @@
 
 namespace Labstag\Entity;
 
+<<<<<<< HEAD
+=======
+use Labstag\CollectionResolver\TrashCollectionResolver;
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -32,6 +36,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+<<<<<<< HEAD
  *     itemOperations={
  *         "get",
  *         "put",
@@ -40,6 +45,26 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *             "method": "GET",
  *             "path": "/posts/trash",
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+ *     graphql={
+ *       "trashCollection"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
+ *     itemOperations={
+ *         "get": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "put": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "delete": {
+ *             "access_control": "is_granted('ROLE_ADMIN')"
+ *          },
+ *         "api_posttrash": {
+ *             "method": "GET",
+ *             "path": "/posts/trash",
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -50,7 +75,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_posttrashdelete": {
  *             "method": "DELETE",
  *             "path": "/posts/trash",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -61,7 +89,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_postrestore": {
  *             "method": "POST",
  *             "path": "/posts/restore",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -72,7 +103,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_postempty": {
  *             "method": "POST",
  *             "path": "/posts/empty",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": PostApi::class,
  *             "read": false,
  *             "swagger_context": {

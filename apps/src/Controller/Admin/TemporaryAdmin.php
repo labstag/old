@@ -39,7 +39,11 @@ class TemporaryAdmin extends AdminControllerLib
         }
 
         /** @var QueryBuilder $data */
+<<<<<<< HEAD
         $data    = $repository->findTagsByType($type);
+=======
+        $data    = $repository->findTagByType($type);
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
         $query   = $data->getQuery();
         $results = $query->getResult();
         foreach ($results as $row) {

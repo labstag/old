@@ -2,6 +2,10 @@
 
 namespace Labstag\Entity;
 
+<<<<<<< HEAD
+=======
+use Labstag\CollectionResolver\TrashCollectionResolver;
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -38,6 +42,19 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+<<<<<<< HEAD
+=======
+ *     attributes={
+ *       "access_control": "is_granted('ROLE_ADMIN')",
+ *       "normalization_context": {"groups": {"get"}},
+ *       "denormalization_context": {"groups": {"get"}}
+ *     },
+ *     graphql={
+ *       "trashCollection"={
+ *            "collection_query"=TrashCollectionResolver::class
+ *       }
+ *     },
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *     itemOperations={
  *         "get",
  *         "put",
@@ -45,7 +62,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_usertrash": {
  *             "method": "GET",
  *             "path": "/users/trash",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -56,7 +76,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_usertrashdelete": {
  *             "method": "DELETE",
  *             "path": "/users/trash",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -67,7 +90,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_userrestore": {
  *             "method": "POST",
  *             "path": "/users/restore",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -78,7 +104,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "api_userempty": {
  *             "method": "POST",
  *             "path": "/users/empty",
+<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": UserApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -86,11 +115,14 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *                 "parameters": {}
  *             }
  *         }
+<<<<<<< HEAD
  *     },
  *     attributes={
  *         "access_control": "is_granted('ROLE_SUPER_ADMIN')",
  *         "normalization_context": {"groups": {"get"}},
  *         "denormalization_context": {"groups": {"get"}},
+=======
+>>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
