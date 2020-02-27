@@ -2,10 +2,7 @@
 
 namespace Labstag\Entity;
 
-<<<<<<< HEAD
-=======
 use Labstag\CollectionResolver\TrashCollectionResolver;
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -25,8 +22,6 @@ use Labstag\Controller\Api\ConfigurationApi;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
-<<<<<<< HEAD
-=======
  *     attributes={
  *         "access_control": "is_granted('ROLE_ADMIN')"
  *     },
@@ -35,7 +30,6 @@ use Labstag\Controller\Api\ConfigurationApi;
  *            "collection_query"=TrashCollectionResolver::class
  *       }
  *     },
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *     itemOperations={
  *         "get",
  *         "put",
@@ -43,10 +37,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationtrash": {
  *             "method": "GET",
  *             "path": "/configurations/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -57,10 +48,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationtrashdelete": {
  *             "method": "DELETE",
  *             "path": "/configurations/trash",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -71,10 +59,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationrestore": {
  *             "method": "POST",
  *             "path": "/configurations/restore",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
@@ -85,10 +70,7 @@ use Labstag\Controller\Api\ConfigurationApi;
  *         "api_configurationempty": {
  *             "method": "POST",
  *             "path": "/configurations/empty",
-<<<<<<< HEAD
  *             "access_control": "is_granted('ROLE_SUPER_ADMIN')",
-=======
->>>>>>> 70eef9d9de7dd17df3a3addf58c7c49623b0f58b
  *             "controller": ConfigurationApi::class,
  *             "read": false,
  *             "swagger_context": {
