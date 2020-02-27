@@ -24,36 +24,36 @@ services:
                 - "traefik.http.routers.assetslabstag.rule=Host(`assets.labstag.lxc`)"
                 - "traefik.http.routers.assetslabstag.entrypoints=web"
                 - "traefik.http.services.assetslabstag.loadbalancer.server.port=80"
-  mariadb:
-    image: mariadb:10.5.1
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: core
-      MYSQL_USER: labstag
-      MYSQL_PASSWORD: password
-      TZ: Europe/Paris
-    volumes:
-      - mariadb:/var/lib/mysql
-    networks:
-      - net
-  apache:
-    image: httpd
-    volumes:
-      - ${PWD}/apps:/usr/local/apache2/htdocs/
-      - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
-    networks:
-      - net
-      - netlabstag
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.apilabstag.rule=Host(`api.labstag.lxc`)"
-        - "traefik.http.routers.apilabstag.entrypoints=web"
-        - "traefik.http.services.apilabstag.loadbalancer.server.port=80"
-  phpfpm:
-    image: koromerzhin/phpfpm:7.4
-    volumes:
-      - ${PWD}/apps:/usr/local/apache2/htdocs
-      - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
-    networks:
-      - net
+    mariadb:
+        image: mariadb:10.5.1
+        environment:
+            MYSQL_ROOT_PASSWORD: example
+            MYSQL_DATABASE: core
+            MYSQL_USER: labstag
+            MYSQL_PASSWORD: password
+            TZ: Europe/Paris
+        volumes:
+            - mariadb:/var/lib/mysql
+        networks:
+            - net
+    apache:
+        image: httpd
+        volumes:
+            - ${PWD}/apps:/usr/local/apache2/htdocs/
+            - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
+        networks:
+            - net
+            - netlabstag
+        deploy:
+            labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.apilabstag.rule=Host(`api.labstag.lxc`)"
+            - "traefik.http.routers.apilabstag.entrypoints=web"
+            - "traefik.http.services.apilabstag.loadbalancer.server.port=80"
+    phpfpm:
+        image: koromerzhin/phpfpm:7.4
+        volumes:
+            - ${PWD}/apps:/usr/local/apache2/htdocs
+            - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
+        networks:
+            - net
