@@ -15,9 +15,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
-use Labstag\Controller\Api\CategoryApi;
-use Labstag\Resolver\TrashCollectionResolver;
 use Labstag\Entity\Traits\Post;
+use Labstag\Resolver\Mutation\EmptyResolver;
+use Labstag\Resolver\Mutation\RestoreResolver;
+use Labstag\Resolver\Query\CollectionResolver;
+use Labstag\Resolver\Query\EntityResolver;
+use Labstag\Resolver\Query\TrashCollectionResolver;
+use Labstag\Resolver\Query\TrashResolver;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
@@ -28,68 +32,58 @@ use Labstag\Entity\Traits\Post;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
- *     attributes={
- *          "access_control": "is_granted('ROLE_ADMIN')"
- *     },
  *     graphql={
- *          "trashCollection"={
- *            "collection_query"=TrashCollectionResolver::class
- *          }
+ *         "item_query": {
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "collection_query",
+ *         "restore": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": RestoreResolver::class
+ *         },
+ *         "empty": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": EmptyResolver::class
+ *         },
+ *         "delete": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "update": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "create": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "collection": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "trash": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": TrashResolver::class
+ *         },
+ *         "data": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "trashCollection": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "collection_query": TrashCollectionResolver::class
+ *         }
+ *     },
+ *     collectionOperations={
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "put": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "delete": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "api_categorytrash": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "GET",
- *             "path": "/categories/trash",
- *             "controller": CategoryApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Corbeille",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_categorytrashdelete": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "DELETE",
- *             "path": "/categories/trash",
- *             "controller": CategoryApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Remove",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_categoryrestore": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "POST",
- *             "path": "/categories/restore",
- *             "controller": CategoryApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Restore",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_categoryempty": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "POST",
- *             "path": "/categories/empty",
- *             "controller": CategoryApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Empty",
- *                 "parameters": {}
- *             }
- *         }
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "put": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\CategoryRepository")

@@ -23,8 +23,8 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    Labstag\Resolver\:
-        resource: '../src/Resolver'
+    Labstag\Resolver\Query\:
+        resource: '../src/Resolver/Query'
         tags:
             - { name: api_platform.graphql.query_resolver }
 

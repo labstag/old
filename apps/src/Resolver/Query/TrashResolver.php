@@ -1,6 +1,6 @@
 <?php
 
-namespace Labstag\Resolver;
+namespace Labstag\Resolver\Query;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryItemResolverInterface;
 use Doctrine\ORM\EntityManager;
@@ -18,6 +18,7 @@ final class TrashResolver implements QueryItemResolverInterface
     {
         $this->entityManager = $entityManager;
     }
+
     /**
      * @param mixed|null $item
      *
@@ -25,10 +26,13 @@ final class TrashResolver implements QueryItemResolverInterface
      */
     public function __invoke($item, array $context)
     {
-        $filters = $this->entityManager->getFilters();
-        $filters->disable('softdeleteable');
-        $filters->enable('labstag_trash');
-        
+        dump($item);
+        if ($item != null) {
+            $filters = $this->entityManager->getFilters();
+            $filters->disable('softdeleteable');
+            $filters->enable('labstag_trash');
+        }
+
         // Query arguments are in $context['args'].
 
         // Do something with the book.

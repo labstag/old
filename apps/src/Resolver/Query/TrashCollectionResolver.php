@@ -1,19 +1,15 @@
 <?php
 
-namespace Labstag\Resolver;
+namespace Labstag\Resolver\Query;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
 
 final class TrashCollectionResolver implements QueryCollectionResolverInterface
 {
-    /**
-     * @param iterable $collection
-     *
-     * @return iterable
-     */
     public function __invoke(iterable $collection, array $context): iterable
     {
-        unset($content);
+        unset($context);
+        dump('bb');
         $query         = $collection->getQuery();
         $entityManager = $query->getEntityManager();
         $filters       = $entityManager->getFilters();

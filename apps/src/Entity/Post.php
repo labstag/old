@@ -2,9 +2,9 @@
 
 namespace Labstag\Entity;
 
-use Labstag\Resolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -17,8 +17,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
-use Labstag\Controller\Api\PostApi;
 use Labstag\Entity\Traits\Tag;
+use Labstag\Resolver\Mutation\EmptyResolver;
+use Labstag\Resolver\Mutation\RestoreResolver;
+use Labstag\Resolver\Query\Post\EnableResolver;
+use Labstag\Resolver\Query\CollectionResolver;
+use Labstag\Resolver\Query\EntityResolver;
+use Labstag\Resolver\Query\TrashCollectionResolver;
+use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -34,63 +40,60 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *       "trashCollection"={
- *            "collection_query"=TrashCollectionResolver::class
- *       }
+ *         "item_query": {
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "collection_query",
+ *         "restore": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": RestoreResolver::class
+ *         },
+ *         "empty": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": EmptyResolver::class
+ *         },
+ *         "delete": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "update": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "create": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "collection": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "trash": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": TrashResolver::class
+ *         },
+ *         "data": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "trashCollection": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "collection_query": TrashCollectionResolver::class
+ *         },
+ *         "enable": {
+ *             "collection_query": EnableResolver::class
+ *         }
+ *     },
+ *     collectionOperations={
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "put": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "delete": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "api_posttrash": {
- *             "method": "GET",
- *             "path": "/posts/trash",
- *             "controller": PostApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Corbeille",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_posttrashdelete": {
- *             "method": "DELETE",
- *             "path": "/posts/trash",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": PostApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Remove",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_postrestore": {
- *             "method": "POST",
- *             "path": "/posts/restore",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": PostApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Restore",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_postempty": {
- *             "method": "POST",
- *             "path": "/posts/empty",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": PostApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Empty",
- *                 "parameters": {}
- *             }
- *         }
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "put": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\PostRepository")
@@ -148,6 +151,7 @@ class Post implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
+     * @ApiSubresource
      *
      * @var User
      */

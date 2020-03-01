@@ -1,8 +1,8 @@
 <?php
+
 namespace Labstag\Filter;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Doctrine\ORM\Query\Filter\SQLFilter;
 
 class TrashFilter extends SQLFilter

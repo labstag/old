@@ -2,7 +2,9 @@
 
 namespace Labstag\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,9 +13,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Labstag\Controller\Api\ChapitreApi;
+use Labstag\Resolver\Mutation\EmptyResolver;
+use Labstag\Resolver\Mutation\RestoreResolver;
+use Labstag\Resolver\Query\CollectionResolver;
+use Labstag\Resolver\Query\EntityResolver;
+use Labstag\Resolver\Query\TrashCollectionResolver;
+use Labstag\Resolver\Query\TrashResolver;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={
@@ -27,63 +32,57 @@ use Labstag\Controller\Api\ChapitreApi;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *       "trashCollection"={
- *            "collection_query"=TrashCollectionResolver::class
- *       }
+ *         "item_query": {
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "collection_query",
+ *         "restore": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": RestoreResolver::class
+ *         },
+ *         "empty": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": EmptyResolver::class
+ *         },
+ *         "delete": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "update": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "create": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "collection": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "trash": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": TrashResolver::class
+ *         },
+ *         "data": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "trashCollection": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "collection_query": TrashCollectionResolver::class
+ *         }
+ *     },
+ *     collectionOperations={
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "put": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "delete": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "api_chapitretrash": {
- *             "method": "GET",
- *             "path": "/chapitres/trash",
- *             "controller": ChapitreApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Corbeille",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_chapitretrashdelete": {
- *             "method": "DELETE",
- *             "path": "/chapitres/trash",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": ChapitreApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Remove",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_chapitrerestore": {
- *             "method": "POST",
- *             "path": "/chapitres/restore",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": ChapitreApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Restore",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_chapitreempty": {
- *             "method": "POST",
- *             "path": "/chapitres/empty",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": ChapitreApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Empty",
- *                 "parameters": {}
- *             }
- *         }
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "put": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\ChapitreRepository")

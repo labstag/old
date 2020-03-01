@@ -2,7 +2,6 @@
 
 namespace Labstag\Entity;
 
-use Labstag\Resolver\TrashCollectionResolver;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -15,7 +14,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Labstag\Controller\Api\UserApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Email;
 use Labstag\Entity\Traits\History;
@@ -23,6 +21,12 @@ use Labstag\Entity\Traits\OauthConnectUser;
 use Labstag\Entity\Traits\Phone;
 use Labstag\Entity\Traits\Post;
 use Labstag\Entity\Traits\Timestampable;
+use Labstag\Resolver\Mutation\EmptyResolver;
+use Labstag\Resolver\Mutation\RestoreResolver;
+use Labstag\Resolver\Query\CollectionResolver;
+use Labstag\Resolver\Query\EntityResolver;
+use Labstag\Resolver\Query\TrashCollectionResolver;
+use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,58 +49,57 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *       "denormalization_context": {"groups": {"get"}}
  *     },
  *     graphql={
- *       "trashCollection"={
- *            "collection_query"=TrashCollectionResolver::class
- *       }
+ *         "item_query": {
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "collection_query",
+ *         "restore": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": RestoreResolver::class
+ *         },
+ *         "empty": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": EmptyResolver::class
+ *         },
+ *         "delete": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "update": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "create": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "collection": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "trash": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": TrashResolver::class
+ *         },
+ *         "data": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "trashCollection": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "collection_query": TrashCollectionResolver::class
+ *         }
+ *     },
+ *     collectionOperations={
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get",
- *         "put",
- *         "delete",
- *         "api_usertrash": {
- *             "method": "GET",
- *             "path": "/users/trash",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": UserApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Corbeille",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_usertrashdelete": {
- *             "method": "DELETE",
- *             "path": "/users/trash",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": UserApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Remove",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_userrestore": {
- *             "method": "POST",
- *             "path": "/users/restore",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": UserApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Restore",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_userempty": {
- *             "method": "POST",
- *             "path": "/users/empty",
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "controller": UserApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Empty",
- *                 "parameters": {}
- *             }
- *         }
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "put": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\UserRepository")
@@ -164,7 +167,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string|null
-     * @Groups({"get"})
      */
     private $plainPassword;
 
@@ -193,6 +195,7 @@ class User implements UserInterface, \Serializable
     /**
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
      * @Assert\File(mimeTypes={"image/*"})
+     * @Groups({"get"})
      *
      * @var File|null
      */

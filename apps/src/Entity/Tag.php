@@ -14,13 +14,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
-use Labstag\Controller\Api\TagApi;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
-use Labstag\Resolver\TrashResolver;
-use Labstag\Resolver\CollectionResolver;
-use Labstag\Resolver\TrashCollectionResolver;
-use Labstag\Resolver\EntityResolver;
+use Labstag\Resolver\Mutation\EmptyResolver;
+use Labstag\Resolver\Mutation\RestoreResolver;
+use Labstag\Resolver\Query\CollectionResolver;
+use Labstag\Resolver\Query\EntityResolver;
+use Labstag\Resolver\Query\TrashCollectionResolver;
+use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,73 +35,57 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *       "trash"={
- *         "item_query"=TrashResolver::class
- *       },
- *       "entity"={
- *            "item_query"=EntityResolver::class
- *       },
- *       "collection"={
- *            "collection_query"=CollectionResolver::class
- *       },
- *       "trashCollection"={
- *            "collection_query"=TrashCollectionResolver::class
- *       }
+ *         "item_query": {
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "collection_query",
+ *         "restore": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": RestoreResolver::class
+ *         },
+ *         "empty": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": EmptyResolver::class
+ *         },
+ *         "delete": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "update": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "create": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "collection": {
+ *             "security": "is_granted('ROLE_ADMIN')"
+ *         },
+ *         "trash": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": TrashResolver::class
+ *         },
+ *         "data": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "item_query": EntityResolver::class
+ *         },
+ *         "trashCollection": {
+ *             "security": "is_granted('ROLE_ADMIN')",
+ *             "collection_query": TrashCollectionResolver::class
+ *         }
+ *     },
+ *     collectionOperations={
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "put": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "delete": {
- *             "access_control": "is_granted('ROLE_ADMIN')"
- *          },
- *         "api_usertrash": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "GET",
- *             "path": "/tags/trash",
- *             "controller": TagApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Corbeille",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_usertrashdelete": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "DELETE",
- *             "path": "/tags/trash",
- *             "controller": TagApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Remove",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_userrestore": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "POST",
- *             "path": "/tags/restore",
- *             "controller": TagApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Restore",
- *                 "parameters": {}
- *             }
- *         },
- *         "api_userempty": {
- *             "access_control": "is_granted('ROLE_ADMIN')",
- *             "method": "POST",
- *             "path": "/tags/empty",
- *             "controller": TagApi::class,
- *             "read": false,
- *             "swagger_context": {
- *                 "summary": "Empty",
- *                 "parameters": {}
- *             }
- *         }
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "put": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="Labstag\Repository\TagRepository")

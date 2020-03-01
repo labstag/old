@@ -41,15 +41,16 @@ update: ## update DEPEDENCIES
 	@make npm-update -i
 
 .PHONY: pull
-pull: ## Update repository
-	npm install
+pull: node_modules ## Update repository
 	@make composer-install -i
 	@make npm-install -i
 
 .PHONY: install
-install: ## install DEV
-	npm install
+install: node_modules ## install DEV
 	@make deploy -i
+
+node_modules:
+	npm install
 
 .PHONY: showstack
 showstack: ## Show stack

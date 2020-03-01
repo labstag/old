@@ -1,6 +1,6 @@
 <?php
 
-namespace Labstag\Resolver;
+namespace Labstag\Resolver\Query;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryItemResolverInterface;
 
