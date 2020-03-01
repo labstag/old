@@ -15,7 +15,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Resolver\Mutation\EmptyResolver;
 use Labstag\Resolver\Mutation\RestoreResolver;
-use Labstag\Resolver\Query\CollectionResolver;
 use Labstag\Resolver\Query\EntityResolver;
 use Labstag\Resolver\Query\TrashCollectionResolver;
 use Labstag\Resolver\Query\TrashResolver;
@@ -32,10 +31,8 @@ use Labstag\Resolver\Query\TrashResolver;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {
- *             "item_query": EntityResolver::class
- *         },
- *         "collection_query",
+ *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "restore": {
  *             "security": "is_granted('ROLE_ADMIN')",
  *             "args": {
@@ -50,18 +47,10 @@ use Labstag\Resolver\Query\TrashResolver;
  *             },
  *             "mutation": EmptyResolver::class
  *         },
- *         "delete": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
- *         "update": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
- *         "create": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
- *         "collection": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "update": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "create": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
  *         "trash": {
  *             "security": "is_granted('ROLE_ADMIN')",
  *             "item_query": TrashResolver::class

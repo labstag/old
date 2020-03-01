@@ -13,6 +13,7 @@ final class DeleteResolver implements MutationResolverInterface
      */
     public function __invoke($item, array $context)
     {
+        unset($context);
         // Mutation input arguments are in $context['args']['input'].
 
         // Do something with the book.

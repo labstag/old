@@ -9,7 +9,8 @@ final class TrashCollectionResolver implements QueryCollectionResolverInterface
     public function __invoke(iterable $collection, array $context): iterable
     {
         unset($context);
-        dump('bb');
+        dump('trashcollection');
+        /** @var mixed $collection */
         $query         = $collection->getQuery();
         $entityManager = $query->getEntityManager();
         $filters       = $entityManager->getFilters();

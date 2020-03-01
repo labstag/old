@@ -4,8 +4,8 @@ namespace Labstag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
@@ -20,9 +20,8 @@ use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Tag;
 use Labstag\Resolver\Mutation\EmptyResolver;
 use Labstag\Resolver\Mutation\RestoreResolver;
-use Labstag\Resolver\Query\Post\EnableResolver;
-use Labstag\Resolver\Query\CollectionResolver;
 use Labstag\Resolver\Query\EntityResolver;
+use Labstag\Resolver\Query\Post\EnableResolver;
 use Labstag\Resolver\Query\TrashCollectionResolver;
 use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Component\HttpFoundation\File\File;
@@ -40,10 +39,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {
- *             "item_query": EntityResolver::class
- *         },
- *         "collection_query",
+ *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "restore": {
  *             "security": "is_granted('ROLE_ADMIN')",
  *             "args": {
@@ -58,18 +55,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *             },
  *             "mutation": EmptyResolver::class
  *         },
- *         "delete": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
- *         "update": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
- *         "create": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
- *         "collection": {
- *             "security": "is_granted('ROLE_ADMIN')"
- *         },
+ *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "update": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "create": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
  *         "trash": {
  *             "security": "is_granted('ROLE_ADMIN')",
  *             "item_query": TrashResolver::class

@@ -13,6 +13,8 @@ final class EntityResolver implements QueryItemResolverInterface
      */
     public function __invoke($item, array $context)
     {
+        unset($context);
+        dump('entity');
         // Query arguments are in $context['args'].
 
         // Do something with the book.

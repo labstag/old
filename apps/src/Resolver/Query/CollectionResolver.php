@@ -8,6 +8,7 @@ final class CollectionResolver implements QueryCollectionResolverInterface
 {
     public function __invoke(iterable $collection, array $context): iterable
     {
+        dump('collection');
         unset($context);
 
         return $collection;

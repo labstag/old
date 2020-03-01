@@ -106,7 +106,7 @@ logs-mariadb: ## logs docker mariadb
 	docker service logs -f --tail 100 --raw $(MARIADBFULLNAME)
 
 .PHONY: composer-install
-composer-install: ## COMPOSER install DEV
+composer-install: ## COMPOSER install
 	docker exec $(PHPFPMFULLNAME) composer install
 
 .PHONY: composer-update
