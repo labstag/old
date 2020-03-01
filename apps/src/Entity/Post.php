@@ -18,6 +18,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Tag;
+use Labstag\Resolver\Mutation\DeleteResolver;
 use Labstag\Resolver\Mutation\EmptyResolver;
 use Labstag\Resolver\Mutation\RestoreResolver;
 use Labstag\Resolver\Query\EntityResolver;
@@ -41,8 +42,15 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     graphql={
  *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "del": {
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": DeleteResolver::class
+ *         },
  *         "restore": {
- *             "security": "is_granted('ROLE_ADMIN')",
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "args": {
  *                 "id": {"type": "ID!"}
  *             },
@@ -60,7 +68,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
  *         "trash": {
- *             "security": "is_granted('ROLE_ADMIN')",
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "item_query": TrashResolver::class
  *         },
  *         "data": {
@@ -68,7 +76,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *             "item_query": EntityResolver::class
  *         },
  *         "trashCollection": {
- *             "security": "is_granted('ROLE_ADMIN')",
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "collection_query": TrashCollectionResolver::class
  *         },
  *         "enable": {

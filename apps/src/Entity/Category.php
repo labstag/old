@@ -16,6 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Post;
+use Labstag\Resolver\Mutation\DeleteResolver;
 use Labstag\Resolver\Mutation\EmptyResolver;
 use Labstag\Resolver\Mutation\RestoreResolver;
 use Labstag\Resolver\Query\EntityResolver;
@@ -34,8 +35,15 @@ use Labstag\Resolver\Query\TrashResolver;
  *     graphql={
  *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "del": {
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
+ *             "args": {
+ *                 "id": {"type": "ID!"}
+ *             },
+ *             "mutation": DeleteResolver::class
+ *         },
  *         "restore": {
- *             "security": "is_granted('ROLE_ADMIN')",
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "args": {
  *                 "id": {"type": "ID!"}
  *             },
@@ -53,7 +61,7 @@ use Labstag\Resolver\Query\TrashResolver;
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
  *         "trash": {
- *             "security": "is_granted('ROLE_ADMIN')",
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "item_query": TrashResolver::class
  *         },
  *         "data": {
@@ -61,7 +69,7 @@ use Labstag\Resolver\Query\TrashResolver;
  *             "item_query": EntityResolver::class
  *         },
  *         "trashCollection": {
- *             "security": "is_granted('ROLE_ADMIN')",
+ *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "collection_query": TrashCollectionResolver::class
  *         }
  *     },
