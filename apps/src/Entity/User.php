@@ -40,6 +40,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
+ *     attributes={
+ *         "normalization_context": {"groups": {"get"}},
+ *         "denormalization_context": {"groups": {"get"}},
+ *     },
  *     graphql={
  *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
@@ -80,6 +84,7 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      * @ApiProperty(iri="https://schema.org/identifier")
+     * @Groups({"get"})
      *
      * @var string
      */
@@ -88,6 +93,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
+     * @Groups({"get"})
      *
      * @var string
      */
@@ -99,6 +105,7 @@ class User implements UserInterface, \Serializable
      * @Assert\Email(
      *     message="The email '{{ value }}' is not a valid email."
      * )
+     * @Groups({"get"})
      *
      * @var string
      */
@@ -106,6 +113,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"get"})
      *
      * @var array
      */
@@ -118,12 +126,14 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @Groups({"write"})
      * @var string|null
      */
     private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
+     * @Groups({"write"})
      *
      * @var string|null
      */
@@ -131,11 +141,13 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="boolean", options={"default": true})
+     * @Groups({"get"})
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"get"})
      *
      * @var string
      */
@@ -152,6 +164,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="refuser")
      * @ApiSubresource
+     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
@@ -168,6 +181,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="History", mappedBy="refuser")
      * @ApiSubresource
+     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
@@ -176,6 +190,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="refuser")
      * @ApiSubresource
+     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
@@ -184,6 +199,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="Email", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
+     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
@@ -192,6 +208,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="Phone", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
+     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
