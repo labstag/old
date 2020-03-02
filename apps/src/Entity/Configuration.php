@@ -27,28 +27,19 @@ use Labstag\Resolver\Query\TrashResolver;
  *         "security": "is_granted('ROLE_ADMIN')"
  *     },
  *     graphql={
- *         "item_query",
- *         "collection_query",
+ *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection",
- *         "trash": {
- *             "item_query": TrashResolver::class
- *         },
- *         "data": {
- *             "item_query": EntityResolver::class
- *         },
- *         "trashCollection": {
- *             "collection_query": TrashCollectionResolver::class
- *         }
+ *         "collection": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     collectionOperations={
- *         "get",
- *         "post"
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get",
+ *         "get": {"security": "is_granted('ROLE_ADMIN')"},
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
