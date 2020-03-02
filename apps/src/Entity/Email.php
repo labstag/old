@@ -61,7 +61,7 @@ class Email
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="emails")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="emails")
      *
      * @var User
      */

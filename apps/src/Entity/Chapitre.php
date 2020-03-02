@@ -92,7 +92,7 @@ class Chapitre implements Translatable
 
     /**
      * @Gedmo\SortableGroup
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\History", inversedBy="chapitres")
+     * @ORM\ManyToOne(targetEntity="History", inversedBy="chapitres")
      *
      * @var History
      */

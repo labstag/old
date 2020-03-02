@@ -70,7 +70,7 @@ class OauthConnectUser
     private $data = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="oauthConnectUsers")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="oauthConnectUsers")
      * @ORM\JoinColumn(nullable=false)
      *
      * @var User

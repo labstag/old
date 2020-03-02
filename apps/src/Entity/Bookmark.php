@@ -100,7 +100,7 @@ class Bookmark implements Translatable
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tag", inversedBy="bookmarks")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="bookmarks")
      */
     private $tags;
 
@@ -143,7 +143,7 @@ class Bookmark implements Translatable
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="bookmarks")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="bookmarks")
      *
      * @var User
      */

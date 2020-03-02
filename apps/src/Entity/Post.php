@@ -111,7 +111,8 @@ class Post implements Translatable
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
      * @ApiSubresource
      *
      * @var User
@@ -119,7 +120,7 @@ class Post implements Translatable
     private $refuser;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\Category", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      *
      * @var Category
@@ -127,7 +128,7 @@ class Post implements Translatable
     private $refcategory;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Tag", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      */
     private $tags;
 

@@ -84,7 +84,7 @@ class Category implements Translatable
     private $temporary;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refcategory")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="refcategory")
      * @ApiSubresource
      *
      * @var ArrayCollection

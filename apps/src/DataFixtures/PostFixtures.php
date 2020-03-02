@@ -83,12 +83,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             /** @var string $content */
             $content = $faker->unique()->paragraphs(4, true);
             $post->setContent($content);
-            $user = rand(0, 1);
-            if ($user) {
-                $tabIndex = array_rand($users);
-                $post->setRefuser($users[$tabIndex]);
-            }
-
+            $tabIndex = array_rand($users);
+            $post->setRefuser($users[$tabIndex]);
             $post->setRefcategory($categories[array_rand($categories)]);
             $this->addTag($post, $tags);
 

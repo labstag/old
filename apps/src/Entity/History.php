@@ -85,7 +85,7 @@ class History implements Translatable
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="histories")
      *
      * @var User
      */
@@ -122,7 +122,7 @@ class History implements Translatable
     private $imageFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Chapitre", mappedBy="refhistory")
+     * @ORM\OneToMany(targetEntity="Chapitre", mappedBy="refhistory")
      * @ApiSubresource
      * @ORM\OrderBy({"position": "ASC"})
      *

@@ -117,12 +117,12 @@ class Tag implements Translatable
     private $temporary;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Post", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Bookmark", mappedBy="tags")
      */
     private $bookmarks;
 

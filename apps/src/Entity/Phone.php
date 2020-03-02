@@ -63,7 +63,7 @@ class Phone
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Labstag\Entity\User", inversedBy="phones")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="phones")
      *
      * @var User
      */

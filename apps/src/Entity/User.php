@@ -40,10 +40,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "username"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
- *     attributes={
- *         "normalization_context": {"groups": {"get"}},
- *         "denormalization_context": {"groups": {"get"}}
- *     },
  *     graphql={
  *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
@@ -84,7 +80,6 @@ class User implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="UUID")
      * @ORM\Column(type="guid", unique=true)
      * @ApiProperty(iri="https://schema.org/identifier")
-     * @Groups({"get"})
      *
      * @var string
      */
@@ -93,7 +88,6 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
-     * @Groups({"get"})
      *
      * @var string
      */
@@ -112,7 +106,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"get"})
      *
      * @var array
      */
@@ -131,7 +124,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64, unique=true, nullable=true)
-     * @Groups({"write"})
      *
      * @var string|null
      */
@@ -139,13 +131,11 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="boolean", options={"default": true})
-     * @Groups({"get"})
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @Groups({"get"})
      *
      * @var string
      */
@@ -154,61 +144,54 @@ class User implements UserInterface, \Serializable
     /**
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="avatar")
      * @Assert\File(mimeTypes={"image/*"})
-     * @Groups({"get"})
      *
      * @var File|null
      */
     private $imageFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Post", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="refuser")
      * @ApiSubresource
-     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
     private $posts;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="OauthConnectUser", mappedBy="refuser", orphanRemoval=true)
      * @ApiSubresource
-     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
     private $oauthConnectUsers;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\History", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="History", mappedBy="refuser")
      * @ApiSubresource
-     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
     private $histories;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Bookmark", mappedBy="refuser")
+     * @ORM\OneToMany(targetEntity="Bookmark", mappedBy="refuser")
      * @ApiSubresource
-     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
     private $bookmarks;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Email", mappedBy="refuser", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
-     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
     private $emails;
 
     /**
-     * @ORM\OneToMany(targetEntity="Labstag\Entity\Phone", mappedBy="refuser", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="refuser", cascade={"all"})
      * @ApiSubresource
-     * @Groups({"get"})
      *
      * @var ArrayCollection
      */
