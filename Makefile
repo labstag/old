@@ -231,3 +231,7 @@ git-check: ## CHECK git
 	@git gc
 	@git prune
 	@git fetch
+
+.PHONY: sleep
+sleep: ## sleep
+	sleep 60
