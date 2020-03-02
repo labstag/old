@@ -40,43 +40,19 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
- *         "del": {
- *             "security": "is_granted('ROLE_SUPER_ADMIN')",
- *             "args": {
- *                 "id": {"type": "ID!"}
- *             },
- *             "mutation": DeleteResolver::class
- *         },
- *         "restore": {
- *             "security": "is_granted('ROLE_SUPER_ADMIN')",
- *             "args": {
- *                 "id": {"type": "ID!"}
- *             },
- *             "mutation": RestoreResolver::class
- *         },
- *         "empty": {
- *             "security": "is_granted('ROLE_ADMIN')",
- *             "args": {
- *                 "id": {"type": "ID!"}
- *             },
- *             "mutation": EmptyResolver::class
- *         },
+ *         "item_query",
+ *         "collection_query",
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "collection",
  *         "trash": {
- *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "item_query": TrashResolver::class
  *         },
  *         "data": {
- *             "security": "is_granted('ROLE_ADMIN')",
  *             "item_query": EntityResolver::class
  *         },
  *         "trashCollection": {
- *             "security": "is_granted('ROLE_SUPER_ADMIN')",
  *             "collection_query": TrashCollectionResolver::class
  *         },
  *         "enable": {
@@ -84,11 +60,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         }
  *     },
  *     collectionOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
- *         "post": {"security": "is_granted('ROLE_ADMIN')"}
+ *         "get",
+ *         "post"
  *     },
  *     itemOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }

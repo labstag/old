@@ -38,6 +38,8 @@ services:
             - net
     apache:
         image: httpd
+        depends_on:
+            - phpfpm
         volumes:
             - ${PWD}/apps:/usr/local/apache2/htdocs/
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
@@ -52,6 +54,8 @@ services:
             - "traefik.http.services.apilabstag.loadbalancer.server.port=80"
     phpfpm:
         image: koromerzhin/phpfpm:7.4
+        depends_on:
+            - mariadb
         volumes:
             - ${PWD}/apps:/usr/local/apache2/htdocs
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
