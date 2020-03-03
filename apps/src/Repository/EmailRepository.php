@@ -35,40 +35,12 @@ class EmailRepository extends ServiceEntityRepositoryLib
             'checked' => true,
         ];
 
-        $query = $this->createQueryBuilder('g');
-        $query->where('g.refuser=:refuser AND g.checked=:checked');
-        $query->setParameters($params);
-        $query->orderBy('g.adresse', 'ASC');
+        $dql = $this->createQueryBuilder('g');
+        $dql->where('g.refuser = :refuser');
+        $dql->andWhere('g.checked = :checked');
+        $dql->setParameters($params);
+        $dql->orderBy('g.adresse', 'ASC');
 
-        return $query;
+        return $dql;
     }
-
-    // /**
-    //  * @return Email[] Returns an array of Email objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Email
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

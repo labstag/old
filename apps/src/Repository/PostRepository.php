@@ -34,8 +34,8 @@ class PostRepository extends ServiceEntityRepositoryLib
 
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refuser', 'u');
-        $dql->where('p.enable=:enable');
-        $dql->andWhere('u.id=:iduser');
+        $dql->where('p.enable = :enable');
+        $dql->andWhere('u.id = :iduser');
         $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
@@ -59,8 +59,8 @@ class PostRepository extends ServiceEntityRepositoryLib
 
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.tags', 't');
-        $dql->where('p.enable=:enable');
-        $dql->andWhere('t.id=:idtag');
+        $dql->where('p.enable = :enable');
+        $dql->andWhere('t.id = :idtag');
         $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
@@ -84,8 +84,8 @@ class PostRepository extends ServiceEntityRepositoryLib
 
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refcategory', 'c');
-        $dql->where('p.enable=:enable');
-        $dql->andWhere('c.id=:idcategory');
+        $dql->where('p.enable = :enable');
+        $dql->andWhere('c.id = :idcategory');
         $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
@@ -101,7 +101,8 @@ class PostRepository extends ServiceEntityRepositoryLib
     public function findAllActive(): Query
     {
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.enable=:enable AND p.createdAt<=now()');
+        $dql->where('p.enable = :enable');
+        $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
             ['enable' => true]
@@ -109,33 +110,4 @@ class PostRepository extends ServiceEntityRepositoryLib
 
         return $dql->getQuery();
     }
-
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

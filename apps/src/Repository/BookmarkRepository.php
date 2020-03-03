@@ -23,7 +23,8 @@ class BookmarkRepository extends ServiceEntityRepositoryLib
     public function findAllActive(): Query
     {
         $dql = $this->createQueryBuilder('b');
-        $dql->where('b.enable=:enable AND b.createdAt<=now()');
+        $dql->where('b.enable = :enable');
+        $dql->andWhere('b.createdAt<=now()');
         $dql->orderBy('b.createdAt', 'DESC');
         $dql->setParameters(
             ['enable' => true]
@@ -31,33 +32,4 @@ class BookmarkRepository extends ServiceEntityRepositoryLib
 
         return $dql->getQuery();
     }
-
-    // /**
-    //  * @return Bookmark[] Returns an array of Bookmark objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Bookmark
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

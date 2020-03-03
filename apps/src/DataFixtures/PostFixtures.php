@@ -88,6 +88,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post->setContent($content);
             $tabIndex = array_rand($users);
             $post->setRefuser($users[$tabIndex]);
+            $post->setCreatedBy($users[$tabIndex]);
             $post->setRefcategory($categories[array_rand($categories)]);
             $this->addTag($post, $tags);
             $post->setEnable((bool) rand(0, 1));

@@ -76,6 +76,7 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
             $bookmark->setContent($content);
             $tabIndex = array_rand($users);
             $bookmark->setRefuser($users[$tabIndex]);
+            $bookmark->setCreatedBy($users[$tabIndex]);
             $this->addTag($bookmark, $tags);
 
             try {

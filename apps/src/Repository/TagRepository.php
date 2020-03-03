@@ -34,12 +34,13 @@ class TagRepository extends ServiceEntityRepositoryLib
             'temporary' => true,
         ];
 
-        $query = $this->createQueryBuilder('g');
-        $query->where('g.type=:type AND g.temporary=:temporary');
-        $query->setParameters($params);
-        $query->orderBy('g.name', 'ASC');
+        $dql = $this->createQueryBuilder('g');
+        $dql->where('g.type = :type');
+        $dql->andWhere('g.temporary = :temporary');
+        $dql->setParameters($params);
+        $dql->orderBy('g.name', 'ASC');
 
-        return $query;
+        return $dql;
     }
 
     /**
@@ -53,40 +54,11 @@ class TagRepository extends ServiceEntityRepositoryLib
 
         $params = ['type' => $type];
 
-        $query = $this->createQueryBuilder('g');
-        $query->where('g.type=:type');
-        $query->setParameters($params);
-        $query->orderBy('g.name', 'ASC');
+        $dql = $this->createQueryBuilder('g');
+        $dql->where('g.type = :type');
+        $dql->setParameters($params);
+        $dql->orderBy('g.name', 'ASC');
 
-        return $query;
+        return $dql;
     }
-
-    // /**
-    //  * @return Tag[] Returns an array of Tag objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Tag
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

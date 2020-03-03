@@ -30,9 +30,9 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         }
 
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.refuser!=:iduser');
-        $dql->andWhere('p.identity=:identity');
-        $dql->andWhere('p.name=:name');
+        $dql->where('p.refuser! = :iduser');
+        $dql->andWhere('p.identity = :identity');
+        $dql->andWhere('p.name = :name');
         $dql->setParameters(
             [
                 'iduser'   => $user->getId(),
@@ -54,8 +54,8 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         }
 
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.name=:name');
-        $dql->andWhere('p.refuser=:iduser');
+        $dql->where('p.name = :name');
+        $dql->andWhere('p.refuser = :iduser');
         $dql->setParameters(
             [
                 'iduser' => (string) $user->getId(),
@@ -66,35 +66,6 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
         return $dql->getQuery()->getOneOrNullResult();
     }
 
-    // /**
-    //  * @return OauthConnectUser[] Returns an array of OauthConnectUser objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?OauthConnectUser
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
     /**
      * @return OauthConnectUser|void
      */
@@ -104,18 +75,17 @@ class OauthConnectUserRepository extends ServiceEntityRepositoryLib
             return;
         }
 
-        $builder = $this->createQueryBuilder('u');
-        $builder->where(
-            'u.name = :name AND u.identity = :identity'
-        );
-        $builder->setParameters(
+        $dql = $this->createQueryBuilder('u');
+        $dql->where('u.name = :name');
+        $dql->andWhere('u.identity = :identity');
+        $dql->setParameters(
             [
                 'name'     => $oauth,
                 'identity' => $identity,
             ]
         );
 
-        return $builder->getQuery()->getOneOrNullResult();
+        return $dql->getQuery()->getOneOrNullResult();
     }
 
     public function findDistinctAllOauth(): array

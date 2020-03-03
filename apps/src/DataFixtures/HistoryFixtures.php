@@ -53,18 +53,19 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
         /** @var resource $finfo */
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $finfo   = finfo_open(FILEINFO_MIME_TYPE);
+        $maxDate = $faker->unique()->dateTimeInInterval('now', '+30 years');
         for ($index = 0; $index < self::NUMBER; ++$index) {
-            $history = new History();
+            $history  = new History();
+            $createAt = $faker->unique()->dateTime($maxDate);
+            $history->setCreatedAt($createAt);
             $history->setName($faker->unique()->safeColorName);
             $history->setResume($faker->unique()->sentence);
             $enable = (bool) rand(0, 1);
             $history->setEnable($enable);
-            $user = rand(0, 1);
-            if ($user) {
-                $tabIndex = array_rand($users);
-                $history->setRefuser($users[$tabIndex]);
-            }
+            $tabIndex = array_rand($users);
+            $history->setRefuser($users[$tabIndex]);
+            $history->setCreatedBy($users[$tabIndex]);
 
             $end = (bool) rand(0, 1);
             $history->setEnd($end);

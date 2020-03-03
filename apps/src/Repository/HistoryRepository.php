@@ -32,8 +32,9 @@ class HistoryRepository extends ServiceEntityRepositoryLib
 
         $dql = $this->createQueryBuilder('p');
         $dql->innerJoin('p.refuser', 'u');
-        $dql->where('p.enable=:enable');
-        $dql->andWhere('u.id=:iduser');
+        $dql->where('p.enable = :enable');
+        $dql->andWhere('b.createdAt<=now()');
+        $dql->andWhere('u.id = :iduser');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
             [
@@ -49,7 +50,8 @@ class HistoryRepository extends ServiceEntityRepositoryLib
     {
         $dql = $this->createQueryBuilder('p');
         $dql->join('p.chapitres', 'c');
-        $dql->where('p.enable=:enable AND c.enable=:enable');
+        $dql->where('p.enable = :enable');
+        $dql->andWhere('b.createdAt<=now()');
         $dql->orderBy('p.updatedAt', 'DESC');
         $dql->setParameters(
             ['enable' => true]
@@ -57,33 +59,4 @@ class HistoryRepository extends ServiceEntityRepositoryLib
 
         return $dql->getQuery();
     }
-
-    // /**
-    //  * @return History[] Returns an array of History objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?History
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
