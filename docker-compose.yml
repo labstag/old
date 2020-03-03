@@ -15,7 +15,7 @@ services:
         image: koromerzhin/vuejs:4.2.2
         command: http-server -a 0.0.0.0 -p 80 /dist
         volumes:
-            - ${PWD}/apps/public/file:/dist
+            - ${PWD}/apps/files:/dist
         networks:
             - netlabstag
         deploy:

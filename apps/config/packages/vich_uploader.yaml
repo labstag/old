@@ -8,5 +8,5 @@ vich_uploader:
     mappings:
         upload_file:
             uri_prefix: "%app.path.files%"
-            upload_destination: "%kernel.project_dir%/public%app.path.files%"
+            upload_destination: "%kernel.project_dir%/%app.path.files%"
             namer: vich_uploader.namer_uniqid

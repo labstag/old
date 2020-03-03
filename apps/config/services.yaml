@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    app.path.files: /file/
+    app.path.files: /files/
 services:
     # default configuration for services in *this* file
     _defaults:

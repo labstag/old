@@ -83,10 +83,6 @@ npm-doctor: ## doctor NPM
 npm-clean-install: ## install PROD
 	docker exec $(PHPFPMFULLNAME) npm clean-install
 
-.PHONY: npm-install
-npm-install: ## npm install
-	docker exec $(PHPFPMFULLNAME) npm install
-
 .PHONY: npm-update
 npm-update: ## npm update PROD
 	docker exec $(PHPFPMFULLNAME) npm update
