@@ -11,6 +11,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -217,6 +218,11 @@ class User implements UserInterface, \Serializable
      */
     private $lost;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Labstag\Entity\Edito", mappedBy="refuser")
+     */
+    private $editos;
+
     public function __construct()
     {
         $this->enable            = true;
@@ -227,6 +233,7 @@ class User implements UserInterface, \Serializable
         $this->bookmarks         = new ArrayCollection();
         $this->emails            = new ArrayCollection();
         $this->phones            = new ArrayCollection();
+        $this->editos            = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -455,6 +462,37 @@ class User implements UserInterface, \Serializable
     public function setLost(bool $lost): self
     {
         $this->lost = $lost;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Edito[]
+     */
+    public function getEditos(): Collection
+    {
+        return $this->editos;
+    }
+
+    public function addEdito(Edito $edito): self
+    {
+        if (!$this->editos->contains($edito)) {
+            $this->editos[] = $edito;
+            $edito->setRefuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEdito(Edito $edito): self
+    {
+        if ($this->editos->contains($edito)) {
+            $this->editos->removeElement($edito);
+            // set the owning side to null (unless already changed)
+            if ($edito->getRefuser() === $this) {
+                $edito->setRefuser(null);
+            }
+        }
 
         return $this;
     }
