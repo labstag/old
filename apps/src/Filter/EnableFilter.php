@@ -18,9 +18,7 @@ class EnableFilter extends SQLFilter
 
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {
-        $class = $targetEntity->getName();
-
-        // dump(get_class_vars($class));
+        $class   = $targetEntity->getName();
         $methods = get_class_methods($class);
         if (!in_array('isEnable', $methods)) {
             return '';
