@@ -63,7 +63,6 @@ install-dev: ## continue-install-dev
 	@make npm-install -i
 	@make migrate -i
 	@make fixtures -i
-	@make create-asset -i
 
 .PHONY: install-prod
 install-prod: ## continue-install-prod
@@ -71,7 +70,6 @@ install-prod: ## continue-install-prod
 	@make npm-install -i
 	docker exec $(PHPFPMFULLNAME) sed -i 's/APP_ENV=dev/APP_ENV=prod/g'   .env
 	@make migrate -i
-	docker exec $(PHPFPMFULLNAME) npm run build
 
 .PHONY: setenv
 setenv: ## Install .env
@@ -151,9 +149,6 @@ phpdoc: phpdoc.dist.xml ## PHPDoc
 	@php phpDocumentor.phar
 	@rm -rf output
 
-.PHONY: watch
-watch: ## WEBPACK watch
-	docker exec -it $(PHPFPMFULLNAME) npm run watch
 
 .PHONY: phpcsfixer
 phpcsfixer: ## PHPCSFIXER
@@ -217,10 +212,6 @@ tests: ## tests
 .PHONY: phpunit
 phpunit: ## PHPUnit
 	docker exec $(PHPFPMFULLNAME) composer phpunit
-
-.PHONY: create-asset
-create-asset: ## create ASSET
-	docker exec $(PHPFPMFULLNAME) npm run dev
 
 .PHONY: git-author
 git-author: ## git author
