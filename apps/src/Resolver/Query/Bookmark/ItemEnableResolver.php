@@ -3,18 +3,32 @@
 namespace Labstag\Resolver\Query\Bookmark;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryItemResolverInterface;
+use Labstag\Entity\Bookmark;
+use Labstag\Repository\BookmarkRepository;
 
 final class ItemEnableResolver implements QueryItemResolverInterface
 {
     /**
-     * @param mixed|null $item
+     * @var BookmarkRepository
+     */
+    private $repository;
+
+    public function __construct(BookmarkRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @param Bookmark|null $item
      *
-     * @return mixed
+     * @return Bookmark
      */
     public function __invoke($item, array $context)
     {
+        $query = $this->repository->findAllActive();
+        $query->setMaxResults(1);
+        $item = $query->getQuery()->getOneOrNullResult();
         unset($context);
-        dump('trash');
 
         // Query arguments are in $context['args'].
 

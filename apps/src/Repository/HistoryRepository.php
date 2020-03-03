@@ -4,6 +4,7 @@ namespace Labstag\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\History;
 use Labstag\Entity\User;
 use Labstag\Lib\ServiceEntityRepositoryLib;
@@ -22,7 +23,7 @@ class HistoryRepository extends ServiceEntityRepositoryLib
     }
 
     /**
-     * @return Query|void
+     * @return QueryBuilder|void
      */
     public function findAllActiveByUser(?User $user)
     {
@@ -43,10 +44,10 @@ class HistoryRepository extends ServiceEntityRepositoryLib
             ]
         );
 
-        return $dql->getQuery();
+        return $dql;
     }
 
-    public function findAllActive(): Query
+    public function findAllActive(): QueryBuilder
     {
         $dql = $this->createQueryBuilder('h');
         $dql->join('h.chapitres', 'c');
@@ -57,6 +58,6 @@ class HistoryRepository extends ServiceEntityRepositoryLib
             ['enable' => true]
         );
 
-        return $dql->getQuery();
+        return $dql;
     }
 }

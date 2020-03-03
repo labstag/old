@@ -42,7 +42,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
  *         "lastenable": {
- *             "item_query": ItemEnableResolver
+ *             "item_query": ItemEnableResolver::class,
+ *             "args": {}
  *         },
  *         "enable": {
  *             "collection_query": CollectionEnableResolver::class

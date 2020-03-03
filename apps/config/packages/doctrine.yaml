@@ -42,6 +42,9 @@ doctrine:
         filters:
             labstag_trash:
                 class: Labstag\Filter\TrashFilter
+            labstag_enable:
+                class: Labstag\Filter\EnableFilter
+                enabled: true
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true

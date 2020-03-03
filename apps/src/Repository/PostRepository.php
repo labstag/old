@@ -4,6 +4,7 @@ namespace Labstag\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Category;
 use Labstag\Entity\Post;
 use Labstag\Entity\Tag;
@@ -24,7 +25,7 @@ class PostRepository extends ServiceEntityRepositoryLib
     }
 
     /**
-     * @return Query|void
+     * @return QueryBuilder|void
      */
     public function findAllActiveByUser(?User $user)
     {
@@ -45,11 +46,11 @@ class PostRepository extends ServiceEntityRepositoryLib
             ]
         );
 
-        return $dql->getQuery();
+        return $dql;
     }
 
     /**
-     * @return Query|void
+     * @return QueryBuilder|void
      */
     public function findAllActiveByTag(?Tag $tag)
     {
@@ -70,11 +71,11 @@ class PostRepository extends ServiceEntityRepositoryLib
             ]
         );
 
-        return $dql->getQuery();
+        return $dql;
     }
 
     /**
-     * @return Query|void
+     * @return QueryBuilder|void
      */
     public function findAllActiveByCategory(?Category $category)
     {
@@ -95,19 +96,15 @@ class PostRepository extends ServiceEntityRepositoryLib
             ]
         );
 
-        return $dql->getQuery();
+        return $dql;
     }
 
-    public function findAllActive(): Query
+    public function findAllActive(): QueryBuilder
     {
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.enable = :enable');
-        $dql->andWhere('p.createdAt<=now()');
+        $dql->where('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
-        $dql->setParameters(
-            ['enable' => true]
-        );
 
-        return $dql->getQuery();
+        return $dql;
     }
 }

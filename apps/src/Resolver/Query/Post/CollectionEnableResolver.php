@@ -14,7 +14,7 @@ final class CollectionEnableResolver implements QueryCollectionResolverInterface
 
     public function __invoke(iterable $collection, array $context): iterable
     {
-        $query      = $this->repository->findAllActive();
+        $query      = $this->repository->findAllActive()->getQuery();
         $dql        = $query->getDQL();
         $parameters = $query->getParameters();
         unset($context);

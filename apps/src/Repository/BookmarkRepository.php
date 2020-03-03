@@ -4,6 +4,7 @@ namespace Labstag\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Bookmark;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
@@ -20,16 +21,12 @@ class BookmarkRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Bookmark::class);
     }
 
-    public function findAllActive(): Query
+    public function findAllActive(): QueryBuilder
     {
         $dql = $this->createQueryBuilder('b');
-        $dql->where('b.enable = :enable');
-        $dql->andWhere('b.createdAt<=now()');
+        $dql->where('b.createdAt<=now()');
         $dql->orderBy('b.createdAt', 'DESC');
-        $dql->setParameters(
-            ['enable' => true]
-        );
 
-        return $dql->getQuery();
+        return $dql;
     }
 }
