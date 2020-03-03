@@ -5,6 +5,7 @@ namespace Labstag\Repository;
 use Labstag\Entity\Edito;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Edito|null find($id, $lockMode = null, $lockVersion = null)

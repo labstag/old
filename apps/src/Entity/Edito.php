@@ -11,6 +11,8 @@ use DateTime;
 use DateTimeImmutable;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Labstag\Resolver\Query\Edito\ItemEnableResolver;
+use Labstag\Resolver\Query\Edito\CollectionEnableResolver;
 use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -100,7 +102,7 @@ class Edito
      */
     private $refuser;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
