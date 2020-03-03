@@ -36,6 +36,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         $dql->innerJoin('p.refuser', 'u');
         $dql->where('p.enable=:enable');
         $dql->andWhere('u.id=:iduser');
+        $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
             [
@@ -60,6 +61,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         $dql->innerJoin('p.tags', 't');
         $dql->where('p.enable=:enable');
         $dql->andWhere('t.id=:idtag');
+        $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
             [
@@ -84,6 +86,7 @@ class PostRepository extends ServiceEntityRepositoryLib
         $dql->innerJoin('p.refcategory', 'c');
         $dql->where('p.enable=:enable');
         $dql->andWhere('c.id=:idcategory');
+        $dql->andWhere('p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
             [
@@ -98,7 +101,7 @@ class PostRepository extends ServiceEntityRepositoryLib
     public function findAllActive(): Query
     {
         $dql = $this->createQueryBuilder('p');
-        $dql->where('p.enable=:enable');
+        $dql->where('p.enable=:enable AND p.createdAt<=now()');
         $dql->orderBy('p.createdAt', 'DESC');
         $dql->setParameters(
             ['enable' => true]

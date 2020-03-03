@@ -76,9 +76,12 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $faker      = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
         /** @var resource $finfo */
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $finfo   = finfo_open(FILEINFO_MIME_TYPE);
+        $maxDate = $faker->unique()->dateTimeInInterval('now', '+30 years');
         for ($index = 0; $index < self::NUMBER; ++$index) {
-            $post = new Post();
+            $post     = new Post();
+            $createAt = $faker->unique()->dateTime($maxDate);
+            $post->setCreatedAt($createAt);
             $post->setName($faker->unique()->text(rand(5, 50)));
             /** @var string $content */
             $content = $faker->unique()->paragraphs(4, true);
@@ -87,7 +90,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post->setRefuser($users[$tabIndex]);
             $post->setRefcategory($categories[array_rand($categories)]);
             $this->addTag($post, $tags);
-
+            $post->setEnable((bool) rand(0, 1));
             try {
                 $image   = $faker->imageGenerator(
                     null,

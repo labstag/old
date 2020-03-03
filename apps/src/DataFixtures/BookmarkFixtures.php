@@ -62,20 +62,20 @@ class BookmarkFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new ImagesGeneratorProvider($faker));
         /** @var resource $finfo */
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $finfo   = finfo_open(FILEINFO_MIME_TYPE);
+        $maxDate = $faker->unique()->dateTimeInInterval('now', '+30 years');
         for ($index = 0; $index < self::NUMBER; ++$index) {
             $bookmark = new Bookmark();
+            $bookmark->setEnable((bool) rand(0, 1));
+            $createAt = $faker->unique()->dateTime($maxDate);
+            $bookmark->setCreatedAt($createAt);
             $bookmark->setUrl($faker->unique()->url);
             $bookmark->setName($faker->unique()->text(rand(5, 50)));
             /** @var string $content */
             $content = $faker->unique()->paragraphs(4, true);
             $bookmark->setContent($content);
-            $user = rand(0, 1);
-            if ($user) {
-                $tabIndex = array_rand($users);
-                $bookmark->setRefuser($users[$tabIndex]);
-            }
-
+            $tabIndex = array_rand($users);
+            $bookmark->setRefuser($users[$tabIndex]);
             $this->addTag($bookmark, $tags);
 
             try {

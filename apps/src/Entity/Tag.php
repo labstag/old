@@ -16,9 +16,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Bookmark;
 use Labstag\Entity\Traits\Post;
-use Labstag\Resolver\Query\EntityResolver;
-use Labstag\Resolver\Query\TrashCollectionResolver;
-use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

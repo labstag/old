@@ -21,9 +21,6 @@ use Labstag\Entity\Traits\OauthConnectUser;
 use Labstag\Entity\Traits\Phone;
 use Labstag\Entity\Traits\Post;
 use Labstag\Entity\Traits\Timestampable;
-use Labstag\Resolver\Query\EntityResolver;
-use Labstag\Resolver\Query\TrashCollectionResolver;
-use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -127,6 +124,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Groups({"write"})
+     *
      * @var string|null
      */
     private $plainPassword;

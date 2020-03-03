@@ -8,9 +8,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
-use Labstag\Resolver\Query\EntityResolver;
-use Labstag\Resolver\Query\TrashCollectionResolver;
-use Labstag\Resolver\Query\TrashResolver;
 
 /**
  * @ApiFilter(SearchFilter::class, properties={

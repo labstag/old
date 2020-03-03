@@ -12,9 +12,6 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Labstag\Resolver\Query\EntityResolver;
-use Labstag\Resolver\Query\TrashCollectionResolver;
-use Labstag\Resolver\Query\TrashResolver;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
