@@ -102,7 +102,7 @@ class User implements UserInterface, \Serializable
      * @Assert\Email(
      *     message="The email '{{ value }}' is not a valid email."
      * )
-     * @Groups({"get"})
+     * @Groups({"write"})
      *
      * @var string
      */
