@@ -30,12 +30,12 @@ class HistoryRepository extends ServiceEntityRepositoryLib
             return;
         }
 
-        $dql = $this->createQueryBuilder('p');
-        $dql->innerJoin('p.refuser', 'u');
-        $dql->where('p.enable = :enable');
+        $dql = $this->createQueryBuilder('h');
+        $dql->innerJoin('h.refuser', 'u');
+        $dql->where('h.enable = :enable');
         $dql->andWhere('b.createdAt<=now()');
         $dql->andWhere('u.id = :iduser');
-        $dql->orderBy('p.createdAt', 'DESC');
+        $dql->orderBy('h.createdAt', 'DESC');
         $dql->setParameters(
             [
                 'iduser' => $user->getId(),
@@ -48,11 +48,11 @@ class HistoryRepository extends ServiceEntityRepositoryLib
 
     public function findAllActive(): Query
     {
-        $dql = $this->createQueryBuilder('p');
-        $dql->join('p.chapitres', 'c');
-        $dql->where('p.enable = :enable');
-        $dql->andWhere('b.createdAt<=now()');
-        $dql->orderBy('p.updatedAt', 'DESC');
+        $dql = $this->createQueryBuilder('h');
+        $dql->join('h.chapitres', 'c');
+        $dql->where('h.enable = :enable');
+        $dql->andWhere('h.createdAt<=now()');
+        $dql->orderBy('h.updatedAt', 'DESC');
         $dql->setParameters(
             ['enable' => true]
         );
