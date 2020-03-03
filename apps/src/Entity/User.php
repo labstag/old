@@ -139,7 +139,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="boolean", options={"default": true})
-     * @Groups({"get"})
      */
     private $enable;
 

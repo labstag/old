@@ -17,7 +17,8 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Tag;
-use Labstag\Resolver\Query\Bookmark\EnableResolver;
+use Labstag\Resolver\Query\Bookmark\ItemEnableResolver;
+use Labstag\Resolver\Query\Bookmark\CollectionEnableResolver;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -40,8 +41,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "lastenable": {
+ *             "item_query": ItemEnableResolver
+ *         },
  *         "enable": {
- *             "collection_query": EnableResolver::class
+ *             "collection_query": CollectionEnableResolver::class
  *         }
  *     },
  *     collectionOperations={

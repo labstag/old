@@ -18,7 +18,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Chapitre;
-use Labstag\Resolver\Query\History\EnableResolver;
+use Labstag\Resolver\Query\History\CollectionEnableResolver;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -42,7 +42,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
  *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
  *         "enable": {
- *             "collection_query": EnableResolver::class
+ *             "collection_query": CollectionEnableResolver::class
  *         }
  *     },
  *     collectionOperations={

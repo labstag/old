@@ -1,13 +1,13 @@
 <?php
 
-namespace Labstag\Resolver\Query\Bookmark;
+namespace Labstag\Resolver\Query\Post;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
-use Labstag\Repository\BookmarkRepository;
+use Labstag\Repository\PostRepository;
 
-final class EnableResolver implements QueryCollectionResolverInterface
+final class CollectionEnableResolver implements QueryCollectionResolverInterface
 {
-    public function __construct(BookmarkRepository $repository)
+    public function __construct(PostRepository $repository)
     {
         $this->repository = $repository;
     }

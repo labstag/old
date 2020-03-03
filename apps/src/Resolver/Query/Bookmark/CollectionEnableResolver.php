@@ -1,13 +1,13 @@
 <?php
 
-namespace Labstag\Resolver\Query\History;
+namespace Labstag\Resolver\Query\Bookmark;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
-use Labstag\Repository\HistoryRepository;
+use Labstag\Repository\BookmarkRepository;
 
-final class EnableResolver implements QueryCollectionResolverInterface
+final class CollectionEnableResolver implements QueryCollectionResolverInterface
 {
-    public function __construct(HistoryRepository $repository)
+    public function __construct(BookmarkRepository $repository)
     {
         $this->repository = $repository;
     }

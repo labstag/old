@@ -14,18 +14,6 @@ trait Chapitre
         return $this->chapitres;
     }
 
-    public function getChapitresEnabled(): array
-    {
-        $chapitres = [];
-        foreach ($this->chapitres as $chapitre) {
-            if ($chapitre->isEnable()) {
-                array_push($chapitres, $chapitre);
-            }
-        }
-
-        return $chapitres;
-    }
-
     public function addChapitre(ChapitreEntity $chapitre): self
     {
         if (!$this->chapitres->contains($chapitre)) {

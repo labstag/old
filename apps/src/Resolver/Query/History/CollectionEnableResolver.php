@@ -1,13 +1,13 @@
 <?php
 
-namespace Labstag\Resolver\Query\Post;
+namespace Labstag\Resolver\Query\History;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
-use Labstag\Repository\PostRepository;
+use Labstag\Repository\HistoryRepository;
 
-final class EnableResolver implements QueryCollectionResolverInterface
+final class CollectionEnableResolver implements QueryCollectionResolverInterface
 {
-    public function __construct(PostRepository $repository)
+    public function __construct(HistoryRepository $repository)
     {
         $this->repository = $repository;
     }
