@@ -15,7 +15,6 @@ jobs:
             - {name: Sleep, uses: jakejarvis/wait-action@master, with: {time: 1m}}
             - {name: 'Check running containers', run: 'docker service ls'}
             - {name: 'Composer install', run: 'make composer-install'}
-            - {name: 'NPM install', run: 'make npm-install'}
             - {name: 'BDD MIGRATE', run: 'make migrate'}
             - {name: 'Run the fixtures', run: 'make fixtures'}
             - {name: 'Run the test suite', run: 'make phpunit'}
