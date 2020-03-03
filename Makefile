@@ -221,4 +221,4 @@ git-check: ## CHECK git
 
 .PHONY: sleep
 sleep: ## sleep
-	sleep 60
+	sleep 90
