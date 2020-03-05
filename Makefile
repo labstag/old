@@ -19,8 +19,15 @@ help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 .PHONY: commit
-commit: ## Commit data
+commit: node_modules ## Commit data
 	@npm run commit
+
+.PHONY: docker-image-pull
+docker-image-pull: ## Get docker image
+	docker image pull koromerzhin/vuejs:4.2.2
+	docker image pull mariadb:10.5.1
+	docker image pull httpd
+	docker image pull koromerzhin/phpfpm:7.4
 
 .PHONY: create-network
 create-network: ## create network
@@ -47,6 +54,7 @@ pull: node_modules ## Update repository
 
 .PHONY: install
 install: node_modules ## install DEV
+	@make docker-image-pull -i
 	@make deploy -i
 
 node_modules:
