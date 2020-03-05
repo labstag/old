@@ -4,11 +4,8 @@ networks:
   net:
     driver: overlay
     attachable: true
-  netlabstag:
+  proxynetwork:
     external: true
-
-volumes:
-  mariadb:
 
 services:
     assets:
@@ -17,7 +14,7 @@ services:
         volumes:
             - ${PWD}/apps/files:/dist
         networks:
-            - netlabstag
+            - proxynetwork
         deploy:
             labels:
                 - "traefik.enable=true"
@@ -32,8 +29,6 @@ services:
             MYSQL_USER: labstag
             MYSQL_PASSWORD: password
             TZ: Europe/Paris
-        volumes:
-            - mariadb:/var/lib/mysql
         networks:
             - net
     apache:
@@ -45,7 +40,7 @@ services:
             - ${PWD}/httpd.conf:/usr/local/apache2/conf/httpd.conf
         networks:
             - net
-            - netlabstag
+            - proxynetwork
         deploy:
             labels:
             - "traefik.enable=true"
