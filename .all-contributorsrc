@@ -1,6 +1,6 @@
 {
-  "projectOwner": "labstag",
-  "projectName": "core",
+  "projectOwner": "api",
+  "projectName": "lasbtag",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
