@@ -12,6 +12,8 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Labstag\Resolver\Query\Chapitre\ItemEnableResolver;
+use Labstag\Resolver\Query\Chapitre\CollectionEnableResolver;
 use Gedmo\Translatable\Translatable;
 
 /**
@@ -26,12 +28,19 @@ use Gedmo\Translatable\Translatable;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "item_query",
  *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"}
+ *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "lastenable": {
+ *             "item_query": ItemEnableResolver::class,
+ *             "args": {}
+ *         },
+ *         "enable": {
+ *             "collection_query": CollectionEnableResolver::class
+ *         }
  *     },
  *     collectionOperations={
  *         "get": {"security": "is_granted('ROLE_ADMIN')"},

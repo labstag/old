@@ -3,6 +3,7 @@
 namespace Labstag\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 use Labstag\Entity\Chapitre;
 use Labstag\Lib\ServiceEntityRepositoryLib;
 
@@ -17,5 +18,14 @@ class ChapitreRepository extends ServiceEntityRepositoryLib
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Chapitre::class);
+    }
+
+    public function findAllActive(): QueryBuilder
+    {
+        $dql = $this->createQueryBuilder('b');
+        $dql->where('b.createdAt<=now()');
+        $dql->orderBy('b.createdAt', 'DESC');
+
+        return $dql;
     }
 }
