@@ -50,7 +50,6 @@ update: ## update DEPEDENCIES
 .PHONY: pull
 pull: node_modules ## Update repository
 	@make composer-install -i
-	@make npm-install -i
 
 .PHONY: install
 install: node_modules ## install DEV
@@ -68,14 +67,12 @@ showstack: ## Show stack
 .PHONY: install-dev
 install-dev: ## continue-install-dev
 	@make composer-install -i
-	@make npm-install -i
 	@make migrate -i
 	@make fixtures -i
 
 .PHONY: install-prod
 install-prod: ## continue-install-prod
 	@make composer-install -i
-	@make npm-install -i
 	docker exec $(PHPFPMFULLNAME) sed -i 's/APP_ENV=dev/APP_ENV=prod/g'   .env
 	@make migrate -i
 
