@@ -4,11 +4,11 @@ GROUP             := $(shell id -g)
 EXEC_PHP          := ./bin/
 PHPDOCUMENTORURL  := https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar
 PHPDOCUMENTORFILE := phpDocumentor.phar
-PHPFPM            := labstag_phpfpm
-MARIADB           := labstag_mariadb
-APACHE            := labstag_apache
-STACK             := labstag
-NETWORK           := netlabstag
+PHPFPM            := labstagapi_phpfpm
+MARIADB           := labstagapi_mariadb
+APACHE            := labstagapi_apache
+STACK             := labstagapi
+NETWORK           := proxynetwork
 PHPFPMFULLNAME    := $(PHPFPM).1.$$(docker service ps -f 'name=$(PHPFPM)' $(PHPFPM) -q --no-trunc | head -n1)
 MARIADBFULLNAME   := $(MARIADB).1.$$(docker service ps -f 'name=$(MARIADB)' $(MARIADB) -q --no-trunc | head -n1)
 APACHEFULLNAME    := $(APACHE).1.$$(docker service ps -f 'name=$(APACHE)' $(APACHE) -q --no-trunc | head -n1)
@@ -80,18 +80,6 @@ install-prod: ## continue-install-prod
 setenv: ## Install .env
 	cp apps/.env.dist apps/.env
 
-.PHONY: npm-doctor
-npm-doctor: ## doctor NPM
-	docker exec $(PHPFPMFULLNAME) npm doctor
-
-.PHONY: npm-clean-install
-npm-clean-install: ## install PROD
-	docker exec $(PHPFPMFULLNAME) npm clean-install
-
-.PHONY: npm-update
-npm-update: ## npm update PROD
-	docker exec $(PHPFPMFULLNAME) npm update
-
 .PHONY: migrate
 migrate: ## migrate database
 	docker exec $(PHPFPMFULLNAME) php bin/console doctrine:migrations:migrate -n
@@ -139,7 +127,7 @@ licensesPHP: ## Show licenses PHP
 	docker exec $(PHPFPMFULLNAME) composer licenses
 
 .PHONY: licensesJSCSS
-licensesJSCSS: ## Show licenses JS / CSS
+licensesJSCSS: node_modules ## Show licenses JS / CSS
 	@npm run licenses
 
 .PHONY: phpdoc
