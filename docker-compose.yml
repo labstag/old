@@ -7,6 +7,9 @@ networks:
   proxynetwork:
     external: true
 
+volumes:
+    mariadb_data:
+
 services:
     assets:
         image: koromerzhin/vuejs:4.2.2
@@ -31,6 +34,8 @@ services:
             TZ: Europe/Paris
         networks:
             - net
+        volumes:
+            - mariadb_data:/var/lib/mysql
     apache:
         image: httpd
         depends_on:

@@ -29,6 +29,14 @@ docker-image-pull: ## Get docker image
 	docker image pull httpd
 	docker image pull koromerzhin/phpfpm:7.4
 
+.PHONY: fullinstall
+fullinstall: node_modules ## ful install
+	@make docker-image-pull
+	@make install -i
+	@make setenv -i
+	@make sleep -i
+	@make install-dev -i
+
 .PHONY: create-network
 create-network: ## create network
 	docker network create --driver=overlay $(NETWORK)
