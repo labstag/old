@@ -20,11 +20,12 @@ class ChapitreRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Chapitre::class);
     }
 
-    public function findAllActive(): QueryBuilder
+    public function findAllActive(array $context = array()): QueryBuilder
     {
-        $dql = $this->createQueryBuilder('b');
-        $dql->where('b.createdAt<=now()');
-        $dql->orderBy('b.createdAt', 'DESC');
+        $dql = $this->createQueryBuilder('c');
+        $dql->where('c.createdAt<=now()');
+        $this->setArgs('c', Chapitre::class, $context, $dql);
+        $dql->orderBy('c.createdAt', 'DESC');
 
         return $dql;
     }

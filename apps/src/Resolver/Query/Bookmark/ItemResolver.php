@@ -1,35 +1,33 @@
 <?php
 
-namespace Labstag\Resolver\Query\Chapitre;
+namespace Labstag\Resolver\Query\Bookmark;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryItemResolverInterface;
-use Labstag\Entity\Chapitre;
-use Labstag\Repository\ChapitreRepository;
+use Labstag\Entity\Bookmark;
+use Labstag\Repository\BookmarkRepository;
 
-final class ItemEnableResolver implements QueryItemResolverInterface
+final class ItemResolver implements QueryItemResolverInterface
 {
-
     /**
-     * @var ChapitreRepository
+     * @var BookmarkRepository
      */
     private $repository;
 
-    public function __construct(ChapitreRepository $repository)
+    public function __construct(BookmarkRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param Chapitre|null $item
+     * @param Bookmark|null $item
      *
-     * @return Chapitre
+     * @return Bookmark
      */
     public function __invoke($item, array $context)
     {
-        $query = $this->repository->findAllActive();
+        $query = $this->repository->findAllActive($context);
         $query->setMaxResults(1);
         $item = $query->getQuery()->getOneOrNullResult();
-        unset($context);
 
         // Query arguments are in $context['args'].
 

@@ -1,33 +1,30 @@
 <?php
 
-namespace Labstag\Resolver\Query\Edito;
+namespace Labstag\Resolver\Query\OauthConnectUser;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryItemResolverInterface;
-use Labstag\Entity\Edito;
-use Labstag\Repository\EditoRepository;
+use Labstag\Entity\OauthConnectUser;
+use Labstag\Repository\OauthConnectUserRepository;
 
-final class ItemEnableResolver implements QueryItemResolverInterface
+final class ItemResolver implements QueryItemResolverInterface
 {
     /**
-     * @var EditoRepository
+     * @var OauthConnectUserRepository
      */
     private $repository;
 
-    public function __construct(EditoRepository $repository)
+    public function __construct(OauthConnectUserRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param Edito|null $item
+     * @param OauthConnectUser|null $item
      *
-     * @return Edito
+     * @return OauthConnectUser
      */
     public function __invoke($item, array $context)
     {
-        $query = $this->repository->findAllActive();
-        $query->setMaxResults(1);
-        $item = $query->getQuery()->getOneOrNullResult();
         unset($context);
 
         // Query arguments are in $context['args'].

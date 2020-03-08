@@ -21,10 +21,11 @@ class BookmarkRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Bookmark::class);
     }
 
-    public function findAllActive(): QueryBuilder
+    public function findAllActive(array $context = array()): QueryBuilder
     {
         $dql = $this->createQueryBuilder('b');
         $dql->where('b.createdAt<=now()');
+        $this->setArgs('b', Bookmark::class, $context, $dql);
         $dql->orderBy('b.createdAt', 'DESC');
 
         return $dql;

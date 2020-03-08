@@ -11,7 +11,7 @@ use Labstag\Repository\HistoryRepository;
 
 class ChapitreFixtures extends Fixture implements DependentFixtureInterface
 {
-    private const NUMBER = 50;
+    private const NUMBER = 300;
 
     /**
      * @var HistoryRepository

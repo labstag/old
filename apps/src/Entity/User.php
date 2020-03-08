@@ -27,6 +27,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Labstag\Resolver\Query\User\ItemResolver;
+use Labstag\Resolver\Query\User\CollectionResolver;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -43,19 +45,23 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "denormalization_context": {"groups": {"get"}},
  *     },
  *     graphql={
- *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "item_query": {
+ *              "item_query": ItemResolver::class
+ *         },
+ *         "collection_query": {
+ *              "collection_query": CollectionResolver::class
+ *         },
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"}
+ *         "collection"
  *     },
  *     collectionOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }

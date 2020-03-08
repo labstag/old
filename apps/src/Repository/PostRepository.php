@@ -99,10 +99,11 @@ class PostRepository extends ServiceEntityRepositoryLib
         return $dql;
     }
 
-    public function findAllActive(): QueryBuilder
+    public function findAllActive(array $context = array()): QueryBuilder
     {
         $dql = $this->createQueryBuilder('p');
         $dql->where('p.createdAt<=now()');
+        $this->setArgs('p', Post::class, $context, $dql);
         $dql->orderBy('p.createdAt', 'DESC');
 
         return $dql;

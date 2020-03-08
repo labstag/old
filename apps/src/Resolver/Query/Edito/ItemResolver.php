@@ -1,31 +1,31 @@
 <?php
 
-namespace Labstag\Resolver\Query\Bookmark;
+namespace Labstag\Resolver\Query\Edito;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryItemResolverInterface;
-use Labstag\Entity\Bookmark;
-use Labstag\Repository\BookmarkRepository;
+use Labstag\Entity\Edito;
+use Labstag\Repository\EditoRepository;
 
-final class ItemEnableResolver implements QueryItemResolverInterface
+final class ItemResolver implements QueryItemResolverInterface
 {
     /**
-     * @var BookmarkRepository
+     * @var EditoRepository
      */
     private $repository;
 
-    public function __construct(BookmarkRepository $repository)
+    public function __construct(EditoRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param Bookmark|null $item
+     * @param Edito|null $item
      *
-     * @return Bookmark
+     * @return Edito
      */
     public function __invoke($item, array $context)
     {
-        $query = $this->repository->findAllActive();
+        $query = $this->repository->findAllActive($context);
         $query->setMaxResults(1);
         $item = $query->getQuery()->getOneOrNullResult();
         unset($context);

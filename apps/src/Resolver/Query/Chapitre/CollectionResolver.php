@@ -1,20 +1,20 @@
 <?php
 
-namespace Labstag\Resolver\Query\Edito;
+namespace Labstag\Resolver\Query\Chapitre;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
-use Labstag\Repository\EditoRepository;
+use Labstag\Repository\ChapitreRepository;
 
-final class CollectionEnableResolver implements QueryCollectionResolverInterface
+final class CollectionResolver implements QueryCollectionResolverInterface
 {
-    public function __construct(EditoRepository $repository)
+    public function __construct(ChapitreRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function __invoke(iterable $collection, array $context): iterable
     {
-        $query      = $this->repository->findAllActive()->getQuery();
+        $query      = $this->repository->findAllActive($context)->getQuery();
         $dql        = $query->getDQL();
         $parameters = $query->getParameters();
         unset($context);

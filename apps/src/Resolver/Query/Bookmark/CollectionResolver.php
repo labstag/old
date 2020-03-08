@@ -5,7 +5,7 @@ namespace Labstag\Resolver\Query\Bookmark;
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
 use Labstag\Repository\BookmarkRepository;
 
-final class CollectionEnableResolver implements QueryCollectionResolverInterface
+final class CollectionResolver implements QueryCollectionResolverInterface
 {
     public function __construct(BookmarkRepository $repository)
     {
@@ -14,7 +14,7 @@ final class CollectionEnableResolver implements QueryCollectionResolverInterface
 
     public function __invoke(iterable $collection, array $context): iterable
     {
-        $query      = $this->repository->findAllActive()->getQuery();
+        $query      = $this->repository->findAllActive($context)->getQuery();
         $dql        = $query->getDQL();
         $parameters = $query->getParameters();
         unset($context);

@@ -21,6 +21,32 @@ abstract class ServiceEntityRepositoryLib extends ServiceEntityRepository
         return $dql->getQuery()->getResult();
     }
 
+
+    protected function setArgs(string $table, $entity, $context, &$dql)
+    {
+        $methods = get_class_methods($entity);
+        foreach($methods as $key => $val) {
+            if (substr($val, 0, 3) == "set" || $val == "__construct" || $val == '__toString' || $val == "getId") {
+                unset($methods[$key]);
+            }else {
+                $methods[$key] = strtolower(substr($val, 3));
+            }
+        }
+
+        if (!isset($context['args'])) {
+            return;
+        }
+
+        foreach ($context['args'] as $key => $value) {
+            if (in_array($key, $methods)) {
+                $dql->andWhere("{$table}.{$key}=:{$key}");
+                $dql->setParameter($key, $value);
+            }
+        }
+
+        dump($dql->getDQL());
+    }
+
     /**
      * @return mixed|null
      */

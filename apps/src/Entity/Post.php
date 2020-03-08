@@ -18,7 +18,8 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Translatable\Translatable;
 use Labstag\Entity\Traits\Tag;
-use Labstag\Resolver\Query\Post\CollectionEnableResolver;
+use Labstag\Resolver\Query\Post\ItemResolver;
+use Labstag\Resolver\Query\Post\CollectionResolver;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -34,22 +35,23 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "item_query": {
+ *              "item_query": ItemResolver::class
+ *         },
+ *         "collection_query": {
+ *              "collection_query": CollectionResolver::class
+ *         },
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
- *         "enable": {
- *             "collection_query": CollectionEnableResolver::class
- *         }
+ *         "collection"
  *     },
  *     collectionOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
@@ -131,7 +133,7 @@ class Post implements Translatable
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string",   length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      *
      * @var string|null
      */

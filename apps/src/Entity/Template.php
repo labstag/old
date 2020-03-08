@@ -10,6 +10,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Labstag\Resolver\Query\Template\ItemResolver;
+use Labstag\Resolver\Query\Template\CollectionResolver;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,19 +27,23 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "item_query": {
+ *              "item_query": ItemResolver::class
+ *         },
+ *         "collection_query": {
+ *              "collection_query": CollectionResolver::class
+ *         },
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"}
+ *         "collection"
  *     },
  *     collectionOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }

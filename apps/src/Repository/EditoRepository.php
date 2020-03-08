@@ -20,11 +20,12 @@ class EditoRepository extends ServiceEntityRepositoryLib
         parent::__construct($registry, Edito::class);
     }
 
-    public function findAllActive(): QueryBuilder
+    public function findAllActive(array $context = array()): QueryBuilder
     {
-        $dql = $this->createQueryBuilder('b');
-        $dql->where('b.createdAt<=now()');
-        $dql->orderBy('b.createdAt', 'DESC');
+        $dql = $this->createQueryBuilder('e');
+        $dql->where('e.createdAt<=now()');
+        $this->setArgs('e', Edito::class, $context, $dql);
+        $dql->orderBy('e.createdAt', 'DESC');
 
         return $dql;
     }

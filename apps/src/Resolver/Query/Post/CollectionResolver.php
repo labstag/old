@@ -1,20 +1,20 @@
 <?php
 
-namespace Labstag\Resolver\Query\History;
+namespace Labstag\Resolver\Query\Post;
 
 use ApiPlatform\Core\GraphQl\Resolver\QueryCollectionResolverInterface;
-use Labstag\Repository\HistoryRepository;
+use Labstag\Repository\PostRepository;
 
-final class CollectionEnableResolver implements QueryCollectionResolverInterface
+final class CollectionResolver implements QueryCollectionResolverInterface
 {
-    public function __construct(HistoryRepository $repository)
+    public function __construct(PostRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function __invoke(iterable $collection, array $context): iterable
     {
-        $query      = $this->repository->findAllActive()->getQuery();
+        $query      = $this->repository->findAllActive($context)->getQuery();
         $dql        = $query->getDQL();
         $parameters = $query->getParameters();
         unset($context);

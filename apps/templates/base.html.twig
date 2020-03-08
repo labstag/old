@@ -10,7 +10,6 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
-        {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
 		{% if pagination is defined %}
 			{% if pagination.getPageCount >= 2 %}
@@ -27,7 +26,6 @@
     </head>
     <body{% if class_body is defined %} class="{{ class_body }}"{% endif %} data-momentlang="{{ config.moment[0]['lang'] }}" data-wysiwyglang="{{ config.wysiwyg[0]['lang'] }}">
         {% block body %}{% endblock %}
-        {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

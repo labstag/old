@@ -11,8 +11,8 @@ use DateTime;
 use DateTimeImmutable;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Labstag\Resolver\Query\Edito\ItemEnableResolver;
-use Labstag\Resolver\Query\Edito\CollectionEnableResolver;
+use Labstag\Resolver\Query\Edito\ItemResolver;
+use Labstag\Resolver\Query\Edito\CollectionResolver;
 use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -23,26 +23,23 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "item_query": {
+ *              "item_query": ItemResolver::class
+ *         },
+ *         "collection_query": {
+ *              "collection_query": CollectionResolver::class
+ *         },
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
- *         "lastenable": {
- *             "item_query": ItemEnableResolver::class,
- *             "args": {}
- *         },
- *         "enable": {
- *             "collection_query": CollectionEnableResolver::class
- *         }
+ *         "collection"
  *     },
  *     collectionOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }

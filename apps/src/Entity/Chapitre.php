@@ -12,8 +12,8 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Labstag\Resolver\Query\Chapitre\ItemEnableResolver;
-use Labstag\Resolver\Query\Chapitre\CollectionEnableResolver;
+use Labstag\Resolver\Query\Chapitre\ItemResolver;
+use Labstag\Resolver\Query\Chapitre\CollectionResolver;
 use Gedmo\Translatable\Translatable;
 
 /**
@@ -22,32 +22,30 @@ use Gedmo\Translatable\Translatable;
  *     "name": "partial",
  *     "content": "partial",
  *     "position": "exact",
+ *     "slug": "partial",
  *     "enable": "exact",
  *     "status": "exact"
  * })
  * @ApiFilter(OrderFilter::class, properties={"id", "name"}, arguments={"orderParameterName": "order"})
  * @ApiResource(
  *     graphql={
- *         "item_query",
- *         "collection_query": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "item_query": {
+ *             "item_query": ItemResolver::class
+ *         },
+ *         "collection_query": {
+ *              "collection_query": CollectionResolver::class
+ *         },
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"},
  *         "update": {"security": "is_granted('ROLE_ADMIN')"},
  *         "create": {"security": "is_granted('ROLE_ADMIN')"},
- *         "collection": {"security": "is_granted('ROLE_ADMIN')"},
- *         "lastenable": {
- *             "item_query": ItemEnableResolver::class,
- *             "args": {}
- *         },
- *         "enable": {
- *             "collection_query": CollectionEnableResolver::class
- *         }
+ *         "collection"
  *     },
  *     collectionOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "post": {"security": "is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
- *         "get": {"security": "is_granted('ROLE_ADMIN')"},
+ *         "get",
  *         "put": {"security": "is_granted('ROLE_ADMIN')"},
  *         "delete": {"security": "is_granted('ROLE_ADMIN')"}
  *     }
@@ -79,6 +77,20 @@ class Chapitre implements Translatable
      * @var string
      */
     private $name;
+
+    /**
+     * @Gedmo\Slug(handlers={
+     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
+     *          @Gedmo\SlugHandlerOption(name="relationField", value="refhistory"),
+     *          @Gedmo\SlugHandlerOption(name="relationSlugField", value="name"),
+     *          @Gedmo\SlugHandlerOption(name="separator", value="_")
+     *      })
+     * }, separator="-", updatable=true, fields={"name"})
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     *
+     * @var string|null
+     */
+    private $slug;
 
     /**
      * @Gedmo\Versioned
@@ -213,6 +225,18 @@ class Chapitre implements Translatable
     public function setTranslatableLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return (string) $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

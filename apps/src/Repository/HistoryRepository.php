@@ -47,16 +47,12 @@ class HistoryRepository extends ServiceEntityRepositoryLib
         return $dql;
     }
 
-    public function findAllActive(): QueryBuilder
+    public function findAllActive(array $context = array()): QueryBuilder
     {
         $dql = $this->createQueryBuilder('h');
-        $dql->join('h.chapitres', 'c');
-        $dql->where('h.enable = :enable');
-        $dql->andWhere('h.createdAt<=now()');
-        $dql->orderBy('h.updatedAt', 'DESC');
-        $dql->setParameters(
-            ['enable' => true]
-        );
+        $dql->where('h.createdAt<=now()');
+        $this->setArgs('h', History::class, $context, $dql);
+        $dql->orderBy('h.createdAt', 'DESC');
 
         return $dql;
     }
