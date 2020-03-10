@@ -17,4 +17,3 @@ jobs:
             - {name: 'Composer install', run: 'make composer-install'}
             - {name: 'BDD MIGRATE', run: 'make migrate'}
             - {name: 'Run the fixtures', run: 'make fixtures'}
-            - {name: 'Run the test suite', run: 'make phpunit'}

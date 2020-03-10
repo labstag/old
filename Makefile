@@ -138,77 +138,9 @@ licensesPHP: ## Show licenses PHP
 licensesJSCSS: node_modules ## Show licenses JS / CSS
 	@npm run licenses
 
-.PHONY: phpdoc
-phpdoc: phpdoc.dist.xml ## PHPDoc
-	@rm -rf public/docs/api
-	@rm -rf output
-	@wget -nc $(PHPDOCUMENTORURL)
-	@php phpDocumentor.phar
-	@rm -rf output
-
-
-.PHONY: phpcsfixer
-phpcsfixer: ## PHPCSFIXER
-	docker exec $(PHPFPMFULLNAME) composer php-cs-fixer
-
-.PHONY: phpcbf
-phpcbf: ## PHPCBF
-	docker exec $(PHPFPMFULLNAME) composer phpcbf
-
-.PHONY: phpmd
-phpmd: ## PHPMD
-	docker exec $(PHPFPMFULLNAME) composer phpmd
-
-.PHONY: phpcs
-phpcs: ## PHPCS
-	docker exec $(PHPFPMFULLNAME) composer phpcs
-
-.PHONY: phpstan
-phpstan: ## PHPSTAN
-	docker exec $(PHPFPMFULLNAME) composer phpstan
-
-.PHONY: phpcpd
-phpcpd: ## PHPCPD
-	docker exec $(PHPFPMFULLNAME) composer phpcpd
-
-.PHONY: phpmnd
-phpmnd: ## PHPMND
-	docker exec $(PHPFPMFULLNAME) composer phpmnd
-
-.PHONY: twigcs
-twigcs: ## TWIGCS
-	docker exec $(PHPFPMFULLNAME) composer twigcs
-
-.PHONY: fix
-fix: ## FIX CODE PHP
-	@make phpcsfixer -i
-	@make phpcbf -i
-
-.PHONY: fixaudit
-fixaudit: ## Fix and audit file
-	@make fix -i
-	@make audit -i
-
-.PHONY: audit
-audit: ## AUDIT CODE PHP
-	@make phpmd -i
-	@make phpcs -i
-	@make phpstan -i
-	@make phpcpd -i
-	@make phpmnd -i
-	@make twigcs -i
-
 .PHONY: fixtures
 fixtures: ## PHPUnit
 	docker exec $(PHPFPMFULLNAME) php bin/console doctrine:fixtures:load -n
-
-.PHONY: tests
-tests: ## tests
-	@make phpunit -i
-
-.PHONY: phpunit
-phpunit: ## PHPUnit
-	docker exec $(PHPFPMFULLNAME) composer phpunit
 
 .PHONY: git-author
 git-author: ## git author

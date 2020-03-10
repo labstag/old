@@ -70,28 +70,15 @@
         "bheller/images-generator": "1.0.1",
         "codeception/codeception": "4.1.1",
         "doctrine/doctrine-fixtures-bundle": "3.3.0",
-        "friendsofphp/php-cs-fixer": "2.16.1",
-        "friendsoftwig/twigcs": "3.2.2",
         "fzaninotto/faker": "1.9.1",
         "maglnet/composer-require-checker": "2.0.0",
-        "pdepend/pdepend": "2.7.1",
-        "phan/phan": "2.4.9",
-        "phploc/phploc": "6.0.0",
-        "phpmd/phpmd": "2.8.2",
         "phpstan/extension-installer": "1.0.3",
-        "phpstan/phpstan": "0.12.11",
-        "phpstan/phpstan-mockery": "0.12.3",
-        "phpstan/phpstan-phpunit": "0.12.6",
-        "phpstan/phpstan-symfony": "0.12.4",
-        "povils/phpmnd": "2.2.0",
-        "sebastian/phpcpd": "5.0.2",
         "squizlabs/php_codesniffer": "3.5.4",
         "symfony/browser-kit": "4.4.4",
         "symfony/css-selector": "4.4.4",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "1.14.3",
         "symfony/panther": "0.7.0",
-        "symfony/phpunit-bridge": "5.0.4",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "1.0.6",
         "symfony/thanks": "1.2.5",
@@ -128,27 +115,6 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
-        "twigcs": "twigcs templates",
-        "phploc": "phploc src",
-        "fixphp": [
-            "php-cs-fixer fix --config=php_cs.dist src  tests -n",
-            "phpcbf src tests --ignore=src/Migrations/*,src/Kernel.php"
-        ],
-        "php-cs-fixer": "php-cs-fixer fix --config=php_cs.dist src  tests -n",
-        "pdepend": "pdepend --summary-xml=summary.xml --jdepend-chart=jdepend.svg --overview-pyramid=pyramid.svg src/",
-        "phpcbf": "phpcbf src tests --ignore=src/Migrations/*,src/Kernel.php",
-        "phpcs": "phpcs src tests --ignore=src/Migrations/*,src/Kernel.php",
-        "phpstan": "phpstan analyse --memory-limit=-1",
-        "phpmnd": [
-            "phpmnd src",
-            "phpmnd tests"
-        ],
-        "tests": [
-            "phpunit"
-        ],
-        "phpmd": "phpmd src,tests text phpmd.xml",
-        "phpcpd": "phpcpd src tests",
-        "phpunit": "phpunit",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
@@ -165,11 +131,6 @@
         "symfony/symfony": "*"
     },
     "extra": {
-        "phpstan": {
-            "includes": [
-                "extension.neon"
-            ]
-        },
         "symfony": {
             "allow-contrib": false,
             "require": "4.4.4"
