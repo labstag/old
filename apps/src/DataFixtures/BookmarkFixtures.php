@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class BookmarkFixtures extends Fixture implements DependentFixtureInterface
 {
-    private const NUMBER = 25;
+    private const NUMBER = 30;
 
     /**
      * @var UserRepository
