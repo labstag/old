@@ -69,7 +69,7 @@
     "require-dev": {
         "bheller/images-generator": "1.0.1",
         "codeception/codeception": "4.1.1",
-        "doctrine/doctrine-fixtures-bundle": "3.3.0",
+        "doctrine/doctrine-fixtures-bundle": "3.3.1",
         "fzaninotto/faker": "1.9.1",
         "maglnet/composer-require-checker": "2.0.0",
         "phpstan/extension-installer": "1.0.3",
