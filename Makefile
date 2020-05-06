@@ -155,3 +155,10 @@ git-check: ## CHECK git
 .PHONY: sleep
 sleep: ## sleep
 	sleep 90
+
+
+.PHONY: generate-ssh-key
+generate-ssh-key: ## generate ssh key
+	mkdir -p apps/config/jwt
+	openssl genpkey -out apps/config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+	openssl pkey -in apps/config/jwt/private.pem -out apps/config/jwt/public.pem -pubout
