@@ -21,7 +21,7 @@
         "knplabs/knp-paginator-bundle": "5.1.1",
         "knplabs/knp-time-bundle": "1.11.0",
         "laminas/laminas-soap": "2.8.0",
-        "lexik/jwt-authentication-bundle": "2.6.5",
+        "lexik/jwt-authentication-bundle": "2.8.0",
         "martinssipenko/password-policy": "1.0.0",
         "phpoffice/phppresentation": "0.9.0",
         "phpoffice/phpspreadsheet": "1.10.1",
